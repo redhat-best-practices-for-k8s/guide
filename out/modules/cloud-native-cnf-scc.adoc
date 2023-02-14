@@ -1,0 +1,238 @@
+// Metadata created by nebel
+//
+// ConvertedFromFile: cnf-reqs_1.3_single.adoc
+// ConversionStatus: raw
+
+[id="cloud-native-cnf-scc"]
+= Cloud-Native CNFs - SCC Implementation
+
+There are potentially three SCC profiles that may be utilized by OpenShift Container platform. All Apps are expected to fit in Category 1 (see description below) employing the default SCC profile. Apps matching Category 2 or Category 3 below require exception approval.
+
+.CNFs that do not require advanced networking features (Category 1)
+
+This kind of CNFs shall:
+
+. Uses the default CNI (OVN) network interface.
+. Not request ‘NET_ADMIN’ or ‘NET_RAW’ for advanced networking functions.
+
+Recommended SCC definition (default):
+
+----
+---
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: cnf-catalog-1
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+defaultAddCapabilities: null
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID - - NET_RAW
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+----
+
+.CNFs that require advanced networking features (Category 2)
+
+The CNFs with following characteristics may fall into this category:
+
+. Manipulate the low-level protocol flags, such as the 802.1p priority, VLAN tag, DSCP value, etc.
+. Manipulate the interface IP addresses or the routing table or the firewall rules on-the-fly.
+. Process Ethernet packets
+
+This kind of CNF may:
+
+. Use Macvlan interface to sending and receiving Ethernet packets
+. Request CAP_NET_RAW for creating raw sockets
+. Request CAP_NET_ADMIN for
+[loweralpha]
+.. Modify the interface IP address on-the-fly
+.. Manipulating the routing table on-the-fly
+.. Manipulating firewall rules on-the-fly.
+.. Setting packet DSCP value
+
+Recommended SCC definition:
+
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: cnf-catalog-2
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: [NET_ADMIN, NET_RAW]
+defaultAddCapabilities: null
+requiredDropCapabilities:
+- KILL
+- MKNOD
+- SETUID
+- SETGID
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+----
+
+.User-Plane CNFs (Category 3)
+
+A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.
+
+This kind of CNF shall:
+
+. Use SR-IOV interfaces.
+. Fully or partially bypassing the kernel networking stack with userspace networking technologies, like DPDK, F-stack, VPP, OpenFastPath, etc. A userspace networking stack can not only improve the performance but also reduce the need for the ‘CAP_NET_ADMIN’ and ‘CAP_NET_RAW’.
+
+NOTE: _For those using Mellanox devices, those capabilities are requested if the application needs to configure the device(CAP_NET_ADMIN) and/or allocate raw ethernet queue through kernel drive(CAP_NET_RAW)_
+
+As ‘CAP_IPC_LOCK’ is mandatory for allocating hugepage memory, this capability shall be granted to the DPDK based applications. Additionally if the workload is latency-sensitive and needs the determinacy provided by the real-time kernel, the ‘CAP_SYS_NICE’ would also be required.
+
+Here is an example pod manifest of a DPDK application, more can be found at https://docs.google.com/document/d/1QwS5Plr9uMgu9hCKNQdiXpWbC9u7ErpBwr761aJ5-ec/edit?ts=5ef200f2#bookmark=id.kql6vaad1cf0[[.underline]#[12]#].
+
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dpdk-app
+  namespace: <target_namespace>
+  annotations:
+    k8s.v1.cni.cncf.io/networks: dpdk-network
+spec:
+  containers:
+  - name: testpmd
+    image: <DPDK_image>
+    securityContext:
+     capabilities:
+        add: ["IPC_LOCK"]
+    volumeMounts:
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources:
+      limits:
+        openshift.io/mlxnics: "1"
+        memory: "1Gi"
+        cpu: "4"
+        hugepages-1Gi: "4Gi"
+      requests:
+        openshift.io/mlxnics: "1"
+        memory: "1Gi"
+        cpu: "4"
+        hugepages-1Gi: "4Gi"
+    command: ["sleep", "infinity"]
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+----
+
+Recommended SCC definition:
+
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: cnf-catalog-3
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: [IPC_LOCK, NET_ADMIN, NET_RAW]
+defaultAddCapabilities: null
+requiredDropCapabilities:
+- KILL
+- MKNOD
+- SETUID
+- SETGID
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+----
+
+[#kix.h926go207d3h .anchor]##[1] https://docs.openshift.com/container-platform/4.9/authentication/managing-security-context-constraints.html[[.underline]#https://docs.openshift.com/container-platform/4.9/authentication/managing-security-context-constraints.html#][#kix.ekb08grpyt9o .anchor]##
+
+[2]https://docs.openshift.com/container-platform/4.9/networking/openshift_sdn/enabling-multicast.html[[.underline]#https://docs.openshift.com/container-platform/4.9/networking/openshift_sdn/enabling-multicast.html#][#kix.v13xkav9etjm .anchor]##
+
+[3] https://access.redhat.com/documentation/en-us/openshift_container_platform/4.9/html-single/networking/index#using-sriov-multicast[[.underline]#https://access.redhat.com/documentation/en-us/openshift_container_platform/4.9/html-single/networking/index#using-sriov-multicast#][#kix.1mwd3pp1xi0x .anchor]##
+
+[4] https://docs.openshift.com/container-platform/4.9/installing/installing_bare_metal/installing-bare-metal-network-customizations.html[[.underline]#https://docs.openshift.com/container-platform/4.9/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#][#kix.hutwtlst36x3 .anchor]##
+
+[5] https://docs.openshift.com/container-platform/4.9/networking/multiple_networks/understanding-multiple-networks.html[[.underline]#https://docs.openshift.com/container-platform/4.9/networking/multiple_networks/understanding-multiple-networks.html#][#kix.prsfggqin4x0 .anchor]##
+
+[6] https://docs.openshift.com/container-platform/4.9/networking/hardware_networks/configuring-sriov-device.html[[.underline]#https://docs.openshift.com/container-platform/4.9/networking/hardware_networks/configuring-sriov-device.html#][#kix.7snexvyvu78o .anchor]##
+
+[7] https://docs.openshift.com/container-platform/4.9/networking/multiple_networks/attaching-pod.html[[.underline]#https://docs.openshift.com/container-platform/4.9/networking/multiple_networks/attaching-pod.html#][#kix.jowj8zhw9jik .anchor]##
+
+[8]
+
+https://docs.openshift.com/container-platform/4.9/networking/hardware_networks/configuring-sriov-net-attach.html[[.underline]#https://docs.openshift.com/container-platform/4.9/networking/hardware_networks/configuring-sriov-net-attach.html#][#kix.x9sn5ltpet8c .anchor]##
+
+[9] https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/[[.underline]#https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/#]
+
+[#kix.m02gjmmhqh0e .anchor]##
+
+[10] https://linuxera.org/capabilities-seccomp-kubernetes/[[.underline]#https://linuxera.org/capabilities-seccomp-kubernetes/#]
+

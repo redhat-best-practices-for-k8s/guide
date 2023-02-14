@@ -1,0 +1,30 @@
+name: Build and deploy website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Build Asciidoc
+        uses: docker://asciidoctor/docker-asciidoctor
+        with:
+          args: "asciidoctor out/cnf-reqs-1.3.adoc -o index.html"
+
+      - name: Copy output to docs/
+        run: |
+          mkdir docs
+          cp -r out/images/ docs/images
+          mv index.html docs/
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

@@ -1,0 +1,77 @@
+// Metadata created by nebel
+//
+// ConvertedFromFile: cnf-reqs_1.3_single.adoc
+// ConversionStatus: raw
+
+[id="cnf-expectations"]
+= CNF Expectations and Permissions
+
+.Cloud Native Design Best Practices
+
+Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.
+
+The following sections highlight some key principles of cloud-native application design.
+
+Single Purpose w/Messaging Interface::
+
+A container should address a single purpose with a well-defined (typically RESTful API) messaging interface. The motivation here is that such a container image is more reusable and more replaceable/upgradeable.
+
+High Observability::
+
+A container must provide APIs for the platform to observe the container health and act accordingly. These APIs include health checks (liveness and readiness), logging to stderr and stdout for log aggregation (by tools such as Logstash or Filebeat), and integrate with tracing and metrics-gathering libraries (such as Prometheus or Metricbeat).
+
+Lifecycle Conformance::
+
+A container must receive important events from the platform and conform/react to these events properly. For example, a container should catch SIGTERM or SIGKILL from the platform and shut down as quickly as possible. Other typically important events from the platform are PostStart to initialize before servicing requests and PreStop to release resources cleanly before shutting down.
+
+Image Immutability::
+
+Container images are meant to be immutable; i.e. customized images for different environments should typically not be built. Instead, an external means for storing and retrieving configurations that vary across environments for the container should be used.
+
+Additionally, the container image should NOT dynamically install additional packages at runtime.
+
+Process Disposability::
+
+Containers should be as ephemeral as possible and ready to be replaced by another container instance at any point in time. There are many reasons to replace a container, such as failing a health check, scaling down the application, migrating the containers to a different host, platform resource starvation, or another issue.
+
+This means that containerized applications must keep their state externalized or distributed and redundant. To store files or block level data, persistent volume claims should be used. For information such as user sessions, use of an external, low-latency, key-value store such as redis should be used.
+
+Process disposability also requires that the application should be quick in starting up and shutting down, and even be ready for a sudden, complete hardware failure.
+
+Another helpful practice in implementing this principle is to create small containers. Containers in cloud-native environments may be automatically scheduled and started on different hosts. Having smaller containers leads to quicker start-up times because before being restarted, containers need to be physically copied to the host system.
+
+A corollary of this practice is to ‘retry instead of crashing’. I.e. When one service in your application depends on another service, it should not crash when the other service is unreachable. For example, your API service is starting up and detects the database is unreachable. Instead of failing and refusing to start, you design it to retry the connection. While the database connection is down the API can respond with a 503 status code, telling the clients that the service is currently unavailable. This practice should already be followed by applications, but if you are working in a containerized environment where instances are disposable, then the need for it becomes more obvious.
+
+Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
+
+.High Level CNF Expectations
+
+* CNFs shall be built to be cloud-native
+* Containers never run as root (uid=0). Applications that require elevated privileges will require an exception with HQ Planning
+* Containers run with the minimal set of permissions required. Any pods that require elevated privileges require a security review providing an analysis of the special permissions required, and an exception should be provided. Avoid Privileged Pods. If Privileged Pods are required, the CNF developer should work with the planning department, Security Risk Management and Redhat to determine acceptability of privilege and/or modifications to pods such that elevated privilege is not required.
+* Use the main CNI for all traffic
+* CNFs should leverage service mesh provided by the platform for internal & external communication
+* CNFs should leverage platform service mesh for mTLS with other applications
+* All images/helm charts must be packaged by the vendor and hosted on the image registry
+* Naming and Labelling standards for all Kubernetes objects (Pods, Services, etc.) should be provided
+* CNFs should employ N+k redundancy models
+* CNFs must define their pod affinity/anti-affinity rules
+* Instantiation of CNF (via Helm chart or Operators or otherwise) shall result in a fully-functional CNF ready to serve traffic, without requiring any post-instantiation configuration of system parameters
+* CNFs shall implement service resilience at the application layer and not rely on individual compute availability/stability
+* CNFs shall decouple application configuration from Pods, to allow dynamic configuration updates
+* CNFs shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc.
+* CNFs shall support canary upgrades employing the platform Service Mesh
+* CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum.
+
+.Platform Restrictions
+
+* CNFs may not deploy Nodeports
+* CNFs may not use host networking
+* Namespace creation will be performed by the platform team and should not be created by the CNFs deployment method (Helm / Operator)
+* CNFs may not perform Role creation
+* CNFs may not perform Rolebinding creation
+* CNFs may not have Cluster Roles
+* CNFs are not authorized to bring their own CNI
+* CNFs may not deploy Daemonsets
+* CNFs may not modify the platform in any way
+

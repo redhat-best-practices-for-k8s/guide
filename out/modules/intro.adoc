@@ -1,0 +1,28 @@
+// Metadata created by nebel
+//
+// ConvertedFromFile: cnf-reqs_1.3_single.adoc
+// ConversionStatus: raw
+
+[id="intro"]
+= Introduction
+
+Red Hat is building a Telco platform to serve network needs across Core, Edge, Lite and Far Edge. In this journey, the platform will be the entry path for 5G Core cloud-native NF’s and bring forth the introduction of a CNCF-based stack for Cloud-Native Network Functions (CNFs). Red Hat is building a Kubernetes-based CaaS (Container as a Service) Platform with PaaS (Platform as a Service) services to support 5G Services-based Architecture.
+
+.Scope
+
+This document and the current platform configuration is currently limited in scope to Wireless network elements. This document covers the requirements for tenants to run their application on Red Hat’s OpenShift network functions virtualization infrastructure (NFVI) platform.
+
+.Refactoring
+
+NFs should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model recommended by Red Hat.
+
+It is hard to move a 1,000 lb boulder. However, it is easy when that boulder is broken down into many pieces (pebbles). All cloud-native network functions (CNFs) should break apart each piece of the functions/services/processes into separate containers. These containers can still be within OpenShift PODs and all of the functions that perform a single task should be within the same name space.
+
+There is a quote that describes this best from https://martinfowler.com/articles/microservices.html[[.underline]#Lewis and Fowler#]: "the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. "
+
+.Pods
+
+Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.
+
+A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over 127.0.0.1:<port>. The same is true for storage volumes so all containers in the same Pod have access to the same mount namespace and can mount the same volumes.
+

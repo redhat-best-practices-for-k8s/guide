@@ -1,0 +1,123 @@
+// Metadata created by nebel
+//
+// ConvertedFromFile: cnf-reqs_1.3_single.adoc
+// ConversionStatus: raw
+
+[id="cnf-core-edge"]
+= Core/Edge
+
+.OpenShift Platform
+
+OpenShift networking by default utilizes the host "baremetal" network for ingress/egress of the cluster.
+
+https://redhat-connect.gitbook.io/certified-operator-guide/[[.underline]#Certified Operator Guide#] - Guidelines on how to build an Operator that meets the Red Hat certification criteria
+
+https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container/[[.underline]#Partner Guide for Container and Operator Certification#] - Step-by-step instructions for partners on how to certify their images and operators
+
+https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf/overview[[.underline]#OpenShift Operator Badge Guide#] - Containers and Operators tests
+
+.Stack Overview Core/Edge
+
+The deployment consists of the CaaS (Container as a Service) and PaaS (Platform as a Service) functions. Details of the Stack components are covered in the subsequent section. The Stack components are subject to change over the next 12 months as further evaluation and testing is conducted in the HQP Lab with select 5G CNFs.
+
+.CaaS*
+
+.Helm v3
+
+Helm v3 is a serverless mechanism for defining templates that describe a complete kubernetes application. This allows a template to be built for an application and site/deployment specific values to be provided as input to the template when being pushed to a cluster such that different configurations can be made in different locations. It is roughly analogous to HEAT templates in the Openstack environment.
+
+https://docs.openshift.com/container-platform/4.7/cli_reference/helm_cli/getting-started-with-helm-on-openshift-container-platform.html#installing-a-helm-chart-on-an-openshift-cluster_getting-started-with-helm-on-openshift[[.underline]#https://docs.openshift.com/container-platform/4.7/cli_reference/helm_cli/getting-started-with-helm-on-openshift-container-platform.html#installing-a-helm-chart-on-an-openshift-cluster_getting-started-with-helm-on-openshift#]
+
+.Kubernetes
+
+Kubernetes is an open source container orchestration suite of software that is API driven with a datastore keeping state of the deployments resident on the cluster.
+
+The Kubernetes API is the mechanism with which applications and people and applications interact with the cluster. There are several ways to do this, via the kubectl or oc CLI tools, via web based UIs or interacting directly with API using tools such as curl, or the SDKs can be used to build your own tools.
+
+When interacting with the API, this can be done in at least one of two ways. If the application, or person is external to the cluster, the APIs can be accessed externally. If the application or person is on the cluster, or inside the cluster, one can access the cluster by hitting the Kubernetes Service Resource directly, bypassing the need to exit the cluster and come back in.
+
+.CNI - OVN
+
+OVN is the default pod network CNI plugin for OpenShift and is supported directly by Red Hat. OVN is Red Hat's CNI for pods. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. OpenShift's OVN forwarding is based on flow rules and implemented with nftables on the host OS CNI POD.
+
+.Container Storage (CSI)
+
+Pod Volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and will be lost in the event a pod is killed and recreated. If a Pod requires persistent storage the CSI can be used via kubernetes native primitives persistentVolume (PV) and persistentVolumeClaim (PVC) to get persistent storage, such as an NFS share, for example, via the CSI backed by NetApp Trident.
+
+When using storage with Kubernetes, one can leverage storage classes. These allow you to classify different storage by capabilities. For example, storage backed by fast SSD may be assigned to a different class than that backed by rotational disk. Volumes can then be requested based on the parameters of the storage they wish to use.
+
+Network Functions should clear persistent storage by deleting their PVs when removing their application from a cluster.
+
+Red Hat Persistent Storage Documentation
+
+https://docs.openshift.com/container-platform/4.4/storage/container_storage_interface/persistent-storage-csi.html[[.underline]#https://docs.openshift.com/container-platform/4.4/storage/container_storage_interface/persistent-storage-csi.html#]
+
+.Block Storage
+
+OpenShift Container Platform can provision raw block volumes. These volumes do not have a file system, and can provide performance benefits for applications that either write to the disk directly or implement their own storage service.
+
+More info on Block Volume storage support here:
+
+https://docs.openshift.com/container-platform/4.3/storage/understanding-persistent-storage.html#block-volume-support_understanding-persistent-storage[[.underline]#https://docs.openshift.com/container-platform/4.4/storage/understanding-persistent-storage.html#block-volume-support_understanding-persistent-storage#]
+
+.Object Storage
+
+Object storage may be located at core locations. Access to object storage may be possible via S3 and Swift API, accessed via HAProxy Load Balancer over HTTPS protocol. Clients accessing object storage may route via the CNI eth0 network through the load balancer and across the WAN to the object storage endpoints they are assigned during onboarding.
+
+.Container Runtime
+
+OpenShift uses CRI-O as a CRI interface for Kubernetes. CRI-O manages runC for container image execution. CRI-O is an open-source container engine that provides a stable, performant platform for running OCI compatible runtimes. CRI-O is developed, tested and released in tandem with Kubernetes major and minor releases. Images should be OCI compliant. Images are recommended to be built using Red Hat's open Universal Base Image. See section 9.1.8 for additional information UBI and support.
+
+Red Hat Documentation on CRI-O and Read Only Containers
+
+https://blog.openshift.com/add-a-layer-of-security-to-openshift-kubernetes-with-cri-o-in-read-only-mode/[[.underline]#https://blog.openshift.com/add-a-layer-of-security-to-openshift-kubernetes-with-cri-o-in-read-only-mode/#]
+
+https://github.com/cri-o/cri-o/blob/master/docs/crio.8.md[[.underline]#https://github.com/cri-o/cri-o/blob/master/docs/crio.8.md#]
+
+This environment is maintained through the open source tools:
+
+* runc
+* skopeo
+* buildah
+* podman
+* crio
+
+.CPU Manager/Pinning
+
+The OpenShift platform can use the Kubernetes CPU Manager to support CPU pinning for applications.
+
+.Host OS
+
+The platform will run Red Hat Enterprise Linux CoreOS (RHCOS) in a bare metal environment. There is no hypervisor layer between the containers and the host OS. RHCOS is the next generation container operating system. RCHOS is part of the OpenShift Container Platform and is used as the OS for the Control plane and is the default for worker nodes. RHCOS is based on RHEL, has some immutability, leverages the CRI-O runtime, contains container tools and is updated through the MCO (Machine Config Operator).
+
+The controlled immutability of RHCOS does not support installing RPMs or additional packages in the traditional way. Some 3rd party services or functionalities need to run as agents on nodes of the cluster.
+
+For more information on RHCOS please refer to the following link.
+
+https://docs.openshift.com/container-platform/4.7/architecture/architecture-rhcos.html[[.underline]#Red Hat Enterprise Linux CoreOS | Architecture | OpenShift Container Platform 4.7#]
+
+.Universal Base Image
+
+https://developers.redhat.com/products/rhel/ubi/#assembly-field-sections-18455[[.underline]#https://developers.redhat.com/products/rhel/ubi/#assembly-field-sections-18455#]
+
+The Red Hat Universal Base Image (UBI) is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even to non-Red Hat platforms -- no subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.
+
+Base Images
+
+A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
+
+Runtime Languages
+
+A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.
+
+Complementary packages
+
+A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.
+
+Red Hat UBI images are the preferred images to build CNFs on as they will leverage the fully supported Red Hat ecosystem. In addition, once a CNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
+
+Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. +
+It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See the link below for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
+
+https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container[[.underline]#https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container#]
+
