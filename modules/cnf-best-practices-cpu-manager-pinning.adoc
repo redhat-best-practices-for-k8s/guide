@@ -1,0 +1,5 @@
+[id="cnf-best-practices-cpu-manager-pinning"]
+= CPU Manager/Pinning
+
+The OpenShift platform can use the Kubernetes CPU Manager to support CPU pinning for applications.
+
