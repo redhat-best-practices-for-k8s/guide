@@ -1,0 +1,96 @@
+[id="cnf-best-practices-developer-guide"]
+= CNF Developer Guide
+
+This section discusses recommendations and requirements for CNF application builders.
+
+== Preface
+
+Cloud-native Network Functions (CNFs) are containerized instances of classic physical or virtual network functions (VNF) which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.
+
+== Goal
+
+This document is mainly for the developers of CNFs, who need to build high-performance Network Functions in a containerized environment. We have created a guide that any partner can take and follow when developing their CNFs so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.
+
+== Non-Goal
+
+This is not a guide on how to build CNF’s functionality.
+
+=== Refactoring
+
+NFs should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model to be in.
+
+It is hard to move a 1000LB boulder. However, it is easy when that boulder is broken down into many pieces (pebbles). All containerized network functions (CNFs) should break apart each piece of the functions/services/processes into separate containers. These containers will still be within kubernetes pods and all of the functions that perform a single task should be within the same namespace.
+
+There is a quote that describes this best from link:Lewis and Fowler:# "the microservice architectural []style is an approach to developing a single application as a suite of small services, eachrunning in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. "
+
+=== CNF Security
+
+In OCP, it is possible to run privileged containers that have all of the root capabilities on a host machine, allowing the ability to access resources which are not accessible in ordinary containers. This, however, increases the security risk to the whole cluster. Containers should only request those privileges they need to run their legitimate functions. No containers will be allowed to run with full privileges without an exception.
+
+The general guidelines are:
+
+. Only ask for the necessary privileges and access control settings for your application. 2. If the function required by your CNF can be fulfilled by OCP components, your application should not be requesting escalated privilege to perform this function.
+
+. Avoid using any host system resource if possible.
+
+. Leveraging read only root filesystem when possible.
+
+.CNF Requirement
+[IMPORTANT]
+====
+Only ask for the necessary privileges and access control settings for your application
+====
+
+.CNF Requirement
+[IMPORTANT]
+====
+If the function required by your CNF can be fulfilled by OCP components, your application should not be
+requesting escalated privilege to perform this function.
+====
+
+.CNF Requirement
+[IMPORTANT]
+====
+*Avoid* using any host system resource
+====
+
+.CNF Requirement
+[IMPORTANT]
+====
+*Do not* mount host directories for device access
+====
+
+.CNF Requirement
+[IMPORTANT]
+====
+*Do not* use host network namespace
+====
+
+.CNF Requirement
+[IMPORTANT]
+====
+CNFs may *not* modify the platform in any way
+====
+
+==== Avoid Accessing Resource on Host
+
+It is not recommended for an application to access following resources on the host.
+
+==== Avoid Mounting host directories as volumes
+
+It is not necessary to mount host /sys/ or host /dev/ directory as a volume in a pod in order to use a network device such as SR-IOV VF. The moving of a network interface into the pod network namespace is done automatically by CNI. Mounting the whole /sys/ or /dev/ directory in the container will overwrite the network device descriptor inside the container which causes 'device not found' or 'no such file or directory' error.
+
+Network interface statistics can be queried inside the container using the same /sys/ path as was done when running directly on the host. When running network interfaces in containers, relevant /sys/ statistics interfaces are available inside the container, such as '/sys/class/net/net1/statistics/', '/proc/net/tcp' and '/proc/net/tcp6'.
+
+For running DPDK applications with SR-IOV VF, device specs (in case of vfio-pci) are automatically attached to the container via the Device Plugin. There is no need to mount the /dev/ directory as a volume in the container as the application can find device specs under '/dev/vfio/' in the container.
+
+==== Avoid the host network namespace
+
+Application pods must avoid using hostNetwork. Applications may not use the host network, including nodePort for network communication. Any networking needs beyond the functions provided by the pod network and ingress/egress proxy must be serviced via a MULTUS connected interface.
+
+.CNF Requirement
+[IMPORTANT]
+====
+Applications may *not* use NodePorts or the hostNetwork
+====
+

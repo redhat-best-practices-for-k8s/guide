@@ -1,0 +1,19 @@
+[id="cnf-best-practices-container-runtime"]
+= Container Runtime
+
+OpenShift uses CRI-O as a CRI interface for Kubernetes. CRI-O manages runC for container image execution. CRI-O is an open-source container engine that provides a stable, performant platform for running OCI compatible runtimes. CRI-O is developed, tested and released in tandem with Kubernetes major and minor releases. Images should be OCI compliant. Images are recommended to be built using Red Hat's open Universal Base Image. See later sections for additional information on UBI and support.
+
+Red Hat Documentation on CRI-O and Read Only Containers
+
+link:https://blog.openshift.com/add-a-layer-of-security-to-openshift-kubernetes-with-cri-o-in-read-only-mode/[]
+
+link:https://github.com/cri-o/cri-o/blob/master/docs/crio.8.md[]
+
+This environment is maintained through the open source tools:
+
+* runc
+* skopeo
+* buildah
+* podman
+* crio
+
