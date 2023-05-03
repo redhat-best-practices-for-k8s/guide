@@ -1,42 +1,44 @@
 [id="cnf-best-practices-expectations-permissions"]
-= CNF Expectations and Permissions
-
-== Cloud Native Design Best Practices
+= Cloud-native function expectations and permissions
 
 Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.
 
+[id="cnf-best-practices-cloud-native-design-best-practices"]
+== Cloud-native design best practices
+
 The following best practices highlight some key principles of cloud-native application design.
 
-Single Purpose w/Messaging Interface::
+Single purpose w/messaging interface::
 A container should address a single purpose with a well-defined (typically RESTful API) messaging interface. The motivation here is that such a container image is more reusable and more replaceable/upgradeable.
 
-High Observability::
-A container must provide APIs for the platform to observe the container health and act accordingly. These APIs include health checks (liveness and readiness), logging to stderr and stdout for log aggregation (by tools such as Logstash or Filebeat), and integrate with tracing and metrics-gathering libraries (such as Prometheus or Metricbeat).
+High observability::
+A container must provide APIs for the platform to observe the container health and act accordingly. These APIs include health checks (liveness and readiness), logging to stderr and stdout for log aggregation (by tools such as `Logstash` or `Filebeat`), and integrate with tracing and metrics-gathering libraries (such as `Prometheus` or `Metricbeat`).
 
-Lifecycle Conformance::
+Lifecycle conformance::
 A container must receive important events from the platform and conform/react to these events properly. For example, a container should catch SIGTERM or SIGKILL from the platform and shut down as quickly as possible. Other typically important events from the platform are PostStart to initialize before servicing requests and PreStop to release resources cleanly before shutting down.
 
-Image Immutability::
+Image immutability::
 Container images are meant to be immutable; i.e. customized images for different environments should typically not be built. Instead, an external means for storing and retrieving configurations that vary across environments for the container should be used. Additionally, the container image should NOT dynamically install additional packages at runtime.
 
-Process Disposability::
+Process disposability::
 Containers should be as ephemeral as possible and ready to be replaced by another container instance at any point in time. There are many reasons to replace a container, such as failing a health check, scaling down the application, migrating the containers to a different host, platform resource starvation, or another issue.
 +
-This means that containerized applications must keep their state externalized or distributed and redundant. *To store files or block level data, persistent volume claims should be used.* For information such as user sessions, use of an external, low-latency, key-value store such as redis should be used. Process disposability also requires that the application should be quick in starting up and shutting down, and even be ready for a sudden, complete hardware failure.
+This means that containerized applications must keep their state externalized or distributed and redundant. To store files or block level data, persistent volume claims should be used. For information such as user sessions, use of an external, low-latency, key-value store such as redis should be used. Process disposability also requires that the application should be quick in starting up and shutting down, and even be ready for a sudden, complete hardware failure.
 +
-Another helpful practice in implementing this principle is to create small containers. Containers in cloud-native environments may be automatically scheduled and started on different hosts. *Having smaller containers leads to quicker start-up times* because before being restarted, containers need to be physically copied to the host system.
+Another helpful practice in implementing this principle is to create small containers. Containers in cloud-native environments may be automatically scheduled and started on different hosts. Having smaller containers leads to quicker start-up times because before being restarted, containers need to be physically copied to the host system.
 +
-A corollary of this practice is to ‘retry instead of crashing’. I.e. When one service in your application depends on another service, it should not crash when the other service is unreachable. For example, your API service is starting up and detects the database is unreachable. Instead of failing and refusing to start, you design it to retry the connection. While the database connection is down the API can respond with a 503 status code, telling the clients that the service is currently unavailable. This practice should already be followed by applications, but if you are working in a containerized environment where instances are disposable, then the need for it becomes more obvious.
+A corollary of this practice is to "retry instead of crashing", for example, When one service in your application depends on another service, it should not crash when the other service is unreachable. For example, your API service is starting up and detects the database is unreachable. Instead of failing and refusing to start, you design it to retry the connection. While the database connection is down the API can respond with a 503 status code, telling the clients that the service is currently unavailable. This practice should already be followed by applications, but if you are working in a containerized environment where instances are disposable, then the need for it becomes more obvious.
 +
 Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Application design should conform to cloud-native design principles to the maximum extent possible.
 ====
 
-=== High Level CNF Expectations
+[id="cnf-best-practices-high-level-cnf-expectations"]
+=== High-level CNF expectations
 
 * CNFs shall be built to be cloud-native
 
@@ -64,35 +66,34 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Containers must not run as root
 ====
 
-.CNF Requirement
-[IMPORTANT]
+.CNF requirement
 ====
 All secondary interfaces (MULTUS) must support dual stack
+[IMPORTANT]
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 CNFs shall not use node selectors nor taints/tolerations to assign pod location
 ====
 
+[id="cnf-best-practices-pod-permissions"]
 === Pod permissions
 
-By default, pods should not expect to be permitted to run as root. Pod restrictions are enforced by SCC within the OpenShift platform. SCC documentation from Red Hat can be found here :
+By default, pods should not expect to be permitted to run as root. Pod restrictions are enforced by SCC within the OpenShift platform. See link:https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html[Managing security context constraints].
 
-link:https://docs.openshift.com/container-platform/4.7/authentication/managing-security-context-constraints.html[]
-
-Pods will execute on worker nodes, by default being admitted to the cluster with the "restricted" SCC
+Pods will execute on worker nodes, by default being admitted to the cluster with the "restricted" SCC.
 
 The "restricted" SCC:
 
-* Ensures that no containers within the pod can run with the allowPrivilegedContainer flag set.
+* Ensures that no containers within the pod can run with the `allowPrivilegedContainer` flag set.
 
 * Ensures that pods cannot mount host directory volumes.
 
@@ -104,107 +105,114 @@ The "restricted" SCC:
 
 Any pods requiring elevated privileges must document the required capabilities driven by application syscalls and a process to validate the requirements must occur.
 
+[id="cnf-best-practices-logging"]
 === Logging
 
 Log aggregation and analysis::
-+
+--
 * Containers are expected to write logs to stdout. It is highly recommended that stdout/stderr leverage some standard logging format for output.
 +
 * Logs CAN be parsed to a limited extent so that specific vendor logs can be sent back to the CNF if required.
 +
-CNFs requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; klog, rfc5424, and oslo.
+* CNFs requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; `klog`, `rfc5424`, and `oslo`.
+--
 
+[id="cnf-best-practices-monitoring"]
 === Monitoring
 
 Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.
 
+[id="cnf-best-practices-cpu-allocation"]
 === CPU allocation
 
-It is important to note that when the OpenShift scheduler is placing pods, it first reviews the Pod CPU “Request” and schedules it if there is a node that meets the requirements. It will then impose the CPU “Limits” to ensure the Pod doesn’t consume more than the intended allocation. The limit can never be lower than the request.
+It is important to note that when the OpenShift scheduler is placing pods, it first reviews the Pod CPU request and schedules it if there is a node that meets the requirements. It will then impose the CPU "Limits" to ensure the Pod doesn't consume more than the intended allocation. The limit can never be lower than the request.
 
-NUMA Configuration:: OpenShift provides a topology manager which leverages the CPU manager and Device manager to help associate processes to CPUs. Topology manager handles NUMA affinity. This feature is available as of OpenShift 4.6. For some examples on how to leverage the topology manager and creating workloads that work in real time, see the following links.
+NUMA Configuration:: OpenShift provides a topology manager which leverages the CPU manager and Device manager to help associate processes to CPUs. Topology manager handles NUMA affinity. This feature is available as of OpenShift 4.6. For some examples on how to leverage the topology manager and creating workloads that work in real time, see link:https://docs.openshift.com/container-platform/4.12/scalability_and_performance/cnf-numa-aware-scheduling.html[Scheduling NUMA-aware workloads] and link:https://docs.openshift.com/container-platform/4.12/scalability_and_performance/cnf-low-latency-tuning.html[Low latency tuning].
 
-link:https://docs.openshift.com/container-platform/4.7/scalability_and_performance/using-topology-manager.html[]
+[id="cnf-best-practices-memory-allocation"]
+=== Memory allocation
 
-link:https://docs.openshift.com/container-platform/4.7/scalability_and_performance/cnf-performance-addon-operator-for-low-latency-nodes.html#performance-addon-operator-creating-workload-that-works-in-real-ime_cnf-master[]
+Regarding memory allocation, there are a couple of considerations. How much of the platform is OpenShift itself using, and how much is left over to allocate for the applications running on OpenShift?
 
-=== Memory Allocation
+Once it has been determined how much memory is left over for the applications, quotas can be applied which specify both the requested amount of memory and limits. In the case of where a memory request has been specified, OpenShift will not schedule the pod unless the amount of memory required to launch it is available. In the case of a limit being specified, OpenShift will not allocate more memory to the application than the limit provides.
 
-Regarding memory allocation, there are a couple of considerations. How much of the platform is OpenShift itself using, and how much is left over to allocate for the applications running on OpenShift.
+[NOTE]
+====
+When the OpenShift scheduler is placing pods, it reviews the pod memory request and schedules the pod if there is a node that meets the requirements. It then imposes memory limits to ensure the pod doesn't consume more than the intended allocation. The limit can never be lower than the request.
+====
 
-Once it has been determined how much memory is left over for the applications, quotas can be applied which specify both the requested amount of memory and limits. In the case of where a memory request has been specified, OpenShift will not schedule the pod unless the amount of
-
-memory required to launch it is available. In the case of a limit being specified, OpenShift will not allocate more memory to the application than the limit provides. It is important to note that when the OpenShift scheduler is placing pods, it first reviews the Pod memory “Request” and schedules it if there is a node that meets the requirements. It will then impose the memory “Limits” to ensure the Pod doesn’t consume more than the intended allocation. The limit can never be lower than the request.
-
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Vendors must supply quotas per project/namespace
 ====
 
+[id="cnf-best-practices-pods"]
 === Pods
 
 Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.
 
-A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over 127.0.0.1:<port>. The same is true for storage volumes so all containers are in the same Pod have access to the same mount namespace and can mount the same volumes.
+A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over `127.0.0.1:<port>`. The same is true for storage volumes so all containers are in the same Pod have access to the same mount namespace and can mount the same volumes.
 
-==== Pod Interaction/Configuration
+[id="cnf-best-practices-pod-interaction/configuration"]
+==== Pod interaction and configuration
 
-Pod configurations should be created in a kubernetes native manner, the most basic example of a kubernetes native manner of configuration deployment is the use of a configmap. Configmaps can be loaded into kubernetes and pods can consume the data in a configmap by using the data in the
+Pod configurations should be created in a kubernetes native manner, the most basic example of a kubernetes native manner of configuration deployment is the use of a `ConfigMap` CR. `ConfigMap` CRs can be loaded into Kubernetes and pods can consume the data in a configmap by using the data in the `ConfigMap` to populate container environment variables or can be consumed as volumes in a container and read by an application.
 
-configmap to populate container environment variables or can be consumed as volumes in a container and read by an application.
+Interaction with a running pod should be done via `oc exec` or `oc rsh` commands. This allows API role-based access control (RBAC) to the pods and command line interaction for debugging.
 
-Interaction with a running pod should be done via oc exec or oc rsh commands. This allows API RBAC to the pods and command line interaction for debugging.
-
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-SSH daemons must *NOT* be used in Openshift for pod interaction.
+SSH daemons must NOT be used in Openshift for pod interaction.
 ====
 
-==== Pod Exit Status
+[id="cnf-best-practices-pod-exit-status"]
+==== Pod exit status
 
-The most basic requirement for the lifecycle management of Pods in OpenShift are the ability to start and stop correctly. When starting up, health probes like liveness and readiness checks can be put into place to ensure the application is functioning properly.
+The most basic requirement for the lifecycle management of pods in OpenShift is the ability to start and stop correctly. When starting up, health probes like liveness and readiness checks can be put into place to ensure the application is functioning properly.
 
-There are different ways a pod can stop on Kubernetes. One way is that the pod can remain alive but non-functional. Another way is that the pod can crash and become non-functional. In the first case, if the administrator has implemented liveness and readiness checks, OpenShift can stop the pod and either restart it on the same node or a different node in the cluster. For the second case, when the application in the pod stops, it should exit with a code and write suitable log entries to help the administrator diagnose what the issue was that caused the problem.
+There are different ways a pod can be stopped in Kubernetes. One way is that the pod can remain alive but non-functional. Another way is that the pod can crash and become non-functional. In the first case, if the administrator has implemented liveness and readiness checks, OpenShift can stop the pod and either restart it on the same node or a different node in the cluster. For the second case, when the application in the pod stops, it should exit with a code and write suitable log entries to help the administrator diagnose what the issue was that caused the problem.
 
 Pods should use `terminationMessagePolicy: FallbackToLogsOnError` to summarize why they crashed and use stderr to report errors on crash
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 All pods shall have a liveness, readiness and startup probes defined
 ====
 
-==== Graceful Termination
+[id="cnf-best-practices-graceful-termination"]
+==== Graceful termination
 
 There are different reasons that a pod may need to shutdown on an OpenShift cluster. It might be that the node the pod is running on needs to be shut down for maintenance, or the administrator is doing a rolling update of an application to a new version which requires that the old versions are shutdown properly.
 
-When pods are shut down by the platform they are sent a SIGTERM signal which means that the process in the container should start shutting down, closing connections and stopping all activity. If the pod doesn’t shut down within the default 30 seconds then the platform may send a SIGKILL signal which will stop the pod immediately. This method isn’t as clean and the default time between the SIGTERM and SIGKILL messages can be modified based on the requirements of the application.
+When pods are shut down by the platform they are sent a `SIGTERM` signal which means that the process in the container should start shutting down, closing connections and stopping all activity. If the pod doesn't shut down within the default 30 seconds then the platform may send a `SIGKILL` signal which will stop the pod immediately. This method isn't as clean and the default time between the `SIGTERM` and `SIGKILL` messages can be modified based on the requirements of the application.
 
-Pods should exit with zero exit codes when they are gracefully terminated
+Pods should exit with zero exit codes when they are gracefully terminated.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.
 ====
 
+[id="cnf-best-practices-pod-resource-profiles"]
 ==== Pod Resource Profiles
 
-OpenShift comes with a default scheduler that is responsible for being aware of the current available resources on the platform, and placing containers / applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile should contain requirements such as how much memory, cpu and storage that the application needs. At that point, the scheduler is
+OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.
 
-aware of which nodes in the cluster that can satisfy the workload and place the application on one of those nodes (or distribute it), or the scheduler will place the pod that the application is in, in a pending state until resources come available.
+All pods should have a resource request that is the minimum amount o fresources the pod is expected to use at steady state for both memory and CPU.
 
-All pods should have a resource request that is the minimum amount of resources the pod is expected to use at steady state for both memory and cpu.
-
+[id="cnf-best-practices-storage:-emptydir"]
 ==== Storage: emptyDir
 
-There are several options for volumes and reading and writing files in OpenShift. When the requirement is temporary storage and given the option to write files into directories in containers versus an external filesystems, choose the emptyDir option. This will provide the administrator with the same temporary filesystem - when the pod is stopped the dir is deleted forever. Also, the emptyDir can be backed by whatever medium is backing the node, or it can be set to memory for faster reads and writes.
+There are several options for volumes and reading and writing files in OpenShift. When the requirement is temporary storage and given the option to write files into directories in containers versus an external filesystems, choose the `emptyDir` option. This will provide the administrator with the same temporary filesystem - when the pod is stopped the dir is deleted forever. Also, the `emptyDir` can be backed by whatever medium is backing the node, or it can be set to memory for faster reads and writes.
 
-Using emptyDir with requested local storage limits instead of writing to the container directories will also allow enabling readonlyRootFilesystem on the container or pod.
+Using `emptyDir` with requested local storage limits instead of writing to the container directories also allows enabling `readonlyRootFilesystem` on the container or pod.
 
-==== Liveness Readiness and Startup Probes
+[id="cnf-best-practices-liveness-readiness-and-startup-probes"]
+==== Liveness readiness and startup probes
 
 As part of the pod lifecycle, the OpenShift platform needs to know what state the pod is in at all times. This can be accomplished with different health checks. There are at least three states that are important to the platform: startup, running, shutdown. Applications can also be running, but not healthy, meaning, the pod is up and the application shows no errors, but it cannot serve any requests.
 
@@ -212,30 +220,27 @@ When an application starts up on OpenShift it may take a while for the applicati
 
 Two health checks that are required to monitor the status of the applications are liveness and readiness. As mentioned above, the application can be running but not actually able to serve requests. This can be detected with liveness checks. The liveness check will send specific requests to the application that, if satisfied, indicate that the pod is in a healthy state and operating within the required parameters that the administrator has set. A failed liveness check will result in the container being restarted.
 
-There is also a consideration of pod startup. Here the pod may start and take a while for different reasons. Pods can be marked as ready if they pass the readiness check. The readiness check determines that the pod has started properly and is able to answer requests. There are
+There is also a consideration of pod startup. Here the pod may start and take a while for different reasons. Pods can be marked as ready if they pass the readiness check. The readiness check determines that the pod has started properly and is able to answer requests. There are circumstances where both checks are used to monitor the applications in the pods. A failed readiness check results in the container being taken out of the available service endpoints. An example of this being relevant is when the pod was under heavy load, failed the readiness check, gets taken out of the endpoint pool, processes requests, passes the readiness check and is added back to the endpoint pool.
 
-circumstances where both checks are used to monitor the applications in the pods. A failed readiness check results in the container being taken out of the available service endpoints. An example of this being relevant is when the pod was under heavy load, failed the readiness check, gets taken out of the endpoint pool, processes requests, passes the readiness check and is added back to the endpoint pool.
-
-Please see upstream documentation for more details on probes:
-
-link:https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[]
+For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Configure Liveness, Readiness and Startup Probes].
 
 [IMPORTANT]
 ====
-If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container) as it may pile up and block the node eventually.
+If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-If a CNF is doing CPU pinning, exec probes may not be used.
+Do not use exec probes if a CNF is doing CPU pinning.
 ====
 
-==== Affinity/Anti-affinity
+[id="cnf-best-practices-affinity/anti-affinity"]
+==== Affinity and anti-affinity
 
-In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled on based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.
+In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.
 
-These pod affinity / anti-affinity rules are set in the pod specification as matchExpressions to a labelSelector. See the following link for examples and more information. See the following example for more information here:
+These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules]more information. The following example `Pod` CR illustrates pod affinity:
 
 [source,yaml]
 ----
@@ -247,39 +252,38 @@ spec:
   affinity:
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: security
-            operator: In
-            values:
-            - S1
+        - labelSelector:
+            matchExpressions:
+            - key: security
+              operator: In
+              values:
+                - S1
         topologyKey: failure-domain.beta.kubernetes.io/zone
   containers:
-  - name: with-pod-affinity
-    image: docker.io/ocpqe/hello-pod
+    - name: with-pod-affinity
+      image: docker.io/ocpqe/hello-pod
 ----
 
-link:https://docs.openshift.com/container-platform/4.7/nodes/scheduling/nodes-scheduler-pod-affinity.html#nodes-scheduler-pod-affinity[]
-
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-Pods which need to be co-located on the same node need Affinity rules and pods which should not be
+Pods that need to be co-located on the same node need affinity rules. Pods that should not be
 co-located for resiliency purposes require anti-affinity rules.
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-Pods that perform the same microservice and that could be disrupted if multiple members of the service are
-unavailable must implement affinity/anti-affinity to group or spread their pods across nodes to prevent disruption in the event of node failures/patches/upgrades
+Pods that perform the same microservice and could be disrupted if multiple members of the service are
+unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.
 ====
 
+[id="cnf-best-practices-upgrade-expectations"]
 ==== Upgrade expectations
 
-* The Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/[]deprecation-policy/# shall be followe
+* The Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/deprecation-policy/[Kubernetes Deprecation Policy] shall be followed.
 
-* CNFs are expected to maintain service continuity during Platform Upgrades, and during CNF version upgrades
+* CNFs are expected to maintain service continuity during platform upgrades, and during CNF version upgrades
 
 * CNFs need to be prepared for nodes to reboot or shut down without notice
 
@@ -289,53 +293,58 @@ unavailable must implement affinity/anti-affinity to group or spread their pods 
 
 [IMPORTANT]
 ====
-Applications *MUST* specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.
+Applications MUST specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Pods that perform the same microservice and that could be disrupted if multiple members of the service are
 unavailable must implement pod disruption budgets to prevent disruption in the event of patches/upgrades.
 ====
 
-==== Taints and Tolerations
+[id="cnf-best-practices-taints-and-tolerations"]
+==== Taints and tolerations
 
-Taints and tolerations allow the Node to control toleration which Pods should (or should not) be scheduled on them. A taint allows a node to refuse a pod to be scheduled unless that pod has a matching toleration.
+Taints and tolerations allow the node to control which pods are scheduled on the node. A taint allows a node to refuse a pod to be scheduled unless that pod has a matching toleration.
 
-You apply taints to a node through the node specification (NodeSpec) and apply tolerations to a pod through the pod specification (PodSpec). A taint on a node instructs the node to repel all pods that do not tolerate the taint.
+You apply taints to a node through the node specification (`NodeSpec`) and apply tolerations to a pod through the pod specification (`PodSpec`). A taint on a node instructs the node to repel all pods that do not tolerate the taint.
 
 Taints and tolerations consist of a key, value, and effect. An operator allows you to leave one of these parameters empty.
 
-See link:https://docs.openshift.com/container-platform/4.7/nodes/scheduling/nodes-scheduler-taints-tolerations.html[] for more information.
+See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-taints-tolerations.html[Controlling pod placement using node taints] for more information.
 
+[id="cnf-best-practices-requests/limits"]
 ==== Requests/Limits
 
-Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See the following for more information.
+Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
 
-link:https://docs.openshift.com/container-platform/4.7/applications/quotas/quotas-setting-per-project.html[]
+Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
 
-Keep in mind though, that a node can be overcommitted which can affect the strategy of request / limit implementation. For example, when you need guaranteed capacity, use quotas to enforce and in a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
+See link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-overcommit.html[Configuring your cluster to place pods on overcommitted nodes] for more information.
 
-link:https://docs.openshift.com/container-platform/4.7/nodes/clusters/nodes-cluster-overcommit.html[]
-
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-Pods must define requests and limits values for CPU and memory
+Pods must define requests and limits values for CPU and memory.
 ====
 
+[id="cnf-best-practices-use-imagepullpolicy-if-not-present"]
 ==== Use imagePullPolicy: IfNotPresent
 
-If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: Always, Never and IfNotPresent. It is generally recommended to have a pull policy of IfNotPresent. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse
+If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: `Always`, `Never` and `IfNotPresent`. It is generally recommended to have a pull policy of `IfNotPresent`. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse
 
-the already downloaded container image if it’s available. OpenShift intentionally does not set AlwaysPullImages as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use PullIfNotPresent so that a loss of image registry access does not prevent the pod from restarting.
+the already downloaded container image if it's available. OpenShift intentionally does not set `AlwaysPullImages` as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use `PullIfNotPresent` so that a loss of image registry access does not prevent the pod from restarting.
 
-It is noted that any container images protected by registry authentication have a condition whereby a user who is unable to download an image directly can still launch it by leveraging the host’s cached image.
+[NOTE]
+====
+Container images that are protected by registry authentication have a condition whereby a user who is unable to download an image directly can still launch it by leveraging the host's cached image.
+====
 
-==== Automount Services for Pods
+[id="cnf-best-practices-automount-services-for-pods"]
+==== Automount services for pods
 
-Pods which do not require API access should set the value of automountServiceAccountToken to false within the pod spec, for example:
+Pods which do not require API access should set the value of `automountServiceAccountToken` to false within the pod spec, for example:
 
 [source,yaml]
 ----
@@ -348,40 +357,44 @@ spec:
   automountServiceAccountToken: false
 ----
 
+[id="cnf-best-practices-disruption-budgets"]
 ==== Disruption budgets
 
 When managing the platform there are at least two types of disruptions that can occur. They are voluntary and involuntary. When dealing with voluntary disruptions a pod disruption budget can be set that determines how many replicas of the application must remain running at any given time. For example, consider the case where an administrator is shutting down a node for
 
 maintenance and the node has to be drained. If there is a pod disruption budget set then OpenShift will respect that and ensure that the required number of pods are available by bringing up pods on different nodes before draining the current node.
 
+[id="cnf-best-practices-no-naked-pods"]
 ==== No naked pods
 
 Do not use naked Pods (that is, Pods not bound to a `ReplicaSet`, or `StatefulSet` deployment). Naked pods will not be rescheduled in the event of a node failure.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Applications must not depend on any single pod being online for their application to function.
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Pods must be deployed as part of a `Deployment` or `StatefulSet`.
 ====
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Pods may not be deployed in a DaemonSet.
 ====
 
+[id="cnf-best-practices-image-tagging"]
 ==== Image tagging
 
 An image tag is a label applied to a container image in a repository that distinguishes a specific image from other images. Image tags may be used to categorize images (for example: latest, stable, development) and by versions within the categories. This allows the administrator to be specific when declaring which image to test, or which image to run in production.
 
 link:https://docs.openshift.com/container-platform/4.7/openshift_images/managing_images/tagging-images.html[]
 
+[id="cnf-best-practices-one-process-per-container"]
 ==== One process per container
 
 OpenShift organizes workloads into pods. Pods are the smallest unit of a workload that Kubernetes understands. Within pods, one can have one or more containers. Containers are essentially composed of the runtime that is required to launch and run a process.
@@ -390,83 +403,94 @@ Each container should run only one process. Different processes should always be
 
 However, OpenShift does support running multiple containers per pod. This can be useful if parts of the application need to share namespaces like networking and storage resources. Additionally, there are other models like launching init containers, sidecar containers, etc. which may justify running multiple containers in a single pod.
 
-More information about pods can be found link:https://docs.openshift.com/container-platform/4.7/nodes/pods/nodes-pods-using.html[here].
+More information about pods can be found link:https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-using.html[Using pods].
 
+[id="cnf-best-practices-init-containers"]
 ==== init containers
 
 Init containers can be used for running tools / commands / or any other action that needs to be done before the actual pod is started. For example, loading a database schema, or constructing a config file from a definition passed in via configMap or secret.
 
-link:https://docs.openshift.com/container-platform/4.7/nodes/containers/nodes-containers-init.html[]
+See link:https://docs.openshift.com/container-platform/4.12/nodes/containers/nodes-containers-init.html[Using init containers to perform tasks before a pod is deployed] for more information.
 
-=== Security/RBAC
+[id="cnf-best-practices-security-rbac"]
+=== Security and role-based access control
 
-Roles / RoleBindings:: A Role represents a set of permissions within a particular namespace. E.g: A given user can list pods/services within the namespace. The RoleBinding is used for granting the permissions defined in a role to a user or group of users. Applications may create roles and rolebindings within their namespace, however the scope of a role will be limited to the same permissions that the creator has or less.
+Roles / RoleBindings:: A `Role` represents a set of permissions within a particular namespace. E.g: A given user can list pods/services within the namespace. The `RoleBinding` is used for granting the permissions defined in a role to a user or group of users. Applications may create roles and rolebindings within their namespace, however the scope of a role will be limited to the same permissions that the creator has or less.
 
-ClusterRole / ClusterRoleBinding:: A ClusterRole represents a set of permissions at the Cluster level that can be used by multiple namespaces. The ClusterRoleBinding is used for granting the permissions defined in a ClusterRole to a user or group of users at a namespace level. Applications will not be permitted to install cluster roles or create cluster role bindings, this is an administrative activity and will be done by cluster administrators. CNFs should not use cluster roles; exceptions can be granted to allow this, however it is discouraged.
+ClusterRole / ClusterRoleBinding:: A `ClusterRole` represents a set of permissions at the cluster level that can be used by multiple namespaces. The `ClusterRoleBinding` is used for granting the permissions defined in a `ClusterRole` to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. CNFs should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.
 
-link:https://docs.openshift.com/container-platform/4.7/authentication/using-rbac.html[]
+See link:https://docs.openshift.com/container-platform/4.7/authentication/using-rbac.html[Using RBAC to define and apply permissions] for more information.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-CNFs may not create ClusterRole / ClusterRoleBinding, cluster administrators shall create them.
+CNFs may not create `ClusterRole` or `ClusterRoleBinding` CRs. Only cluster administrators should create these CRs.
 ====
 
-=== Custom Role to access application CRDs
+[id="cnf-best-practices-custom-role-to-access-application-crds"]
+=== Custom role to access application CRDs
 
 If an application requires installing/deploying CRDs (Custom Resource Definitions), the application must provide a role that allows necessary permissions to create CRs within the CRDs. The custom role to access CRDs must not create any permissions to access any other API resources than the CRDs.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-If an application creates CRDs it must supply a role to access those CRDs and no other API resources/
-permissions
+If an application creates CRDs; it must supply a role to access those CRDs and no other API resources/
+permissions.
 ====
 
+[id="cnf-best-practices-multus"]
 === MULTUS
 
-MULTUS is a meta CNI that allows multiple CNIs that it delegates to. This allows pods to get additional interfaces beyond eth0 via additional CNIs. Having additional CNIs for SR-IOV and MacVLAN interfaces allow for direct routing of traffic to a pod without using the pod network via additional interfaces. This capability is being delivered for use in only corner case scenarios, it is not to be used in general for all applications. Example use cases include bandwidth requirements that necessitate SR-IOV and protocols that are unable to be supported by the load balancer. The OVN based pod network should be used for every interface that can be supported from a technical standpoint.
+MULTUS is a meta-CNI that allows multiple CNIs that it delegates to. This allows pods to get additional interfaces beyond `eth0` via additional CNIs. Having additional CNIs for SR-IOV and MacVLAN interfaces allow for direct routing of traffic to a pod without using the pod network via additional interfaces. This capability is being delivered for use in only corner case scenarios, it is not to be used in general for all applications. Example use cases include bandwidth requirements that necessitate SR-IOV and protocols that are unable to be supported by the load balancer. The OVN based pod network should be used for every interface that can be supported from a technical standpoint.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 Unless an application has a special traffic requirement that is not supported by SPK or ovn-kubernetes CNI
 the applications must use the pod network for traffic
 ====
 
-link:https://docs.openshift.com/container-platform/4.7/networking/multiple-networks/understanding-multiple-networks.html[]
+See link:https://docs.openshift.com/container-platform/latest/networking/multiple_networks/understanding-multiple-networks.html[Understanding multiple networks] for more information.
 
+[id="cnf-best-practices-multus-macvlan"]
 === MULTUS SR-IOV / MACVLAN
 
 SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.
 
 SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a network function has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the network functions which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN/network that the SR-IOV interface requires must be part of the request for the namespace.
 
-link:https://docs.openshift.com/container-platform/4.7/networking/hardware_networks/about-SRIOV.html[]
+For more information, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html[About Single Root I/O Virtualization (SR-IOV) hardware networks].
 
-By configuring the SR-IOV Network CRs named NetworkAttachmentDefinitions are exposed by the SR-IOV Operator in the CNF namespace.
+By configuring the SR-IOV network, CRs named `NetworkAttachmentDefinitions` are exposed by the SR-IOV Operator in the CNF namespace.
 
 Different names will be assigned to different Network Attachment Definitions that are namespace specific. MACVLAN versus MULTUS interfaces will be named differently to distinguish the type of device assigned to them (created by configuring SR-IOV devices via the SRIOVNetworkNodePolicy CR).
 
 From the CNF perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.
 
-The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the CNF. The command `oc -n <cnfnamespace> get network-attachment-definitions` will return the list of secondary networks available in the namespace.
+The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the CNF. The following command returns the list of secondary networks available in the namespace:
 
-=== SR-IOV Interface settings
+[source,terminal]
+----
+$ oc -n <cnf_namespace> get network-attachment-definitions
+----
+
+[id="cnf-best-practices-sr-iov-interface-settings"]
+=== SR-IOV interface settings
 
 The following settings must be negotiated with the cluster administrator, for each network type available in the namespace:
 
-- The type of netdevice to be used for the VF (kernel or userspace)
+* The type of netdevice to be used for the VF (kernel or userspace)
 
-- The vlan ID to be applied to a given set of VFs available in a namespace
+* The vlan ID to be applied to a given set of VFs available in a namespace
 
-- For kernel-space devices, the ip allocation is provided directly by the cluster ip assignment mechanism.
+* For kernel-space devices, the IP allocation is provided directly by the cluster IP assignment mechanism.
 
-- The option to configure the ip of a given SR-IOV interface at runtime, see link:https://docs.openshift.com/container-platform/4.7/networking/hardware_networks/add-pod.html#runtime-config-ethernet_configuring-sr-iov[].
+* The option to configure the IP of a given SR-IOV interface at runtime, see link:https://docs.openshift.com/container-platform/4.12/networking/hardware_networks/add-pod.html[Adding a pod to an SR-IOV additional network].
 
 [NOTE]
 ====
-This is enabled by the cluster administrator.
+SR-IOV settings are enabled by the cluster administrator.
 ====
 
 .Example SRIOVnetworknodepolicy
@@ -494,8 +518,9 @@ spec:
   resourceName: w1ens3f0grp2
 ----
 
-The SRIOVnetwork CR creates the network-attach-definition within the target networkNamespace
+The `SRIOVnetwork` CR creates the `network-attach-definition` within the target `networkNamespace`.
 
+[id="example-1"]
 .Example 1: Empty IPAM
 [source,yaml]
 ----
@@ -514,6 +539,7 @@ spec:
   vlan: 282
 ----
 
+[id="example-2"]
 .Example 2: Whereabouts IPAM
 [source,yaml]
 ----
@@ -532,6 +558,7 @@ spec:
     vlan: 282
 ----
 
+[id="example-3"]
 .Example 3: Static IPAM
 [source,yaml]
 ----
@@ -549,6 +576,7 @@ spec:
   vlan: 282
 ----
 
+[id="example-4"]
 .Example 4: Using Pod Annotations to attach
 [source,yaml]
 ----
@@ -568,20 +596,20 @@ metadata:
 
 The examples depict scenarios used within to deliver secondary network interfaces with and without IPAM to a pod.
 
-Example 1, creates a network attachment definition that does not specify an IP address, example 2 makes use of the static IPAM and example 3 makes use of the whereabouts CNI that provides a cluster wide dhcp option.
+<<example-1>> creates a network attachment definition that does not specify an IP address, <<example-2>> makes use of the static IPAM and <<example-3>> makes use of the whereabouts CNI that provides a cluster wide dhcp option.
 
 The actual addresses used for both whereabouts and static IPAM are managed external to the cluster.
 
-The above SRIOVnetwork CR will configure a network attachment definition within the CNF’s namespace.
+The above `SRIOVnetwork` CR will configure a network attachment definition within the CNF namespace.
 
 [source,terminal]
 ----
-$ oc get net-attach-def -n <CNF-NAMESPACE>
+$ oc get net-attach-def -n <cnf_namespace>
 NAME       AGE
 SRIOVnet   9d
 ----
 
-Within the CNF namespace the SRIOV resource is consumed via a pod annotation:
+Within the CNF namespace the SR-IOV resource is consumed via a pod annotation:
 
 [source,yaml]
 ----
@@ -591,11 +619,10 @@ metadata:
     k8s.v1.cni.cncf.io/networks: SRIOVnet
 ----
 
+[id="cnf-best-practices-attaching-the-vf-to-a-pod"]
 === Attaching the VF to a pod
 
-Once the right network attachment definition is found, applying the k8s.v1.cni.cncf.io/networks annotation with the name of the network attachment definition to the pod will add the additional network interfaces in the pod namespace, as per the following example:
-
-Example:
+Once the right network attachment definition is found, applying the `k8s.v1.cni.cncf.io/networks` annotation with the name of the network attachment definition to the pod will add the additional network interfaces in the pod namespace, as per the following example:
 
 [source,yaml]
 ----
@@ -614,11 +641,10 @@ metadata:
       ]
 ----
 
+[id="cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application"]
 === Discovering SR-IOV devices properties from the application
 
-All the properties of the interfaces are added to the pod’s _k8s.v1.cni.cncf.io/network-status_ annotation. The annotation is json-formatted and for each network object contains information such as ips (where available), mac address, pci address.
-
-For example:
+All the properties of the interfaces are added to the pod's `k8s.v1.cni.cncf.io/network-status` annotation. The annotation is json-formatted and for each network object contains information such as IPs (where available), MAC address, PCI address. For example:
 
 [source,yaml]
 ----
@@ -640,23 +666,23 @@ k8s.v1.cni.cncf.io/network-status: |-
 the IP information is not available if the driver specified is `vf-io`.
 ====
 
-The same annotation is available as a file content inside the pod, at the /etc/podnetinfo/annotations path. A convenience library is available to easily consume those informations from the application (bindings in C and Go)
+The same annotation is available as a file content inside the pod, at the `/etc/podnetinfo/annotations` path. A convenience library is available to easily consume those informations from the application (bindings in C and Go).
 
-link:https://docs.openshift.com/container-platform/4.7/networking/hardware_networks/about-sriov.html[]
+For more information, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html[About Single Root I/O Virtualization (SR-IOV) hardware networks].
 
+[id="cnf-best-practices-numa-awareness"]
 === NUMA awareness
 
 If the pod is using a guaranteed QoS class and the kubelet is configured with a suitable topology manager policy (restricted, single-numa node) then the VF assigned to the pod will belong to the same NUMA node as the other assigned resources (CPU and other NUMA aware devices). Please note that HugePages are currently not NUMA aware.
 
-See the Performance Add-On Operator section for NUMA awareness and more information about how HugePages are turned on.
+See <<cnf-best-practices-performance-addon-operator-pao>> for NUMA awareness and more information about how HugePages are turned on.
 
-=== Platform Upgrade
+[id="cnf-best-practices-platform-upgrade"]
+=== Platform upgrade
 
 Openshift upgrades happen as follows:
 
-Small example Cluster - let's name it kubey
-
-kubey consists of:
+Consider this small example cluster:
 
 [source,terminal]
 ----
@@ -671,29 +697,26 @@ loadbalancer-14
 loadbalancer-15
 ----
 
+In the above example cluster, there are three machine config pools: masters, workers, loadbalancers. This is an example cluster configuration, there may be more machine config pools based on functionality, e.g., 10 MCPs if needed.
 
-In the above example cluster named kubey, there are three machine config pools: masters, workers, loadbalancers. This is an example cluster configuration, there may be more machine config pools based on functionality, e.g., 10 MCPs if needed.
+When the cluster is upgraded, the API server and etcD are updated first. So the master config pool will be done first. Incrementally the cluster will go through and reboot master-0, 1, 2 to bring them to the new kubernetes version. After these are updated it will cycle to the next two machine pools one at a time. Openshift will consult the maxunavilable nodes in the machine config pool spec and reboot only as many as allowed by maxunavailable.
 
-When our cluster kubey is upgraded, the API server and etcD are updated first. So the master config pool will be done first. Incrementally the cluster will go through and reboot master-0, 1, 2 to bring them to the new kubernetes version. After these are updated it will cycle to the next two machine pools one at a time. Openshift will consult the maxunavilable nodes in the machine config pool spec and reboot only as many as allowed by maxunavailable.
-
-In a cluster as small as the above, maxUnavailable would be set to 1, so OpenShift would reboot loadbalancer-14 and worker-10 simultaneously as they are different machineconfigpools.
+In a cluster as small as the above, `maxUnavailable` would be set to 1, so OpenShift would reboot loadbalancer-14 and worker-10 simultaneously as they are different machineconfigpools.
 
 Openshift will wait until worker-10 is ready before proceeding onwards to worker-11 and continue. OpenShift will in parallel wait for loadbalancer-14 to become available again before restarting loadbalancer-15.
 
-In clusters larger than our kubey example, the maxUnavailable for the worker pool may be set to a large number to reboot multiple nodes in parallel to speed up deployment of the new version of OpenShift. This number will take into account the work loads on the cluster to make sure sufficient resources are left to maintain application availability.
+In clusters larger than the example cluster, the `maxUnavailable` for the worker pool may be set to a large number to reboot multiple nodes in parallel to speed up deployment of the new version of OpenShift. This number will take into account the work loads on the cluster to make sure sufficient resources are left to maintain application availability.
 
-For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicatset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful DB may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.
+For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicatset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.
 
 [NOTE]
 ====
-Do NOT set your pod disruption budget to maxUnavailable <number of pods in replica> or minUnavailable zero, operations will change your pod disruption budget to proceed with an upgrade at the risk of your application.
+Do NOT set your pod disruption budget to `maxUnavailable` <number of pods in replica> or minUnavailable zero, operations will change your pod disruption budget to proceed with an upgrade at the risk of your application.
 ====
 
 A corollary to the pod disruption budget is a strong readiness and health check. A well implemented readiness check is key for surviving these upgrades in that a pod should not report itself ready to kubernetes until it is actually ready to take over the load from another pod of the example set. An example of this being implemented poorly would be for a pod to report itself ready but it is not in sync with the other DB pods in the example above. Kubernetes could see that three of the pods are "ready" and destroy a second pod and cause disruption to the DB leading to failure of the application served by said DB.
 
-Reference on Pod Disruption budget:
-
-link:link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[]
+See link:link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
 
 [source,yaml]
 ----
@@ -708,9 +731,7 @@ spec:
       app: db
 ----
 
-Reference on maxUnavailable:
-
-link:https://docs.openshift.com/container-platform/4.2/scalability_and_performance/recommended-host-practices.html#master-node-sizing_[]
+See link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/recommended-host-practices.html[Recommended performance and scalability practices].
 
 By default, only one machine is allowed to be unavailable when applying the kubelet-related configuration to the available worker nodes. For a large cluster, it can take a long time for the configuration change to be reflected. At any time, you can adjust the number of machines that are updating to speed up the process.
 
@@ -721,7 +742,7 @@ Run:
 $ oc edit machineconfigpool worker
 ----
 
-Set maxUnavailable to the desired value.
+Set `maxUnavailable` to the desired value.
 
 [source,yaml]
 ----
@@ -729,20 +750,32 @@ spec:
   maxUnavailable: <node_count>
 ----
 
-=== OpenShift Virtualization/kubevirt
+[id="cnf-best-practices-openshift-virtualization-kubevirt"]
+=== OpenShift Virtualization and CNV best practices
 
-OpenShift Virtualization and VMs (CNV) best practices:: When OpenShift Virtualization becomes generally-available for enterprise workloads, such throughput- and latency-insensitive workloads may be added to the cluster. VNFs and other throughput- or latency-sensitive applications can be considered only after careful validation. Until then, it is recommended to keep these workloads on OSP VMs.
-+
-OpenShift Virtualization should be installed according to its documentation, and only documented supported features may be used unless an explicit exception has been granted. See: link:https://docs.openshift.com/container-platform/4.7/virt/about-virt.html
-+
-In order to improve overall virtualization performance and reduce CPU latency, critical VNFs can take advantage of OpenShift Virtualization's high-performance features. These can provide the VNFs with dedicated physical CPUs link:https://docs.openshift.com/container-platform/4.7/virt/virtual_machines/advanced_vm_management/virt-dedicated-resources-vm.html[1] and "isolate" QEMU threads, such as the emulator thread and the IO thread, on a separate physical CPU link:https://kubevirt.io/user-guide/virtual_machines/dedicated_cpu_resources/#requesting-dedicated-cpu-for-qemu-emulator[2] link:https://kubevirt.io/user-guide/#/creation/disks-and-volumes?id=iothreads-with-qemu-emulator-thread-and-dedicated-pinned-cpus[3] so it will not affect the workloads CPU latency.
-+
-Similar to OpenStack, OpenShift Virtualization supports the device role tagging mechanismlink:https://kubevirt.io/user-guide/virtual_machines/startup_scripts/#device-role-tagging[4]. for the network interfaces (same format as it is in OSP). Users will be able to tag Network interfaces in the API and identify them in device metadata provided to the guest OS via the config drive.
+OpenShift Virtualization is generally-available for enterprise workloads, such throughput- and latency-insensitive workloads that may be added to the cluster. VNFs and other throughput or latency-sensitive applications can be considered only after careful validation.
 
+OpenShift Virtualization should be installed according to its documentation, and only documented supported features may be used unless an explicit exception has been granted. See link:https://docs.openshift.com/container-platform/latest/virt/about-virt.html[About OpenShift Virtualization].
 
+In order to improve overall virtualization performance and reduce CPU latency, critical VNFs can take advantage of OpenShift Virtualization's high-performance features. These can provide the VNFs with the following features:
+
+* link:https://docs.openshift.com/container-platform/latest/virt/virtual_machines/advanced_vm_management/virt-dedicated-resources-vm.html[Dedicated resources for virtual machines]
+
+* link:https://kubevirt.io/user-guide/virtual_machines/dedicated_cpu_resources/#requesting-dedicated-cpu-for-qemu-emulator[Dedicated CPU for QEMU emulators]
+
+* link:https://kubevirt.io/user-guide/virtual_machines/disks_and_volumes/#iothreads-with-qemu-emulator-thread-and-dedicated-pinned-cpus[A separate physical CPU] so as to not affect the CPU latency for workloads.
+
+[NOTE]
+====
+Similar to OpenStack, OpenShift Virtualization supports the link:https://kubevirt.io/user-guide/virtual_machines/startup_scripts/#device-role-tagging[device role tagging mechanism] for the network interfaces (same format as it is in OSP). Users will be able to tag Network interfaces in the API and identify them in device metadata provided to the guest OS via the config drive.
+====
+
+[id="cnf-best-practices-vm-image-import-recommendations-cdi"]
 ==== VM Image Import Recommendations (CDI)
 
-OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (PVs). PVs are requested by VMs using kubernetes Persistent Volume Claims (PVCs). VMs may require a combination of blank and pre-populated disks in order to function. Blank disks can be initialized automatically by kubevirt when an empty PV is initially encountered by a starting VM. Other disks must be populated prior to starting the VM. OpenShift Virtualization provides a component called the Containerized Data Importer (CDI) which automates the preparation of pre-populated persistent disks for VMs. CDI integrates with KubeVirt to synchronize VM creation and deletion with disk preparation by using a custom resource called a DataVolume. Using DataVolumes, data can be imported into a PV from various sources including container registries and HTTP servers.
+OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (`PV`). PVs are requested by VMs using kubernetes Persistent Volume Claims (`PVC`). VMs may require a combination of blank and pre-populated disks in order to function.
+
+Blank disks can be initialized automatically by kubevirt when an empty PV is initially encountered by a starting VM. Other disks must be populated prior to starting the VM. OpenShift Virtualization provides a component called the Containerized Data Importer (CDI) which automates the preparation of pre-populated persistent disks for VMs. CDI integrates with KubeVirt to synchronize VM creation and deletion with disk preparation by using a custom resource called a DataVolume. Using DataVolumes, data can be imported into a PV from various sources including container registries and HTTP servers.
 
 The following recommendations should be followed when managing persistent disks for VMs:
 
@@ -750,16 +783,19 @@ Blank disks:: Create a PVC and associate it with the VM using a persistentVolume
 
 Populated disks:: In the VirtualMachine spec, add a DataVolume to the dataVolumeTemplates section and always use the dataVolume volume type in the volumes section.
 
+[id="cnf-best-practices-working-with-large-vm-disk-images"]
 ==== Working with large VM disk images
 
 In contrast to container images, VM disk images can be quite large (30GiB or more is common). It is important to consider the costs of transferring large amounts of data when planning workflows involving the creation of VMs (especially when scaling up the number of VMs). The efficiency of an image import depends on the format of the file and also the transfer method used. The most efficient workflow, for two reasons, is to host a gzip-compressed raw image on a server and import via HTTP. Compression avoids transferring zeros present in the free space of the image, and CDI can stream the contents directly into the target PV without any intermediate conversion steps. In contrast, images imported from a container registry must be transferred, unarchived, and converted prior to being usable. These additional steps increase the amount of data transferred between a node and the remote storage.
 
+[id="cnf-best-practices-operator-best-practices"]
 === Operator Best Practices
 
-Operator best practices are currently managed here: Operator Best Practices and will be incorporated into this document in the future. OLM Packaged operators are a package that contains an index of all the images required to install the operator, and the "cluster service version" which instructs openshift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.
+OLM Packaged operators contain an index of all the images required to install the operator, and the `ClusterServiceVersion` which instructs OpenShift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.
 
 The OLM Packaged operator will then run in openshift-operators namespace within the cluster. Users can then utilize this operator by creating CRs within the CRDs that were created by the operator OLM package, to deploy the software managed by the operator. The platform administrator handles the OLM based operator installation for the users by creating a custom catalog in the cluster that is targeted by the application. The users then express via CRs that are consumed by the operator what they would like the operator to create in the users namespace.
 
+[id="cnf-best-practices-cnf-operator-requirements"]
 ==== CNF Operator requirements
 
 * Operators should be certified against the openshift version of the cluster they will be deployed on.
@@ -778,7 +814,7 @@ The OLM Packaged operator will then run in openshift-operators namespace within 
 
 * Operators must not use daemonsets
 
-* The OLM operator CSV must support the “all namespaces” install method if the operator is upstream software. If the operator is a proprietary cnf operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.
+* The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary cnf operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.
 
 * The operator must default to watch all namespaces if the target namespace is left NULL or empty string as this is how the OLM global-operators operator group functions.
 
@@ -803,11 +839,3 @@ The OLM Packaged operator will then run in openshift-operators namespace within 
 * All required RBAC must be included in the OLM operator bundle so that it's managed by OLM.
 
 * It is not recommended for a cnf application to share a proprietary operator with another cnf application if that application does not share the same version lifecycle. If a cnf application does share an operator the CRDs must be backwards compatible.
-
-==== CNF Operator CRD Example
-
-.CNF Operator CRD Example
-[source,yaml]
-----
----
-----

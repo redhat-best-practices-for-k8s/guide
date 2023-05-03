@@ -1,10 +1,21 @@
 [id="cnf-best-practices"]
-= Best practice for developing cloud-native network functions
-version 1.5, April 2023
+= CNF best practices
+Cloud-native network functions (CNFs) best practices
+:revnumber: 1.5
+:revdate: 2023-05-10
 :toc: left
 :toclevels: 5
+:toc-title: CNF best practices v{revnumber}
 :repo-url: https://github.com/aireilly/cnf-best-practices
-:toc-title: CNF best practices v1.5
+:icons: image
+:icontype: svg
+:iconsdir: pdf/icons
+:sectnums:
+:sectnumlevels: 5
+
+toc::[]
+
+This document provides guidance and best practices information for developing OpenShift applications that utilize cloud-native functions (CNFs) for high-performance workloads.
 
 include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
 
@@ -49,3 +60,4 @@ include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
 include::modules/cnf-best-practices-expectations-permissions.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
+

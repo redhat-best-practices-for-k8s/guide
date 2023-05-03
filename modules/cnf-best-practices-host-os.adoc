@@ -1,11 +1,9 @@
 [id="cnf-best-practices-host-os"]
-= Host OS
+= Container host operating system
 
-Red Hat Enterprise Linux CoreOS (RHCOS) is the next generation container operating system. RCHOS is part of the OpenShift Container Platform and is used as the OS for the Control plane and is the default for worker nodes. RHCOS is based on RHEL, has some immutability, leverages the CRI-O runtime, contains container tools and is updated through the MCO (Machine Config Operator).
+Red Hat Enterprise Linux CoreOS (RHCOS) is the next generation container operating system. RCHOS is part of OpenShift Container Platform and is used as the operating system for the control plane. it is the default operating system for worker nodes. RHCOS is based on RHEL, has some immutability, leverages the CRI-O runtime, contains container tools, and is updated through the Machine Config Operator (MCO).
 
 The controlled immutability of RHCOS does not support installing RPMs or additional packages in the traditional way. Some 3rd party services or functionalities need to run as agents on nodes of the cluster.
 
-For more information on RHCOS please refer to the following link.
-
-link:https://docs.openshift.com/container-platform/4.7/architecture/architecture-rhcos.html[]
+For more information, see link:https://docs.openshift.com/container-platform/latest/architecture/architecture-rhcos.html[About RHCOS].
 

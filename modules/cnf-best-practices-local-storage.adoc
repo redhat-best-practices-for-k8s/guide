@@ -1,11 +1,11 @@
 [id="cnf-best-practices-local-storage"]
-= Local Storage
+= Local storage
 
-Local storage is available on worker nodes for ephemeral storage ONLY.
+Local storage is available on worker nodes for ephemeral storage only.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-PODs must *NOT* place persistent volumes on local storage
+Pods must not place persistent volumes in local storage.
 ====
 

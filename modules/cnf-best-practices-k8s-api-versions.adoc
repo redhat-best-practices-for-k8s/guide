@@ -1,13 +1,12 @@
 [id="cnf-best-practices-k8s-api-versions"]
 = Kubernetes API Versions
 
-Documentation can be found at the below links:
+Review the Kubernetes and OpenShift API documentation:
 
-link:https://docs.openshift.com/container-platform/4.7/rest_api/index.html[]
-link:https://docs.openshift.com/container-platform/4.10/rest_api/index.html[]
-link:https://kubernetes.io/docs/reference/#[]
+* link:https://docs.openshift.com/container-platform/latest/rest_api/index.html[OpenShift API index]
+* link:https://kubernetes.io/docs/reference/#[Kubernetes API reference]
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
 All CNFs must verify that they are compliant with the correct release of REST API for Kubernetes and OpenShift. Please refer to the online documentation for deprecated APIs.

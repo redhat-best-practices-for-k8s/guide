@@ -1,2 +1,0 @@
-[.navbar]
-link:#[image:assets/images/redhat.svg[Home,30] | {toc-title}]

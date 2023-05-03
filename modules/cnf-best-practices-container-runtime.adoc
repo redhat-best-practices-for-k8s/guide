@@ -1,19 +1,27 @@
 [id="cnf-best-practices-container-runtime"]
-= Container Runtime
+= Container runtime
 
-OpenShift uses CRI-O as a CRI interface for Kubernetes. CRI-O manages runC for container image execution. CRI-O is an open-source container engine that provides a stable, performant platform for running OCI compatible runtimes. CRI-O is developed, tested and released in tandem with Kubernetes major and minor releases. Images should be OCI compliant. Images are recommended to be built using Red Hat's open Universal Base Image. See later sections for additional information on UBI and support.
+OpenShift uses CRI-O as a CRI interface for Kubernetes. CRI-O manages `runC` for container image execution. CRI-O is an open-source container engine that provides a stable, performant platform for running OCI compatible runtimes. CRI-O is developed, tested and released in tandem with Kubernetes major and minor releases.
 
-Red Hat Documentation on CRI-O and Read Only Containers
 
-link:https://blog.openshift.com/add-a-layer-of-security-to-openshift-kubernetes-with-cri-o-in-read-only-mode/[]
+[NOTE]
+====
+Images should be OCI compliant. Red Hat recommends that you build images using Red Hat's open Universal Base Image (UBI).
 
-link:https://github.com/cri-o/cri-o/blob/master/docs/crio.8.md[]
+See <<cnf-best-practices-ubi>> for additional information about UBI and support.
+====
 
-This environment is maintained through the open source tools:
+For more information about CRI-O, see the following:
 
-* runc
-* skopeo
-* buildah
-* podman
-* crio
+* link:https://blog.openshift.com/add-a-layer-of-security-to-openshift-kubernetes-with-cri-o-in-read-only-mode/[Add a Layer of Security to OpenShift/Kubernetes with CRI-O in Read Only Mode]
+
+* link:https://github.com/cri-o/cri-o/blob/master/docs/crio.8.md[CRI-O docs]
+
+This environment is maintained with the following open source tools:
+
+* link:https://github.com/opencontainers/runc[runc]
+* link:https://github.com/containers/skopeo[skopeo]
+* link:https://buildah.io/[buildah]
+* link:https://podman.io/[podman]
+* link:https://cri-o.io/[CRI-O]
 
