@@ -1,6 +1,10 @@
 [id="cnf-best-practices"]
-= CNF Best Practices
+= Best practice for developing cloud-native network functions
 version 1.5, April 2023
+:toc: left
+:toclevels: 5
+:repo-url: https://github.com/aireilly/cnf-best-practices
+:toc-title: CNF best practices v1.5
 
 include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
 
