@@ -1,0 +1,9 @@
+[id="cnf-best-practices-k8s"]
+= Kubernetes
+
+Kubernetes is an open source container orchestration suite of software that is API driven with a datastore keeping state of the deployments resident on the cluster.
+
+The Kubernetes API is the mechanism with which applications and people interact with the cluster. There are several ways to do this, via the kubectl or oc CLI tools, via web based UIs or interacting directly with API using tools such as curl, or the SDKs can be used to build your own tools.
+
+When interacting with the API, this can be done in at least one of two ways. If the application, or person is external to the cluster, the APIs can be accessed externally. If the application or person is on the cluster, or inside the cluster, one can access the cluster by hitting the Kubernetes Service Resource directly, bypassing the need to exit the cluster and come back in.
+
