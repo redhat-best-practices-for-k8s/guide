@@ -1,13 +1,11 @@
 [id="cnf-best-practices-csi"]
 = Container Storage (CSI)
 
-Pod Volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and will be lost in the event a pod is killed and recreated. If a Pod requires persistent storage the CSI can be used via kubernetes native primitives persistentVolume (PV) and persistentVolumeClaim (PVC) to
+Pod volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and is lost when a pod is killed and recreated. If a pod requires persistent storage, the CSI can be used via Kubernetes native primitives `persistentVolume` (`PV`) and `persistentVolumeClaim` (`PVC`) to get persistent storage, such as an NFS share via the CSI backed by NetApp Trident.
 
-get persistent storage, such as an NFS share via the CSI backed by NetApp Trident.
+When using storage with Kubernetes, you can use storage classes. Refer to <<cnf-best-practices-block-storage>> for a description of the available storage classes. Using storage classes, you can create volumes based on the parameters of the required storage.
 
-When using storage with Kubernetes, one can leverage storage classes. Please refer to the Block Storage section 3.3.5 for a description of the available storage classes. Volumes can then be requested based on the parameters of the storage they wish to use.
+Network functions should clear persistent storage by deleting the associated `PV` resources when removing the application from a cluster.
 
-Network Functions should clear persistent storage by deleting their PVs when removing their application from a cluster.
-
-Red Hat Persistent Storage Documentation:: link:https://docs.openshift.com/container-platform/4.4/storage/container_storage_interface/persistent-storage-csi.html[]
+For more information, see link:https://docs.openshift.com/container-platform/latest/storage/container_storage_interface/persistent-storage-csi.html[Red Hat Persistent Storage].
 

@@ -7,12 +7,12 @@ import re
 input_file = sys.argv[1]
 
 # Splits an input monolithic AsciiDoc file into child modules
-# Input file must be marked up with [[section-id]] markers which are used to generate the filenames
+# Input file must be marked up with [id="section-id"] markers which are used to generate the filenames
 with open(input_file, 'r') as in_file:
     current_section_title = None
     current_section_lines = []
     for line in in_file:
-        section_title_regex = r'^\[\[(.*)\]\]$'
+        section_title_regex = r'^\[id="(.*)"\]$'
         section_title_match = re.match(section_title_regex, line.strip())
         if section_title_match:
             if current_section_title:

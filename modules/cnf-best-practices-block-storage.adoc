@@ -7,11 +7,11 @@ There are 2 types of storage connectivity and 2 levels of storage in each. All b
 
 The two types of storage connectivity are:
 
-NFS:: This is the default storage type
+NFS:: is the default storage type
 
-iSCSI:: This type of storage should ONLY be used if needed by database type applications
+iSCSI:: storage should only be used for database type applications
 
-More info on Block Volume storage support here:
+See link:https://docs.openshift.com/container-platform/latest/storage/understanding-persistent-storage.html#block-volume-support_understanding-persistent-storage[Block Volume storage support] for more information.
 
-link:https://docs.openshift.com/container-platform/4.4/storage/understanding-persistent-storage.html#block-volume-support_understanding-persistent-storage[]
+
 

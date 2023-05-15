@@ -1,25 +1,26 @@
 [id="cnf-best-practices-ubi"]
-= Universal Base Image
+= Red Hat Universal Base Images
 
-link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455[]
+link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455[Red Hat Universal Base Images (UBI)] is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.
 
-The Red Hat Universal Base Image (UBI) is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even to non-Red Hat platforms - no subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.
-
+[id="cnf-best-practices-base-images"]
 == Base Images
 
 A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
 
+[id="cnf-best-practices-runtime-languages"]
 === Runtime Languages
 
 A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.
 
+[id="cnf-best-practices-complementary-packages"]
 === Complementary packages
 
 A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.
 
-Red Hat UBI images are the preferred images to build VNFs on as they will leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
+Red Hat UBI images are the preferred images to build virtual network functions (VNFs) with as they leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
 
-Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See the link below for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
+Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container[Partner Guide for OpenShift and Container Certification] for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
 
-link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container[]
+
 

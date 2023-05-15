@@ -1,31 +1,44 @@
 [id="cnf-best-practices-user-plane-functions"]
-= User Plane Functions
+= User plane functions
 
-== Performance Addon Operator (PAO)
+Develop user plane functions that meet the following requirements.
 
-Red Hat created the link:Performance Addon Operator# for low latency nodes. The emergence of Edge computing []in the area of Telco / 5G plays a key role in reducing latency and congestion problems andimproving application performance. Many of the deployed applications in the Telco space require low latency that can only tolerate zero packet loss. OpenShift Container Platform provides a Performance Addon Operator to implement automatic tuning to achieve low latency performance for applications. The PAO is a meta operator that leverages MachineConfig, Topology Manager, CPU Manager, Tuned and KubeletConfig to optimize the nodes.
+[id="cnf-best-practices-performance-addon-operator-pao"]
+== Node Tuning Operator
 
-== Hugepages
+Red Hat created the
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-provisioning-real-time-and-low-latency-workloads_cnf-master[Node Tuning Operator] for low latency nodes.
 
-In the Openshift Container Platform, nodes/hosts must pre-allocate huge pages.
+[NOTE]
+====
+In OpenShift Container Platform version 4.10 and previous versions, the Performance Addon Operator was used to implement automatic tuning to achieve low latency performance. Now this functionality is part of the Node Tuning Operator.
+====
 
-For further reading on OCP's support of huge pages, see the Configuring huge pages documentation below.
+The emergence of Edge computing in the area of Telco plays a key role in reducing latency, congestion, and improving application performance. Many of the deployed applications in the Telco space require low latency and zero packet loss. OpenShift Container Platform provides a Node Tuning Operator to implement automatic tuning to achieve low latency performance for applications. The Node Tuning Operator is a meta-operator that leverages `MachineConfig`, `Tuned` and `KubeletConfig` resources, Topology Manager, and CPU Manager, to optimize the nodes.
 
-link:https://docs.openshift.com/container-platform/4.7/scalability_and_performance/cnf-performance-addon-operator-for-low-latency-nodes.html#cnf-configuring-huge-pages_cnf-master[]
+[id="cnf-best-practices-hugepages"]
+== Huge pages
 
-== CPU Isolation
+In Openshift Container Platform, nodes/hosts must pre-allocate huge pages.
 
-The Performance Addon Operator manages host CPUs by dividing them into reserved CPUs for cluster and operating system housekeeping duties, and isolated CPUs for workloads. CPUs that are used for low latency workloads are set as isolated.
+For more information, see
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].
+
+[id="cnf-best-practices-cpu-isolation"]
+== CPU isolation
+
+The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs for cluster and operating system housekeeping duties, and isolated CPUs for workloads. CPUs that are used for low latency workloads are set as isolated.
 
 Device interrupts are load balanced between all isolated and reserved CPUs to avoid CPUs being overloaded, with the exception of CPUs where there is a guaranteed pod running. Guaranteed pod CPUs are prevented from processing device interrupts when the relevant annotations are set for the pod.
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-In order to use Isolated CPUs, specific annotations must be defined in the pod spec
+To use isolated CPUs, specific annotations must be defined in the pod specification.
 ====
 
-== Topology Manager and NUMA Awareness
+[id="cnf-best-practices-topology-manager-and-numa-awareness"]
+== Topology Manager and NUMA awareness
 
 Topology Manager collects hints from the CPU Manager, Device Manager, and other Hint Providers to align pod resources, such as CPU, SR-IOV VFs, and other device resources, for all Quality of Service (QoS) classes on the same non-uniform memory access (NUMA) node. This topology information and the configured Topology manager policy determine whether a workload is accepted or rejected on a node.
 
@@ -42,28 +55,31 @@ For each container in a pod with the best-effort topology management policy, kub
 Restricted policy::
 For each container in a pod with the restricted topology management policy, kubelet calls each Hint Provider to discover their resource availability. Using this information, the Topology Manager stores the preferred NUMA Node affinity for that container. If the affinity is not preferred, Topology Manager rejects this pod from the node, resulting in a pod in a Terminated state with a pod admission failure.
 
-Single-numa-node policy::
-For each container in a pod with the single-numa-node topology management policy, kubelet calls each Hint Provider to discover their resource availability. Using this information, the Topology Manager determines if a single NUMA Node affinity is possible. If it is, the pod is admitted to the node. If a single NUMA Node affinity is not possible, the Topology Manager rejects the pod from the node. This results in a pod in a Terminated state with a pod admission failure. For more information on Topology manager, see following link:#[OpenShift Documentation].
+Single NUMA node policy::
+For each container in a pod with the single-numa-node topology management policy, kubelet calls each Hint Provider to discover their resource availability. Using this information, the Topology Manager determines if a single NUMA Node affinity is possible. If it is, the pod is admitted to the node. If a single NUMA Node affinity is not possible, the Topology Manager rejects the pod from the node. This results in a pod in a Terminated state with a pod admission failure. For more information about the Topology manager, see
 
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/using-cpu-manager.html[Using CPU Manager and Topology Manager].
+
+[id="cnf-best-practices-ipv4-ipv6"]
 == IPv4 & IPv6
 
 Applications should discover services via DNS by doing an AAAA and A query. If an application gets a AAAA response the application should prefer using the IPv6 address in the AAAA response for application sockets.
 
-In OpenShift 4.7, you can declare ipFamilyPolicy: PreferDualStack which will present an IPv4 and IPv6 address in the service.
+In OpenShift Container Platform 4.7+, you can declare `ipFamilyPolicy: PreferDualStack` which will present an IPv4 and IPv6 address in the service.
 
-.CNF Recommendation
+.CNF recommendation
 [IMPORTANT]
 ====
-IPv4 *should* only be used inside a POD when absolutely necessary.
+IPv4 should only be used inside a pod when absolutely necessary.
 ====
 
-.CNF Recommendation
+.CNF recommendation
 [IMPORTANT]
 ====
-Services *should* be created as IPv6 only services wherever possible. If an application requires dual stack it should create a dual stack service.
+Services should be created as IPv6 only services wherever possible. If an application requires dual stack it should create a dual stack service.
 ====
 
-link:https://kubernetes.io/docs/concepts/services-networking/dual-stack/[]
+For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dual-stack[IPv4/IPv6 dual-stack].
 
 To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 
@@ -74,19 +90,21 @@ kube-apiserver:
 ----
 
 
+[id="cnf-best-practices-vrfs-aka-routing-instances"]
 == VRFs (aka routing instances)
 
-VRFs provide a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.
+Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.
 
+[id="cnf-best-practices-ports-reserved-by-openshift"]
 == Ports reserved by OpenShift
 
-The following ports are reserved by OpenShift and should NOT be used by any application. These ports are blocked by iptables on the nodes and traffic will not pass. Port list:
+The following ports are reserved by OpenShift and should not be used by any application. These ports are blocked by iptables on the nodes and traffic will not pass. Port list:
 
 * `22623`
 * `22624`
 
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-The following ports are reserved by OpenShift and *must NOT be used* by any application: 22623, 22624
+The following ports are reserved by OpenShift and must not be used by any application: `22623`, `22624`.
 ====

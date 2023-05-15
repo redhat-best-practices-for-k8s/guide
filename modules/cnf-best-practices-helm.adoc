@@ -1,15 +1,14 @@
 [id="cnf-best-practices-helm"]
 = Helm v3
 
-Helm v3 is a serverless mechanism for defining templates that describe a complete kubernetes application. This allows a template to be built for an application and site/deployment specific values to be provided as input to the template when being pushed to a cluster such that different configurations can be made in different locations. It is roughly analogous to HEAT templates in the Openstack environment.
+Helm v3 is a serverless mechanism for defining templates that describe a complete Kubernetes application. This allows you to build generic templates for applications that you can use with site or deployment specific values to be provided as inputs to the template.
+Helm is roughly analogous to HEAT templates in the OpenStack environment.
 
-link:https://docs.openshift.com/container-platform/4.7/cli_reference/helm_cli/getting-started-with-helm-on-openshift-container-platform.html[]
+For more information, see link:https://docs.openshift.com/container-platform/latest/applications/working_with_helm_charts/understanding-helm.html[Understanding Helm].
 
-Please note that the version of OpenShift will change over time and this link only points to the current version that was in planning at the time this document was last updated.
-
-.CNF Requirement
+.CNF requirement
 [IMPORTANT]
 ====
-If an application is using Helm to deploy it must use Helm v3 due to security issues with Helm v2
+If you use Helm to deploy your application, you must use Helm v3 because of security issues with Helm v2.
 ====
 

@@ -1,9 +1,14 @@
 [id="cnf-best-practices-openshift-platform"]
-= OpenShift Platform
+[id="cnf-best-practices-developing-operators-and-containers-for-the-openshift-platform"]
+= Developing Operators and containers for the OpenShift platform
 
-* link:https://redhat-connect.gitbook.io/certified-operator-guide/[] - Guidelines on how to build an Operator that meets the Red Hat certification criteria.
+Review the following information to learn more about developing containers and Operators for the OpenShift platform that meet Red Hat certification criteria:
 
-* link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container/[] - Step-by-step instructions for partners on how to certify their images and operator.
+* link:https://redhat-connect.gitbook.io/certified-operator-guide/[Building Operators that meets the Red Hat certification criteria]
 
-* link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf/overview[] - Containers and Operators tests.
+* link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container/[Certify container images and Operators for partners]
+
+* link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf/overview[Obtaining Red Hat OpenShift Operator certification badges for containers and Operator tests]
+
+
 
