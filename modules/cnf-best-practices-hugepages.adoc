@@ -1,0 +1,8 @@
+[id="cnf-best-practices-huge-pages"]
+= Huge pages
+
+In Openshift Container Platform, nodes/hosts must pre-allocate huge pages.
+
+For more information, see
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].
+

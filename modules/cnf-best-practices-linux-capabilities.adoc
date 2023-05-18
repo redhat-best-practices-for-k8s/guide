@@ -1,5 +1,5 @@
 [id="cnf-best-practices-linux-capabilities"]
-= Linux Capabilities
+= Linux capabilities
 
 Linux Capabilities allow you to break apart the power of root into smaller groups of privileges. The link:https://man7.org/linux/man-pages/man7/capabilities.7.html[Linux capabilities(7)] man page provides a detailed description of how capabilities management is performed in Linux.
 In brief, the Linux kernel associates various capability sets with threads and files. The thread’s Effective capability set determines the current privileges of a thread.
@@ -33,7 +33,7 @@ Considering the general recommendation to avoid running root containers, capabil
 Refer to link:https://docs.openshift.com/container-platform/4.7/authentication/managing-security-context-constraints.html[] for more details on how to define and use the SCC.
 
 [id="cnf-best-practices-default-capabilities"]
-== DEFAULT Capabilities
+== DEFAULT capabilities
 
 The default capabilities that are allowed via the restricted SCC are as follows. link:https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go[]
 

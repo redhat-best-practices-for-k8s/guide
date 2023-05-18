@@ -45,7 +45,7 @@ The SR-IOV Network Operator also supports configuring the following parameters f
 * `trust`
 
 [id="cnf-best-practices-multicast"]
-== Configuring Multicast
+== Configuring multicast
 
 In OpenShift, multicast is supported for both the default interface (OVN or OpenShift-SDN) and the additional interfaces such as macvlan, SR-IOV, etc. Multicast is disabled by default. To enable it, refer to the following procedures:
 
@@ -107,16 +107,33 @@ $ $ /usr/share/systemtap/examples/profiling/container_check.stp -c 'testpmd -l 1
 ----
 [...]
 capabilities used by executables
-executable: prob capability
-testpmd: cap_ipc_lock
-testpmd: cap_sys_rawio
+    executable:   prob capability
+    testpmd:      cap_ipc_lock
+    testpmd:      cap_sys_rawio
+
 capabilities used by syscalls
-executable, syscall ( capability ) : count testpmd, mlockall ( cap_ipc_lock ) : 1 testpmd, mmap ( cap_ipc_lock ) : 710 testpmd, open ( cap_sys_rawio ) : 1 testpmd, iopl ( cap_sys_rawio ) : 1
-forbidden syscalls
-executable, syscall: count
+    executable,   syscall ( capability )    : count
+    testpmd,      mlockall ( cap_ipc_lock ) : 1
+    testpmd,      mmap ( cap_ipc_lock )     : 710
+    testpmd,      open ( cap_sys_rawio )    : 1
+    testpmd,      iopl ( cap_sys_rawio )    : 1
+
 failed syscalls
-executable, syscall [id="cnf-best-practices-errno:-count-eal-intr-thread,-epoll_wait-=-eintr:-1-lcore-slave-2,-read-=-1-rte_mp_handle,-recvmsg-=-1-stapio,-=-eintr:-1-stapio,-execve-=-enoent:-3-stapio,-rt_sigsuspend-=-1-testpmd,-flock-=-eagain:-5-testpmd,-stat-=-enoent:-10-testpmd,-mkdir-=-eexist:-2-testpmd,-readlink-=-enoent:-3-testpmd,-access-=-enoent:-1141-testpmd,-openat-=-enoent:-1-testpmd,-open-=-enoent:-13-[...]"]
-= errno: count eal-intr-thread, epoll_wait = EINTR: 1 lcore-slave-2, read = 1 rte_mp_handle, recvmsg = 1 stapio, = EINTR: 1 stapio, execve = ENOENT: 3 stapio, rt_sigsuspend = 1 testpmd, flock = EAGAIN: 5 testpmd, stat = ENOENT: 10 testpmd, mkdir = EEXIST: 2 testpmd, readlink = ENOENT: 3 testpmd, access = ENOENT: 1141 testpmd, openat = ENOENT: 1 testpmd, open = ENOENT: 13 [...]
+    executable,          syscall =       errno:   count
+    eal-intr-thread,  epoll_wait =       EINTR:       1
+    lcore-slave-2,          read =            :       1
+    rte_mp_handle,       recvmsg =            :       1
+    stapio,                      =       EINTR:       1
+    stapio,               execve =      ENOENT:       3
+    stapio,        rt_sigsuspend =            :       1
+    testpmd,               flock =      EAGAIN:       5
+    testpmd,                stat =      ENOENT:      10
+    testpmd,               mkdir =      EEXIST:       2
+    testpmd,            readlink =      ENOENT:       3
+    testpmd,              access =      ENOENT:    1141
+    testpmd,              openat =      ENOENT:       1
+    testpmd,                open =      ENOENT:      13
+    [...]
 ----
 
 . Use the `capable` command:
@@ -138,8 +155,20 @@ $ testpmd -l 18-19 -w 0000:01:00.0 -- -a --portmask=0x1 --nb-cores=1
 [source,terminal]
 ----
 [...]
-
-00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 00:41:58 0 3591 3591 testpmd 14 CAP_IPC_LOCK 1 [...]
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+[...]
 ----
 
 . Also, try to run `testpmd` without `CAP_IPC_LOCK` set with `capsh`. Now we can see that the hugepage memory cannot be allocated.
@@ -188,7 +217,7 @@ Applications must define network policies that permit only the minimum network a
 ====
 
 [id="cnf-best-practices-secrets-management"]
-== Managing Secrets
+== Managing secrets
 
 Secrets objects in OpenShift provide a way to hold sensitive information such as passwords, config files and credentials. There are 4 types of secrets; service account, basic auth, ssh auth and TLS. Secrets can be added via deployment configurations or consumed by pods directly. For more information on secrets and examples, see the following documentation.
 
@@ -198,103 +227,5 @@ link:https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-
 == Setting SCC permissions for applications
 
 Permissions to use an SCC is done by adding a cluster role that has _uses_ permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.
-
-[id="cnf-best-practices-user-plane-cnfs"]
-== Handling user-plane CNFs
-
-A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.
-
-This kind of CNF may need to:
-
-. Use SR-IOV interfaces
-
-. Fully or partially bypassing the kernel networking stack with userspace networking technologies, like DPDK, F-stack, VPP, OpenFastPath, etc. A userspace networking stack can not only improve the performance but also reduce the need for the `CAP_NET_ADMIN` and `CAP_NET_RAW`.
-
-
-[NOTE]
-====
-For Mellanox devices, those capabilities are requested if the application needs to configure the device(CAP_NET_ADMIN) and/or allocate raw ethernet queue through kernel drive(CAP_NET_RAW)
-====
-
-As `CAP_IPC_LOCK` is mandatory for allocating hugepage memory, this capability is granted to DPDK-based applications. Additionally, if the workload is latency-sensitive and needs the determinacy provided by the real-time kernel, the `CAP_SYS_NICE` is also required.
-
-Here is an example pod manifest of a DPDK application:
-
-[source,yaml]
-----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dpdk-app
-  namespace: <target_namespace>
-  annotations:
-    k8s.v1.cni.cncf.io/networks: dpdk-network
-spec:
-  containers:
-  - name: testpmd
-    image: <DPDK_image>
-    securityContext:
-      capabilities:
-        add: ["IPC_LOCK"]
-    volumeMounts:
-    - mountPath: /dev/hugepages
-      name: hugepage
-    resources:
-      limits:
-      openshift.io/mlxnics: "1"
-      memory: "1Gi"
-      cpu: "4"
-      hugepages-2Mi: "4Gi"
-    requests:
-      openshift.io/mlxnics: "1"
-      memory: "1Gi"
-      cpu: "4"
-      hugepages-2Mi: "4Gi"
-    command: ["sleep", "infinity"]
-volumes:
-- name: hugepage
-  emptyDir:
-    medium: HugePages
-----
-
-[source,yaml]
-----
-apiVersion: security.openshift.io/v1
-kind: SecurityContextConstraints
-metadata:
-  name: cnfname
-users: []
-groups: []
-priority: null
-allowHostDirVolumePlugin: false
-allowHostIPC: false
-allowHostNetwork: false
-allowHostPID: false
-allowHostPorts: false
-allowPrivilegeEscalation: true
-allowPrivilegedContainer: false
-allowedCapabilities: [IPC_LOCK, NET_ADMIN, NET_RAW] defaultAddCapabilities: null
-requiredDropCapabilities:
-- KILL
-- MKNOD
-- SETUID
-- SETGID
-fsGroup:
-  type: MustRunAs
-readOnlyRootFilesystem: false
-runAsUser:
-  type: MustRunAsRange
-seLinuxContext:
-  type: MustRunAs
-supplementalGroups:
-  type: RunAsAny
-volumes:
-- configMap
-- downwardAPI
-- emptyDir
-- persistentVolumeClaim
-- projected
-- secret
-----
 
 

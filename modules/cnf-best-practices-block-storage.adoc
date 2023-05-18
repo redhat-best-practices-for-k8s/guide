@@ -1,5 +1,5 @@
 [id="cnf-best-practices-block-storage"]
-= Block Storage
+= Block storage
 
 OpenShift Container Platform can provision raw block volumes. These volumes do not have a file system, and can provide performance benefits for applications that either write to the disk directly or implement their own storage service.
 

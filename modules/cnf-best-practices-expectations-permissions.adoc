@@ -73,9 +73,9 @@ Containers must not run as root
 ====
 
 .CNF requirement
+[IMPORTANT]
 ====
 All secondary interfaces (MULTUS) must support dual stack
-[IMPORTANT]
 ====
 
 .CNF requirement
@@ -198,7 +198,7 @@ All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit
 ====
 
 [id="cnf-best-practices-pod-resource-profiles"]
-==== Pod Resource Profiles
+==== Pod resource profiles
 
 OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.
 
@@ -332,9 +332,7 @@ Pods must define requests and limits values for CPU and memory.
 [id="cnf-best-practices-use-imagepullpolicy-if-not-present"]
 ==== Use imagePullPolicy: IfNotPresent
 
-If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: `Always`, `Never` and `IfNotPresent`. It is generally recommended to have a pull policy of `IfNotPresent`. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse
-
-the already downloaded container image if it's available. OpenShift intentionally does not set `AlwaysPullImages` as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use `PullIfNotPresent` so that a loss of image registry access does not prevent the pod from restarting.
+If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: `Always`, `Never` and `IfNotPresent`. It is generally recommended to have a pull policy of `IfNotPresent`. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse the already downloaded container image if it's available. OpenShift intentionally does not set `AlwaysPullImages` as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use `PullIfNotPresent` so that a loss of image registry access does not prevent the pod from restarting.
 
 [NOTE]
 ====
@@ -458,7 +456,7 @@ See link:https://docs.openshift.com/container-platform/latest/networking/multipl
 
 SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.
 
-SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a network function has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the network functions which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN/network that the SR-IOV interface requires must be part of the request for the namespace.
+SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a network function has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the network functions which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN / network that the SR-IOV interface requires must be part of the request for the namespace.
 
 For more information, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html[About Single Root I/O Virtualization (SR-IOV) hardware networks].
 
@@ -751,7 +749,7 @@ spec:
 ----
 
 [id="cnf-best-practices-openshift-virtualization-kubevirt"]
-=== OpenShift Virtualization and CNV best practices
+=== OpenShift virtualization and CNV best practices
 
 OpenShift Virtualization is generally-available for enterprise workloads, such throughput- and latency-insensitive workloads that may be added to the cluster. VNFs and other throughput or latency-sensitive applications can be considered only after careful validation.
 
@@ -771,7 +769,7 @@ Similar to OpenStack, OpenShift Virtualization supports the link:https://kubevir
 ====
 
 [id="cnf-best-practices-vm-image-import-recommendations-cdi"]
-==== VM Image Import Recommendations (CDI)
+==== VM image import recommendations (CDI)
 
 OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (`PV`). PVs are requested by VMs using kubernetes Persistent Volume Claims (`PVC`). VMs may require a combination of blank and pre-populated disks in order to function.
 
@@ -789,7 +787,7 @@ Populated disks:: In the VirtualMachine spec, add a DataVolume to the dataVolume
 In contrast to container images, VM disk images can be quite large (30GiB or more is common). It is important to consider the costs of transferring large amounts of data when planning workflows involving the creation of VMs (especially when scaling up the number of VMs). The efficiency of an image import depends on the format of the file and also the transfer method used. The most efficient workflow, for two reasons, is to host a gzip-compressed raw image on a server and import via HTTP. Compression avoids transferring zeros present in the free space of the image, and CDI can stream the contents directly into the target PV without any intermediate conversion steps. In contrast, images imported from a container registry must be transferred, unarchived, and converted prior to being usable. These additional steps increase the amount of data transferred between a node and the remote storage.
 
 [id="cnf-best-practices-operator-best-practices"]
-=== Operator Best Practices
+=== Operator best practices
 
 OLM Packaged operators contain an index of all the images required to install the operator, and the `ClusterServiceVersion` which instructs OpenShift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.
 
@@ -798,44 +796,104 @@ The OLM Packaged operator will then run in openshift-operators namespace within 
 [id="cnf-best-practices-cnf-operator-requirements"]
 ==== CNF Operator requirements
 
-* Operators should be certified against the openshift version of the cluster they will be deployed on.
+.CNF requirement
+[IMPORTANT]
+====
+Operators should be certified against the openshift version of the cluster they will be deployed on.
 
-** See Redhat Certification Documentation: Product Documentation for Red Hat Software Certification 8.56
+* See Redhat Certification Documentation: Product Documentation for Red Hat Software Certification 8.56
 
-** Redhat SDK Bundle for certification: operator-sdk bundle validate
+* Redhat SDK Bundle for certification: operator-sdk bundle validate
+====
 
-* Operators must be compatible with our version of openshift
+.CNF requirement
+[IMPORTANT]
+====
+Operators must be compatible with our version of openshift
+====
 
-* Operators must be in OLM bundle format (Operator Framework).
+.CNF requirement
+[IMPORTANT]
+====
+Operators must be in OLM bundle format (Operator Framework).
+====
 
-* Must be able to function without the use of openshift routes or ingress objects.
+.CNF requirement
+[IMPORTANT]
+====
+Must be able to function without the use of openshift routes or ingress objects.
+====
 
-* All custom resources for operators require podspecs for both pod image override as well pod quotas.
+.CNF requirement
+[IMPORTANT]
+====
+All custom resources for operators require podspecs for both pod image override as well pod quotas.
+====
 
-* Operators must not use daemonsets
+.CNF requirement
+[IMPORTANT]
+====
+Operators must not use daemonsets
+====
 
-* The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary cnf operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.
+.CNF requirement
+[IMPORTANT]
+====
+The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary cnf operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.
+====
 
-* The operator must default to watch all namespaces if the target namespace is left NULL or empty string as this is how the OLM global-operators operator group functions.
+.CNF requirement
+[IMPORTANT]
+====
+The operator must default to watch all namespaces if the target namespace is left NULL or empty string as this is how the OLM global-operators operator group functions.
+====
 
-* All operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.
+.CNF requirement
+[IMPORTANT]
+====
+All operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.
+====
 
-* For general third party upstream operators (example: mongodb), the OLM package is recommended to be located within the Red Hat registries below to support our image mirror policy:
+.CNF requirement
+[IMPORTANT]
+====
+For general third party upstream operators (example: mongodb), the OLM package is recommended to be located within the Red Hat registries below to support our image mirror policy:
 
-** `quay.io`
+* `quay.io`
 
-** `registry.redhat.io`
+* `registry.redhat.io`
 
-** `registry.connect.redhat.com`
+* `registry.connect.redhat.com`
 
-** `registry.access.redhat.com`
+* `registry.access.redhat.com`
+====
 
-* Operators that are proprietary to a cnf application must ensure that their CRD's are unique, and will not conflict with other operators in the cluster.
+.CNF requirement
+[IMPORTANT]
+====
+Operators that are proprietary to a cnf application must ensure that their CRD's are unique, and will not conflict with other operators in the cluster.
+====
 
-* If a cnf application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the api's so that it will not conflict with the globally installed operator version.
+.CNF requirement
+[IMPORTANT]
+====
+If a cnf application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the api's so that it will not conflict with the globally installed operator version.
+====
 
-* Successful operator installation and runtime must be validated in pre-deployment lab environments before being allowed to be deployed to production.
+.CNF requirement
+[IMPORTANT]
+====
+Successful operator installation and runtime must be validated in pre-deployment lab environments before being allowed to be deployed to production.
+====
 
-* All required RBAC must be included in the OLM operator bundle so that it's managed by OLM.
+.CNF requirement
+[IMPORTANT]
+====
+All required RBAC must be included in the OLM operator bundle so that it's managed by OLM.
+====
 
-* It is not recommended for a cnf application to share a proprietary operator with another cnf application if that application does not share the same version lifecycle. If a cnf application does share an operator the CRDs must be backwards compatible.
+.CNF requirement
+[IMPORTANT]
+====
+It is not recommended for a cnf application to share a proprietary operator with another cnf application if that application does not share the same version lifecycle. If a cnf application does share an operator the CRDs must be backwards compatible.
+====

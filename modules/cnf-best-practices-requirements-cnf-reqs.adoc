@@ -46,7 +46,7 @@
 ** The application does not have to generate headers in this case. It could generate headers if it implements e.g. OpenTracin.
 
 [id="cnf-best-practices-image-standards"]
-== Image Standards
+== Image standards
 
 It is recommended that container images be built utilizing Red Hat's Universal Base Image as they will have a solid security baseline as well as support from Red Hat.
 

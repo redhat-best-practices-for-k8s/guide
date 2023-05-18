@@ -2,7 +2,7 @@
 
 Provides guidance and best practices information for developing OpenShift applications that utilize cloud-native functions for high-performance workloads.
 
-To build the HTML, install asciidoctor and run: 
+To build the HTML, install `asciidoctor` and run: 
 
 ```cmd
 asciidoctor -a stylesheet="assets/css/redhat.css" -a toc -a toc-placement=left \
@@ -13,7 +13,7 @@ asciidoctor -a stylesheet="assets/css/redhat.css" -a toc -a toc-placement=left \
 -a sectlinks main.adoc -o index.html
 ```
 
-To build the PDF, install asciidoctor-pdf and run:
+To build the PDF, install `asciidoctor-pdf` and run:
 
 ```cmd
 asciidoctor-pdf -a pdf-themesdir=pdf -a pdf-theme=redhat -a toc-title="" -a doctype=book -a source-highlighter="rouge"  main.adoc -o cnf-best-practices.pdf

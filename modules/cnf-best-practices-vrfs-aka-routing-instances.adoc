@@ -1,0 +1,5 @@
+[id="cnf-best-practices-vrfs-aka-routing-instances"]
+= VRFs (aka routing instances)
+
+Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.
+

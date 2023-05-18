@@ -1,5 +1,4 @@
 [id="cnf-best-practices-openshift-platform"]
-[id="cnf-best-practices-developing-operators-and-containers-for-the-openshift-platform"]
 = Developing Operators and containers for the OpenShift platform
 
 Review the following information to learn more about developing containers and Operators for the OpenShift platform that meet Red Hat certification criteria:

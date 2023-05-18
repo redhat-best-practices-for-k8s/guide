@@ -1,5 +1,5 @@
 [id="cnf-best-practices-csi"]
-= Container Storage (CSI)
+= Container storage (CSI)
 
 Pod volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and is lost when a pod is killed and recreated. If a pod requires persistent storage, the CSI can be used via Kubernetes native primitives `persistentVolume` (`PV`) and `persistentVolumeClaim` (`PVC`) to get persistent storage, such as an NFS share via the CSI backed by NetApp Trident.
 

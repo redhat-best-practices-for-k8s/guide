@@ -1,11 +1,11 @@
 [id="cnf-best-practices"]
-= CNF best practices
+= CNF Best Practices
 Cloud-native network functions (CNFs) best practices
 :revnumber: 1.5
 :revdate: 2023-05-10
 :toc: left
 :toclevels: 5
-:toc-title: CNF best practices v{revnumber}
+:toc-title: CNF Best Practices v{revnumber}
 :repo-url: https://github.com/aireilly/cnf-best-practices
 :icons: image
 :icontype: svg
@@ -15,7 +15,9 @@ Cloud-native network functions (CNFs) best practices
 
 toc::[]
 
-This document provides guidance and best practices information for developing OpenShift applications that utilize cloud-native functions (CNFs) for high-performance workloads.
+This document provides guidance and best practices information for developing OpenShift applications that use cloud-native functions (CNFs) for high-performance workloads.
+
+include::modules/cnf-best-practices-foreword.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
 
@@ -51,6 +53,20 @@ include::modules/cnf-best-practices-ovn-kubernetes-cni.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-user-plane-functions.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-hugepages.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-cpu-isolation.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-topology-manager-and-numa-awareness.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-ipv4-ipv6.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-ports-reserved-by-openshift.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-user-plane-cnfs.adoc[leveloffset=+2]
+
 include::modules/cnf-best-practices-developer-guide.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
@@ -61,3 +77,4 @@ include::modules/cnf-best-practices-expectations-permissions.adoc[leveloffset=+2
 
 include::modules/cnf-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-copyright.adoc[leveloffset=+1]

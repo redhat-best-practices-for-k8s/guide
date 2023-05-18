@@ -1,5 +1,5 @@
 [id="cnf-best-practices-pod-security"]
-= Pod Security
+= Pod security
 
 SELinux should always be enabled within the OpenShift Container Platform and will be used to enforce syscalls that containers make. In addition, Kubernetes has another native function called pod security policies.
 

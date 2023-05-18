@@ -1,5 +1,5 @@
 [id="cnf-best-practices-ci-cd"]
-= CI/CD Framework
+= CI/CD framework
 
 Applications should target a CI/CD approach for deployment and validation.
 

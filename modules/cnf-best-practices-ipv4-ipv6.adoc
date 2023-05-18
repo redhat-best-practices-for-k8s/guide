@@ -1,0 +1,30 @@
+[id="cnf-best-practices-ipv4-&-ipv6"]
+= IPv4 & IPv6
+
+Applications should discover services via DNS by doing an AAAA and A query. If an application gets a AAAA response the application should prefer using the IPv6 address in the AAAA response for application sockets.
+
+In OpenShift Container Platform 4.7+, you can declare `ipFamilyPolicy: PreferDualStack` which will present an IPv4 and IPv6 address in the service.
+
+.CNF recommendation
+[IMPORTANT]
+====
+IPv4 should only be used inside a pod when absolutely necessary.
+====
+
+.CNF recommendation
+[IMPORTANT]
+====
+Services should be created as IPv6 only services wherever possible. If an application requires dual stack it should create a dual stack service.
+====
+
+For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dual-stack[IPv4/IPv6 dual-stack].
+
+To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
+
+[source,yaml]
+----
+kube-apiserver:
+  --service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>
+----
+
+

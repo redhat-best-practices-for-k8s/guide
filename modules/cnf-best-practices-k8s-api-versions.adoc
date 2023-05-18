@@ -1,5 +1,5 @@
 [id="cnf-best-practices-k8s-api-versions"]
-= Kubernetes API Versions
+= Kubernetes API versions
 
 Review the Kubernetes and OpenShift API documentation:
 
