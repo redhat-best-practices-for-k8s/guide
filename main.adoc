@@ -17,8 +17,6 @@ toc::[]
 
 This document provides guidance and best practices information for developing OpenShift applications that use cloud-native functions (CNFs) for high-performance workloads.
 
-include::modules/cnf-best-practices-foreword.adoc[leveloffset=+1]
-
 include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-helm.adoc[leveloffset=+2]
