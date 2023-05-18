@@ -1,0 +1,127 @@
+[id="cnf-best-practices-vz-webscale-core-edge-platform"]
+= Webscale Core/Edge Platform
+
+Verizon Specific OpenShift Networking by default utilizes the host "baremetal" network for ingress/egress of the cluster. This topology is not relevant for Verizon's use case. Verizon will be utilizing a load balancer north of the platform for Ingress/Egress traffic to the cluster based services. Testing utilizing the host networking and nodeports will not emulate the Verizon environment. Testing should utilize a similar configuration with a load balancer and the Intelligent CNI Ingress/Egress feature developed by F5 and Redhat. Documentation of this functionality and the configuration parameters can be found in link:https://www.verizoncloudplatform.info[Verizon's partner portal].
+
+[id="cnf-best-practices-vz-stack-overview-core-edge"]
+== Stack Overview Core/Edge
+
+The VCP WebScale deployment consists of the CaaS (Container as a Service) and PaaS (Platform as a Service) functions. Details of the Stack components are covered in the subsequent section. The Stack components are subject to change over the next 12 months as further evaluation and testing is conducted in the HQP Lab with select 5G CNFs.
+
+[id="cnf-best-practices-vz-caas-core-edge"]
+=== CaaS Core/Edge
+
+.VCP CaaS stack components
+[cols="1,1,2", width="80%", options="header"]
+|====
+|Component
+|Owner
+|Description
+
+|Package Manager
+|Open Source
+|Helm v3 or vendor provided operator
+
+|Container Orchestration Engine
+|Red Hat
+|Kubernetes 1.25 (OpenShift 4.12)
+
+|IPv4/IPv6 CNI Support
+|Red Hat
+|Dual Stack support
+is available in WeScale 1.5
+
+|Container Networking
+|Red Hat
+|OVN-kubernetes CNI + Multus for SR-IOV
+and MacVLAN
+(Multus and MacVLAN are for corner
+cases only, otherwise use CNI)
+
+|Container Native Storage
+|NetApp
+|Pod Volume Support -
+Local (ephemeral)
++ CSI based Netapp Trident
+
+|Image & Artifactory Repository
+|Jfrog Artifactory
+|Container Image Registry + Helm Chart
+Repo
+
+|Container Runtime
+|Red Hat
+|ContainerD with CRI-O as CRI interface
+for Kubernetes
+Images should meet OCI standard
+Kata Containers for privileged pods
+(root)
+
+|CPU Manager
+|Open Source - Red Hat
+support
+|K8s Community CPU Manager
+
+|Bare Metal Host OS
+|Red Hat
+|Red Hat CoreOS
+
+|OpenShift Virtualization
+|Red Hat
+|Based on Upstream KubeVirt project
+
+|====
+
+[id="cnf-best-practices-vz-paas-core-edge"]
+=== PaaS Core/Edge
+
+.VCP PaaS stack components
+[cols="1,1,2", width="80%", options="header"]
+|====
+|Component
+|Owner
+|Description
+
+|Certificate Signing
+|F5 Aspen Mesh
+|Istio control plane signing via
+Citadel (part of Aspen Mesh)
+
+|Certificate Storage
+|Red Hat OpenShift
+|Kubernetes Secrets
+
+|Distributed Tracing
+|F5 Aspen Mesh
+|Jaeger - as part of AspenMesh
+Service Mesh
+
+|Log Aggregation &
+Analysis
+|Red Hat
+|Fluentd
+
+|Security
+|Red Hat
+|SELinux + Sysdig/Twistlock
+(under evaluation by HQP
+Security Team)
+
+|Service Mesh
+|F5 Aspen Mesh
+|Aspen Mesh
+
+|Service Proxy/Load
+Balancer (Ingress/Egress)
+|F5
+|F5 SPK
+
+|Service Registry
+|Red Hat OpenShift
+|CoreDNS
+
+|CI/CD Framework
+|Verizon Orchestration Team
+|Unbroken (GitLab, Atlas)
+
+|====

@@ -1,0 +1,10 @@
+[id="cnf-best-practices-application-service-exposure-to-external-networks"]
+= Application Service Exposure to External Networks
+
+image:image8.png[image8,width=471,height=407]
+
+The red lines depict a pair of services that are exposed to the external networks. These services consist of a VIP on the load balancer or a L7 Ingress. These VIPs are backed by services at the Kubernetes layer that are then serviced by pods running in the platform. Each application can get different IP addresses that are associated with their application specifically. Additionally if desired multiple ports on the same VIP can listen for different functions and forward to different services and thereby different pods within the application.
+
+The second mechanism of service delivery depicted by the green line is to make a service available within the platform to either an application itself (internally to the application) or to other applications within the platform.
+
+The third mechanism depicted by the blue line is the LEAST PREFERRED and requires a design exception to expose a pod via Multus and additional interfaces beyond eth0 on that pod. It is also possible to have the load balancer act as a one-armed load balancer for this Multus IP.

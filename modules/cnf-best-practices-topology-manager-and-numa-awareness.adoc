@@ -20,4 +20,3 @@ Single NUMA node policy::
 For each container in a pod with the single-numa-node topology management policy, kubelet calls each Hint Provider to discover their resource availability. Using this information, the Topology Manager determines if a single NUMA Node affinity is possible. If it is, the pod is admitted to the node. If a single NUMA Node affinity is not possible, the Topology Manager rejects the pod from the node. This results in a pod in a Terminated state with a pod admission failure. For more information about the Topology manager, see
 
 link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/using-cpu-manager.html[Using CPU Manager and Topology Manager].
-

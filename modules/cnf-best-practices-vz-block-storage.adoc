@@ -1,0 +1,8 @@
+[id="cnf-best-practices-vz-block-storage"]
+= Verizon block storage
+
+In NetApp there are two levels of storage:
+
+Standard:: This is the default storage type.
+
+Premium:: This type of storage allows for snapshots to be run on your persistent volume.

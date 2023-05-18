@@ -1,0 +1,4 @@
+[id="cnf-best-practices-vz-host-os"]
+= Verizon host OS
+
+The VCP Webscale platform will run Red Hat Enterprise Linux CoreOS (RHCOS) in a bare metal environment. There is no hypervisor layer between the containers and the host OS.

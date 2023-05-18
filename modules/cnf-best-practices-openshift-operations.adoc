@@ -205,12 +205,24 @@ testpmd: preferred mempool ops selected: ring_mp_mc
 EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory)
 ----
 
+
+
+[id="cnf-best-practices-vz-cpi-810"]
+== CPI-810
+All CNFs MUST be compliant with CPI-810. Work with Verizon personnel to determine a CNF’s compliance with CPI-810. Work with Verizon personnel to determine if a CNF is compliant with CPI-810.
+
+[id="cnf-best-practices-vz-image-security"]
+== Image Security
+Images will be scanned by Verizon CVE scanners while stored in Verizon's Internal Registry. Vulnerabilities found during scanning will result in flags and deployment of images with vulnerabilities will require exceptions.
+
+Images for use on Webscale must include digital signatures allowing Verizon to validate that the image is from an authorized vendor, part or all of an authorized CNF delivered by the vendor, has a current component version, and has not been modified since signing. At a minimum, the signature must include information identifying the container base image included as well as for the entire container contents. Accompanying software artifacts such as Helm charts and shell scripts must be similarly signed individually.
+
 [id="cnf-best-practices-cnf-network-security"]
 == Securing CNF networks
 
 CNFs must have the least permissions possible and CNFs must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Applications must define network policies that permit only the minimum network access the application needs to function.
@@ -222,10 +234,3 @@ Applications must define network policies that permit only the minimum network a
 Secrets objects in OpenShift provide a way to hold sensitive information such as passwords, config files and credentials. There are 4 types of secrets; service account, basic auth, ssh auth and TLS. Secrets can be added via deployment configurations or consumed by pods directly. For more information on secrets and examples, see the following documentation.
 
 link:https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-secrets.html[Providing sensitive data to pods]
-
-[id="cnf-best-practices-scc-permissions-for-an-application"]
-== Setting SCC permissions for applications
-
-Permissions to use an SCC is done by adding a cluster role that has _uses_ permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.
-
-

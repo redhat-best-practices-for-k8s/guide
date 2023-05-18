@@ -1,23 +1,32 @@
 [id="cnf-best-practices"]
-= CNF Best Practices
-Cloud-native network functions (CNFs) best practices
+= Verizon VCP Webscale core and edge CNF Best Practices
+Cloud-native network functions (CNF) best practices
 :revnumber: 1.5
 :revdate: 2023-05-10
 :toc: left
 :toclevels: 5
-:toc-title: CNF Best Practices v{revnumber}
+:toc-title: Verizon VCP Webscale CNF Best Practices v{revnumber}
 :repo-url: https://github.com/aireilly/cnf-best-practices
 :icons: image
 :icontype: svg
 :iconsdir: pdf/icons
+:imagesdir: images
 :sectnums:
 :sectnumlevels: 5
 
 toc::[]
 
-This document provides guidance and best practices information for developing OpenShift applications that use cloud-native functions (CNFs) for high-performance workloads.
+This document provides guidance and best practices information for developing Verizon VCP Webscale core and edge applications on OpenShift that use cloud-native functions (CNFs) for high-performance workloads.
 
-include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
+include::modules/cnf-best-practices-vz-introduction.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-scope.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-webscale-core-edge-platform.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-software-core-edge-caas.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-helm.adoc[leveloffset=+2]
 
@@ -29,9 +38,13 @@ include::modules/cnf-best-practices-csi.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-block-storage.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-vz-block-storage.adoc[leveloffset=+3]
+
 include::modules/cnf-best-practices-ephemeral-storage.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-local-storage.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-object-storage.adoc[leveloffset=+3]
 
 include::modules/cnf-best-practices-container-runtime.adoc[leveloffset=+2]
 
@@ -39,15 +52,25 @@ include::modules/cnf-best-practices-cpu-manager-pinning.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-host-os.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-vz-host-os.adoc[leveloffset=+3]
+
 include::modules/cnf-best-practices-ubi.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-paas-core-edge.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-pod-security.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-ci-cd.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-vz-ci-cd-framework.adoc[leveloffset=+2]
+
 include::modules/cnf-best-practices-k8s-api-versions.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-vz-networking-overview.adoc[leveloffset=+1]
+
 include::modules/cnf-best-practices-ovn-kubernetes-cni.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-spk-ingress-egress-service-proxy-load-balancing.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-user-plane-functions.adoc[leveloffset=+2]
 
@@ -59,13 +82,37 @@ include::modules/cnf-best-practices-topology-manager-and-numa-awareness.adoc[lev
 
 include::modules/cnf-best-practices-ipv4-ipv6.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-ipv6-nat46-64-w-dns46.adoc[leveloffset=+2]
+
 include::modules/cnf-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-ports-reserved-by-openshift.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-user-plane-cnfs.adoc[leveloffset=+2]
+include::modules/cnf-best-practices-ipv4-network-reservations.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-application-service-exposure-to-external-networks.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-service-mesh-for-inter-intra-nf.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-vz-service-mesh-tapping.adoc[leveloffset=+4]
+
+include::modules/cnf-best-practices-vz-core-ense-network-fabric.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-vz-edge-ense-network-fabric.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-vz-nics.adoc[leveloffset=+4]
+
+include::modules/cnf-best-practices-vz-qos-dscp-marking.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-vz-core-compute-specs.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-vz-edge-compute-specs.adoc[leveloffset=+3]
 
 include::modules/cnf-best-practices-developer-guide.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-scc.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-handling-user-plane-cnfs.adoc[leveloffset=+3]
 
 include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
@@ -74,5 +121,17 @@ include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
 include::modules/cnf-best-practices-expectations-permissions.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-additional-webscale-requirements.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-vz-glossary.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-doc-contributors.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-doc-history.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-approvals.adoc[leveloffset=+1]
+
+include::modules/cnf-best-practices-vz-doc-requirements-summary.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-copyright.adoc[leveloffset=+1]

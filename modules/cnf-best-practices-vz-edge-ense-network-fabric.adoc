@@ -1,0 +1,51 @@
+[id="cnf-best-practices-vz-edge-ense-network-fabric"]
+= Edge eNSE network fabric
+
+High level system architecture::
+The eNSE solution is made up of three layers. Border Leafs (BL), Spines, and Access Leafs (AL).
+They work together to function as one logical fabric. The current eNSE solution uses VXLAN for
+the data plane and BGP-EVPN for the control plane. Newer versions of eNSE will use Segment
+Routing (SR) for the data plane. In the VXLAN fabric VLANs are extended to the end devices. The
+fabric encapsulates the VLAN tags within VXLAN.
+
+.Edge eNSE network fabric
+image::image11.png[width=600]
+
+This is where hosts and end devices connect to the fabric. The AL provides the physical and logical gateway connectivity to the end devices. The AL are deployed in pairs to provide redundancy.
+
+Spine layer::
+The backbone of the fabric. Each spine is physically connected to every Access Leaf and Border Leaf. This creates Equal Cost Multi-Path (ECMP) connectivity between all of the leaves. The spines also propagate routes within the fabric to support the underlay.
+
+Gateway layer::
+This layer connects the eNSE fabric to the upstream network. The BL eBGP peer to the PE routers that are supporting the Verizon MPLS core. The BL are also where shared services like the MSC firewalls connect to the fabric.
+
+.Layer 3 protocols supported by the eNSE
+[cols=2*, width="60%", options="header"]
+|====
+
+|Protocol
+|Description
+
+|IPv4
+|32-bit layer 3 addressing
+
+|IPv6
+|128-bit layer 3 addressing
+
+|eBGP
+|BGP peering between end device and AL
+
+|anycast-gateway
+|High availability active/active gateway protocol
+
+|VRRP
+|High availability active/standby gateway protocol
+
+|Static route
+|Non-dynamic routing
+
+|VRF
+|A logical separation of routing tables
+
+|====
+

@@ -1,0 +1,22 @@
+[id="cnf-best-practices-paas-core-edge"]
+= PaaS Core/Edge
+
+[id="cnf-best-practices-vz-certificate-management"]
+== Certificate Management
+
+Certificate Management can be obtained through the platform via Aspen Mesh. Aspen Mesh is able to generate a CSR and get a certificate signed via Citadel which has a Verizon owned ICA certificate installed. Aspen Mesh can perform certificate rotation on behalf of an application.
+
+[id="cnf-best-practices-vz-distributed-tracing"]
+== Distributed Tracing
+
+Distributed L7 tracing is supported by the platform via Aspen Mesh Service Mesh with Jaeger as the UI to the trace data.
+
+[id="cnf-best-practices-vz-service-mesh"]
+== Service Mesh
+Aspen Mesh, based on Istio and Envoy, is the Service Mesh that is native to the WebScale platform. Aspen Mesh can be leveraged for certificates, tracing and load balancing.
+
+[id="cnf-best-practices-vz-load-balancer-service-proxy"]
+== Load Balancer/Service Proxy
+F5 BigIP LTM is integrated into the platform via the Kubernetes API and a controller application. Applications must use the Load Balancer to get traffic into and out of the pod network.
+15
+F5 SPK is a containerized evolution for BigIP. Both solutions will coexist in 1.4 although SPK is the preferred method of ingress and egress. In a future release of WebScale, BigIP will be deprecated in favor of SPK only. Therefore new applications should be onboarded using SPK.

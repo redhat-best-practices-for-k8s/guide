@@ -1,5 +1,42 @@
 [id="cnf-best-practices-vrfs-aka-routing-instances"]
-= VRFs (aka routing instances)
+== VRFs (aka routing instances)
 
 Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.
 
+.Commonly used VRFs on the Verizon Network for Wireless services
+[cols=3*, width="80%", options="header"]
+|====
+
+|VRF
+|Description
+|Location
+
+|EDN
+|Used primarily for management connectivity
+|Network wide
+
+|NNIxxx
+|VoIP/VoLTE to other carriers
+|Network wide
+
+|RAN
+|Access and Control for radio elements
+|Network wide
+
+|SSN
+|SIGTRAN over IP
+|Network wide
+
+|WSN
+|Public facing. Most UE traffic resides here
+|Network wide
+
+|WSN_MOBILE
+|Between the xGW and data platforms
+|Edge Only
+
+|WVN
+|For legacy voice platforms (TrFO)
+|Network wide
+
+|====

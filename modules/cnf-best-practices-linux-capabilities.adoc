@@ -86,7 +86,7 @@ This doesn't include:
 
 All the administrative operations (except `ethtool`) mentioned above that require the `NET_ADMIN` capability should already be supported on the host by various CNIs in Openshift.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Only userplane applications or applications using SR-IOV or Multicast can request NET_ADMIN capability
@@ -97,7 +97,7 @@ Only userplane applications or applications using SR-IOV or Multicast can reques
 
 This capability is very powerful and overloaded. It allows the application to perform a range of system administration operations to the host. So you should avoid requiring this capability in your application.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Applications *MUST NOT* use the SYS_ADMIN Linux capability

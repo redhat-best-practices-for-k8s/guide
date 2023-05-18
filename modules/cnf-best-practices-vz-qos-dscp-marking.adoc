@@ -1,0 +1,29 @@
+[id="cnf-best-practices-vz-qos-dscp-marking"]
+= QoS DSCP Marking
+
+In WebScale 1.5 (OCP 4.12) a new CNI feature is introduced: EgressQoS, allows egress traffic from
+pods to be marked with a valid QoS DSCP value. The markings will be consumed and acted on by
+network appliances outside the OCP cluster to optimize traffic flow.
+
+QoS DSCP marking is implemented via the EgressQos CRD.
+
+Example:
+
+[source,yaml]
+----
+kind: EgressQoS
+apiVersion: k8s.ovn.org/v1
+metadata:
+name: default
+namespace: cnf-namespace
+spec:
+egress:
+    - dscp: 32
+      podSelector:
+        matchLabels:
+          app: example
+----
+
+More details on this capability here:
+
+link:https://cloud.redhat.com/blog/using-qos-dscp-in-openshift-container-platform[]

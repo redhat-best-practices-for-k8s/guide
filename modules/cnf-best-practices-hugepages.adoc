@@ -1,7 +1,47 @@
-[id="cnf-best-practices-huge-pages"]
+[id="cnf-best-practices-hugepages"]
 = Huge pages
 
 In Openshift Container Platform, nodes/hosts must pre-allocate huge pages.
+
+All workers within a WebScale cluster will ONLY have 32,000, 2M hugepages per NUMA node enabled (640KB and 1G
+Hugepages are not supported):
+
+[source,yaml]
+----
+hugepages:
+  defaultHugepagesSize: "2M"
+  pages:
+  - size: "2M"
+    count: 32000
+    node: 0
+  - size: "2M"
+    count: 32000
+    node: 1
+----
+
+To request hugepages, pods must supply the following within the pod.spec for each container:
+
+[source,yaml]
+----
+resources:
+  limits:
+  hugepages-2Mi: 100Mi
+  memory: "1Gi"
+  cpu: "1"
+requests:
+  hugepages-2Mi: 100Mi
+  memory: "1Gi"
+  cpu: "1"
+----
+
+For more information, see
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+If an application requires huge pages, Verizon ONLY supports 2 MB hugepages
+====
 
 For more information, see
 link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].

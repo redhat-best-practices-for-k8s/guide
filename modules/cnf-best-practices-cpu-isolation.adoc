@@ -5,9 +5,142 @@ The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs f
 
 Device interrupts are load balanced between all isolated and reserved CPUs to avoid CPUs being overloaded, with the exception of CPUs where there is a guaranteed pod running. Guaranteed pod CPUs are prevented from processing device interrupts when the relevant annotations are set for the pod.
 
-.CNF requirement
+WebScale worker nodes have the following CPU profile applied, reserving 2 Cores per socket for
+housekeeping (kernel) and the rest for workloads.
+
+[source,yaml]
+----
+spec:
+  cpu:
+    isolated: 4-39,44-79
+    reserved: 0-3,40-43
+----
+
+* `isolated` - Has the lowest latency. Processes in this group have no interruptions and so can, for example, reach much higher DPDK zero packet loss bandwidth.
+* `reserved` - The housekeeping CPUs. Threads in the reserved group tend to be very busy, so latency-sensitive applications should be run in the isolated group
+
+
+Default worker node performanceprofile enabled in WebScale:
+
+[source,yaml]
+----
+apiVersion: performance.openshift.io/v2
+kind: PerformanceProfile
+metadata:
+  name: perf-profile-2m-worker
+spec:
+  cpu:
+    isolated: 4-39,44-79
+    reserved: 0-3,40-43
+  hugepages:
+    defaultHugepagesSize: "2M"
+    pages:
+    - size: "2M"
+      count: 32000
+      node: 0
+    - size: "2M"
+      count: 32000
+      node: 1
+numa:
+  topologyPolicy: best-effort
+realTimeKernel:
+  enabled: false
+nodeSelector:
+  node-role.kubernetes.io/workerperf: ""
+----
+
+
+The resulting KubeletConfig: (partial config shown below)
+
+[source,json]
+----
+{
+  "kind": "KubeletConfiguration",
+
+[...]
+
+  "cpuManagerPolicy": "static",
+  "cpuManagerReconcilePeriod": "5s",
+  "topologyManagerPolicy": "best-effort",
+
+[...]
+
+  },
+  "reservedSystemCPUs": "0-3,40-43",
+  }
+----
+
+
+Additionally, the performanceprofile creates a “runTimeClass” that pods must specify within the
+pod.spec in order to fully achieve CPU isolation for the workload.
+
+[source,yaml]
+----
+$ oc describe performanceprofile perf-profile-2m-worker
+Name:         perf-profile-2m-worker
+Namespace:
+Labels:       <none>
+Annotations:  <none>
+API Version:  performance.openshift.io/v2
+Kind:         PerformanceProfile
+Spec:
+  Cpu:
+    Isolated: 4-39,44-79
+    Reserved: 0-3,40-43
+  Hugepages:
+    Default Hugepages Size: 2M
+      Pages:
+        Count: 32000
+        Node:  0
+        Size:  2M
+        Count: 32000
+        Node:  1
+        Size:  2M
+  Node Selector:
+    node-role.kubernetes.io/workerperf:
+  Numa:
+    Topology Policy: best-effort
+  Real Time Kernel:
+    Enabled: false
+Status:
+  Runtime Class: performance-perf-profile-2m-worker
+  Tuned:         openshift-cluster-node-tuning-operator/openshift-node-performance-perf-profile-2m-worker
+----
+
+For workloads requiring CPU isolation in WebScale 1.3 (OCP 4.7.11) the the pod.spec must have the following:
+* For each container within the pod, resource requests and limits must be identical (Guaranteed Quality of Service)
+* Request and Limits are in the form of whole CPUs
+* The runTimeClassName must be specified
+* Annotations disabling CPU and IRQ load-balancing
+
+Example `pod.spec`:
+
+[source,yaml]
+----
+metadata:
+  annotations:
+    cpu-load-balancing.crio.io: "disable"
+    irq-load-balancing.crio.io: "disable"
+  name: pao-example-podspec
+spec:
+containers:
+- image: <PATH-TO-IMAGE>
+  name: test
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+      hugepages-2Mi: 1000Mi s
+    requests:
+      cpu: 1
+      memory: 1Gi
+      hugepages-2Mi: 1000Mi
+  restartPolicy: Always
+  runtimeClassName: performance-perf-profile-2m-worker
+----
+
+.VCP CNF requirement
 [IMPORTANT]
 ====
 To use isolated CPUs, specific annotations must be defined in the pod specification.
 ====
-

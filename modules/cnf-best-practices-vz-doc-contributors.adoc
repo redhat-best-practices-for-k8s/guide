@@ -1,0 +1,53 @@
+[id="cnf-best-practices-vz-doc-contributors"]
+= Contributors
+
+.Contributors
+[cols=4*, options="header"]
+|====
+
+|Name
+|Title
+|Email
+|Area of Contribution
+
+|Peter Sensenbrenner
+|PMTS – Data edge, infrastructure, planning
+|
+|eNSE, networking
+
+|Dave Baker
+|Red Hat
+|
+|General, Security
+
+|Scott Collier
+|Red Hat
+|
+|OpenShift, container best practices
+
+|Gene Bagwell
+|Associate Fellow
+|
+|Source Document template and Edge Hardware/NIC details
+
+|James Morris
+|Dist Engr-Cloud, Webscale Planning - Core and Edge
+|james.morris2@verizon.com
+|CNF Requirements
+
+|John Bittenbender
+|Dist Engr-Cloud, Webscale Planning - Core and Edge
+|john.bittenbender@verizonwireless.com
+|CNF requirements
+
+|Robert Fisher
+|Dist Engr-Cloud, Webscale Planning - Core and Edge
+|rob.fisher@verizon.com
+|CNF requirements
+
+|Andrew Jenkins
+|CTO - Aspen Mesh
+|
+|Service Mesh, CNF requirements
+
+|====

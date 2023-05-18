@@ -1,0 +1,19 @@
+[id="cnf-best-practices-networking-overview"]
+= Networking Overview
+
+Verizon's Wireless Network that supports 5G is composed primarily of three VRFs EDN, RAN and WSN. Webscale will support access to these three VRFs at launch via a Load Balancer that is resident within the platform. This load balancer is an F5 Load Balancer that is capable of providing L4 and L7 Services, however generally within the platform it should be utilized for L4 services as Service Mesh is a better mechanism for L7 load balancing and is integrated with PKI.
+
+Webscale will be a multi-tenant environment. NFs will be deployed within a single namespace. Supporting applications like an OAM platform for multiple NFs from the same vendor should be run in an additional separate namespace.
+
+The CNI interface should be used as the default mechanism for accessing the Verizon VRFs. For traffic inbound to an application this is done through allocation of a VIP on the load balancer via the Kubernetes API on the appropriate VRF. For traffic outbound from an application selection of the VRF is done on the application's behalf via the Load Balancer and destination routing.
+
+Multus will be supported within the platform for additional NICs within containers. However Multus should be used only for those cases that cannot be supported by the F5 load balancer.
+
+The POD and Services networks are unrouted address space, they are only reachable via service VIPs on the load balancers. The POD network will be NATed as traffic egresses the load balancer. Traffic inbound will be destination NATed to Service/Pod IP addresses.
+
+Aspen Mesh which is Istio and Envoy based is the Service Mesh that is native to the platform. This service mesh should be leveraged by applications for any L7 load balancing and encryption offload to the Envoy sidecar. Aspen Mesh allows applications to issue CSRs and get a Certificate signed by a Verizon ICA that is injected into the envoy sidecar by a volume mount.
+
+Applications should use Network Policies for firewalling the application. Network Policies should be written with a default deny and only allow ports and protocols on an as needed basis for any pods and services.
+
+.Verizon's wireless network
+image:image3.png[image3,width=534,height=434]

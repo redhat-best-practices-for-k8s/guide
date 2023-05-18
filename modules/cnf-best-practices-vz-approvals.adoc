@@ -1,0 +1,22 @@
+[id="cnf-best-practices-vz-approvals"]
+= Document approvals
+
+.Document approvals
+[cols=4*, options="header"]
+|====
+|Name
+|Title
+|Company`
+|Date of Approval
+
+|Eric Maiz
+|Sr. Mgr. Infra Planning
+|Verizon Wireless
+|2/5/2020
+
+|Uma Ramanathan
+|Sr. Mgr-Cloud
+|Verizon Wireless
+|2/5/2020
+|====
+

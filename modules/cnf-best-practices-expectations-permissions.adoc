@@ -31,7 +31,7 @@ A corollary of this practice is to "retry instead of crashing", for example, Whe
 +
 Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Application design should conform to cloud-native design principles to the maximum extent possible.
@@ -42,43 +42,62 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs shall be built to be cloud-native
 
+* All clusters managed by VZ with standard set of services
+
 * Containers MUST NOT run as root (uid=0). Applications that require elevated privileges will require an exception with HQ Planning
 
-* Containers MUST run with the minimal set of permissions required. Avoid Privileged Pods.
+* Containers MUST run with the minimal set of permissions required. Any pods that require elevated privileges require a security review providing an analysis of the special permissions required, and an exception granted by Verizon Security. Avoid Privileged Pods. If Privileged Pods are required, the CNF developer should work with Verizon HQ planning, Verizon Security Risk Management and Redhat to determine acceptability of privilege and/or modifications to pods such that elevated privilege is not required.
 
-* Use the main CNI for all traffic - MULTUS/SRIOV/MacVLAN are for corner cases only (extreme throughput requirements, protocols that are unable to be load balanced)
+* Use the main CNI for all traffic - Multus/SRIOV/MacVLAN are for corner cases only (extreme throughput requirements, protocols that are unable to be load balanced, Design exception required with Verizon HQ Planning Team)
+
+* CNF should leverage service mesh provided by the platform for internal & external communication
+
+* CNFs should leverage platform service mesh for mTLS with other applications
+
+* All images/helm charts MUST be packaged by the vendor and hosted on the Verizon image registry.
+
+* All helm charts MUST be hosted on the Verizon repository.
+
+* Pod security policies will be dictated by Verizon - See Pod Permissions Section
+
+* Naming and Labeling standards for all Kubernetes objects (Pods, Services, etc.) will be provided by Verizon
 
 * CNFs should employ N+k redundancy models
 
 * CNFs MUST define their pod affinity/anti-affinity rules.
 
-* All secondary network interfaces employed by CNFs with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.
+* It is Verizon’s requirement that CNFs support IPv6. The initial implementation of VCP
+
+* WebScale Platform uses IPv4 addressing for CNI interfaces, and a NAT46/64 implementation in Services Proxy/Load Balancer for Ingress & Egress traffic. CNFs shall support this requirement.
+
+* All secondary network interfaces employed by CNFs with the use of Multus MUST support Dual-Stack IPv4/IPv6.
 
 * Instantiation of CNF (via Helm chart or Operators or otherwise) shall result in a fully-functional CNF ready to serve traffic, without requiring any post-instantiation configuration of system parameters
 
-* CNFs shall implement service resilience at the application layer and not rely on individual compute availability/stability
+* CNFs shall implement service resilience at the application layer and not rely on
+individual compute availability/stability
 
 * CNFs shall decouple application configuration from Pods, to allow dynamic configuration updates
 
 * CNFs shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc.
 
-* CNFs shall support canary upgrades
+* CNFs shall support canary upgrades employing the platform Service Mesh
 
 * CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Containers must not run as root
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 All secondary interfaces (MULTUS) must support dual stack
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 CNFs shall not use node selectors nor taints/tolerations to assign pod location
@@ -105,22 +124,125 @@ The "restricted" SCC:
 
 Any pods requiring elevated privileges must document the required capabilities driven by application syscalls and a process to validate the requirements must occur.
 
-[id="cnf-best-practices-logging"]
-=== Logging
+[id="cnf-best-practices-vz-secure-computing-mode-seccomp-profiles"]
+=== Secure Computing Mode (seccomp) Profiles
 
-Log aggregation and analysis::
---
+Seccomp, secure computing mode, is a Linux kernel feature that can be used to limit the process running
+in a container to only call a subset of the available system calls. These system calls can be configured by
+creating a profile that is applied to a container or pod.
+
+Within a deployment definition, it is possible to specify a seccomp profile name. As of OCP 4.12, if no
+seccomp profile is specified, the default seccomp profile will be applied. This must be allowed within the
+SCC to be used.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Applications must be able to function with the default seccomp profile unless
+an exception is given.
+====
+
+For further information see: link::https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/pdf/security_and_compliance/openshift_container_platform-4.12-security_and_compliance-en-us.pdf[OpenShift Container Platform 4.12 Security and compliance].
+
+[id="cnf-best-practices-logging"]
+=== Logging - aggregation and analysis
+
+The VCP Webscale OpenShift platform will support logging from containers and forwarding those logs separately from the platform logging to Verizon logging repositories. Logs will be forwarded based on Tenant Namespace or Pod labels.
+
 * Containers are expected to write logs to stdout. It is highly recommended that stdout/stderr leverage some standard logging format for output.
-+
-* Logs CAN be parsed to a limited extent so that specific vendor logs can be sent back to the CNF if required.
-+
-* CNFs requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; `klog`, `rfc5424`, and `oslo`.
---
+
+* Verizon VCP team will deploy an instance of Openshift Logging which will parse app logs for redirection to select endpoints. In the current Webscale release, Elastic Filebeat is used for log collection and forwarding.
+
+* Requires vendor to follow Verizon pod/container naming standards and to apply redirection labels.
+
+* Verizon fluentd listener will be deployed within each Webscale 5Gc site by the Aether monitoring team for 5Gc applications in scope for the Aether platform.
+
+* Infrastructure-related logs are sent to the VCP Operations VCMP platform and are made available on the VMB system.
+
+* Other logs will be forwarded to VZ owned storage locations as arranged with HQ Planning when incorporated into Webscale deployment.
+
+* Logs CAN be parsed to a limited extent so that specific vendor logs can be sent back to the CNF if required. CNFs requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; klog, rfc5424, and oslo. * Requires vendor to provide svc/fqdn and label pods/namespaces as directed.
+
+* Verizon will send logs to the matching namespace using the below tag format
+
+    ** vendor-function-000.logs ← Logs for namespace 000
+    ** vendor-function-001.logs ← Logs for namespace 001
+
+* Pod in the tenant namespace for receiving these logs:
+
+    ** Must write any logs to a traditional log file on PV (disk) - handling log rotation itself (either by using a framework or the traditional logrotate pattern)
+
+    ** Must NOT write anything to default *stdout*/*stderr* container pipes to avoid getting back into the log stream (avoiding a feedback loop), in other words that container must redirect *stdout*/*stderr* somewhere other than the default for the container
+
+.Logging - E2E(Verizon Fluentd)
+image:image16.png[image16,height=400]
+
+Log messages are aggregated as a JSON document after being normalized to add metadata. An example of a typical log message:
+
+[source,terminal]
+----
+\{
+"@timestamp": "2023-02-23T21:49:21.237Z",
+"labels": \{
+"log.category": "infra",
+"cluster": "stablcurco2"
+},
+"stream": "stderr",
+"@version": "1",
+"log": \{
+"file": \{
+"path":
+"/var/log/pods/openshift-sriov-network-operator_sriov-network-config-daemon-jtfhg_b69e 97ff-660e-4ed1-90e2-aeedcfa6de89/sriov-network-config-daemon/0.log" },
+"offset": 11137007,
+"level": "error"
+},
+"datacenter": "stablcurco2",
+"kubernetes": \{
+"pod": \{
+"ip": "10.75.68.159",
+"uid": "b69e97ff-660e-4ed1-90e2-aeedcfa6de89",
+"name": "sriov-network-config-daemon-jtfhg"
+},
+"node": \{
+"hostname": "worker-18",
+"uid": "24ebc640-4d85-4d9b-837a-459f46ecef61",
+"name": "worker-18"
+},
+"namespace": "openshift-sriov-network-operator",
+"container": \{
+"name": "sriov-network-config-daemon"
+},
+"namespace_uid": "008b3d5c-e304-4bf0-9278-c7b458888393",
+"daemonset": \{
+"name": "sriov-network-config-daemon"
+}
+},
+"message": "E0223 21:49:21.237268 1162749 daemon.go:388] error syncing: setNetdevMTU(): interface name is empty, requeuing",
+"event": \{
+"original":
+"\{\"@timestamp\":\"2023-02-23T21:49:21.237Z\",\"@metadata\":\{\"beat\":\"filebeat\",\"t ype\":\"_doc\",\"version\":\"8.6.2\"},\"kubernetes\":\{\"container\":\{\"name\":\"sriov network-config-daemon\"},\"node\":\{\"name\":\"worker-18\",\"uid\":\"24ebc640-4d85-4d9b -837a-459f46ecef61\",\"hostname\":\"worker-18\"},\"pod\":\{\"name\":\"sriov-network-con fig-daemon-jtfhg\",\"uid\":\"b69e97ff-660e-4ed1-90e2-aeedcfa6de89\",\"ip\":\"10.75.68. 159\"},\"namespace\":\"openshift-sriov-network-operator\",\"namespace_uid\":\"008b3d5c -e304-4bf0-9278-c7b458888393\",\"daemonset\":\{\"name\":\"sriov-network-config-daemon\"
+}},\"message\":\"E0223 21:49:21.237268 1162749 daemon.go:388] error syncing: setNetdevMTU(): interface name is empty,
+requeuing\",\"log\":\{\"file\":\{\"path\":\"/var/log/pods/openshift-sriov-network-operat or_sriov-network-config-daemon-jtfhg_b69e97ff-660e-4ed1-90e2-aeedcfa6de89/sriov-networ k-config-daemon/0.log\"},\"offset\":11137007,\"level\":\"error\"},\"stream\":\"stderr\ ",\"host\":\{\"name\":\"worker-18\"},\"labels\":\{\"cluster\":\"stablcurco2\",\"datacent er\":\"stablcurco2\",\"log.category\":\"infra\"}}"
+},
+"host": \{
+"name": "worker-18"
+}
+}
+----
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+CNFs must use the VCP standardized log generation, storage and retrieval means
+====
+
 
 [id="cnf-best-practices-monitoring"]
 === Monitoring
 
-Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.
+Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor is able to poll platform level metric data. Network Functions shall support exposing their Prometheus collection functions via PromQL interfaces to existing Verizon OSS systems. 5gc network functions in scope for Aether monitoring are required to remote-write (prometheus protocol) metrics to endpoints with credentials supplied by the NS monitoring team.
+
+Control Plane (infrastructure) metrics will be collected by the platform in a separate Prometheus instance and will be made available for application consumption through VMB. Find topic details on the VMB portal.
 
 [id="cnf-best-practices-cpu-allocation"]
 === CPU allocation
@@ -141,7 +263,7 @@ Once it has been determined how much memory is left over for the applications, q
 When the OpenShift scheduler is placing pods, it reviews the pod memory request and schedules the pod if there is a node that meets the requirements. It then imposes memory limits to ensure the pod doesn't consume more than the intended allocation. The limit can never be lower than the request.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Vendors must supply quotas per project/namespace
@@ -161,7 +283,7 @@ Pod configurations should be created in a kubernetes native manner, the most bas
 
 Interaction with a running pod should be done via `oc exec` or `oc rsh` commands. This allows API role-based access control (RBAC) to the pods and command line interaction for debugging.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 SSH daemons must NOT be used in Openshift for pod interaction.
@@ -176,7 +298,7 @@ There are different ways a pod can be stopped in Kubernetes. One way is that the
 
 Pods should use `terminationMessagePolicy: FallbackToLogsOnError` to summarize why they crashed and use stderr to report errors on crash
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 All pods shall have a liveness, readiness and startup probes defined
@@ -191,7 +313,7 @@ When pods are shut down by the platform they are sent a `SIGTERM` signal which m
 
 Pods should exit with zero exit codes when they are gracefully terminated.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.
@@ -229,7 +351,7 @@ For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-co
 If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Do not use exec probes if a CNF is doing CPU pinning.
@@ -264,14 +386,14 @@ spec:
       image: docker.io/ocpqe/hello-pod
 ----
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods that need to be co-located on the same node need affinity rules. Pods that should not be
 co-located for resiliency purposes require anti-affinity rules.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods that perform the same microservice and could be disrupted if multiple members of the service are
@@ -281,22 +403,19 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 [id="cnf-best-practices-upgrade-expectations"]
 ==== Upgrade expectations
 
-* The Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/deprecation-policy/[Kubernetes Deprecation Policy] shall be followed.
+* CNF vendors should expect that VCP Webscale Platform shall be upgraded to new versions on an ongoing basis employing CI/CD runtime deployment without any advance notice to CNF vendors.
 
-* CNFs are expected to maintain service continuity during platform upgrades, and during CNF version upgrades
-
-* CNFs need to be prepared for nodes to reboot or shut down without notice
-
-* CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades
-
-* Applications should not be tied to a specific version of Kubernetes or any of its components
+* During VCP WebScale platform upgrades, the Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/deprecation-policy/[Kubernetes Deprecation Policy] shall be followed
+* CNFs are expected to maintain service continuity during Platform Upgrades, and during CNF version upgrades
+* CNFs need to be prepared for nodes to reboot or shut down without notice.
+* CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades Applications should not be tied to a specific version of Kubernetes or any of its components
 
 [IMPORTANT]
 ====
 Applications MUST specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods that perform the same microservice and that could be disrupted if multiple members of the service are
@@ -317,13 +436,19 @@ See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/n
 [id="cnf-best-practices-requests/limits"]
 ==== Requests/Limits
 
-Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
+Requests and limits provide a way for a CNF developer to ensure they have adequate resources
+available to run the application. Requests can be made for storage, memory, CPU and so on. These
+requests and limits can be enforced by quotas. The production Verizon platform will utilize quotas
+as a way to enforce requests and limits. See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
+
+Verizon does not plan to overcommit resources in the production environment. However, it is
+possible to overcommit node resources in development environments.
 
 Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
 
 See link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-overcommit.html[Configuring your cluster to place pods on overcommitted nodes] for more information.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods must define requests and limits values for CPU and memory.
@@ -367,19 +492,19 @@ maintenance and the node has to be drained. If there is a pod disruption budget 
 
 Do not use naked Pods (that is, Pods not bound to a `ReplicaSet`, or `StatefulSet` deployment). Naked pods will not be rescheduled in the event of a node failure.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Applications must not depend on any single pod being online for their application to function.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods must be deployed as part of a `Deployment` or `StatefulSet`.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Pods may not be deployed in a DaemonSet.
@@ -419,7 +544,7 @@ ClusterRole / ClusterRoleBinding:: A `ClusterRole` represents a set of permissio
 
 See link:https://docs.openshift.com/container-platform/4.7/authentication/using-rbac.html[Using RBAC to define and apply permissions] for more information.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 CNFs may not create `ClusterRole` or `ClusterRoleBinding` CRs. Only cluster administrators should create these CRs.
@@ -430,7 +555,7 @@ CNFs may not create `ClusterRole` or `ClusterRoleBinding` CRs. Only cluster admi
 
 If an application requires installing/deploying CRDs (Custom Resource Definitions), the application must provide a role that allows necessary permissions to create CRs within the CRDs. The custom role to access CRDs must not create any permissions to access any other API resources than the CRDs.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 If an application creates CRDs; it must supply a role to access those CRDs and no other API resources/
@@ -442,7 +567,7 @@ permissions.
 
 MULTUS is a meta-CNI that allows multiple CNIs that it delegates to. This allows pods to get additional interfaces beyond `eth0` via additional CNIs. Having additional CNIs for SR-IOV and MacVLAN interfaces allow for direct routing of traffic to a pod without using the pod network via additional interfaces. This capability is being delivered for use in only corner case scenarios, it is not to be used in general for all applications. Example use cases include bandwidth requirements that necessitate SR-IOV and protocols that are unable to be supported by the load balancer. The OVN based pod network should be used for every interface that can be supported from a technical standpoint.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Unless an application has a special traffic requirement that is not supported by SPK or ovn-kubernetes CNI
@@ -472,6 +597,84 @@ The SR-IOV devices are configured by the cluster admin, and they will be availab
 ----
 $ oc -n <cnf_namespace> get network-attachment-definitions
 ----
+
+[id="cnf-best-practices-spk-integration-via-spk-operator"]
+=== SPK Integration via SPK Operator
+The SPK runs in a separate namespace from the CNF. The CNF will not have direct permissions to access this namespace. In order to allow applications to manage the lifecycle of the SPK deployment, the SPK operator is used. The SPK Operator defines several CRDs for which CRs are created in the CNF namespace:
+
+[id="cnf-best-practices-spkprofile"]
+==== SPKProfile
+The `SPKProfile` CRD handles LCM operations of SPK itself. Example:
+
+[source,yaml]
+----
+apiVersion: webscale.verizon.com/v1
+kind: SPKProfile
+metadata:
+  name: spkprofile-democnf
+  namespace: democnf
+spec:
+  bgp_networks:
+    edn:
+      ip_version:
+        - v4
+        - v6
+        mtu: 8000
+    provision: true
+    replicas: 2
+    spk_version: v1.7.0
+----
+
+When the `SPKProfile` CR is created, tmm pods are started within the spk namespace `spk-<app
+namespace>` with the specified version and number of replicas.
+
+[id="cnf-best-practices-spkstaticroute"]
+==== SPKStaticroute
+The SPK Staticroute is used to provision static routes in the SPK by application owners in the
+application namespace. Example:
+
+[source,yaml]
+----
+apiVersion: webscale.verizon.com/v1
+kind: SPKStaticRoute
+metadata:
+  name: edn-loopbacks-183
+  namespace: spk-democnf
+spec:
+  gatewaynetworks:
+    edn:
+      destination_v4:
+        - 10.183.0.0/24
+      destination_v6:
+        - fd00:4888:2000:1400:22/64
+----
+
+[id="cnf-best-practices-spksnatpool"]
+==== SPKSnatpool
+The SPKSnatpool is provisioned within the application namespace to configure source network address translations (SNAT) on egress network traffic for the SPK. When internal Pods connect to external resources, their internal cluster IP address is translated to one of the available IP addresses in the SNAT pool. Example:
+
+[source,yaml]
+----
+apiVersion: k8s.f5net.com/v1
+kind: F5SPKSnatpool
+metadata:
+  name: egress-snatpool
+  namespace: spk-democnf
+spec:
+  addressList:
+    - 10.183.247.229
+    - fdb0:5b22:e86a:1122::22
+    - 10.183.247.23
+    - fdb0:5b22:e86a:1122::230
+----
+
+More details on the SPK operator are in the "SPK Operator User Guide".
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST integrate with the SPK Operator to perform lifecycle management of the SPK.
+====
 
 [id="cnf-best-practices-sr-iov-interface-settings"]
 === SR-IOV interface settings
@@ -550,10 +753,10 @@ spec:
   capabilities: '{ "mac": true }'
   ipam: '{"type":"whereabouts","range":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001/64","range_star t":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001","range_end":"FD97:0EF5:45A5:4000:00D0:0403 :0000:0020","routes":[{"dst":"fd97:0ef5:45a5::/48","gw":"FD97:EF5:45A5:4000::1"}]}'
   networkNamespace: <CNF-NAMESPACE>
-    resourceName: w1ens3f0grp2
-    spoofChk: "off"
-    trust: "on"
-    vlan: 282
+  resourceName: w1ens3f0grp2
+  spoofChk: "off"
+  trust: "on"
+  vlan: 282
 ----
 
 [id="example-3"]
@@ -568,7 +771,7 @@ metadata:
 spec:
   capabilities: '{ "mac": true }'
   ipam: '{"type": "static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}' networkNamespace: <CNF-NAMESPACE>
-  resourceName: w1ens3f0grp2
+  resourceName: "w1ens3f0grp2"
   spoofChk: "off"
   trust: "on"
   vlan: 282
@@ -647,16 +850,31 @@ All the properties of the interfaces are added to the pod's `k8s.v1.cni.cncf.io/
 [source,yaml]
 ----
 k8s.v1.cni.cncf.io/network-status: |-
-  [{
-      "name": "",
-      "interface": "eth0",
-      "ips": [
-        "10.132.3.148"
+    [{
+        "name": "",
+        "interface": "eth0",
+        "ips": [
+            "10.132.3.148"
         ],
-      "mac": "0a:58:0a:84:03:94",
-      "default": true,
-      "dns": {}
-   }]
+        "mac": "0a:58:0a:84:03:94",
+        "default": true,
+        "dns": {}
+    },{
+        "name": "cnfns/networkname",
+        "interface": "net1",
+        "ips": [
+            "1.1.1.2"
+        ],
+        "mac": "ba:1d:e7:31:2a:e0",
+        "dns": {},
+        "device-info": {
+            "type": "pci",
+            "version": "1.0.0",
+            "pci": {
+                "pci-address": "0000:19:00.5"
+            }
+        }
+    }]
 ----
 
 [NOTE]
@@ -714,7 +932,7 @@ Do NOT set your pod disruption budget to `maxUnavailable` <number of pods in rep
 
 A corollary to the pod disruption budget is a strong readiness and health check. A well implemented readiness check is key for surviving these upgrades in that a pod should not report itself ready to kubernetes until it is actually ready to take over the load from another pod of the example set. An example of this being implemented poorly would be for a pod to report itself ready but it is not in sync with the other DB pods in the example above. Kubernetes could see that three of the pods are "ready" and destroy a second pod and cause disruption to the DB leading to failure of the application served by said DB.
 
-See link:link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
+See link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
 
 [source,yaml]
 ----
@@ -897,3 +1115,59 @@ All required RBAC must be included in the OLM operator bundle so that it's manag
 ====
 It is not recommended for a cnf application to share a proprietary operator with another cnf application if that application does not share the same version lifecycle. If a cnf application does share an operator the CRDs must be backwards compatible.
 ====
+
+[id="cnf-best-practices-cnf-operator-crd-example"]
+===== CNF Operator CRD Example
+
+Example of mongodb opsmanager custom resource creation for consumption by the MongoDB
+operator to launch a MongoDB Ops Manager instance.
+
+[source,yaml]
+----
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: np-kub33-ops-manager
+spec:
+  replicas: 1
+  version: 5.0.10
+  adminCredentials: np-opsmanager-admin # Should match metadata.name
+  externalConnectivity:
+    type: LoadBalancer
+  applicationDatabase:
+    members: 3
+    version: 5.0.5-ent
+    podSpec:
+      podTemplate:
+        spec:
+          initContainers:
+            - name: mongodb-enterprise-init-appdb
+              image: enmv-docker-np.oneartifactoryprod.verizon.com/mongodb/mongodb-enterprise-init-appdb-ubi:1.0.9
+              resources:
+                limits:
+                  cpu: 1
+                  memory: 1G
+                requests:
+                  cpu: 1
+                  memory: 1G
+          containers:
+            - name: mongod
+              image: enmv-docker-np.oneartifactoryprod.verizon.com/mongodb/mongodb-enterprise-appdb-database-ubi:5.0.5-ent
+              resources:
+                limits:
+                  cpu: 1
+                  memory: 1G
+                requests:
+                  cpu: 1
+                  memory: 1G
+             - name: mongodb-agent
+               image: enmv-docker-np.oneartifactoryprod.verizon.com/mongodb/mongodb-agent-ubi:11.0.11.7036-1
+               resources:
+                 limits:
+                   cpu: 1
+                   memory: 1G
+                 requests:
+                   cpu: 1
+                   memory: 1G
+----

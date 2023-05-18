@@ -1,0 +1,26 @@
+[id="cnf-best-practices-service-mesh-for-inter-intra-nf"]
+= Service Mesh for Inter/Intra NF
+
+Kubernetes clusters have a network with flat layer 3 IP connectivity between all pods, provided by a pluggable layer in Kubernetes called the Container Network Interface (CNI). In the basic deployment scenario, that means that any application container can communicate with any other application container and any details of that communication (plaintext or encryption, what protocols, authentication, monitoring) are the responsibility of each application container.
+
+Without intervention, each application is forced to implement all aspects of security requiring a high degree of effort and diligence. Much of this effort is replicated since each application must repeat it. As an example, even if all applications implement TLS properly, when a vulnerability is discovered in a TLS implementation, every individual application must have a separate vulnerability analysis executed, and patches made to software code and updated in the field.
+
+Verizon has chosen a modern approach to securing traffic between Kubernetes pods (and thus, the containerized applications that run in them such as CNFs and MEC apps): a service mesh. The service mesh is a security-enhancing sidecar container that runs in each pod and proxies network traffic from or to the main application container. In its position as a proxy, the service mesh sidecar can provide security, resiliency, load balancing, and detailed measurement for the application container. Importantly, the sidecar provides a consistent implementation of each of these functions regardless of the details of the application. For example, the sidecar has one implementation of TLS that is used for all sidecars across the entire Kubernetes cluster - if a vulnerability in this implementation is found, only one upgrade must be performed.
+
+The sidecar is transparently injected into the Kubernetes pod without requiring any intervention by the main application container. Application containers do not need to communicate in any special way with the sidecar directly. Generally, application containers should be unaware of the presence of the sidecar; they communicate "as normal" and the sidecar transparently proxies these communications as long as they are allowed by policy. This document details the requirements so that the sidecar can correctly proxy application traffic and apply policy.
+
+Service Mesh is also capable of doing CSR generation, signing and installation into the namespace as part of the solution. This offloads all PKI efforts from the CNF and also makes the certificates available for NFs within the application via kubernetes secrets as a volume mount should an application require the keys for doing any TLS via Multus based interfaces. Additionally Service Mesh allows distributed tracing for HTTP based flows that can be analyzed via the Jaeger UI. This provides a consistent visibility mechanism across NFs for Service Based Interface (SBI) based communication.
+
+The following diagram depicts Service Mesh at a high level.
+
+.Service mesh high level overview
+image::image9.png[width=600]
+
+This following diagram depicts the full suite of components that are involved with Service Mesh delivery.
+Pilot is the Istio Control plane, the sidecar proxies are Envoy based proxies. Citadel has an
+Intermediate Certificate Authority from a Verizon owned cert for signing CSRs. Trace collector
+and prometheus provide statistics and traces. Not depicted is Jaeger which allows viewing of
+traces.
+
+.Service mesh high detailed view
+image::image10.png[width=600]

@@ -1,0 +1,8 @@
+[id="cnf-best-practices-scope"]
+= Scope
+
+VCP Webscale phase 1 deployment is focused on servicing the needs of the 5G Big Bang initiative.; thus this document and the current platform configuration is currently limited in scope to Wireless network elements. Later phases of VCP Webscale will support the needs of additional business units. This document covers the requirements for tenants to run their application on Verizon's Kubernetes network functions virtualization infrastructure (NFVI) platform known as VCP WebScale. While VCP Openstack was initially designed to support “Direct-Port” VNFs, this document's intent is to provide guidance as the Vendor community evolves their software to support containerized web scale cloud-native applications.
+
+.Network architecture evolution strategy
+image:image2.png[image2,width=624,height=304]
+

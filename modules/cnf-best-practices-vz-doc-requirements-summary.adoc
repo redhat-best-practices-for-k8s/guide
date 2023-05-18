@@ -1,0 +1,915 @@
+[id="cnf-best-practices-vz-doc-requirements-summary"]
+= Requirements summary
+
+.Requirements summary
+[cols="1,1,3,1", options="header"]
+|====
+|DOORS ID
+|Name
+|Requirement Description
+|Requirement Type
+
+|94091
+|Helm v3 1
+|If an application is using Helm to
+deploy it must use Helm v3 due
+to security issues with Helm v2
+|Requirement
+
+|94092
+|Ephemeral Storage 1
+|PODs must NOT place persistent
+data into ephemeral storage
+|Requirement
+
+|94093
+|Local Storage 1
+|PODs must NOT place persistent
+volumes on local storage
+|Requirement
+
+|94094
+|Kubernetes API Versions 1
+|All CNFs must verify that they
+are compliant with the correct
+release of REST API for
+Kubernetes and OpenShift.
+Please refer to the online
+documentation for deprecated
+APIs.
+|Requirement
+
+|94095
+|Hugepages 1
+|If an application requires huge
+pages, Verizon ONLY supports 2
+MB hugepages
+|Requirement
+
+|94096
+|CPU Isolation 1
+|In order to use Isolated CPUs,
+specific annotations must be
+defined in the pod spec
+|Requirement
+
+|94097
+|IPv4 & IPv6 1
+|Webscale 1.5+ will be deployed
+with a dual stacked pod network,
+applications must support dual
+stacked pods and set service
+address family appropriately
+based on desired IP protocol of
+the application.
+|Requirement
+
+|94098
+|IPv4 & IPv6 2
+|IPv4 should only be used inside a
+POD when absolutely necessary.
+|Guidance
+
+|94099
+|IPv4 & IPv6 3
+|Services should be created as
+IPv6 only services wherever
+possible. If an application
+requires dual stack it should
+create a dual stack service.
+|Guidance
+
+|94100
+|Ports reserved by
+OpenShift 1
+|The following ports are reserved
+by OpenShift and must NOT be
+used by any application: 22623,
+22624
+|Requirement
+
+|94101
+|IPv4 network
+reservations 1
+|Traffic from a pod to
+169.254.0.0/16 will not leave the
+pod network
+|Requirement
+
+|94102
+|Service Mesh for Inter/Intra NF 1
+|5G SBI traffic must use the
+service mesh
+|Requirement
+
+|94103
+|Service Mesh for Inter/Intra NF 2
+|CNFs CANNOT bring their own
+service mesh
+|Requirement
+
+|94104
+|Service Mesh for Inter/Intra NF 3
+|Applications should leverage
+service mesh for TLS encryption
+where possible
+|Guidance
+
+|94105
+|Edge eNSE network fabric 1
+|If CNF is to be deployed in
+Webscale Edge environment and
+needs to use SR-IOV the CNF
+must support the Intel i40evf
+driver -The NIC cards for SR-IOV
+are Intel XXV710
+|Requirement
+
+|94106
+|Edge eNSE network fabric 2
+|CNFs must support the Nvidia
+CX-5 driver
+|Requirement
+
+|94107
+|Compute Specs 1
+|If CNF is to be deployed in
+Webscale Core environment and
+needs to use SR-IOV the CNF
+must support the Mellanox
+(nVidia) ConnectX 5 (CX5)
+|Requirement
+
+|94108
+|CNF Security 1
+|Only ask for the necessary
+privileges and access control
+settings for your application
+|Requirement
+
+|94109
+|CNF Security 2
+|If the function required by your
+CNF can be fulfilled by OCP
+components, your application
+should not be requesting
+escalated privilege to perform
+this function
+|Requirement
+
+|94110
+|CNF Security 3
+|Avoid using any host system
+resource
+|Requirement
+
+|94111
+|CNF Security 4
+|Do not mount host directories
+for device access
+|Requirement
+
+|94112
+|CNF Security 5
+|Do not use host network
+namespace
+|Requirement
+
+|94113
+|CNF Security 6
+|CNFs may not modify the
+platform in any way
+|Requirement
+
+|94114
+|CNF Security 7
+|Applications may not use
+NodePorts or the hostNetwork
+|Requirement
+
+|94115
+|Linux Capabilities 1
+|Only userplane applications or
+applications using SR-IOV or
+Multicast can request
+NET_ADMIN capability
+|Requirement
+
+|94116
+|Linux Capabilities 2
+|Applications MUST NOT use the
+SYS_ADMIN Linux capability
+|Requirement
+
+|94117
+|CNF network security 1
+|Applications must define
+network policies that permit only
+the minimum network access the
+application needs to function
+|Requirement
+
+|94118
+|CNF Security Context Constraints (SCC) 1
+|Applications must use the
+Verizon defined SCCs otherwise
+exceptions are required
+|Requirement
+
+|94119
+|Cloud Native Design
+Best Practices 1
+|Application design should
+conform to cloud native design
+principles to the maximum
+extent possible.
+|Requirement
+
+|94120
+|High Level CNF Expectations 1
+|Containers must not run as root
+|Requirement
+
+|94121
+|High Level CNF Expectations 2
+|All images/helm charts must be
+packaged by the vendor and
+hosted in a Verizon image
+repository
+|Requirement
+
+|94122
+|High Level CNF Expectations 3
+|All secondary interfaces (Multus)
+must support dual stack
+|Requirement
+
+|94123
+|High Level CNF Expectations 4
+|CNFs shall not use node selectors
+nor taints/tolerations to assign
+pod location
+|Requirement
+
+|94124
+|Secure Computing Mode (seccomp) Profiles 1
+|Applications must be able to
+function with the default
+seccomp profile unless an
+exception is given.
+|Requirement
+
+|94125
+|Logging 1
+|CNFs must use the VCP
+standardized log generation,
+storage and retrieval means
+|Requirement
+
+|94126
+|Memory Allocation 1
+|Vendors must supply quotas per
+project/namespace so that
+Verizon can size nodes and
+clusters to support the needs of
+vendor applications
+|Requirement
+
+|94127
+|Pods 1
+|SSH daemons must NOT be used
+in Openshift for pod interaction.
+|Requirement
+
+|94128
+|Pods 2
+|All pods shall have a liveness,
+readiness and startup probes
+defined
+|Requirement
+
+|94129
+|Pods 3
+|All pods must respond to
+SIGTERM signal and shutdown
+gracefully with a zero exit code.
+|Requirement
+
+|94130
+|Pods 4
+|If a CNF is doing CPI pinning,
+exec probes may not be used.
+|Requirement
+
+|94131
+|Pods 5
+|Pods which need to be co-
+located on the same node need
+Affinity rules and pods which
+should not be co-located for
+resiliency purposes require Anti
+affinity rules
+|Requirement
+
+|94132
+|Pods 6
+|Pods that perform the same
+microservice and that could be
+disrupted if multiple members of
+the service are unavailable must
+implement affinity/anti-affinity
+to group or spread their pods
+across nodes to prevent
+disruption in the event of node
+failures/patches/upgrades
+|Requirement
+
+|94133
+|Pods 7
+|Pods that perform the same
+microservice and that could be
+disrupted if multiple members of
+the service are unavailable must
+implement pod disruption
+budgets to prevent disruption in
+the event of patches/upgrades
+|Requirement
+
+|94134
+|Pods 8
+|CNFS MUST NOT apply
+tolerations for NoExecute
+PreferNoSchedule, and
+NoSchedule.
+|Requirement
+
+|94135
+|Pods 9
+|Pods must define requests and
+limits values for CPU and
+memory
+|Requirement
+
+|94136
+|Pods 10
+|Applications must not depend on
+any single pod being online for
+their application to function.
+|Requirement
+
+|94137
+|Pods 11
+|Pods must be deployed as part
+of a Deployment or StatefulSet.
+|Requirement
+
+|94138
+|Pods 12
+|Pods may not be deployed in a
+DaemonSet.
+|Requirement
+
+|94139
+|Security/RBAC 1
+|CNFs may not create ClusterRole
+/ ClusterRoleBinding, cluster
+administrators shall create them.
+|Requirement
+
+|94140
+|Custom Role to access application CRDs 1
+|If an application creates CRDs it
+must supply a role to access
+those CRDs and no other API
+resources/permissions
+|Requirement
+
+|94141
+|Multus 1
+|Unless an application has a
+special traffic
+requirement that is
+not supported by SPK or ovnkubernetes
+CNI the applications
+must use the pod network for
+traffic
+|Requirement
+
+|94142
+|SPK Integration via SPK Operator 1
+|The application MUST integrate
+with the SPK Operator to
+perform life cycle management
+of the SPK.
+|Requirement
+
+|94143
+|Operator Best Practices 1
+|Operators should be certified
+against the openshift version of
+the cluster they will be deployed
+on.
+|Requirement
+
+|94144
+|Operator Best Practices 2
+|Operators must be compatible
+with the version of OpenShift
+used by WebScale.
+|Requirement
+
+|94145
+|Operator Best Practices 3
+|Operators must be in OLM
+bundle format (Operator
+Framework).
+|Requirement
+
+|94146
+|Operator Best Practices 4
+|Operators must be able to
+function without the use of
+openshift routes or ingress
+objects. SPK will be used to
+create ingress objects within the
+Webscale cluster.
+|Requirement
+
+|94147
+|Operator Best Practices 5
+|All custom resources for
+operators on Webscale require
+podspecs for both pod image
+override as well pod quotas.
+|Requirement
+
+|94148
+|Operator Best Practices 6
+|Operators must not use
+daemonsets
+|Requirement
+
+|94149
+|Operator Best Practices 7
+|The OLM operator CSV must
+support the all namespaces
+install method if the operator is
+upstream software global
+operator". If the operator is a
+proprietary cnf operator
+"dedicated operator" it must
+support single namespaced
+installation. It is recommended
+for an operator to support all
+OLM install modes to ensure
+flexibility in our environment."
+|Requirement
+
+|94150
+|Operator Best Practices 8
+|The operator must default to
+watch all namespaces if the
+target namespace is left NULL or
+empty string as this is how the
+OLM global-operators operator
+group functions.
+|Requirement
+
+|94151
+|Operator Best Practices 9
+|If an operator is requested that's
+not proprietary to a vendor cnf
+application and is considered a
+commonly used upstream
+operator, the operator is
+installed globally into the
+Webscale cluster using the
+operator-marketplace catalog,
+and VCP will make best effort to
+maintain a version of that
+operator that's inline with the
+openshift version it's deployed
+to. Multiple versions of the same
+operator cannot exist on a single
+cluster.
+|Requirement
+
+|94152
+|Operator Best Practices 10
+|All operator and operand images
+must be referenced using digest
+image tags @sha256". Openshift
+"imagecontentsourcepolicy"
+objects (ICSP) only support
+mirror-by-digest at this time.
+|Requirement
+
+|94153
+|Operator Best Practices 11
+|For general third party upstream
+operators (example: mongodb),
+the OLM package is
+recommended to be located
+within the Red Hat registries
+below to support our image
+mirror policy
+|Guidance
+
+|94154
+|Operator Best Practices 12
+|Operators that are proprietary to
+a CNF application must ensure
+that their CRD's are unique, and
+will not conflict with other
+operators in the cluster.
+|Requirement
+
+|94155
+|Operator Best Practices 13
+|If a CNF application requires a
+specific version of a third party
+non-proprietary operator for
+their app to function they will
+need to re-package the
+upstream third party operator
+and modify the api's so that it
+will not conflict with the globally
+installed operator version.
+|Requirement
+
+|94156
+|Operator Best Practices 14
+|Webscale tenants using an
+operator must have direct
+support from the vendor that
+provides the operator. VCP does
+not provide any support for
+operators used by webscale
+tenants.
+|Requirement
+
+|94157
+|Operator Best Practices 15
+|Successful operator installation
+and runtime must be validated in
+pre-deployment lab
+environments before being
+allowed to be deployed to
+production.
+|Requirement
+
+|94158
+|Operator Best Practices 16
+|All required RBAC must be
+included in the OLM operator
+bundle so that it's managed by
+OLM.
+|Requirement
+
+|94159
+|Operator Best Practices 17
+|All operators should be vetted
+through security before being
+requested for the Webscale
+platform.
+|Requirement
+
+|94160
+|Operator Best Practices 18
+|It is not recommended for a CNF
+application to share a
+proprietary operator with
+another CNF application if that
+application does not share the
+same version lifecycle. If a CNF
+application does share an
+operator the CRDs must be
+backwards compatible.
+|Requirement
+
+|94161
+|Service Mesh Requirements for CNF 1
+|The application MUST declare all
+listening ports as containerPorts
+in the Pod specification it
+provides to Kubernetes.
+|Requirement
+
+|94162
+|Service Mesh Requirements for CNF 2
+|The application MUST NOT listen
+on any other ports that are
+undeclared. The service mesh
+MAY be configured to block
+connections to these ports.
+|Requirement
+
+|94163
+|Service Mesh Requirements for CNF 3
+|Listening ports MUST be named
+in the pod specification with the
+protocol they implement.
+|Requirement
+
+|94164
+|Service Mesh Requirements for CNF 4
+|The name field in the
+ContainerPort section must be of
+the form `<protocol>[-<suffix>]`
+where `<protocol>` is one of the
+below, and the optional <suffix>
+can be chosen by the
+application. Preferred prefixes:
+grpc , grpc-web , http , http2.
+Fallback prefixes: tcp , udp. Valid
+Example: http-webapi or grpc
+|Requirement
+
+|94165
+|Service Mesh Requirements for CNF 5
+|The application MUST
+communicate with Kubernetes
+Services by their service IP
+instead of selecting Pods in that
+service individually. The service
+mesh will select the appropriate
+pod.
+|Requirement
+
+|94166
+|Service Mesh Requirements for CNF 6
+|The application MUST NOT
+encrypt outbound traffic on the
+cluster network interface.
+|Requirement
+
+|94167
+|Service Mesh Requirements for CNF 7
+|The service mesh will apply
+policy, authenticate servers and
+encrypt outbound traffic before
+it leaves the application pod.
+|Requirement
+
+|94168
+|Service Mesh
+Requirements for CNF
+8
+|The service mesh will decrypt,
+authenticate clients and apply
+policy before redirecting traffic
+to the application container.
+|Requirement
+
+|94169
+|Service Mesh
+Requirements for CNF
+9
+|The application SHOULD NOT
+manage certificates related to
+communication over the cluster
+network interface.
+|Requirement
+
+|94170
+|Service Mesh
+Requirements for CNF
+10
+|The service mesh will manage,
+rotate and validate these
+certificates. The service mesh
+will manage, rotate and validate
+these certificates.
+|Requirement
+
+|94171
+|Service Mesh
+Requirements for CNF
+11
+|The application MUST NOT
+provide nftables or iptables
+rules.
+|Requirement
+
+|94172
+|Service Mesh
+Requirements for CNF
+12
+|The application MUST NOT use
+UID 1337 or tcp ports 15443,
+15090, 15021, 15020, 15014,
+15008, 15006, 15001, 15000.
+|Requirement
+
+|94173
+|Service Mesh
+Requirements for CNF
+13
+|The application MUST NOT define Kubernetes Custom Resources in `\*.istio.io` or `*.aspenmesh.io` namespaces.
+|Requirement
+
+|94174
+|Service Mesh
+Requirements for CNF
+14
+|The application MUST NOT
+define Kubernetes resources in
+the istio-system namespace.
+|Requirement
+
+|94175
+|Service Mesh
+Requirements for CNF
+15
+|The application MUST propagate
+tracing headers when making
+outgoing requests based on
+incoming requests.
+|Requirement
+
+|94176
+|Service Mesh
+Requirements for CNF
+16
+|The application MUST propagate
+all of these tracing headers if
+present: x-request-id, x-b3traceid,
+x-b3-spanId, x-b3parentspanid,
+x-b3-sampled, x-
+b3-flags, b3.
+|Requirement
+
+|94177
+|Service Mesh
+Requirements for CNF
+17
+|The application MUST propagate
+the tracing headers by copying
+any header value from the
+original request to the new
+request.
+|Requirement
+
+|94178
+|Service Mesh
+Requirements for CNF
+18
+|The application SHOULD NOT
+modify any of these header
+values unless it understands the
+format of the headers and
+wishes to enhance them (e.g.
+implements OpenTracing)
+|Guidance
+
+
+|94179
+|Service Mesh
+Requirements for CNF
+19
+|If some or none of the headers
+are present, the application
+SHOULD NOT create them.
+|Guidance
+
+|94180
+|Service Mesh
+Requirements for CNF
+20
+|If an application makes a new
+request and it is not in service of
+exactly one incoming request, it
+MAY omit all tracing headers.
+|Guidance
+
+|94181
+|Service Mesh Requirements for CNF 21
+|If an application uses service
+mesh, it must provide service
+mesh configuration
+|Requirement
+
+|94182
+|Application DNS Configuration Requirements 1
+|CNFs must use the service name
+only as a configuration
+parameter for attaching to a
+service within your namespace
+|Requirement
+
+|94183
+|Application DNS Configuration Requirements 2
+|For FQDNs that are outside of
+heir namespace (in another
+cluster or in the same cluster),
+applications must append a . at
+the end of the FQDN so as not to
+trigger search strings for the
+FQDN
+|Requirement
+
+|94184
+|General WebScale 1.5
+Migration
+Requirements 1
+|Applications must be certified on
+WS 1.5/OCP 4.12
+|Requirement
+
+|94185
+|General WebScale 1.5 Migration Requirements 2
+|Application pods must tolerate
+being drained off nodes
+|Requirement
+
+|94186
+|General WebScale 1.5 Migration Requirements 3
+|Applications must support
+either migration via the MTC
+or via fresh redeploy
+|Requirement
+
+|94187
+|WebScale 1.5 Migration Toolkit for Containers
+(MTC) Specific requirements 1
+|Applications must tolerate being
+scaled down in an arbitrary order
+if the MTC tool will be used for
+migration to 1.5
+|Requirement
+
+|94188
+|WebScale 1.5 Migration Toolkit for Containers
+(MTC) Specific requirements 2
+|Applications must tolerate being
+scaled up in an arbitrary order if the MTC tool will be used for
+migration to 1.5
+|Requirement
+
+|94189
+|WebScale 1.5 Migration Toolkit for Containers
+(MTC) Specific requirements 3
+|Data copied from WS 1.3.5
+cluster must be compatible with
+WS 1.5 cluster if the MTC tool
+will be used for migration to 1.5
+|Requirement
+
+|94190
+|WebScale 1.5
+Migration Toolkit for Containers (MTC) Specific requirements 4
+|The MTC migration process via
+orchestrator must be fully tested
+and certified in the Verizon lab if
+the MTC tool will be used for
+migration to 1.5
+|Requirement
+
+|94191
+|WebScale 1.5
+Migration Fresh
+Redeploy Specific
+requirements 1
+|The orchestration redeploy
+process must be fully tested and
+certified in the Verizon lab if the
+application will be re-
+orchestrated when migrating to
+1.5.
+|Requirement
+
+|94192
+|WebScale 1.5
+Migration Resiliency
+Requirements 1
+|Applications must be georedundant
+|Requirement
+
+|94193
+|WebScale 1.5 Migration Resiliency Requirements 2
+|Applications should support N+K Guidance
+|Requirement
+
+|94194
+|WebScale 1.5 Migration Resiliency Requirements 3
+|Applications migrating to 1.5
+must be able to re-sync
+databases with other instances
+after migration
+|Guidance
+
+|94195
+|WebScale 1.5 Migration Networking Requirements 1
+|Applications must support SPK in
+WS 1.3.5 prior to migration to
+1.5
+|Requirement
+
+|94196
+|WebScale 1.5 Migration Networking Requirements 2
+|Applications must utilize the SPK
+operator in WS 1.3.5 prior to
+migration to 1.5
+|Requirement
+
+|====

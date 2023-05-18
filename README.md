@@ -16,5 +16,5 @@ asciidoctor -a stylesheet="assets/css/redhat.css" -a toc -a toc-placement=left \
 To build the PDF, install `asciidoctor-pdf` and run:
 
 ```cmd
-asciidoctor-pdf -a pdf-themesdir=pdf -a pdf-theme=redhat -a toc-title="" -a doctype=book -a source-highlighter="rouge"  main.adoc -o cnf-best-practices.pdf
+asciidoctor-pdf -a pdf-themesdir=pdf -a pdf-theme=redhat -a toc-title="" -a doctype=book -a source-highlighter="rouge"  main.adoc -o verizon-cnf-best-practices.pdf
 ```

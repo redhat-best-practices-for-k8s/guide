@@ -1,0 +1,10 @@
+[id="cnf-best-practices-ipv4-network-reservations"]
+= IPv4 network reservations
+
+Traffic from a pod to `169.254.0.0/16` will not leave the pod network (and traffic to `169.` specifically may be further restricted). This should not affect anything in non-cloud environments, since traffic to that IP range is supposed to be link-local and so would not be expected to leave the pod network anyway.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Traffic from a pod to `169.254.0.0/16` will not leave the pod network
+====

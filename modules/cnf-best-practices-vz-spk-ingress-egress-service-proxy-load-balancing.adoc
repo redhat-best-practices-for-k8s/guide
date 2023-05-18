@@ -1,0 +1,37 @@
+[id="cnf-best-practices-spk-ingress-egress-service-proxy-load-balancing"]
+= SPK Ingress/Egress Service Proxy (Load Balancing)
+
+The first three iterations (1.0, 1.1, and 1.2) of the VCP Webscale core utilized F5's "Vega" BigIP LTM VE coupled with a "Container Ingress Controller" to map service IPs outside the cluster to pods backing a service. Webscale 1.3 introduced a containerized version of this load balancer called SPK (Service Proxy for Kubernetes) to the platform. This load balancer runs similarly to the Vega instance in that they are running on dedicated hardware. While Vega was a single shared resource for all applications in the cluster, SPK instances are run as groups of SPK instances on a dedicated hardware tier that are associated with a particular namespace.
+
+As of Webscale 1.4, Vega is deprecated in favor of SPK only.
+
+SPK Instances are highly available in the sense that more than one are created, but session state is not replicated amongst them. Because of the stateless nature of SPK and the horizontal scaling architecture, Equal Cost Multi-path (ECMP) is used to spread traffic amongst the SPK instances from both the cluster and external network side.
+
+SPK can scale both vertically and horizontally, where vertical scaling is done by increasing CPU and memory available to the pod and horizontal scaling is achieved through adding more instances per namespace -- Horizontal SPK scaling is not available and limited by transport at this time.
+
+image:image4.png[image4,width=624,height=247]
+
+Legend::
+* Red, Yellow, Purple, Orange hexagons are application pods on worker nodes
+* Circles are SPK instances on load balancer nodes
+* Color code/letters match the applications and the SPK instances. A group of SPK instances across a set of nodes dedicated to load balancing are created specifically for each application.
+* The application traffic is spread both ingress and egress across these instances of SPK
+
+The Ingress and Egress traffic model is impacted by the ECMP based design of the SPK instances. For ingress the flow is very similar to the flow in a traditional load balancer with the exception of traffic is ECMP spread across the SPK instances.
+
+The below diagram depicts a cluster hosting a service, reply traffic is synchronous with ingress flow. Each SPK instance advertises the same Service VIP via BGP, the upstream router sees all four advertisements and ECMP routes across the four SPK instances. The SPK instance that receives a hashed flow will load balance across the back end pods for that application. Reply traffic is conntracked by the OVN-kubernetes CNI so that flows that come from SPK instance A1 get replied to via instance A1, or A2, etc.
+
+image:image5.png[image5,width=494,height=404]
+
+The following diagram depicts a CNF initiated flow to another service outside the cluster. On egress from a node the CNI OVN-kubernetes will ECMP across all the SPK instances that are online. OVN-kubernetes is aware of which SPK instances are online for a namespace via the K8S API. Each SPK has its own SNAT address per VRF assigned to it so that the network will route the flow back towards the correct SPK instance for statefulness of flow. The net result is that to a remote server where the CNF is the client the application looks like a group of addresses rather than a VIP. The only delta between this and the Vega instance is that the CNF appears as a group of IPs rather than a single IP address.
+
+image:image6.png[image6,width=448,height=345]
+
+With the introduction of SPK the VCP platform has enabled IP portability from cluster to cluster within a location. CNFs pull addresses from "loopback" pools associated with a site. Both SNAT IPs and Virtual Server VIPs that applications use to host addresses are pulled from the loopback pools. These addresses are automatically advertised by the SPK instances. The SNAT addresses are advertised by BGP at the point in time that the SPKs are instantiated and the Virtual Server addresses are advertised at the point in time that an application expresses the configuration to
+
+the SPK instance via the K8S API. The upstream routers are configured for subnet peering and the SPK instances peer automatically. The upstream routers are pre-configured to accept advertisements from the loopback IP space. This enables applications to instantiate and gain networking with no additional work other than deploying their application.
+
+The below diagram depicts the SPK peering at a high level. Each SPK instance peers to both upstream routers via bonded links. Each SPK would advertise a SNAT IP local to it as well as virtual server addresses taken from the Loopback pools per site.
+
+image:image7.png[image7,width=405,height=401]
+

@@ -1,5 +1,5 @@
 [id="cnf-best-practices-requirements-cnf-reqs"]
-= Requirements for CNF
+= Service Mesh Requirements for CNF
 
 * The application MUST declare all listening ports as containerPorts in the Pod specification it provides to Kubernetes.
 
@@ -43,7 +43,165 @@
 
 * If an application makes a new request and it is not in service of exactly one incoming request, it MAY omit all tracing headers.
 
-** The application does not have to generate headers in this case. It could generate headers if it implements e.g. OpenTracin.
+    ** The application does not have to generate headers in this case. It could generate headers if it implements e.g. OpenTracin.
+    ** If there are no tracing headers, the service mesh will generate a new trace.
+
+link:https://support.f5.com/csp/article/K65743455[]
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST declare all listening ports as containerPorts in the Pod specification it provides to Kubernetes.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT listen on any other ports that are undeclared. The service mesh MAY be configured to block connections to these ports.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Listening ports MUST be named in the pod specification with the protocol they implement.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The name field in the ContainerPort section must be of the form <protocol>[-<suffix>] where <protocol> is one of the below, and the optional <suffix> can be chosen by the application. Preferred prefixes: grpc , grpc-web , http , http2. Fallback prefixes: tcp , udp. Valid Example: http-webapi or grpc
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST communicate with Kubernetes Services by their service IP instead of selecting Pods in that service individually. The service mesh will select the appropriate pod.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT encrypt outbound traffic on the cluster network interface.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The service mesh will apply policy, authenticate servers and encrypt outbound traffic before it leaves the application pod.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The service mesh will decrypt, authenticate clients and apply policy before redirecting traffic to the application container.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application SHOULD NOT manage certificates related to communication over the cluster network interface.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The service mesh will manage, rotate and validate these certificates.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT provide nftables or iptables rules.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT use UID 1337 or tcp ports 15443, 15090, 15021, 15020, 15014, 15008, 15006, 15001, 15000.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT define Kubernetes Custom Resources in \*.istio.io or \*.aspenmesh.io namespaces.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST NOT define Kubernetes resources in the `istio-system` namespace.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST propagate tracing headers when making outgoing requests based on incoming requests.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST propagate all of these tracing headers if present: x-request-id, x-b3-traceid, x-b3-spanId, x-b3-parentspanid, x-b3-sampled, x-b3-flags,
+b3.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The application MUST propagate the tracing headers by copying any header value from the original request to the new request.
+====
+
+.VCP CNF recommendation
+[IMPORTANT]
+====
+The application SHOULD NOT modify any of these header values unless it understands the format of the headers and wishes to enhance them (e.g. implements OpenTracing)
+====
+
+.VCP CNF recommendation
+[IMPORTANT]
+====
+If some or none of the headers are present, the application SHOULD NOT create them.
+====
+
+.VCP CNF recommendation
+[IMPORTANT]
+====
+If an application makes a new request and it is not in service of exactly one incoming request, it MAY omit all tracing headers.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+If an application uses service mesh, it must provide service mesh configuration
+====
+
+[id="cnf-best-practices-vz-application-deployment"]
+== Application Deployment
+
+The preferred mechanism for deployment of applications is via Helm v3. Helm provides a mechanism to deploy with site specific templates that allow for repeatable deployment in multiple locations.
+
+Make use of values.yaml to make replicable deployments in different locations with different parameters.
+
+All images must be packaged into a CSAR format and provided to Verizon. Verizon personnel will upload the CSAR into an internal tool that will unpackage CSAR and process its contents. Images will be pushed into Verizon's internal registry for consumption by Kubernetes. Helm charts will be stored in an internal repository for consumption by automation tools. Vendor supplied CI/CD pipelines will be unpackaged and pushed into Verizon's internal Gitlab server.
+
+HP NFVD will be used to trigger application deployments via a Verizon Ansible Tower server which will also execute CI/CD pipeline instructions against a deployment for validation of the deployment.
+
+It is recommended that Images be built with Red Hat's Universal Base Image.
+
+[id="cnf-best-practices-vz-container-naming-standards"]
+== Container Naming Standards
+
+Verizon is targeting a container naming standard to enable tools to determine CNF and its components. The Verizon naming standard is an accompanying document that should be distributed with this document.
+
+[id="cnf-best-practices-vz-container-labeling-standards"]
+== Container Labeling Standards
+
+Labels are used to organize and select subsets of objects. For example, labels enable a service to find and direct traffic to an appropriate pod. While pods can come and go, when labeled appropriately, the service will detect new pods, or a lack of pods, and forward or reduce the traffic accordingly.
+
+When designing your label scheme, it may make sense to map applications as types, location, departments, roles, etc. The scheduler will then use these attributes when colocating pods or spreading the pods out amongst the cluster. It is also possible to search for resources by label.
+
+Verizon maintains a container labeling standard to enable tools to determine CNF and its components. The Verizon naming standard is an accompanying document to this document and should be able to be shared by a Verizon employee separately. It is hosted on the S&ME Confluence page internally.
+
 
 [id="cnf-best-practices-image-standards"]
 == Image standards
@@ -52,19 +210,19 @@ It is recommended that container images be built utilizing Red Hat's Universal B
 
 Vendors must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Containerized workloads must work with Red Hat's restricted SCC1.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 The container image must be secure.
@@ -107,5 +265,37 @@ Red Hat UBI images are free to vendors so there is a low barrier of entry to get
 == Application DNS configuration requirements
 
 CNFs should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.
+
+.Example
+[source,terminal]
+----
+search clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local
+svc.cluster.local cluster.local kub2-4.csp-1.vzwops.com
+nameserver 198.223.0.10
+options ndots:5
+----
+
+If an application deploys a service in the namespace `clspcoykvzwcscp-y-xx-w1-001` and is attempting to access a service named `worker`, the application should just configure the client of the service with an FQDN of `worker`.
+
+The DNS search suffix will append `clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local` to the end of the name and result in a successful query for `worker.clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local`. This allows an application to be less aware of the application's namespace name and genericize the configuration of the application.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+CNFs must use the service name only as a configuration parameter for attaching to a service within your namespace
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+For FQDNs that are outside of their namespace (in another cluster or in the same cluster), applications must append a . at the end of the FQDN so as not to trigger search strings for the FQDN
+====
+
+.Example
+[source,terminal]
+----
+nnrfe1-000.bbtpnj33.ne.nrf.5gc.vzims.com
+clspcoykvzwcscp-y-xx-w1-001-scp-cache-headless.clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local
+----
 
 For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dns-pod-service[Kubernetes upstream reference for pod/service names and DNS].

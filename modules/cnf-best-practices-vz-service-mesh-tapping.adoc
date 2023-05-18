@@ -1,0 +1,22 @@
+[id="cnf-best-practices-service-mesh-tapping"]
+= Service Mesh Tapping
+
+Because of Service Mesh's unique location related to the HTTP traffic for SBI interfaces, it is well positioned to provide a tapping solution to feed Verizon's tools for doing traces on network traffic for the purposes of call traces and evaluating overall network health via statistical analysis. Because Service Mesh is able to front end all SBI interfaces, it provides the capacity for comprehensive and consistent visibility across all of the SBI interfaces within the 5G Core. Verizon is working with Aspen Mesh and Gigamon to develop a tapping solution that can do full packet tapping at the Service Mesh layer to feed Verizon's system performance tools.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+5G SBI traffic *must* use the service mesh
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+CNFs *CANNOT* bring their own service mesh
+====
+
+.VCP CNF recommendation
+[IMPORTANT]
+====
+Applications *should* leverage service mesh for TLS encryption where possible
+====

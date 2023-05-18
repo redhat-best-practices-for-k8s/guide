@@ -1,0 +1,5 @@
+[id="cnf-best-practices-object-storage"]
+= Verizon object storage
+
+Verizon has object storage that is available in most VCP locations. Please verify availability with your application planner. Object storage is not specifically supported by the WebScale team therefore you will need to work with your application planner to explicitly state this requirement.
+

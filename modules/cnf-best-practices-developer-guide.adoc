@@ -18,6 +18,12 @@ This document is mainly for the developers of CNFs, who need to build high-perfo
 
 This is not a guide on how to build CNF’s functionality.
 
+[id="cnf-best-practices-changes-to-move-toward-webscale"]
+== Changes to move toward WebScale
+
+.Changes to move toward WebScale
+image::image15.png[width=700]
+
 [id="cnf-best-practices-refactoring"]
 == Refactoring
 
@@ -45,38 +51,38 @@ The general guidelines are:
 
 . Leveraging read only root filesystem when possible.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Only ask for the necessary privileges and access control settings for your application
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 If the function required by your CNF can be fulfilled by OCP components, your application should not be
 requesting escalated privilege to perform this function.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Avoid using any host system resource.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Do not mount host directories for device access.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Do not use host network namespace.
 ====
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 CNFs may not modify the platform in any way.
@@ -101,7 +107,7 @@ For running DPDK applications with SR-IOV VF, device specs (in case of vfio-pci)
 
 Application pods must avoid using `hostNetwork`. Applications may not use the host network, including `nodePort` for network communication. Any networking needs beyond the functions provided by the pod network and ingress/egress proxy must be serviced via a MULTUS connected interface.
 
-.CNF requirement
+.VCP CNF requirement
 [IMPORTANT]
 ====
 Applications may not use `NodePorts` or the `hostNetwork`.

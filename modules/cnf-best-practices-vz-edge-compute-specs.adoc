@@ -1,0 +1,50 @@
+[id="cnf-best-practices-edge-compute-specs"]
+= Edge compute specs
+
+[NOTE]
+====
+Compute hardware and NIC layout is subject to change over time.
+====
+
+.Edge compute specs
+[cols=2*, width="60%", options="header"]
+|====
+|Compute spec
+|Description
+
+|CPU
+|2 x Intel Skylake 6148 Processors @2.4Ghz
+
+|RAM
+|512GB RAM DDR4-2666Mhz
+
+|Storage
+|2 x 3.8 TB SATA SSD RAID1
+
+|Network
+|NIC1: 2x 10G 520 Niantic FlexLOM
+NIC2: 2x 10G/25G Intel Fortville XXV710
+NIC3: 2x 10G/25G Intel Fortville XXV710
+|====
+
+== Edge 1.x NUMA + NIC Topology
+
+.Edge 1.x NUMA + NIC Topology
+image::image13.png[width=700]
+
+Diagram Key::
+* Green Blocks: Memory
+* Orange Blocks: Cores
+* Dark Blue Blocks: NICs
+* White Blocks: NIC Ports
+
+== 2.x (Galaxy and Milkyway) NUMA + NIC Topology
+
+.2.x (Galaxy and Milkyway) NUMA + NIC Topology
+image::image14.png[width=700]
+
+Diagram Key::
+* Green Blocks: Memory
+* Orange Blocks: Cores
+* Dark Blue Blocks: NICs
+* White Blocks: NIC Ports

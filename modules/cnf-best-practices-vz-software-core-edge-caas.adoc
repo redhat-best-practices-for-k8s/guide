@@ -1,0 +1,4 @@
+[id="cnf-best-practices-vz-software-core-edge-caas"]
+= Software Core/Edge - CaaS
+
+The following lists WebScale software services, and their use in VCP.

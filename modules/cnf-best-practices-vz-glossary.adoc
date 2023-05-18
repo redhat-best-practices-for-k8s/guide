@@ -1,0 +1,51 @@
+[id="cnf-best-practices-vz-glossary"]
+= Glossary
+
+.CNF Glossary
+[cols=2*, options="header"]
+|====
+|Acronym
+|CNF term
+
+|CNI
+|Container Network Interface
+
+|DPDK
+|Data Plane Development Kit
+
+|DSCP
+|Differentiated Services Code Point
+
+|IP
+|Internet Protocol
+
+|MTU
+|Maximum Transmission Unit
+
+|OVN
+|Open Virtual Network
+
+|PF
+|Physical Function
+
+|PMD
+|Poll Mode Driver
+
+|QoS
+|Quality of Service
+
+|RHEL
+|Red Hat Enterprise Linux
+
+|SR-IOV
+|Single Root I/O Virtualization
+
+|VF
+|Virtual Function
+
+|VPP
+|Vector Packet Processor
+
+|VLAN
+|Virtual Local Area Network
+|====

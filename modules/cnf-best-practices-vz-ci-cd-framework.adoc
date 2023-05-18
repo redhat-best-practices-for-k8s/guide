@@ -1,0 +1,5 @@
+[id="cnf-best-practices-ci-cd-framework"]
+= Verizon CI/CD Framework
+
+Applications should target a CI/CD approach for deployment and validation. Verizon is supporting GitLab CI/CD pipelines via the internal Verizon Gitlab systems owned by the Verizon GTS organization and also CI/CD pipelines in Ansible Tower via an Ansible Tower owned by the Verizon Orchestration Team. It is the responsibility of the application owner to work with these teams to utilize these resources, as they are outside of the WebScale platform infrastructure.
+

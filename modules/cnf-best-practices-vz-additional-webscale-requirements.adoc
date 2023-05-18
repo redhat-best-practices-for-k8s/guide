@@ -1,0 +1,123 @@
+[id="cnf-best-practices-vz-additional-webscale-requirements"]
+= Additional Requirements for Migration from WebScale 1.3.5 to WebScale 1.5
+
+Currently WebScale 1.3.5 is running OpenShift 4.7 in production. The newest release of WebScale needs to upgrade to OpenShift (OCP) 4.12.
+
+Because there is a difference of more than 2 OCP releases, an In-Service upgrade cannot be performed. It was determined therefore that WebScale will need to go through a migration process known as “Blue/Green” to get from release 1.3.5 on OCP 4.7 to 1.5 on OCP 4.12, where the 1.3.5 cluster is known as Blue and the 1.5 cluster is known as Green. The application vendors have a choice as to whether to use the MTC (Migration Toolkit for Containers) to facilitate this migration or to do a fresh redeploy via the orchestrator.
+
+Irrespective of the approach chosen, all applications must first migrate from Vega to SPK on WS 1.3.5.
+
+[id="cnf-best-practices-vz-general-web-scale-1-5-migration-requirements"]
+== General WebScale 1.5 Migration Requirements
+
+Pre-validation on OCP 4.12 in the vendor’s own lab should be performed followed by the normal CNF certification process in the MTCE lab on WS 1.5 including OCP 4.12.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must be certified on WS 1.5/OCP 4.12 Cluster preparation for migration may include scaling down nodes to compress applications to a smaller set of nodes. If this occurs, some pods will be evicted from their current node to be placed on a different node. The application must tolerate this basic maintenance activity.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+application pods must tolerate being drained off nodes Applications have a choice as to whether the migration from 1.3.5 to 1.5 is via MTC or fresh redeploy via orchestration. In either case, all provisioning data must be preserved from the original deployment. If MTC is used, then MTC handles this data. In this case the data copied from the WS 1.3.5(blue) side must be compatible with the WS 1.5 (green) side. If orchestration is used, then an alternate vendor-approved method must be used, for example backup/restore.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must support *either* migration via the MTC or via fresh redeploy
+====
+
+[id="cnf-best-practices-vz-web-scale-1-5-migration-toolkit-for-mtc"]
+== WebScale 1.5 Migration Toolkit for Containers (MTC) Specific requirements
+
+The following requirements only apply if the MTC tool is used for migration The MTC tool scales down all stateful sets, deployments, etc to 0 replicas on the Blue side. It does so in no particular order. The application must tolerate this and scale down to zero successfully regardless of the order.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must tolerate being scaled down in an arbitrary order if the MTC tool will be used for migration to 1.5 The MTC tool scales back up stateful sets, deployments, etc to the original number replicas on the Green side. It does so in no particular order. The application must tolerate this and come in service regardless of the order.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must tolerate being scaled up in an arbitrary order if the MTC tool will be used for migration to 1.5 99The data copied from the WS 1.3.5 cluster must be compatible with the application running in WS 1.5. For example, if a config map contains a reference to an API version, it must be compatible with OCP 4.12 as it will be copied directly.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+data copied from WS 1.3.5 cluster must be compatible with WS 1.5 cluster if the MTC tool will be used for migration to 1.5 The migration process will be driven by the orchestrator. This process must be validated in a lab environment to ensure that the application returns to a fully functional state on the WS 1.5 cluster after migration.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+the MTC migration process via orchestrator must be fully tested and certified in the Verizon lab if the MTC tool will be used for migration to 1.5
+====
+
+[id="cnf-best-practices-vz-web-scale-1-5-migration-fresh-redeploy"]
+== WebScale 1.5 Migration Fresh Redeploy Specific requirements
+
+The following requirements apply only to the case in which the MTC is not used for migration and the application is deployed via orchestration.
+
+The process of redeploy via orchestration including import of any copied data must be validated in a lab environment to ensure that the application returns to a fully functional state on WS 1.5 cluster after redeployment.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+the orchestration redeploy process must be fully tested and certified in the Verizon lab if the application will be re-orchestrated when migrating to 1.5.
+====
+
+[id="cnf-best-practices-vz-web-scale-1-5-migration-resiliency-requirements"]
+== WebScale 1.5 Migration Resiliency Requirements
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must be geo-redundant Because migration to WS 1.5 is not a normal ISSU upgrade, there is downtime associated with the process. Traffic must be redirected to another instance in a separate datacenter prior to performing the Blue/Green migration. Support of N+K is desirable but not required.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must be geo-redundant
+====
+
+.VCP CNF Recommendation
+[IMPORTANT]
+====
+applications should support N+K
+====
+
+.VCP CNF Database Requirement
+[IMPORTANT]
+====
+Irrespective of the application migration approach chosen, replicated databases must be re- sync’d with instances running in other data centers within the required SLA timeframes for the application.
+====
+
+.VCP CNF Recommendation
+[IMPORTANT]
+====
+applications migrating to 1.5 must be able to re-sync databases with other instances after migration
+====
+
+[id="cnf-best-practices-vz-webscale-1-5-migration-networking-requirements"]
+== WebScale 1.5 Migration Networking Requirements
+
+Applications must migrate from Vega to SPK while running on WS 1.3.5, as the conversion process is not part of the Blue/Green migration. This is because Vega is not supported on WS 1.5 and SPK enables the preservation of external IP addresses across the migration process.
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must support SPK in WS 1.3.5 prior to migration to 1.5 The SPK operator must be used for life cycle management of the SPK serving the application. While the original SPK deployment may have been done outside of the operator, the operator must be integrated prior to migration from 1.3.5 to 1.5. The purpose of the SPK operator is to allow the application team to manage the lifecycle of the SPK without having access to the SPK specific namespace.
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+applications must utilize the SPK operator in WS 1.3.5 prior to migration to 1.5
+====

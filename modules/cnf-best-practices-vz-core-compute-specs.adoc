@@ -1,0 +1,45 @@
+[id="cnf-best-practices-core-compute-specs"]
+= Core compute specs
+
+[NOTE]
+====
+Compute hardware and NIC layout is subject to change over time.
+====
+
+.Core compute specs
+[cols=2*, width="60%", options="header"]
+|====
+|Compute spec
+|Description
+
+|CPU
+|2x Intel Cascade Lake 6248 CPU @ 2.50Ghz
+
+|RAM
+|512GB DDR4 2933MT/s
+
+|Storage
+|2x480GB SSD (Boot)
+4x960GB SSD (Ephemeral Data)
+
+|Network
+|(1) BRCM 2P 25G SFP rNDC
+(1) Mellanox CX-5
+|====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+If CNF is to be deployed in Webscale Core environment and needs to use SR-IOV the CNF must support the Mellanox (nVidia) ConnectX 5 (CX5)
+====
+
+== Core NUMA + NIC Topology
+
+.Core NUMA + NIC Topology
+image::image12.png[width=700]
+
+Diagram Key::
+* Green Blocks: Memory
+* Orange Blocks: Cores
+* Dark Blue Blocks: NICs
+* White Blocks: NIC Ports

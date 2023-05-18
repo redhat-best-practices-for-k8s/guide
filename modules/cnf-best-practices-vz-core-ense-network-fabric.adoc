@@ -1,0 +1,8 @@
+[id="cnf-best-practices-core-ense-network-fabric"]
+= Core eNSE network fabric
+
+Core::
+Core details pending design decisions that are under test.
+
+Mellanox::
+Final Mellanox information pending additional design work

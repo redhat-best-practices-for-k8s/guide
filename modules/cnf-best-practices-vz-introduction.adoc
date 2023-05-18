@@ -1,0 +1,8 @@
+[id="cnf-best-practices-introduction"]
+= Introduction
+
+Verizon is building a Webscale platform to serve network needs across VCP Core, Edge, and Far Edge. In the infancy of this journey, the platform will be the entry path for 5G Core cloud-native NF's and bring forth the introduction of CNCF-based stack for Containerized Network Functions (CNFs). Verizon is building a Kubernetes-based CaaS (Container as a Service) Platform with PaaS (Platform as a Service) services to support 5G Services-based Architecture. Verizon will continue its journey with OpenStack however we will allocate Hardware pools in existing and next generation NFVI within Core and Edge to carve out Regions for OpenStack and Kubernetes.
+
+.VCP Cloud-Native: Key Tenets
+image:image1.png[width=624,height=267]
+
