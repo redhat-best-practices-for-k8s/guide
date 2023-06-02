@@ -1,7 +1,7 @@
 [id="cnf-best-practices-openshift-platform"]
-= Developing Operators and containers for the OpenShift platform
+= Developing Containers and Operators for the OpenShift Container Platform (OCP)
 
-Review the following information to learn more about developing containers and Operators for the OpenShift platform that meet Red Hat certification criteria:
+Review the following information to learn more about developing Containers and Operators for the OpenShift Container Platform (OCP) in compliance with Red Hat certification requirements:
 
 * link:https://redhat-connect.gitbook.io/certified-operator-guide/[Building Operators that meets the Red Hat certification criteria]
 
