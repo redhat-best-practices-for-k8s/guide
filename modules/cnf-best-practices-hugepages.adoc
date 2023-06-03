@@ -6,3 +6,16 @@ In Openshift Container Platform, nodes/hosts must pre-allocate huge pages.
 For more information, see
 link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].
 
+
+To request hugepages, pods must supply the following within the pod.spec for each container:
+
+resources:
+limits:
+hugepages-2Mi: 100Mi
+memory: "1Gi"
+cpu: "1"
+requests:
+hugepages-2Mi: 100Mi
+memory: "1Gi"
+cpu: "1"
+
