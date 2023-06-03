@@ -14,3 +14,11 @@ the VRF is done on the application's behalf via the Load Balancer and destinatio
 Multus will be supported within the platform for additional NICs within containers. However
 Multus should be used only for those cases that cannot be supported by the load balancer.
 
+The POD and Services networks are unrouted address space, they are only reachable via service
+VIPs on the load balancers. The POD network will be NATed as traffic egresses the load balancer.
+Traffic inbound will be destination NATed to Service/Pod IP addresses.
+
+
+Applications should use Network Policies for firewalling the application. Network Policies should
+be written with a default deny and only allow ports and protocols on an as needed basis for any
+pods and services.
