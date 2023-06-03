@@ -3,3 +3,14 @@
 
 Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.
 
+Generally a Load Balancer is used within the platform for L4 services and sometimes L7 load balancing services.
+In a multi-tenant environment, Network Functions (NFs) can be deployed within a single namespace.
+Supporting applications like an OAM platform for multiple NFs from the same vendor should be
+run in an additional separate namespace.
+The CNI interface should be used as the default mechanism for accessing VRFs. For
+traffic inbound to an application this is done through allocation of a VIP on the load balancer via
+the Kubernetes API on the appropriate VRF. For traffic outbound from an application selection of
+the VRF is done on the application's behalf via the Load Balancer and destination routing.
+Multus will be supported within the platform for additional NICs within containers. However
+Multus should be used only for those cases that cannot be supported by the load balancer.
+
