@@ -13,16 +13,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Build Asciidoc
-        uses: docker://asciidoctor/docker-asciidoctor
+      - name: Extract assets
+        run: docker cp $(docker run --detach quay.io/redhat-docs/redhat-docs-template):/assets ./assets
+
+      - name: Build AsciiDoc
+        uses: docker://quay.io/redhat-docs/redhat-docs-template
         with:
-          args: "asciidoctor out/cnf-reqs-1.3.adoc -o index.html"
+          args: main.adoc
 
       - name: Copy output to docs/
         run: |
           mkdir docs
-          cp -r out/images/ docs/images
+          cp -r images/ docs/images
+          cp -r assets/ docs/assets
           mv index.html docs/
+
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
