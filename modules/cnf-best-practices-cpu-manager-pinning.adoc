@@ -3,3 +3,10 @@
 
 The OpenShift platform can use the Kubernetes CPU Manager to support CPU pinning for applications.
 
+Important note on using probes: If the CNF is doing CPU pinning and running a DPDK process do
+not use exec probes (executing a command within the container) as it may pile up and block the
+node eventually.
+
+
+CNF Requirement: If a CNF is doing CPU pinning, exec probes may not be used.
+

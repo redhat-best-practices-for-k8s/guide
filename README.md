@@ -1,6 +1,5 @@
-# CNF best practices
 
-Provides guidance and best practices information for developing OpenShift applications that utilize cloud-native functions for high-performance workloads.
+This document provides guidance and information for developing OpenShift applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
 
 To build the HTML, install `asciidoctor` and run: 
 
