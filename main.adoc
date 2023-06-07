@@ -6,7 +6,7 @@ Cloud-native network functions (CNFs) best practices
 :toc: left
 :toclevels: 5
 :toc-title: CNF Best Practices v{revnumber}
-:repo-url: https://github.com/aireilly/cnf-best-practices
+:repo-url: https://github.com/test-network-function/cnf-best-practices
 :icons: image
 :icontype: svg
 :iconsdir: pdf/icons
