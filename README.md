@@ -1,34 +1,19 @@
-
 This document provides guidance and information for developing OpenShift applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
 
-To build the HTML, install `asciidoctor` and run: 
+The entrypoint to this document is the `main.adoc` assembly file.
+
+To build the HTML, install `podman`, and then:
 
 ```cmd
-asciidoctor main.adoc \
--a stylesheet="assets/css/redhat.css" \
--a toc \
--a toc-placement=left \
--a icons=font \
--a docinfodir="assets" \
--a docinfo=shared \
--a source-highlighter=rouge \
--a rouge-style=github \
--a favicon="assets/images/favicon.ico" \
--a iconsdir="assets/images" \
--a icon-set=fab \
--a icons="font" \
--a sectlinks \
--o index.html
+podman pull quay.io/redhat-docs/redhat-docs-template
+podman cp $(podman run --detach quay.io/redhat-docs/redhat-docs-template):/assets ./assets
+podman run --rm -it -v "$(pwd)":/docs:Z quay.io/redhat-docs/redhat-docs-template main.adoc
 ```
 
-To build the PDF, install `asciidoctor-pdf` and run:
+To build the PDF:
 
 ```cmd
-asciidoctor-pdf main.adoc \
--a pdf-themesdir=pdf \
--a pdf-theme=redhat \
--a toc-title="" \
--a doctype=book \
--a source-highlighter="rouge"
--o cnf-best-practices.pdf
+podman pull quay.io/redhat-docs/redhat-docs-pdf-template
+podman cp $(podman run --detach quay.io/redhat-docs/redhat-docs-pdf-template):/pdf-assets ./pdf-assets
+podman run --rm -it -v "$(pwd)":/docs:Z quay.io/redhat-docs/redhat-docs-pdf-template main.adoc
 ```
