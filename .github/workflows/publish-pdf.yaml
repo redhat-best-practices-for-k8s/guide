@@ -1,27 +1,30 @@
-# name: Build PDF
+name: Build and release PDF
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+    push:
+        branches:
+            - main
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+    build:
+        runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v3
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
 
-#       - name: Build Asciidoc PDF
-#         uses: docker://asciidoctor/docker-asciidoctor
-#         with:
-#           args: 'asciidoctor-pdf -a pdf-themesdir=pdf -a pdf-theme=redhat -a toc-title="" -a doctype=book -a source-highlighter="rouge"  main.adoc -o cnf-best-practices.pdf'
+            - name: Extract assets
+              run: docker cp $(docker run --detach quay.io/redhat-docs/redhat-docs-pdf-template):/pdf-assets ./pdf-assets
 
-#       - name: Create PDF release
-#         run: |
-#           echo $GITHUB_RUN_NUMBER > version.txt
-#           gh release create v$GITHUB_RUN_NUMBER 'cnf-best-practices.pdf'
-#         env:
-#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            - name: Build PDF
+              uses: docker://quay.io/redhat-docs/redhat-docs-pdf-template
+              with:
+                  args: main.adoc
 
+            - name: Create PDF release
+              run: |
+                  echo $GITHUB_RUN_NUMBER > version.txt
+                  mv main.pdf cnf-best-practices.pdf
+                  gh release create v$GITHUB_RUN_NUMBER cnf-best-practices.pdf
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
