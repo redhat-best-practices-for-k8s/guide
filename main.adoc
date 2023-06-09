@@ -1,8 +1,8 @@
 [id="cnf-best-practices"]
 = CNF Best Practices
 Cloud-native network functions (CNFs) best practices
-:revnumber: 1.5
-:revdate: 2023-05-10
+:revnumber: v2
+:revdate: 2023
 :toc: left
 :toclevels: 5
 :toc-title: CNF Best Practices v{revnumber}
