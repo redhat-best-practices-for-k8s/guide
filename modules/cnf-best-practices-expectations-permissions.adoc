@@ -423,6 +423,8 @@ See link:https://docs.openshift.com/container-platform/4.7/authentication/using-
 [IMPORTANT]
 ====
 CNFs may not create `ClusterRole` or `ClusterRoleBinding` CRs. Only cluster administrators should create these CRs.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-cluster-role-bindings[access-control-cluster-role-bindings]
 ====
 
 [id="cnf-best-practices-custom-role-to-access-application-crds"]
