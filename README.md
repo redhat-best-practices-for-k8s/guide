@@ -1,6 +1,6 @@
 This document provides guidance and information for developing OpenShift applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
 
-Releases are generated automatically. 
+Releases are generated automatically upon commit. 
 
 Currently there may be an issue with auto generating the PDF asset if a release is made manually (although the PDF asset can still be attached manually).
 
