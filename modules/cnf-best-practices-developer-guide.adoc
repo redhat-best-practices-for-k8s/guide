@@ -91,6 +91,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 [IMPORTANT]
 ====
 CNFs may not modify the platform in any way.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image]
 ====
 
 [id="cnf-best-practices-avoid-accessing-resource-on-host"]
