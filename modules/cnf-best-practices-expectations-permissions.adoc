@@ -421,6 +421,8 @@ See link:https://docs.openshift.com/container-platform/4.12/nodes/containers/nod
 
 Roles / RoleBindings:: A `Role` represents a set of permissions within a particular namespace. E.g: A given user can list pods/services within the namespace. The `RoleBinding` is used for granting the permissions defined in a role to a user or group of users. Applications may create roles and rolebindings within their namespace, however the scope of a role will be limited to the same permissions that the creator has or less.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-role-bindings[access-control-pod-role-bindings]
+
 ClusterRole / ClusterRoleBinding:: A `ClusterRole` represents a set of permissions at the cluster level that can be used by multiple namespaces. The `ClusterRoleBinding` is used for granting the permissions defined in a `ClusterRole` to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. CNFs should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.
 
 See link:https://docs.openshift.com/container-platform/4.7/authentication/using-rbac.html[Using RBAC to define and apply permissions] for more information.
