@@ -10,3 +10,5 @@ node eventually.
 
 CNF Requirement: If a CNF is doing CPU pinning, exec probes may not be used.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe[networking-dpdk-cpu-pinning-exec-probe]
+
