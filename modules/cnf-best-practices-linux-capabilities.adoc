@@ -61,6 +61,8 @@ IPC_LOCK capability is required if any of these functions are used in an applica
 
 Even though `mlock()` is not necessary on systems where page swap is disabled (for example on OpenShift), it may still be required as it is a function that is built into DPDK libraries, and DPDK based applications may indirectly call it by calling other functions.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ipc-lock-capability-check[access-control-ipc-lock-capability-check]
+
 [id="cnf-best-practices-net_admin"]
 == NET_ADMIN
 
@@ -103,6 +105,8 @@ This capability is very powerful and overloaded. It allows the application to pe
 [IMPORTANT]
 ====
 Applications *MUST NOT* use the SYS_ADMIN Linux capability
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-admin-capability-check[access-control-sys-admin-capability-check]
 ====
 
 [id="cnf-best-practices-sys_nice"]
@@ -115,4 +119,6 @@ In the case that a CNF is running on a node using the real-time kernel, SYS_NICE
 
 This capability is required when using Process Namespace Sharing. This is used when processes from one Container need to be exposed to another Container. For example, to send signals like SIGHUP from a process in a Container to another process in another Container. See link:https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/[] for more details.
 For more information on these capabilities refer to link:https://cloud.redhat.com/blog/linux-capabilities-in-openshift[].
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-ptrace-capability[access-control-sys-ptrace-capability]
 
