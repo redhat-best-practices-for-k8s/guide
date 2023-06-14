@@ -7,6 +7,8 @@
 
 ** Listening ports MUST be named in the pod specification with the protocol they Implement.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-undeclared-container-ports-usage[networking-undeclared-container-ports-usage]
+
 *** The name field in the ContainerPort section must be of the form `<protocol>` where `<protocol>` is one of the below, and the optional `<suffix>` can be chosen by the application.
 
 *** Preferred prefixes: `grpc`, `grpc-web`, `http`, `http2`
@@ -14,6 +16,8 @@
 *** Fallback prefixes: `tcp`, `udp`
 
 *** Valid example: `http-webapi` or `grpc`
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-container-port-name-format[manageability-container-port-name-format]
 
 * The application MUST communicate with Kubernetes Services by their service IP instead of selecting Pods in that service individually.
 
