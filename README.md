@@ -13,8 +13,8 @@ The latest (and previous) PDF versions can be downloadeded from: https://github.
 
 For contributors:
 
-Commits for main will be subjected to PR review and approval by the CNF Best Practices team.
-Owners of other branches will be responsible for the review, approval, and maintenance of the content in their respective branches.
+Commits will be subjected to PR review and approval by the CNF Best Practices team.
+Owners of other private repos will be responsible for the review, approval, and maintenance of the content in their respective repos.
 
 
 
