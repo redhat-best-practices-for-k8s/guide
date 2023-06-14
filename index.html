@@ -4651,10 +4651,10 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>CNFs shall be built to be cloud-native</p>
 </li>
 <li>
-<p>Containers MUST NOT run as root (uid=0). Applications that require elevated privileges will require an exception with HQ Planning</p>
+<p>Containers MUST NOT run as root (uid=0). See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check">access-control-security-context-non-root-user-check</a></p>
 </li>
 <li>
-<p>Containers MUST run with the minimal set of permissions required. Avoid Privileged Pods.</p>
+<p>Containers MUST run with the minimal set of permissions required. Avoid Privileged Pods. See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation">access-control-security-context-privilege-escalation</a></p>
 </li>
 <li>
 <p>Use the main CNI for all traffic - MULTUS/SRIOV/MacVLAN are for corner cases only (extreme throughput requirements, protocols that are unable to be load balanced)</p>
@@ -6337,7 +6337,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 04:46:40 UTC
+Last updated 2023-06-14 05:07:07 UTC
 </div>
 </div>
 <!-- Nav bar -->
