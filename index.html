@@ -5145,7 +5145,7 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <p>CNFs need to be prepared for nodes to reboot or shut down without notice</p>
 </li>
 <li>
-<p>CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades</p>
+<p>CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
 </li>
 <li>
 <p>Applications should not be tied to a specific version of Kubernetes or any of its components</p>
@@ -5163,7 +5163,7 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <p>Applications MUST specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.</p>
 </div>
 <div class="paragraph">
-<p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation">lifecycle-pod-recreation</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation">lifecycle-pod-recreation</a></p>
 </div>
 </td>
 </tr>
@@ -5180,6 +5180,9 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <div class="paragraph">
 <p>Pods that perform the same microservice and that could be disrupted if multiple members of the service are
 unavailable must implement pod disruption budgets to prevent disruption in the event of patches/upgrades.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
 </div>
 </td>
 </tr>
@@ -6411,7 +6414,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 15:21:00 UTC
+Last updated 2023-06-14 15:22:50 UTC
 </div>
 </div>
 <!-- Nav bar -->
