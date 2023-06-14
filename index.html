@@ -4158,6 +4158,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>Even though <code>mlock()</code> is not necessary on systems where page swap is disabled (for example on OpenShift), it may still be required as it is a function that is built into DPDK libraries, and DPDK based applications may indirectly call it by calling other functions.</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ipc-lock-capability-check">access-control-ipc-lock-capability-check</a></p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="cnf-best-practices-net_admin"><a class="link" href="#cnf-best-practices-net_admin">3.6.3. NET_ADMIN</a></h4>
@@ -4237,6 +4240,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>Applications <strong>MUST NOT</strong> use the SYS_ADMIN Linux capability</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-admin-capability-check">access-control-sys-admin-capability-check</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -4253,6 +4259,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>This capability is required when using Process Namespace Sharing. This is used when processes from one Container need to be exposed to another Container. For example, to send signals like SIGHUP from a process in a Container to another process in another Container. See <a href="https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/" class="bare">https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/</a> for more details.
 For more information on these capabilities refer to <a href="https://cloud.redhat.com/blog/linux-capabilities-in-openshift" class="bare">https://cloud.redhat.com/blog/linux-capabilities-in-openshift</a>.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-ptrace-capability">access-control-sys-ptrace-capability</a></p>
 </div>
 </div>
 </div>
@@ -6361,7 +6370,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 05:36:08 UTC
+Last updated 2023-06-14 12:56:27 UTC
 </div>
 </div>
 <!-- Nav bar -->
