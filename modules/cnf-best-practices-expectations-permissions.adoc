@@ -188,6 +188,8 @@ Pods should use `terminationMessagePolicy: FallbackToLogsOnError` to summarize w
 [IMPORTANT]
 ====
 All pods shall have a liveness, readiness and startup probes defined
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 ====
 
 [id="cnf-best-practices-graceful-termination"]
