@@ -80,6 +80,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 [IMPORTANT]
 ====
 All secondary interfaces (MULTUS) must support dual stack
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity-multus[networking-icmpv4-connectivity-multus], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity-multus[networking-icmpv6-connectivity-multus]
 ====
 
 .CNF requirement
