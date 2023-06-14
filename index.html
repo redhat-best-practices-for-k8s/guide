@@ -4641,6 +4641,13 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <dd>
 <p>A container must receive important events from the platform and conform/react to these events properly. For example, a container should catch SIGTERM or SIGKILL from the platform and shut down as quickly as possible. Other typically important events from the platform are PostStart to initialize before servicing requests and PreStop to release resources cleanly before shutting down.</p>
 </dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-startup">lifecycle-container-startup</a></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">Image immutability</dt>
 <dd>
 <p>Container images are meant to be immutable; i.e. customized images for different environments should typically not be built. Instead, an external means for storing and retrieving configurations that vary across environments for the container should be used. Additionally, the container image should NOT dynamically install additional packages at runtime.</p>
@@ -6422,7 +6429,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 15:40:59 UTC
+Last updated 2023-06-14 16:01:17 UTC
 </div>
 </div>
 <!-- Nav bar -->
