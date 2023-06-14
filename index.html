@@ -2737,22 +2737,6 @@ h6>a.link:hover:after {
     margin-left: 0.5em
 }
 
-@media only screen and (max-width: 767px) {
-    #toc.toc2 {
-        padding: 0;
-        background: #f3f3f3;
-    }
-
-    #toc.toc2 #toctitle::before {
-        display: none;
-    }
-
-    #toc.toc2 #toctitle {
-        display: none;
-    }
-
-}
-
 /* Top navigation */
 .navbar {
     background-color: #333;
@@ -2823,6 +2807,36 @@ div.listingblock>div>pre.rouge>button {
     }
 }
 
+/* Active TOC item tweak */
+.active {
+    border-right: 3px solid #2e2e2e !important;
+    font-weight: bold;
+    color: #465158;
+    background: #dedede;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 767px) {
+    #toc.toc2 {
+        padding: 0;
+        background: #f3f3f3;
+    }
+
+    #toc.toc2 #toctitle::before {
+        display: none;
+    }
+
+    #toc.toc2 #toctitle {
+        display: none;
+    }
+
+    /* Top navigation */
+    .navbar {
+        height: 6em;
+    }
+
+}
+
 @media (max-width:500px) {
     .github-corner:hover .octo-arm {
         animation: none
@@ -2833,14 +2847,7 @@ div.listingblock>div>pre.rouge>button {
     }
 }
 
-/* Active TOC item tweak */
-.active {
-    border-right: 3px solid #2e2e2e !important;
-    font-weight: bold;
-    color: #465158;
-    background: #dedede;
-    text-decoration: none;
-}
+
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -3533,6 +3540,9 @@ node eventually.</p>
 <div class="title">CNF requirement</div>
 <div class="paragraph">
 <p>To use isolated CPUs, specific annotations must be defined in the pod specification.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-cpu-isolation">lifecycle-cpu-isolation</a></p>
 </div>
 </td>
 </tr>
@@ -6388,7 +6398,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 13:57:25 UTC
+Last updated 2023-06-14 14:28:37 UTC
 </div>
 </div>
 <!-- Nav bar -->
