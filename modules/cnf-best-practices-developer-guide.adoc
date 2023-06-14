@@ -50,7 +50,7 @@ The general guidelines are:
 ====
 Only ask for the necessary privileges and access control settings for your application
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation[access-control-security-context-privilege-escalation]
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check[access-control-security-context-non-root-user-check]
 ====
 
 .CNF requirement
@@ -58,6 +58,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 ====
 If the function required by your CNF can be fulfilled by OCP components, your application should not be
 requesting escalated privilege to perform this function.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation[access-control-security-context-privilege-escalation]
 ====
 
 .CNF requirement
