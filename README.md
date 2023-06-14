@@ -9,7 +9,7 @@ The latest release will be auto published (via Github-page bot) to https://test-
 The latest (and previous) PDF versions can be downloadeded from: https://github.com/test-network-function/cnf-best-practices/releases
 
 
-For contributors:
+Contribution/PR Review Process: WIP
 
 Commits will be subjected to PR review and approval by the CNF Best Practices team.
 Owners of other private repos will be responsible for the review, approval, and maintenance of the content in their respective repos.
