@@ -4684,7 +4684,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>CNFs should employ N+k redundancy models</p>
 </li>
 <li>
-<p>CNFs MUST define their pod affinity/anti-affinity rules.</p>
+<p>CNFs MUST define their pod affinity/anti-affinity rules. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
 </li>
 <li>
 <p>All secondary network interfaces employed by CNFs with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.</p>
@@ -5081,6 +5081,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Pods that need to be co-located on the same node need affinity rules. Pods that should not be
 co-located for resiliency purposes require anti-affinity rules.</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -5096,6 +5099,9 @@ co-located for resiliency purposes require anti-affinity rules.</p>
 <div class="paragraph">
 <p>Pods that perform the same microservice and could be disrupted if multiple members of the service are
 unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
 </div>
 </td>
 </tr>
@@ -6373,7 +6379,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 12:57:32 UTC
+Last updated 2023-06-14 13:30:25 UTC
 </div>
 </div>
 <!-- Nav bar -->
