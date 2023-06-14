@@ -4,7 +4,7 @@ New releases, Github page deployments (HTML versions), PDF versions are triggere
 
 It is therefore recommended to wait for the workflow actions (https://github.com/test-network-function/cnf-best-practices/actions) to finish and auto generate a new release with the latest commits, then edit the release notes and version tag manually if so desired.
 
-The latest release will be auto published to https://test-network-function.github.io/cnf-best-practices/
+The latest release will be auto published (via Github-page bot) to https://test-network-function.github.io/cnf-best-practices/
 
 The latest (and previous) PDF versions can be downloadeded from: https://github.com/test-network-function/cnf-best-practices/releases
 
