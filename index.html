@@ -4900,6 +4900,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>SSH daemons must NOT be used in Openshift for pod interaction.</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ssh-daemons">access-control-ssh-daemons</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -5235,6 +5238,10 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>Do not use naked Pods (that is, Pods not bound to a <code>ReplicaSet</code>, or <code>StatefulSet</code> deployment). Naked pods will not be rescheduled in the event of a node failure.</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a>
+.CNF requirement</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -5242,7 +5249,6 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
 <div class="paragraph">
 <p>Applications must not depend on any single pod being online for their application to function.</p>
 </div>
@@ -5261,6 +5267,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>Pods must be deployed as part of a <code>Deployment</code> or <code>StatefulSet</code>.</p>
 </div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
+</div>
 </td>
 </tr>
 </table>
@@ -5275,6 +5284,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="title">CNF requirement</div>
 <div class="paragraph">
 <p>Pods may not be deployed in a DaemonSet.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
 </div>
 </td>
 </tr>
@@ -6349,7 +6361,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 05:24:33 UTC
+Last updated 2023-06-14 05:36:08 UTC
 </div>
 </div>
 <!-- Nav bar -->
