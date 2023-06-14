@@ -60,7 +60,7 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs shall decouple application configuration from Pods, to allow dynamic configuration updates
 
-* CNFs shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc.
+* CNFs shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc. See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-crd-scaling[lifecycle-crd-scaling], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-statefulset-scaling[lifecycle-statefulset-scaling]
 
 * CNFs shall support canary upgrades
 
