@@ -10,4 +10,6 @@ The following ports are reserved by OpenShift and should not be used by any appl
 [IMPORTANT]
 ====
 The following ports are reserved by OpenShift and must not be used by any application: `22623`, `22624`.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-ocp-reserved-ports-usage[networking-ocp-reserved-ports-usage]
 ====
