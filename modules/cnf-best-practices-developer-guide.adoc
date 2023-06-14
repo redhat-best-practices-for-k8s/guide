@@ -49,6 +49,8 @@ The general guidelines are:
 [IMPORTANT]
 ====
 Only ask for the necessary privileges and access control settings for your application
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation[access-control-security-context-privilege-escalation]
 ====
 
 .CNF requirement
