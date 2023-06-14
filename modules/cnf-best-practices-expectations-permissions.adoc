@@ -192,6 +192,8 @@ There are different ways a pod can be stopped in Kubernetes. One way is that the
 
 Pods should use `terminationMessagePolicy: FallbackToLogsOnError` to summarize why they crashed and use stderr to report errors on crash
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-termination-policy[observability-termination-policy]
+
 .CNF requirement
 [IMPORTANT]
 ====
