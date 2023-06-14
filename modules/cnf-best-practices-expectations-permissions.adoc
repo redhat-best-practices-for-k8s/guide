@@ -254,7 +254,7 @@ Do not use exec probes if a CNF is doing CPU pinning.
 
 In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.
 
-These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules]more information. The following example `Pod` CR illustrates pod affinity:
+These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. said dbhttps://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules]more information. The following example `Pod` CR illustrates pod affinity:
 
 [source,yaml]
 ----
@@ -755,7 +755,7 @@ Do NOT set your pod disruption budget to `maxUnavailable` <number of pods in rep
 
 A corollary to the pod disruption budget is a strong readiness and health check. A well implemented readiness check is key for surviving these upgrades in that a pod should not report itself ready to kubernetes until it is actually ready to take over the load from another pod of the example set. An example of this being implemented poorly would be for a pod to report itself ready but it is not in sync with the other DB pods in the example above. Kubernetes could see that three of the pods are "ready" and destroy a second pod and cause disruption to the DB leading to failure of the application served by said DB.
 
-See link:link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
+See link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
 
 [source,yaml]
 ----
