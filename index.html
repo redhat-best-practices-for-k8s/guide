@@ -5311,6 +5311,13 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <dd>
 <p>A <code>Role</code> represents a set of permissions within a particular namespace. E.g: A given user can list pods/services within the namespace. The <code>RoleBinding</code> is used for granting the permissions defined in a role to a user or group of users. Applications may create roles and rolebindings within their namespace, however the scope of a role will be limited to the same permissions that the creator has or less.</p>
 </dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-role-bindings">access-control-pod-role-bindings</a></p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">ClusterRole / ClusterRoleBinding</dt>
 <dd>
 <p>A <code>ClusterRole</code> represents a set of permissions at the cluster level that can be used by multiple namespaces. The <code>ClusterRoleBinding</code> is used for granting the permissions defined in a <code>ClusterRole</code> to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. CNFs should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.</p>
@@ -6327,7 +6334,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 04:23:36 UTC
+Last updated 2023-06-14 04:39:09 UTC
 </div>
 </div>
 <!-- Nav bar -->
