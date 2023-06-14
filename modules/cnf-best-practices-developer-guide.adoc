@@ -74,6 +74,8 @@ Do not mount host directories for device access.
 [IMPORTANT]
 ====
 Do not use host network namespace.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace[access-control-namespace]
 ====
 
 .CNF requirement
