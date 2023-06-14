@@ -2821,7 +2821,8 @@ div.listingblock>div>pre.rouge>button {
 
     /* Top navigation */
     .navbar {
-        height: 6em;
+        height: 4.3em;
+        font-size: 0.9em;
     }
 
 }
