@@ -7,5 +7,7 @@ When using storage with Kubernetes, you can use storage classes. Refer to <<cnf-
 
 Network functions should clear persistent storage by deleting the associated `PV` resources when removing the application from a cluster.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-persistent-volume-reclaim-policy[lifecycle-persistent-volume-reclaim-policy]
+
 For more information, see link:https://docs.openshift.com/container-platform/latest/storage/container_storage_interface/persistent-storage-csi.html[Red Hat Persistent Storage].
 
