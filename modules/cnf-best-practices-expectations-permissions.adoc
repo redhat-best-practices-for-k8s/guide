@@ -218,7 +218,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.
 
-All pods should have a resource request that is the minimum amount o fresources the pod is expected to use at steady state for both memory and CPU.
+All pods should have a resource request that is the minimum amount of resources the pod is expected to use at steady state for both memory and CPU.
 
 [id="cnf-best-practices-storage:-emptydir"]
 ==== Storage: emptyDir
@@ -751,7 +751,7 @@ Openshift will wait until worker-10 is ready before proceeding onwards to worker
 
 In clusters larger than the example cluster, the `maxUnavailable` for the worker pool may be set to a large number to reboot multiple nodes in parallel to speed up deployment of the new version of OpenShift. This number will take into account the work loads on the cluster to make sure sufficient resources are left to maintain application availability.
 
-For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicatset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.
+For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicaset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.
 
 [NOTE]
 ====
