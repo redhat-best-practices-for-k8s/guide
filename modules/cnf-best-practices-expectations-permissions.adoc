@@ -64,7 +64,7 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs shall support canary upgrades
 
-* CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum.
+* CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum. See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 
 .CNF requirement
 [IMPORTANT]
@@ -235,6 +235,8 @@ Two health checks that are required to monitor the status of the applications ar
 There is also a consideration of pod startup. Here the pod may start and take a while for different reasons. Pods can be marked as ready if they pass the readiness check. The readiness check determines that the pod has started properly and is able to answer requests. There are circumstances where both checks are used to monitor the applications in the pods. A failed readiness check results in the container being taken out of the available service endpoints. An example of this being relevant is when the pod was under heavy load, failed the readiness check, gets taken out of the endpoint pool, processes requests, passes the readiness check and is added back to the endpoint pool.
 
 For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Configure Liveness, Readiness and Startup Probes].
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 
 [IMPORTANT]
 ====
