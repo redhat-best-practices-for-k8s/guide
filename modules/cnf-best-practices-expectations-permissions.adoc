@@ -84,6 +84,8 @@ All secondary interfaces (MULTUS) must support dual stack
 [IMPORTANT]
 ====
 CNFs shall not use node selectors nor taints/tolerations to assign pod location
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-scheduling[lifecycle-pod-scheduling]
 ====
 
 [id="cnf-best-practices-pod-permissions"]
