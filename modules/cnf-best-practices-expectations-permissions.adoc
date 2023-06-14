@@ -70,6 +70,8 @@ Application design should conform to cloud-native design principles to the maxim
 [IMPORTANT]
 ====
 Containers must not run as root
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check[access-control-security-context-non-root-user-check]
 ====
 
 .CNF requirement
