@@ -398,7 +398,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 Do not use naked Pods (that is, Pods not bound to a `ReplicaSet`, or `StatefulSet` deployment). Naked pods will not be rescheduled in the event of a node failure.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
-.CNF requirement
+
+CNF requirement
 [IMPORTANT]
 ====
 Applications must not depend on any single pod being online for their application to function.
