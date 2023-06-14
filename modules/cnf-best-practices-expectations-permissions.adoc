@@ -375,6 +375,8 @@ metadata:
 spec:
   serviceAccountName: examplesvcacct
   automountServiceAccountToken: false
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-automount-service-account-token[access-control-pod-automount-service-account-token]
 ----
 
 [id="cnf-best-practices-disruption-budgets"]
