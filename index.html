@@ -4054,7 +4054,7 @@ requesting escalated privilege to perform this function.</p>
 In brief, the Linux kernel associates various capability sets with threads and files. The thread’s Effective capability set determines the current privileges of a thread.</p>
 </div>
 <div class="paragraph">
-<p>When a thread executes a binary program the kernel updates the various thread capability sets according to a set of rules that take into account the UID of thread before and after the exec system call and the file capabilities of the program being executed. Refer to the blog series in <a href="">10</a># for more details about []Linux capabilities and some examples. For Red Hat specific review of capabilities please refer to thelink:Linux Capabilities in OpenShift blog.# An additional reference is link:Docker Run Reference.[]</p>
+<p>When a thread executes a binary program the kernel updates the various thread capability sets according to a set of rules that take into account the UID of thread before and after the exec system call and the file capabilities of the program being executed. Refer to the blog series in <a href="">10</a># for more details about []Linux capabilities and some examples. For Red Hat specific review of capabilities please refer to the link:Linux Capabilities in OpenShift blog.# An additional reference is link:Docker Run Reference.[]</p>
 </div>
 <div class="paragraph">
 <p>Users may choose to specify the required permissions for their running application in the Security Context of the pod specification. In OCP, administrators can use the Security Context Constraint (SCC) admission controller plugin to control the permissions allowed for pods deployed to the cluster. If the pod requests permissions that are not allowed by the SCCs available to that pod, the pod will not be admitted to the cluster.</p>
@@ -5013,7 +5013,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.</p>
 </div>
 <div class="paragraph">
-<p>All pods should have a resource request that is the minimum amount o fresources the pod is expected to use at steady state for both memory and CPU.</p>
+<p>All pods should have a resource request that is the minimum amount of resources the pod is expected to use at steady state for both memory and CPU.</p>
 </div>
 </div>
 <div class="sect5">
@@ -5797,7 +5797,7 @@ loadbalancer-15</span></code></pre>
 <p>In clusters larger than the example cluster, the <code>maxUnavailable</code> for the worker pool may be set to a large number to reboot multiple nodes in parallel to speed up deployment of the new version of OpenShift. This number will take into account the work loads on the cluster to make sure sufficient resources are left to maintain application availability.</p>
 </div>
 <div class="paragraph">
-<p>For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicatset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.</p>
+<p>For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicaset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -6435,7 +6435,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-14 16:52:19 UTC
+Last updated 2023-06-14 17:32:44 UTC
 </div>
 </div>
 <!-- Nav bar -->
