@@ -1,10 +1,10 @@
 This document provides guidance and information for developing OpenShift applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
 
-New releases, Github page deployments (HTML versions), PDF versions are triggered automatically upon commit to the main branch. 
+New releases, Github-pages deployments (HTML versions), PDF versions are triggered automatically upon commit to the main branch. 
 
 It is therefore recommended to wait for the workflow actions (https://github.com/test-network-function/cnf-best-practices/actions) to finish and auto generate a new release with the latest commits, then edit the release notes and version tag manually if so desired.
 
-The latest release will be auto published (via Github-page bot) to https://test-network-function.github.io/cnf-best-practices/
+The latest release will be auto published (via Github-pages bot) to https://test-network-function.github.io/cnf-best-practices/
 
 The latest (and previous) PDF versions can be downloadeded from: https://github.com/test-network-function/cnf-best-practices/releases
 
@@ -12,6 +12,7 @@ The latest (and previous) PDF versions can be downloadeded from: https://github.
 Contribution/PR Review Process: WIP
 
 Commits will be subjected to PR review and approval by the CNF Best Practices team.
+
 Owners of other private repos will be responsible for the review, approval, and maintenance of the content in their respective repos.
 
 
