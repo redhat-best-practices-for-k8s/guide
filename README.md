@@ -6,7 +6,7 @@ It is therefore recommended to wait for the workflow actions (https://github.com
 
 The latest release will be auto published (via Github-pages bot) to https://test-network-function.github.io/cnf-best-practices/
 
-The latest (and previous) PDF versions can be downloadeded from: https://github.com/test-network-function/cnf-best-practices/releases
+The latest (and previous) PDF versions can be downloaded from: https://github.com/test-network-function/cnf-best-practices/releases
 
 
 Contribution/PR Review Process: WIP
