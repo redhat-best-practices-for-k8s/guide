@@ -22,3 +22,5 @@ Traffic inbound will be destination NATed to Service/Pod IP addresses.
 Applications should use Network Policies for firewalling the application. Network Policies should
 be written with a default deny and only allow ports and protocols on an as needed basis for any
 pods and services.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all[networking-network-policy-deny-all]
