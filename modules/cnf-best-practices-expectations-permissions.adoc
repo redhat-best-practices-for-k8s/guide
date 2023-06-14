@@ -331,6 +331,8 @@ See link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nod
 [IMPORTANT]
 ====
 Pods must define requests and limits values for CPU and memory.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-requests-and-limits[access-control-requests-and-limits]
 ====
 
 [id="cnf-best-practices-use-imagepullpolicy-if-not-present"]
