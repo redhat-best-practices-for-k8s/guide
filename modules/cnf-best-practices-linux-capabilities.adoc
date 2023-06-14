@@ -90,6 +90,8 @@ All the administrative operations (except `ethtool`) mentioned above that requir
 [IMPORTANT]
 ====
 Only userplane applications or applications using SR-IOV or Multicast can request NET_ADMIN capability
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-net-admin-capability-check[access-control-net-admin-capability-check]
 ====
 
 [id="cnf-best-practices-avoid-sys_admin"]
