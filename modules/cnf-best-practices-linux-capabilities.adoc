@@ -114,6 +114,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 In the case that a CNF is running on a node using the real-time kernel, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability[access-control-sys-nice-realtime-capability]
+
 [id="cnf-best-practices-sys_ptrace"]
 == SYS_PTRACE
 
