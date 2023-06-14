@@ -9,12 +9,16 @@ In OpenShift Container Platform 4.7+, you can declare `ipFamilyPolicy: PreferDua
 [IMPORTANT]
 ====
 IPv4 should only be used inside a pod when absolutely necessary.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity[networking-icmpv4-connectivity], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity-multus[networking-icmpv4-connectivity-multus]
 ====
 
 .CNF recommendation
 [IMPORTANT]
 ====
 Services should be created as IPv6 only services wherever possible. If an application requires dual stack it should create a dual stack service.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dual-stack-service[networking-dual-stack-service], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity[networking-icmpv6-connectivity], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity-multus[networking-icmpv6-connectivity-multus]
 ====
 
 For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dual-stack[IPv4/IPv6 dual-stack].
