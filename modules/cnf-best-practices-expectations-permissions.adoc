@@ -171,6 +171,8 @@ Interaction with a running pod should be done via `oc exec` or `oc rsh` commands
 [IMPORTANT]
 ====
 SSH daemons must NOT be used in Openshift for pod interaction.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ssh-daemons[access-control-ssh-daemons]
 ====
 
 [id="cnf-best-practices-pod-exit-status"]
@@ -375,6 +377,7 @@ maintenance and the node has to be drained. If there is a pod disruption budget 
 
 Do not use naked Pods (that is, Pods not bound to a `ReplicaSet`, or `StatefulSet` deployment). Naked pods will not be rescheduled in the event of a node failure.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 .CNF requirement
 [IMPORTANT]
 ====
@@ -385,12 +388,16 @@ Applications must not depend on any single pod being online for their applicatio
 [IMPORTANT]
 ====
 Pods must be deployed as part of a `Deployment` or `StatefulSet`.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 ====
 
 .CNF requirement
 [IMPORTANT]
 ====
 Pods may not be deployed in a DaemonSet.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 ====
 
 [id="cnf-best-practices-image-tagging"]
