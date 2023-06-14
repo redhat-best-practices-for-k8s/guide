@@ -106,6 +106,6 @@ Application pods must avoid using `hostNetwork`. Applications may not use the ho
 ====
 Applications may not use `NodePorts` or the `hostNetwork`.
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-container-host-port[access-control-container-host-port]
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-service-type[access-control-service-type]
 ====
 
