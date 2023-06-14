@@ -33,6 +33,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 * The application MUST NOT define Kubernetes resources in the istio-system namespace.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace[access-control-namespace]
+
 * The application MUST propagate tracing headers when making outgoing requests based on incoming requests.
 
 * Example: If an application receives a request with a trace header identifying that request with traceid `785a908c8d93b2d2` , and decides based on application logic that it must make a new request to another application pod to fulfill that request, it must annotate the new request with the same traceid `785a908c8d93b2d2`.
