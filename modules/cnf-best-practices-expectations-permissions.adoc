@@ -405,6 +405,8 @@ However, OpenShift does support running multiple containers per pod. This can be
 
 More information about pods can be found link:https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-using.html[Using pods].
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-one-process-per-container[access-control-one-process-per-container]
+
 [id="cnf-best-practices-init-containers"]
 ==== init containers
 
