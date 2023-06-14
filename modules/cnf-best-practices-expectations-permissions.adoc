@@ -50,7 +50,7 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs should employ N+k redundancy models
 
-* CNFs MUST define their pod affinity/anti-affinity rules.
+* CNFs MUST define their pod affinity/anti-affinity rules. See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods[lifecycle-affinity-required-pods], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability[lifecycle-pod-high-availability]
 
 * All secondary network interfaces employed by CNFs with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.
 
@@ -277,6 +277,8 @@ spec:
 ====
 Pods that need to be co-located on the same node need affinity rules. Pods that should not be
 co-located for resiliency purposes require anti-affinity rules.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods[lifecycle-affinity-required-pods]
 ====
 
 .CNF requirement
@@ -284,6 +286,8 @@ co-located for resiliency purposes require anti-affinity rules.
 ====
 Pods that perform the same microservice and could be disrupted if multiple members of the service are
 unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability[lifecycle-pod-high-availability]
 ====
 
 [id="cnf-best-practices-upgrade-expectations"]
