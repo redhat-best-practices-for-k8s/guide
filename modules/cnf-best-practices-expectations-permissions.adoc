@@ -359,6 +359,8 @@ If there is a situation where the container dies and needs to be restarted, the 
 Container images that are protected by registry authentication have a condition whereby a user who is unable to download an image directly can still launch it by leveraging the host's cached image.
 ====
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-image-pull-policy[lifecycle-image-pull-policy]
+
 [id="cnf-best-practices-automount-services-for-pods"]
 ==== Automount services for pods
 
