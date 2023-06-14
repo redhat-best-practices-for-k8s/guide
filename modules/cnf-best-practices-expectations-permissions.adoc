@@ -430,7 +430,9 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 An image tag is a label applied to a container image in a repository that distinguishes a specific image from other images. Image tags may be used to categorize images (for example: latest, stable, development) and by versions within the categories. This allows the administrator to be specific when declaring which image to test, or which image to run in production.
 
-link:https://docs.openshift.com/container-platform/4.7/openshift_images/managing_images/tagging-images.html[]
+See link:https://docs.openshift.com/container-platform/4.13/openshift_images/managing_images/tagging-images.html[Tagging Images]
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-containers-image-tag[manageability-containers-image-tag]
 
 [id="cnf-best-practices-one-process-per-container"]
 ==== One process per container
