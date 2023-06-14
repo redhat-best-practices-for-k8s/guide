@@ -17,6 +17,8 @@ A container must provide APIs for the platform to observe the container health a
 Lifecycle conformance::
 A container must receive important events from the platform and conform/react to these events properly. For example, a container should catch SIGTERM or SIGKILL from the platform and shut down as quickly as possible. Other typically important events from the platform are PostStart to initialize before servicing requests and PreStop to release resources cleanly before shutting down.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-startup[lifecycle-container-startup]
+
 Image immutability::
 Container images are meant to be immutable; i.e. customized images for different environments should typically not be built. Instead, an external means for storing and retrieving configurations that vary across environments for the container should be used. Additionally, the container image should NOT dynamically install additional packages at runtime.
 
