@@ -258,7 +258,7 @@ Do not use exec probes if a CNF is doing CPU pinning.
 
 In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.
 
-These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. said dbhttps://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules]more information. The following example `Pod` CR illustrates pod affinity:
+These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules] for more information. The following example `Pod` CR illustrates pod affinity:
 
 [source,yaml]
 ----
