@@ -95,7 +95,9 @@ The "restricted" SCC:
 
 * Ensures that no containers within the pod can run with the `allowPrivilegedContainer` flag set.
 
-* Ensures that pods cannot mount host directory volumes.
+* Ensures that pods cannot mount host directory volumes. 
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path[access-control-pod-host-path]
 
 * Requires that a pod run as a user in a pre-allocated range of UIDs from the namespace annotation.
 
