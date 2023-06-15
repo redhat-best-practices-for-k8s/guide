@@ -68,6 +68,8 @@ Containerized workloads must work with Red Hat's restricted SCC1.
 [IMPORTANT]
 ====
 Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
 ====
 
 .CNF requirement
