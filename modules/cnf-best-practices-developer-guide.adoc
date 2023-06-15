@@ -92,7 +92,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 ====
 CNFs may not modify the platform in any way.
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image]
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-sysctl-config[platform-alteration-sysctl-config]
 ====
 
 [id="cnf-best-practices-avoid-accessing-resource-on-host"]
