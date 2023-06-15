@@ -21,3 +21,5 @@ resources:
     memory: "1Gi"
     cpu: "1"
 ----
+
+See test cae link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-2m-only[platform-alteration-hugepages-2m-only]
