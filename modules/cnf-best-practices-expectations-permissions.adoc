@@ -851,15 +851,17 @@ The OLM Packaged operator will then run in openshift-operators namespace within 
 ====
 Operators should be certified against the openshift version of the cluster they will be deployed on.
 
-* See link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf[Redhat Partner Guide for CNF Certification]
-
-* See link:https://sdk.operatorframework.io/docs/best-practices/[Redhat Operator SDK & Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[OLM Best Practices]
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-operator-is-certified[affiliated-certification-operator-is-certified]
 ====
 
 .CNF requirement
 [IMPORTANT]
 ====
 Operators must be compatible with our version of openshift
+
+* See link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf[Redhat Partner Guide for CNF Certification]
+
+* See link:https://sdk.operatorframework.io/docs/best-practices/[Redhat Operator SDK & Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[OLM Best Practices]
 ====
 
 .CNF requirement
