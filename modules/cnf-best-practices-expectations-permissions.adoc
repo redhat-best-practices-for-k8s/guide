@@ -942,6 +942,8 @@ If a cnf application requires a specific version of a third party non-proprietar
 [IMPORTANT]
 ====
 Successful operator installation and runtime must be validated in pre-deployment lab environments before being allowed to be deployed to production.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-status-succeeded[operator-install-status-succeeded]
 ====
 
 .CNF requirement
