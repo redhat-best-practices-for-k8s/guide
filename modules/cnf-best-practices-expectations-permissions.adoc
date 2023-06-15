@@ -342,6 +342,8 @@ Taints and tolerations consist of a key, value, and effect. An operator allows y
 
 See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-taints-tolerations.html[Controlling pod placement using node taints] for more information.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel[platform-alteration-tainted-node-kernel]
+
 [id="cnf-best-practices-requests/limits"]
 ==== Requests/Limits
 
