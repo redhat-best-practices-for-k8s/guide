@@ -888,6 +888,8 @@ All custom resources for operators require podspecs for both pod image override 
 [IMPORTANT]
 ====
 Operators must not use daemonsets
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 ====
 
 .CNF requirement
@@ -926,6 +928,8 @@ For general third party upstream operators (example: mongodb), the OLM package i
 [IMPORTANT]
 ====
 Operators that are proprietary to a cnf application must ensure that their CRD's are unique, and will not conflict with other operators in the cluster.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-crd-status[observability-crd-status]
 ====
 
 .CNF requirement
