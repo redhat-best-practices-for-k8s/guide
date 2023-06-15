@@ -851,9 +851,9 @@ The OLM Packaged operator will then run in openshift-operators namespace within 
 ====
 Operators should be certified against the openshift version of the cluster they will be deployed on.
 
-* See Redhat Certification Documentation: Product Documentation for Red Hat Software Certification 8.56
+* See link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf[Redhat Partner Guide for CNF Certification]
 
-* Redhat SDK Bundle for certification: operator-sdk bundle validate
+* See link:https://sdk.operatorframework.io/docs/best-practices/[Redhat Operator SDK & Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[OLM Best Practices]
 ====
 
 .CNF requirement
