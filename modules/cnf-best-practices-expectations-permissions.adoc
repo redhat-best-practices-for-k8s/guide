@@ -866,6 +866,8 @@ Operators must be compatible with our version of openshift
 [IMPORTANT]
 ====
 Operators must be in OLM bundle format (Operator Framework).
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-source[operator-install-source]
 ====
 
 .CNF requirement
