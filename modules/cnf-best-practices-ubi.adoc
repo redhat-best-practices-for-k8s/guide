@@ -8,6 +8,8 @@ link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-184
 
 A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
 
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release]
+
 [id="cnf-best-practices-runtime-languages"]
 === Runtime Languages
 
