@@ -10,5 +10,7 @@ For more information, see link:https://docs.openshift.com/container-platform/lat
 [IMPORTANT]
 ====
 If you use Helm to deploy your application, you must use Helm v3 because of security issues with Helm v2.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-helm-version[affiliated-certification-helm-version]
 ====
 
