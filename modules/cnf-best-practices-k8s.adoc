@@ -6,3 +6,5 @@ Kubernetes is an open source container orchestration suite of software that is A
 The Kubernetes API is the mechanism that applications and users utilize to interact with the cluster. There are several ways to do this. For example, `kubectl` or `oc` CLI tools, web based UIs, or interacting directly with API using tools such as `curl`. You can use the SDK to build your own tools.
 
 You can interact with the API in at least one of two ways. If the application or user is external to the cluster, the APIs can be accessed externally. If the application or user is directly connected to the cluster, they can access the cluster by using the Kubernetes Service Resource directly, bypassing the need to exit the cluster and log in again.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle[platform-alteration-ocp-lifecycle]
