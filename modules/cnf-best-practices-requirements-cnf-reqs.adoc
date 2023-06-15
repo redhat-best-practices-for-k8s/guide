@@ -76,6 +76,8 @@ See test cases link:https://github.com/test-network-function/cnf-certification-t
 [IMPORTANT]
 ====
 The container image must be secure.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
 ====
 
 The Red Hat UBI is able to meet these requirements and enables images built with it to meet these requirements. UBI is supported by a dedicated, full-time team providing releases of base image. UBI has the following features:
