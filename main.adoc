@@ -1,11 +1,11 @@
 [id="cnf-best-practices"]
-= CNF Best Practices
-Cloud-native network functions (CNFs) best practices
-:revnumber: v2
+= CNF best practices for Far Edge applications
+Cloud-native network functions best practice for Far Edge applications
+:revnumber: v1
 :revdate: 2023
 :toc: left
 :toclevels: 5
-:toc-title: CNF Best Practices v{revnumber}
+:toc-title: CNF best practices for Far Edge applications v{revnumber}
 :repo-url: https://github.com/test-network-function/cnf-best-practices
 :icons: image
 :icontype: svg
