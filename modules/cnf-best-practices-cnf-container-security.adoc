@@ -1,0 +1,17 @@
+[id="cnf-best-practices-cnf-container-security"]
+= Container security best practices
+
+[id="cnf-best-practices-avoid-privileged-containers"]
+== Avoid privileged containers
+
+In OpenShift Container Platform, it is possible to run privileged containers that have all of the root capabilities on a host machine, allowing the ability to access resources which are not accessible in ordinary containers. This, however, increases the security risk to the whole cluster. Containers should only request those privileges they need to run their legitimate functions. No containers will be allowed to run with full privileges without an exception.
+
+The general guidelines are:
+
+. Only ask for the necessary privileges and access control settings for your application.
+
+. If the function required by your CNF can be fulfilled by OCP components, your application should not be requesting escalated privilege to perform this function.
+
+. Avoid using any host system resource if possible.
+
+. Leveraging read only root filesystem when possible.

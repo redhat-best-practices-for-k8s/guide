@@ -80,7 +80,7 @@ $ testpmd -l 18-19 -w 0000:01:00.0 -- -a --portmask=0x1 --nb-cores=1
 ----
 
 . Also, try to run `testpmd` without `CAP_IPC_LOCK` set with `capsh`. Now we can see that the hugepage memory cannot be allocated.
-
++
 [source,terminal]
 ----
 $ capsh --drop=cap_ipc_lock -- -c testpmd -l 18-19 -w 0000:01:00.0 -- -a --portmask=0x1 --nb-cores=1

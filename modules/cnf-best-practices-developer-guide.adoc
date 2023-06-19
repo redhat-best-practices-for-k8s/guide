@@ -2,18 +2,3 @@
 = CNF developer guide
 
 This section discusses recommendations and requirements for CNF application builders.
-
-[id="cnf-best-practices-preface"]
-== Preface
-
-Cloud-native Network Functions (CNFs) are containerized instances of classic physical or virtual network functions (VNF) which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.
-
-[id="cnf-best-practices-goal"]
-== Goal
-
-This document is mainly for the developers of CNFs, who need to build high-performance Network Functions in a containerized environment. We have created a guide that any partner can take and follow when developing their CNFs so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.
-
-[id="cnf-best-practices-non-goal"]
-== Non-goal
-
-This is not a guide on how to build CNF functionality.

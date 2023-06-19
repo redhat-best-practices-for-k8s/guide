@@ -1,0 +1,130 @@
+[id="cnf-best-practices-far-edge-cpu"]
+= CPU
+
+[id="cnf-best-practices-far-edge-application-shared-cpu"]
+== Application shared CPU
+
+The burstable workload can float around on the CPUs depending on the availability of resources. More information can be found in the link:https://docs.openshift.com/container-platform/4.13/scalability_and_performance/cnf-low-latency-tuning.html[Low latency tuning] documentation.
+
+The Workload that is not sensitive to CPU migration and context switching, e.g. OAM, is suitable for using the shared CPU pool. For more information see the Kubernetes link:https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-burstable[Pod QoS class] docs.
+
+CPU resource request example:
+
+[source,yaml]
+----
+resources:
+      # Container is in the application shared CPU pool
+      requests:
+        # CPU request is not an integer
+        cpu: 100m
+      limits:
+        cpu: 200m
+----
+
+[id="cnf-best-practices-far-edge-application-exclusive-cpu-pool"]
+== Application exclusive CPU pool
+
+Cpusets constrain the CPU and memory placement of task to the resources within a task’s current cpuset. Within cgroup, the workload can set CPU affinity to reduce the context switching, however CPU scheduler still performs load balances for non-cpu-pinned workload across all the CPUs in the cpuset. In addition, the following annotation is required to accompany the workload. See link:https://docs.openshift.com/container-platform/4.11/scalability_and_performance/cnf-low-latency-tuning.html#disabling-cpu-cfs-quota_cnf-master[Disabling CPU CFS quota]:
+
+[source,yaml]
+----
+apiVersion: performance.openshift.io/v2
+kind: Pod
+metadata:
+  annotations:
+    cpu-quota.crio.io: "disable"
+spec:
+  runtimeClassName: performance-<profile_name>
+----
+
+A workload should use Application exclusive CPU pool if it has CPU low-latency requirement. However, the workload should allow context switching with other application threads and kernel threads in the `cpuset`. An example workload that uses application exclusive pool is a vRAN RT task.
+
+CPU resource request example:
+
+[source,yaml]
+----
+resources:
+      # Container is in the application exclusive CPU pool
+      requests:
+        # CPU request is an integer and matches with limits
+        cpu: 2
+      limits:
+        cpu: 2
+----
+
+[id="cnf-best-practices-far-edge-guidelines-for-the-applications-to-use-cpu-pools"]
+== Guidelines for the applications to use CPU pools
+
+* 100% busy tight loop polling threads with the setting of RT CPU schedule scheduling policy (for example, polling threads less than `SCHED_FIFO:10/SCHED_RR`) need to implement `uSleeps` to yield CPU time to other processes or threads.
+
+** Sleep duration and periodicity need to be configurable parameters
+
+** As one of RT-Application on-boarding acceptance criteria, Sleep duration and periodicity will be configured properly to ensure that CaaS platform does not run into stability issues (for example, CPU starvation, process stall).
+
+* A cloud native application should be decoupled into multiple small units (for example, a container) to ensure that each unit is running in *only* one type of CPU pool.
+
+** If one of the containers in the pod uses guaranteed cpus then all other containers in that pod must be guaranteed `qos` class as well.
+
+** The requirement is that the sum of all resources and limits must be equal (Pod QoS Guaranteed) and the pinned containers must use integer (and equal) values for cpu and memory requests and limits. This implies that the non-pinned containers also use requests=limits, but the values can be fractional "2.5" or even whole, but written as fractions eg. "1.0".
+
+** At least one core must be left for non-guaranteed work loads.
+
+* The workload running in the shared CPU pool should choose non-RT CPU schedule policy, like SCHED_OTHER to always share the CPU with other applications and kernel threads.
+
+* The workload running in Application exclusive CPU pool should choose RT CPU scheduling policy, like `SCHED_FIFO/SCHED_RR` to archive the low-latency, but should set the priority less than 10 to avoid the CPU starvation of the kernel threads (`ksoftirqd SCHED_FIFO:11, ktimer SCHED_FIFO:11, rcuc SCHED_FIFO:11`) on the same CPU core.
+
+* The workload running in Application-isolated exclusive CPU pool should choose RT CPU scheduling policy, like `SCHED_FIFO/SCHED_RR` and set high priority to achieve the best low-latency performance. The workload should be cpu-pinned on a set of dedicated CPU cores, but periodically yielding CPU (calling the `nanosleep` function) in its busy tight loop is required to ensure that the kernel threads on the same CPU core can get the minimum CPU time.
+
+* If a workload with both RT task and non-RT task has to be implemented in one single Pod:
+
+** The real-time tasks within the Pod:
+
+. Should execute the CPU pinning based on the rule of single thread per logical core
+
+. Should use RT CPU scheduling policy, like `SCHED_FIFO/SCHED_RR`
+
+. Can set higher priority, but periodically yielding CPU in its busy tight loop is required (refer to the earlier uSleep requirements).
+
+* The non real time tasks within the Pod:
+
+. Should use the CPU cores separated from real time tasks using taskset or pthread_affinity
+
+. Need to take care of the scheduling/load balancing if the `SCHED_OTHER` scheduling policy is used
+
+. Use RT CPU scheduling policy, like SCHED_RR, with lower priority levels, which will be equivalent to SMP configuration of threads running on not-isolcpu cores.
+
+For both Guaranteed and non-guaranteed within a single Pod, it is possible to create a Pod with multiple containers and only cpu-pin some of them.
+
+Follow these rules:
+
+. Total resource requests must match total limits
+
+. Pinned containers must request integer number of CPUs
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod             # QoS: Guaranteed
+metadata:             # total requests [id="cnf-best-practices-far-edge-limits"]
+= limits
+  name: guar-2s
+spec:
+  containers:
+  - name: pinned-1    # PINNED
+    resources:
+      limits:         # requests are inferred
+        cpu: 2        # integer value
+        memory: "400Mi"
+  - name: best-1
+    resources:
+      limits:         # Burstable
+        cpu: 0.5      # non-integer value
+        memory: "200Mi"
+  - name: best-2
+    resources:
+      limits:         # Burstable
+        cpu: 1.0      # non-integer value
+        memory: "200Mi"
+----
+
+* CNF applications should build resiliency in their pipeline to recover from unexpected outliers in the platform. Applications need to recover without causing the system or application to crash when an outlier is seen (e.g. symbol or TTI dropped).

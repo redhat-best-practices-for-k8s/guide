@@ -1,0 +1,273 @@
+[id="cnf-best-practices-far-edge-scc-application-categories"]
+= SCC Application Categories
+
+CNFs that do not require advanced networking features (Category 1)::
+
+This is the default SCC for all users if your namespace does *not* use service mesh.
+
+This kind of CNFs shall:
+
+. Use the default CNI (OVN) network interface
+
+. Not request `NET_ADMIN` or `NET_RAW` for advanced networking functions
+
+SCC definition (default):
+
+[source,yaml]
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: restricted-cat-1
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+defaultAddCapabilities: null
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID
+  - NET_RAW
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+----
+
+CNFs that require Service Mesh (Category 1 - no-uid0)::
+
+CNFs that utilize Service Mesh sidecars for mTLS and load balancing features must utilize an alternative to the restricted SCC Category 1 defined in section “SCC Application Categories” due to Service Mesh limitation around requirements to use a specific UID (1337). An alternate SCC called restricted-no-uid0 has been provided in the platform and is available to all tenants without special requests necessary.
+
+[source,yaml]
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+name: restricted-no-uid0
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups:
+  - system:authenticated
+metadata:
+  annotations:
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID
+runAsUser:
+  type: MustRunAsNonRoot
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users: []
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+----
+
+CNFs that require advanced networking features (Category 2)::
+
+CNFs with following characteristics may fall into this category:
+
+. Manipulate the low-level protocol flags, such as the 802.1p priority, VLAN tag, DSCP value, etc.
+
+. Manipulate the interface IP addresses or the routing table or the firewall rules on-the-fly.
+
+. Process Ethernet packets
+
+This kind of CNF may:
+
+. Use Macvlan interface to sending and receiving Ethernet packets
+
+. Request CAP_NET_RAW for creating raw sockets
+
+. Request CAP_NET_ADMIN for
+
+.. Modify the interface IP address on-the-fly
+
+.. Manipulating the routing table on-the-fly
+
+.. Manipulating firewall rules on-the-fly.
+
+.. Setting packet DSCP value
+
+Recommended SCC definition:
+
+[source,yaml]
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: cnf-catalog-2
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: [NET_ADMIN, NET_RAW]
+defaultAddCapabilities: null
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+----
+
+User-Plane CNFs (Category 3)::
+
+A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.
+
+This kind of CNF shall:
+
+. Use SR-IOV interfaces
+
+. Fully or partially bypassing the kernel networking stack with userspace networking technologies, like DPDK, F-stack, VPP, OpenFastPath, etc. A userspace networking stack can not only improve the performance but also reduce the need for the `CAP_NET_ADMIN` and `CAP_NET_RAW`.
+
+[NOTE]
+====
+For Mellanox devices, those capabilities are requested if the application needs to configure the device (`CAP_NET_ADMIN`) and/or allocate raw ethernet queue through kernel drive (`CAP_NET_RAW`).
+====
+
+As `CAP_IPC_LOCK` is mandatory for allocating hugepage memory, this capability shall be granted to the DPDK based applications. Additionally if the workload is latency-sensitive and needs the determinacy provided by the real-time kernel, the `CAP_SYS_NICE` would also be required.
+
+Here is an example pod manifest for a DPDK application:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dpdk-app
+  namespace: <target_namespace>
+  annotations:
+    k8s.v1.cni.cncf.io/networks: dpdk-network
+spec:
+  containers:
+  - name: testpmd
+    image: <DPDK_image>
+    securityContext:
+     capabilities:
+        add: ["IPC_LOCK"]
+    volumeMounts:
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources:
+      limits:
+        openshift.io/mlxnics: "1"
+        memory: "1Gi"
+        cpu: "4"
+        hugepages-2Mi: "4Gi"
+      requests:
+        openshift.io/mlxnics: "1"
+        memory: "1Gi"
+        cpu: "4"
+        hugepages-2Mi: "4Gi"
+    command: ["sleep", "infinity"]
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+----
+
+More can be found at link:https://docs.google.com/document/d/1QwS5Plr9uMgu9hCKNQdiXpWbC9u7ErpBwr761aJ5-ec/edit#bookmark=id.kql6vaad1cf0[12].
+
+Recommended SCC definition:
+
+[source,yaml]
+----
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: cnf-catalog-3
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: [IPC_LOCK, NET_ADMIN, NET_RAW]
+defaultAddCapabilities: null
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+----

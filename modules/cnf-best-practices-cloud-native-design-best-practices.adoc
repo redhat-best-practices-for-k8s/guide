@@ -28,9 +28,24 @@ A corollary of this practice is to "retry instead of crashing", for example, Whe
 +
 Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
 
-.CNF requirement
-[IMPORTANT]
-====
-Application design should conform to cloud-native design principles to the maximum extent possible.
-====
+Horizontal scaling and redundancy::
+Support scaling and/or redundancy of your application through increasing/decreasing the number of application pods in your deployment, rather than requiring increased/decreased resources for a single application pod.
++
+Also follow the principles described in ‘Process Disposability’, i.e. stateless containers with quick startup and teardown times.
 
+Self-containment::
+A container should contain everything it needs at build time. The container should rely only on the presence of the Linux kernel and have any additional libraries added into it at the time the container is built. The container image should NOT dynamically install additional packages at runtime.
++
+The only exceptions are things such as configurations, which vary between different environments and must be provided at runtime; for example, through Kubernetes ConfigMap
+
+Runtime confinement::
+A container declares its resource requirements (cpu, memory, networking, disk) to the platform. The container must stay confined to the indicated resource requirements.
+
+Use small container images::
+Use the smallest base image possible. To reduce the size of your image, install only what is strictly needed inside it. Clean up temporary files and avoid the installation of unnecessary packages. This reduces container size, build time, and networking time when copying container images. Layer squashing may also be leveraged to hide secrets.
+
+Layer the application::
+Package a single app per container. Do not replace VM’s with containers. Try to create images with common layers. After the initial download, only the layers that make each image unique are needed, thereby reducing the overhead on downloads.
+
+Image tagging::
+Never build off the latest tag—this prevents builds from being reproducible over time. Properly tag your images. Tagging the image lets users identify a specific version of your software in order to download it. For this reason, tightly link the tagging system on container images to the release policy of your software.

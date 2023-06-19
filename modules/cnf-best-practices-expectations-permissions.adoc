@@ -1,4 +1,0 @@
-[id="cnf-best-practices-cloud-native-function-expectations-and-permissions"]
-= Cloud-native function expectations and permissions
-
-Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.

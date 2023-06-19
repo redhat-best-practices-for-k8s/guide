@@ -1,0 +1,7 @@
+[id="cnf-best-practices-far-edge-far-edge-specific-cnf-requirements"]
+= Far Edge specific CNF requirements
+
+Due to the specific deployment environment at the very far edge of the network, and the different CaaS/PaaS vendors being selected by Far Edge vs. Core/Edge, there are some Far Edge specific CNF requirements that are described in the following sections.
+
+At the Far Edge, OpenShift is deployed as a Single Node OpenShift (SNO) cluster.
+

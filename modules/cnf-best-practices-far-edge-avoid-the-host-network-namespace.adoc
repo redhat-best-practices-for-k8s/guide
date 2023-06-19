@@ -1,0 +1,10 @@
+[id="cnf-best-practices-far-edge-avoid-the-host-network-namespace"]
+= Avoid the host network namespace
+
+Application pods must avoid using `hostNetwork`. Applications may not use the host network, including nodePort for network communication. Any networking needs beyond the functions provided by the pod network ingress/egress proxy must be serviced via a multus connected interface.
+
+.CNF requirement
+[IMPORTANT]
+====
+Applications may *not* use `NodePorts` or the `hostNetwork`.
+====

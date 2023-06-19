@@ -1,5 +1,8 @@
+[id="cnf-best-practices-expectations-and-permissions"]
+= CNF expectations and permissions
+
 [id="cnf-best-practices-high-level-cnf-expectations"]
-= High-level CNF expectations
+== High-level CNF expectations
 
 * CNFs shall be built to be cloud-native
 

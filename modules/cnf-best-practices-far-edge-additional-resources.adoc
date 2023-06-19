@@ -1,0 +1,22 @@
+[id="cnf-best-practices-far-edge-additional-resources"]
+= Additional resources
+
+* link:https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/openshift_sdn/enabling-multicast.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/using-sriov-multicast.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/using-sriov-multicast.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/multiple_networks/understanding-multiple-networks.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/configuring-sriov-device.html[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/multiple_networks/attaching-pod.html#nw-multus-add-pod_attaching-pod[]
+
+* link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/configuring-sriov-net-attach.html[]
+
+* link:https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/[]
+
+* link:https://linuxera.org/capabilities-seccomp-kubernetes/[]
