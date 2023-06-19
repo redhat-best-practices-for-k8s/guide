@@ -1,46 +1,10 @@
 [id="cnf-best-practices-expectations-permissions"]
-= Cloud-native function expectations and permissions
+= Cloud-native network function expectations and permissions
 
 Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.
 
-[id="cnf-best-practices-cloud-native-design-best-practices"]
-== Cloud-native design best practices
-
-The following best practices highlight some key principles of cloud-native application design.
-
-Single purpose w/messaging interface::
-A container should address a single purpose with a well-defined (typically RESTful API) messaging interface. The motivation here is that such a container image is more reusable and more replaceable/upgradeable.
-
-High observability::
-A container must provide APIs for the platform to observe the container health and act accordingly. These APIs include health checks (liveness and readiness), logging to stderr and stdout for log aggregation (by tools such as `Logstash` or `Filebeat`), and integrate with tracing and metrics-gathering libraries (such as `Prometheus` or `Metricbeat`).
-
-Lifecycle conformance::
-A container must receive important events from the platform and conform/react to these events properly. For example, a container should catch SIGTERM or SIGKILL from the platform and shut down as quickly as possible. Other typically important events from the platform are PostStart to initialize before servicing requests and PreStop to release resources cleanly before shutting down.
-
-See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-shutdown[lifecycle-container-shutdown], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-startup[lifecycle-container-startup]
-
-Image immutability::
-Container images are meant to be immutable; i.e. customized images for different environments should typically not be built. Instead, an external means for storing and retrieving configurations that vary across environments for the container should be used. Additionally, the container image should NOT dynamically install additional packages at runtime.
-
-Process disposability::
-Containers should be as ephemeral as possible and ready to be replaced by another container instance at any point in time. There are many reasons to replace a container, such as failing a health check, scaling down the application, migrating the containers to a different host, platform resource starvation, or another issue.
-+
-This means that containerized applications must keep their state externalized or distributed and redundant. To store files or block level data, persistent volume claims should be used. For information such as user sessions, use of an external, low-latency, key-value store such as redis should be used. Process disposability also requires that the application should be quick in starting up and shutting down, and even be ready for a sudden, complete hardware failure.
-+
-Another helpful practice in implementing this principle is to create small containers. Containers in cloud-native environments may be automatically scheduled and started on different hosts. Having smaller containers leads to quicker start-up times because before being restarted, containers need to be physically copied to the host system.
-+
-A corollary of this practice is to "retry instead of crashing", for example, When one service in your application depends on another service, it should not crash when the other service is unreachable. For example, your API service is starting up and detects the database is unreachable. Instead of failing and refusing to start, you design it to retry the connection. While the database connection is down the API can respond with a 503 status code, telling the clients that the service is currently unavailable. This practice should already be followed by applications, but if you are working in a containerized environment where instances are disposable, then the need for it becomes more obvious.
-+
-Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
-
-.CNF requirement
-[IMPORTANT]
-====
-Application design should conform to cloud-native design principles to the maximum extent possible.
-====
-
 [id="cnf-best-practices-high-level-cnf-expectations"]
-=== High-level CNF expectations
+== High-level CNF expectations
 
 * CNFs shall be built to be cloud-native
 
@@ -68,29 +32,23 @@ Application design should conform to cloud-native design principles to the maxim
 
 * CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum. See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 
-.CNF requirement
-[IMPORTANT]
-====
-Containers must not run as root
+[id="cnf-best-practices-far-edge-restrictions"]
+== CNF restrictions
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check[access-control-security-context-non-root-user-check]
-====
+* CNFs may not use host networking
 
-.CNF requirement
-[IMPORTANT]
-====
-All secondary interfaces (MULTUS) must support dual stack
+* Namespace should not be created by the CNFs deployment method (Helm / Operator)
 
-See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity-multus[networking-icmpv4-connectivity-multus], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity-multus[networking-icmpv6-connectivity-multus]
-====
+* CNFs may not perform Role creation
 
-.CNF requirement
-[IMPORTANT]
-====
-CNFs shall not use node selectors nor taints/tolerations to assign pod location
+* CNFs may not perform Rolebinding creation
 
-See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-scheduling[lifecycle-pod-scheduling], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel[platform-alteration-tainted-node-kernel]
-====
+* CNFs may not have Cluster Roles
+
+* CNFs are not authorized to bring their own CNI
+
+* CNFs may not deploy Daemonsets
+
 
 [id="cnf-best-practices-pod-permissions"]
 === Pod permissions
@@ -161,12 +119,7 @@ Vendors must supply quotas per project/namespace
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace-resource-quota[access-control-namespace-resource-quota]
 ====
 
-[id="cnf-best-practices-pods"]
-=== Pods
 
-Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.
-
-A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over `127.0.0.1:<port>`. The same is true for storage volumes so all containers are in the same Pod have access to the same mount namespace and can mount the same volumes.
 
 [id="cnf-best-practices-pod-interaction/configuration"]
 ==== Pod interaction and configuration

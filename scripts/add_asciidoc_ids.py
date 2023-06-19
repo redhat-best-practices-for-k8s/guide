@@ -3,7 +3,7 @@ import sys
 import re
 
 input_folder = sys.argv[1]
-prefix = "cnf-best-practices-"
+prefix = "cnf-best-practices-far-edge-"
 
 # Loop over all files and create ids
 for filename in os.listdir(input_folder):

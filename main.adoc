@@ -15,55 +15,7 @@ Cloud-native network functions best practice for Far Edge applications
 
 toc::[]
 
-include::modules/cnf-best-practices-foreword.adoc[leveloffset=+1]
-
-include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
-
-include::modules/cnf-best-practices-helm.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-k8s.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-cni-ovn.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-csi.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-block-storage.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ephemeral-storage.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-local-storage.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-container-runtime.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-cpu-manager-pinning.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-host-os.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ubi.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-pod-security.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ci-cd.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-k8s-api-versions.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ovn-kubernetes-cni.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-user-plane-functions.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-hugepages.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-cpu-isolation.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-topology-manager-and-numa-awareness.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ipv4-ipv6.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-ports-reserved-by-openshift.adoc[leveloffset=+2]
-
-include::modules/cnf-best-practices-user-plane-cnfs.adoc[leveloffset=+2]
+include::modules/cnf-best-practices-far-edge-introduction.adoc[leveloffset=+1]
 
 include::modules/cnf-best-practices-developer-guide.adoc[leveloffset=+1]
 
