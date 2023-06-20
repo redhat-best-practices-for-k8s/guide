@@ -1,0 +1,22 @@
+[id="cnf-best-practices-attaching-the-vf-to-a-pod"]
+= Attaching the VF to a pod
+
+Once the right network attachment definition is found, applying the `k8s.v1.cni.cncf.io/networks` annotation with the name of the network attachment definition to the pod will add the additional network interfaces in the pod namespace, as per the following example:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |-
+      [
+        {
+          "name": "net1",
+          "mac": "20:04:0f:f1:88:01",
+          "ips": ["192.168.10.1/24", "2001::1/64"]
+         }
+      ]
+----
+

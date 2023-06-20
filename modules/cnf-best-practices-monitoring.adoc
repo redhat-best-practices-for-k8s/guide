@@ -1,0 +1,5 @@
+[id="cnf-best-practices-monitoring"]
+= Monitoring
+
+Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.
+

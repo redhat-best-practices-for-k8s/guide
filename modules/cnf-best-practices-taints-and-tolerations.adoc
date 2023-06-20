@@ -1,0 +1,13 @@
+[id="cnf-best-practices-taints-and-tolerations"]
+= Taints and tolerations
+
+Taints and tolerations allow the node to control which pods are scheduled on the node. A taint allows a node to refuse a pod to be scheduled unless that pod has a matching toleration.
+
+You apply taints to a node through the node specification (`NodeSpec`) and apply tolerations to a pod through the pod specification (`PodSpec`). A taint on a node instructs the node to repel all pods that do not tolerate the taint.
+
+Taints and tolerations consist of a key, value, and effect. An operator allows you to leave one of these parameters empty.
+
+See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-taints-tolerations.html[Controlling pod placement using node taints] for more information.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel[platform-alteration-tainted-node-kernel]
+

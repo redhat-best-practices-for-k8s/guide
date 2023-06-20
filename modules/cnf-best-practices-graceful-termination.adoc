@@ -1,0 +1,17 @@
+[id="cnf-best-practices-graceful-termination"]
+= Graceful termination
+
+There are different reasons that a pod may need to shutdown on an OpenShift cluster. It might be that the node the pod is running on needs to be shut down for maintenance, or the administrator is doing a rolling update of an application to a new version which requires that the old versions are shutdown properly.
+
+When pods are shut down by the platform they are sent a `SIGTERM` signal which means that the process in the container should start shutting down, closing connections and stopping all activity. If the pod doesn't shut down within the default 30 seconds then the platform may send a `SIGKILL` signal which will stop the pod immediately. This method isn't as clean and the default time between the `SIGTERM` and `SIGKILL` messages can be modified based on the requirements of the application.
+
+Pods should exit with zero exit codes when they are gracefully terminated.
+
+.CNF requirement
+[IMPORTANT]
+====
+All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-shutdown[lifecycle-container-shutdown]
+====
+

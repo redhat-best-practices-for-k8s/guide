@@ -1,0 +1,7 @@
+[id="cnf-best-practices-init-containers"]
+= init containers
+
+Init containers can be used for running tools / commands / or any other action that needs to be done before the actual pod is started. For example, loading a database schema, or constructing a config file from a definition passed in via configMap or secret.
+
+See link:https://docs.openshift.com/container-platform/4.12/nodes/containers/nodes-containers-init.html[Using init containers to perform tasks before a pod is deployed] for more information.
+
