@@ -1,0 +1,17 @@
+[id="cnf-best-practices-requests-limits"]
+= Requests/Limits
+
+Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
+
+Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
+
+See link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-overcommit.html[Configuring your cluster to place pods on overcommitted nodes] for more information.
+
+.CNF requirement
+[IMPORTANT]
+====
+Pods must define requests and limits values for CPU and memory.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-requests-and-limits[access-control-requests-and-limits]
+====
+

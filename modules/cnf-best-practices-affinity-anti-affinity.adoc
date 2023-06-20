@@ -1,0 +1,47 @@
+[id="cnf-best-practices-affinity-anti-affinity"]
+= Affinity and anti-affinity
+
+In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.
+
+These pod affinity/anti-affinity rules are set in the pod specification as `matchExpressions` to a `labelSelector`. See link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-pod-affinity.html[Placing pods relative to other pods using affinity and anti-affinity rules] for more information. The following example `Pod` CR illustrates pod affinity:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-pod-affinity
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: security
+              operator: In
+              values:
+                - S1
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+  containers:
+    - name: with-pod-affinity
+      image: docker.io/ocpqe/hello-pod
+----
+
+.CNF requirement
+[IMPORTANT]
+====
+Pods that need to be co-located on the same node need affinity rules. Pods that should not be
+co-located for resiliency purposes require anti-affinity rules.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods[lifecycle-affinity-required-pods]
+====
+
+.CNF requirement
+[IMPORTANT]
+====
+Pods that perform the same microservice and could be disrupted if multiple members of the service are
+unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability[lifecycle-pod-high-availability]
+====
+

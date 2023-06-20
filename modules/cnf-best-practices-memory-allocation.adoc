@@ -1,0 +1,20 @@
+[id="cnf-best-practices-memory-allocation"]
+= Memory allocation
+
+Regarding memory allocation, there are a couple of considerations. How much of the platform is OpenShift itself using, and how much is left over to allocate for the applications running on OpenShift?
+
+Once it has been determined how much memory is left over for the applications, quotas can be applied which specify both the requested amount of memory and limits. In the case of where a memory request has been specified, OpenShift will not schedule the pod unless the amount of memory required to launch it is available. In the case of a limit being specified, OpenShift will not allocate more memory to the application than the limit provides.
+
+[NOTE]
+====
+When the OpenShift scheduler is placing pods, it reviews the pod memory request and schedules the pod if there is a node that meets the requirements. It then imposes memory limits to ensure the pod doesn't consume more than the intended allocation. The limit can never be lower than the request.
+====
+
+.CNF requirement
+[IMPORTANT]
+====
+Vendors must supply quotas per project/namespace
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace-resource-quota[access-control-namespace-resource-quota]
+====
+

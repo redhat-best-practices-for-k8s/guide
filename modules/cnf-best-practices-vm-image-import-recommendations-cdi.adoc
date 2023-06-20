@@ -1,0 +1,13 @@
+[id="cnf-best-practices-vm-image-import-recommendations-cdi"]
+= VM image import recommendations (CDI)
+
+OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (`PV`). PVs are requested by VMs using kubernetes Persistent Volume Claims (`PVC`). VMs may require a combination of blank and pre-populated disks in order to function.
+
+Blank disks can be initialized automatically by kubevirt when an empty PV is initially encountered by a starting VM. Other disks must be populated prior to starting the VM. OpenShift Virtualization provides a component called the Containerized Data Importer (CDI) which automates the preparation of pre-populated persistent disks for VMs. CDI integrates with KubeVirt to synchronize VM creation and deletion with disk preparation by using a custom resource called a DataVolume. Using DataVolumes, data can be imported into a PV from various sources including container registries and HTTP servers.
+
+The following recommendations should be followed when managing persistent disks for VMs:
+
+Blank disks:: Create a PVC and associate it with the VM using a persistentVolumeClaim volume type in the volumes section of the VirtualMachine spec.
+
+Populated disks:: In the VirtualMachine spec, add a DataVolume to the dataVolumeTemplates section and always use the dataVolume volume type in the volumes section.
+

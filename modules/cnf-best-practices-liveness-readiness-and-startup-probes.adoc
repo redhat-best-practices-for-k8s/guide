@@ -1,0 +1,22 @@
+[id="cnf-best-practices-liveness-readiness-and-startup-probes"]
+= Liveness readiness and startup probes
+
+As part of the pod lifecycle, the OpenShift platform needs to know what state the pod is in at all times. This can be accomplished with different health checks. There are at least three states that are important to the platform: startup, running, shutdown. Applications can also be running, but not healthy, meaning, the pod is up and the application shows no errors, but it cannot serve any requests.
+
+When an application starts up on OpenShift it may take a while for the application to become ready to accept connections from clients, or perform whatever duty it is intended for.
+
+Two health checks that are required to monitor the status of the applications are liveness and readiness. As mentioned above, the application can be running but not actually able to serve requests. This can be detected with liveness checks. The liveness check will send specific requests to the application that, if satisfied, indicate that the pod is in a healthy state and operating within the required parameters that the administrator has set. A failed liveness check will result in the container being restarted.
+
+There is also a consideration of pod startup. Here the pod may start and take a while for different reasons. Pods can be marked as ready if they pass the readiness check. The readiness check determines that the pod has started properly and is able to answer requests. There are circumstances where both checks are used to monitor the applications in the pods. A failed readiness check results in the container being taken out of the available service endpoints. An example of this being relevant is when the pod was under heavy load, failed the readiness check, gets taken out of the endpoint pool, processes requests, passes the readiness check and is added back to the endpoint pool.
+
+For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Configure Liveness, Readiness and Startup Probes].
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
+
+[IMPORTANT]
+====
+If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe[networking-dpdk-cpu-pinning-exec-probe]
+====
+

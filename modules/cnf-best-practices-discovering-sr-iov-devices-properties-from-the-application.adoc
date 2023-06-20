@@ -1,0 +1,29 @@
+[id="cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application"]
+= Discovering SR-IOV devices properties from the application
+
+All the properties of the interfaces are added to the pod's `k8s.v1.cni.cncf.io/network-status` annotation. The annotation is json-formatted and for each network object contains information such as IPs (where available), MAC address, PCI address. For example:
+
+[source,yaml]
+----
+k8s.v1.cni.cncf.io/network-status: |-
+  [{
+      "name": "",
+      "interface": "eth0",
+      "ips": [
+        "10.132.3.148"
+        ],
+      "mac": "0a:58:0a:84:03:94",
+      "default": true,
+      "dns": {}
+   }]
+----
+
+[NOTE]
+====
+the IP information is not available if the driver specified is `vf-io`.
+====
+
+The same annotation is available as a file content inside the pod, at the `/etc/podnetinfo/annotations` path. A convenience library is available to easily consume those informations from the application (bindings in C and Go).
+
+For more information, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html[About Single Root I/O Virtualization (SR-IOV) hardware networks].
+

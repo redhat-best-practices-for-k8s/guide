@@ -1,0 +1,23 @@
+[id="cnf-best-practices-pod-permissions"]
+= Pod permissions
+
+By default, pods should not expect to be permitted to run as root. Pod restrictions are enforced by SCC within the OpenShift platform. See link:https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html[Managing security context constraints].
+
+Pods will execute on worker nodes, by default being admitted to the cluster with the "restricted" SCC.
+
+The "restricted" SCC:
+
+* Ensures that no containers within the pod can run with the `allowPrivilegedContainer` flag set.
+
+* Ensures that pods cannot mount host directory volumes. 
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path[access-control-pod-host-path]
+
+* Requires that a pod run as a user in a pre-allocated range of UIDs from the namespace annotation.
+
+* Requires that a pod run with a pre-allocated MCS label from the namespace annotation.
+
+* Allows pods to use any supplemental group.
+
+Any pods requiring elevated privileges must document the required capabilities driven by application syscalls and a process to validate the requirements must occur.
+

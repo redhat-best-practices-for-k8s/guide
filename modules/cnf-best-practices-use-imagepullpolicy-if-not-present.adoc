@@ -1,0 +1,12 @@
+[id="cnf-best-practices-use-imagepullpolicy:-ifnotpresent"]
+= Use imagePullPolicy: IfNotPresent
+
+If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: `Always`, `Never` and `IfNotPresent`. It is generally recommended to have a pull policy of `IfNotPresent`. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse the already downloaded container image if it's available. OpenShift intentionally does not set `AlwaysPullImages` as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use `PullIfNotPresent` so that a loss of image registry access does not prevent the pod from restarting.
+
+[NOTE]
+====
+Container images that are protected by registry authentication have a condition whereby a user who is unable to download an image directly can still launch it by leveraging the host's cached image.
+====
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-image-pull-policy[lifecycle-image-pull-policy]
+

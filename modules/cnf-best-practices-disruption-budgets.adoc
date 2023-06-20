@@ -1,0 +1,9 @@
+[id="cnf-best-practices-disruption-budgets"]
+==== Disruption budgets
+
+When managing the platform there are at least two types of disruptions that can occur. They are voluntary and involuntary. When dealing with voluntary disruptions a pod disruption budget can be set that determines how many replicas of the application must remain running at any given time. For example, consider the case where an administrator is shutting down a node for
+
+maintenance and the node has to be drained. If there is a pod disruption budget set then OpenShift will respect that and ensure that the required number of pods are available by bringing up pods on different nodes before draining the current node.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget[observability-pod-disruption-budget]
+
