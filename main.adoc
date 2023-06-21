@@ -80,6 +80,14 @@ include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
 
+include::modules/cnf-best-practices-operations-that-can-not-be-executed-by-openshift.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-analyzing-your-application.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-finding-the-capabilities-that-an-application-needs.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-cnf-securing-cnf-networks.adoc[leveloffset=+2]
+
 include::modules/cnf-best-practices-secrets-management.adoc[leveloffset=+3]
 
 include::modules/cnf-best-practices-scc-permissions-for-an-application.adoc[leveloffset=+3]
