@@ -2983,7 +2983,7 @@ pre.rouge .gs {
 <span id="revdate">2023</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">CNF Best Practices vv2</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#cnf-best-practices-foreword">1. Foreword</a></li>
 <li><a href="#cnf-best-practices-openshift-platform">2. Developing Containers and Operators for the OpenShift Container Platform (OCP)</a>
@@ -3092,10 +3092,11 @@ pre.rouge .gs {
 <li><a href="#cnf-best-practices-requests-limits">3.8.1.7.10. Requests/Limits</a></li>
 <li><a href="#cnf-best-practices-use-imagepullpolicy:-ifnotpresent">3.8.1.7.11. Use imagePullPolicy: IfNotPresent</a></li>
 <li><a href="#cnf-best-practices-automount-services-for-pods">3.8.1.7.12. Automount services for pods</a></li>
-<li><a href="#cnf-best-practices-no-naked-pods">3.8.1.7.13. No naked pods</a></li>
-<li><a href="#cnf-best-practices-image-tagging">3.8.1.7.14. Image tagging</a></li>
-<li><a href="#cnf-best-practices-one-process-per-container">3.8.1.7.15. One process per container</a></li>
-<li><a href="#cnf-best-practices-init-containers">3.8.1.7.16. init containers</a></li>
+<li><a href="#cnf-best-practices-disruption-budgets">3.8.1.7.13. Disruption budgets</a></li>
+<li><a href="#cnf-best-practices-no-naked-pods">3.8.1.7.14. No naked pods</a></li>
+<li><a href="#cnf-best-practices-image-tagging">3.8.1.7.15. Image tagging</a></li>
+<li><a href="#cnf-best-practices-one-process-per-container">3.8.1.7.16. One process per container</a></li>
+<li><a href="#cnf-best-practices-init-containers">3.8.1.7.17. init containers</a></li>
 </ul>
 </li>
 <li><a href="#cnf-best-practices-security-and-role-based-access-control">3.8.1.8. Security and role-based access control</a></li>
@@ -5330,8 +5331,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-automount-service-account-token">access-control-pod-automount-service-account-token</a></p>
 </div>
-<div class="sect8">
-<h9 id="cnf-best-practices-disruption-budgets"><a class="link" href="#cnf-best-practices-disruption-budgets">Disruption budgets</a></h9>
+</div>
+<div class="sect5">
+<h6 id="cnf-best-practices-disruption-budgets"><a class="link" href="#cnf-best-practices-disruption-budgets">3.8.1.7.13. Disruption budgets</a></h6>
 <div class="paragraph">
 <p>When managing the platform there are at least two types of disruptions that can occur. They are voluntary and involuntary. When dealing with voluntary disruptions a pod disruption budget can be set that determines how many replicas of the application must remain running at any given time. For example, consider the case where an administrator is shutting down a node for</p>
 </div>
@@ -5342,9 +5344,8 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
 </div>
 </div>
-</div>
 <div class="sect5">
-<h6 id="cnf-best-practices-no-naked-pods"><a class="link" href="#cnf-best-practices-no-naked-pods">3.8.1.7.13. No naked pods</a></h6>
+<h6 id="cnf-best-practices-no-naked-pods"><a class="link" href="#cnf-best-practices-no-naked-pods">3.8.1.7.14. No naked pods</a></h6>
 <div class="paragraph">
 <p>Do not use naked Pods (that is, Pods not bound to a <code>ReplicaSet</code>, or <code>StatefulSet</code> deployment). Naked pods will not be rescheduled in the event of a node failure.</p>
 </div>
@@ -5406,7 +5407,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-image-tagging"><a class="link" href="#cnf-best-practices-image-tagging">3.8.1.7.14. Image tagging</a></h6>
+<h6 id="cnf-best-practices-image-tagging"><a class="link" href="#cnf-best-practices-image-tagging">3.8.1.7.15. Image tagging</a></h6>
 <div class="paragraph">
 <p>An image tag is a label applied to a container image in a repository that distinguishes a specific image from other images. Image tags may be used to categorize images (for example: latest, stable, development) and by versions within the categories. This allows the administrator to be specific when declaring which image to test, or which image to run in production.</p>
 </div>
@@ -5418,7 +5419,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-one-process-per-container"><a class="link" href="#cnf-best-practices-one-process-per-container">3.8.1.7.15. One process per container</a></h6>
+<h6 id="cnf-best-practices-one-process-per-container"><a class="link" href="#cnf-best-practices-one-process-per-container">3.8.1.7.16. One process per container</a></h6>
 <div class="paragraph">
 <p>OpenShift organizes workloads into pods. Pods are the smallest unit of a workload that Kubernetes understands. Within pods, one can have one or more containers. Containers are essentially composed of the runtime that is required to launch and run a process.</p>
 </div>
@@ -5436,7 +5437,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-init-containers"><a class="link" href="#cnf-best-practices-init-containers">3.8.1.7.16. init containers</a></h6>
+<h6 id="cnf-best-practices-init-containers"><a class="link" href="#cnf-best-practices-init-containers">3.8.1.7.17. init containers</a></h6>
 <div class="paragraph">
 <p>Init containers can be used for running tools / commands / or any other action that needs to be done before the actual pod is started. For example, loading a database schema, or constructing a config file from a definition passed in via configMap or secret.</p>
 </div>
@@ -6500,7 +6501,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-21 08:50:56 UTC
+Last updated 2023-06-21 10:31:57 UTC
 </div>
 </div>
 <!-- Nav bar -->
