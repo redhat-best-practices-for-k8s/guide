@@ -5,7 +5,6 @@ Cloud-native network functions (CNFs) best practices
 :revdate: 2023
 :toc: left
 :toclevels: 5
-:toc-title: CNF Best Practices v{revnumber}
 :repo-url: https://github.com/test-network-function/cnf-best-practices
 :icons: image
 :icontype: svg
@@ -80,6 +79,10 @@ include::modules/cnf-best-practices-avoid-the-host-network-namespace.adoc[levelo
 include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-secrets-management.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-scc-permissions-for-an-application.adoc[leveloffset=+3]
 
 include::modules/cnf-best-practices-expectations-permissions.adoc[leveloffset=+2]
 

@@ -217,17 +217,3 @@ Applications must define network policies that permit only the minimum network a
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all[networking-network-policy-deny-all]
 ====
-
-[id="cnf-best-practices-secrets-management"]
-== Managing secrets
-
-Secrets objects in OpenShift provide a way to hold sensitive information such as passwords, config files and credentials. There are 4 types of secrets; service account, basic auth, ssh auth and TLS. Secrets can be added via deployment configurations or consumed by pods directly. For more information on secrets and examples, see the following documentation.
-
-link:https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-secrets.html[Providing sensitive data to pods]
-
-[id="cnf-best-practices-scc-permissions-for-an-application"]
-== Setting SCC permissions for applications
-
-Permissions to use an SCC is done by adding a cluster role that has _uses_ permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.
-
-
