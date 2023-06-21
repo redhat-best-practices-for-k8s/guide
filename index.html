@@ -3057,77 +3057,77 @@ pre.rouge .gs {
 <li><a href="#cnf-best-practices-manipulate-pod’s-route-table">3.7.4. Manipulating pod route tables</a></li>
 <li><a href="#cnf-best-practices-sr/iov-vf-setting">3.7.5. Setting SR/IOV VFs</a></li>
 <li><a href="#cnf-best-practices-multicast">3.7.6. Configuring multicast</a></li>
-<li><a href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.7.7. Operations that can not be executed by OpenShift</a></li>
-<li><a href="#cnf-best-practices-analyzing-your-application">3.7.8. Analyzing your application</a>
-<ul class="sectlevel4">
-<li><a href="#cnf-best-practices-example">3.7.8.1. Finding the capabilities that an application needs</a></li>
 </ul>
 </li>
-<li><a href="#cnf-best-practices-cnf-network-security">3.7.9. Securing CNF networks</a></li>
-<li><a href="#cnf-best-practices-secrets-management">3.7.10. Managing secrets</a></li>
-<li><a href="#cnf-best-practices-scc-permissions-for-an-application">3.7.11. Setting SCC permissions for applications</a></li>
-</ul>
-</li>
-<li><a href="#cnf-best-practices-cloud-native-function-expectations-and-permissions">3.8. Cloud-native function expectations and permissions</a>
+<li><a href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></li>
+<li><a href="#cnf-best-practices-analyzing-your-application">3.9. Analyzing your application</a></li>
+<li><a href="#cnf-best-practices-finding-the-capabilities-that-an-application-needs">3.10. Finding the capabilities that an application needs</a></li>
+<li><a href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing CNF networks</a>
 <ul class="sectlevel3">
-<li><a href="#cnf-best-practices-cloud-native-design-best-practices">3.8.1. Cloud-native design best practices</a>
-<ul class="sectlevel4">
-<li><a href="#cnf-best-practices-high-level-cnf-expectations">3.8.1.1. High-level CNF expectations</a></li>
-<li><a href="#cnf-best-practices-pod-permissions">3.8.1.2. Pod permissions</a></li>
-<li><a href="#cnf-best-practices-logging">3.8.1.3. Logging</a></li>
-<li><a href="#cnf-best-practices-monitoring">3.8.1.4. Monitoring</a></li>
-<li><a href="#cnf-best-practices-cpu-allocation">3.8.1.5. CPU allocation</a></li>
-<li><a href="#cnf-best-practices-memory-allocation">3.8.1.6. Memory allocation</a></li>
-<li><a href="#cnf-best-practices-pods">3.8.1.7. Pods</a>
-<ul class="sectlevel5">
-<li><a href="#cnf-best-practices-pod-interaction-and-configuration">3.8.1.7.1. Pod interaction and configuration</a></li>
-<li><a href="#cnf-best-practices-pod-exit-status">3.8.1.7.2. Pod exit status</a></li>
-<li><a href="#cnf-best-practices-graceful-termination">3.8.1.7.3. Graceful termination</a></li>
-<li><a href="#cnf-best-practices-pod-resource-profiles">3.8.1.7.4. Pod resource profiles</a></li>
-<li><a href="#cnf-best-practices-storage:-emptydir">3.8.1.7.5. Storage: emptyDir</a></li>
-<li><a href="#cnf-best-practices-liveness-readiness-and-startup-probes">3.8.1.7.6. Liveness readiness and startup probes</a></li>
-<li><a href="#cnf-best-practices-affinity-anti-affinity">3.8.1.7.7. Affinity and anti-affinity</a></li>
-<li><a href="#cnf-best-practices-upgrade-expectations">3.8.1.7.8. Upgrade expectations</a></li>
-<li><a href="#cnf-best-practices-taints-and-tolerations">3.8.1.7.9. Taints and tolerations</a></li>
-<li><a href="#cnf-best-practices-requests-limits">3.8.1.7.10. Requests/Limits</a></li>
-<li><a href="#cnf-best-practices-use-imagepullpolicy:-ifnotpresent">3.8.1.7.11. Use imagePullPolicy: IfNotPresent</a></li>
-<li><a href="#cnf-best-practices-automount-services-for-pods">3.8.1.7.12. Automount services for pods</a></li>
-<li><a href="#cnf-best-practices-disruption-budgets">3.8.1.7.13. Disruption budgets</a></li>
-<li><a href="#cnf-best-practices-no-naked-pods">3.8.1.7.14. No naked pods</a></li>
-<li><a href="#cnf-best-practices-image-tagging">3.8.1.7.15. Image tagging</a></li>
-<li><a href="#cnf-best-practices-one-process-per-container">3.8.1.7.16. One process per container</a></li>
-<li><a href="#cnf-best-practices-init-containers">3.8.1.7.17. init containers</a></li>
+<li><a href="#cnf-best-practices-secrets-management">3.11.1. Managing secrets</a></li>
+<li><a href="#cnf-best-practices-scc-permissions-for-an-application">3.11.2. Setting SCC permissions for applications</a></li>
 </ul>
 </li>
-<li><a href="#cnf-best-practices-security-and-role-based-access-control">3.8.1.8. Security and role-based access control</a></li>
-<li><a href="#cnf-best-practices-custom-role-to-access-application-crds">3.8.1.9. Custom role to access application CRDs</a></li>
-<li><a href="#cnf-best-practices-multus">3.8.1.10. MULTUS</a></li>
-<li><a href="#cnf-best-practices-multus-sr-iov---macvlan">3.8.1.11. MULTUS SR-IOV / MACVLAN</a></li>
-<li><a href="#cnf-best-practices-sr-iov-interface-settings">3.8.1.12. SR-IOV interface settings</a></li>
-<li><a href="#cnf-best-practices-attaching-the-vf-to-a-pod">3.8.1.13. Attaching the VF to a pod</a></li>
-<li><a href="#cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.8.1.14. Discovering SR-IOV devices properties from the application</a></li>
-<li><a href="#cnf-best-practices-numa-awareness">3.8.1.15. NUMA awareness</a></li>
-<li><a href="#cnf-best-practices-platform-upgrade">3.8.1.16. Platform upgrade</a></li>
-<li><a href="#cnf-best-practices-openshift-virtualization-and-cnv-best-practices">3.8.1.17. OpenShift virtualization and CNV best practices</a>
-<ul class="sectlevel5">
-<li><a href="#cnf-best-practices-vm-image-import-recommendations-cdi">3.8.1.17.1. VM image import recommendations (CDI)</a></li>
-<li><a href="#cnf-best-practices-working-with-large-vm-disk-images">3.8.1.17.2. Working with large VM disk images</a></li>
-</ul>
-</li>
-<li><a href="#cnf-best-practices-operator-best-practices">3.8.1.18. Operator best practices</a>
-<ul class="sectlevel5">
-<li><a href="#cnf-best-practices-cnf-operator-requirements">3.8.1.18.1. CNF Operator requirements</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#cnf-best-practices-requirements-cnf-reqs">3.9. Requirements for CNF</a>
+<li><a href="#cnf-best-practices-cloud-native-function-expectations-and-permissions">3.12. Cloud-native function expectations and permissions</a>
 <ul class="sectlevel3">
-<li><a href="#cnf-best-practices-image-standards">3.9.1. Image standards</a></li>
-<li><a href="#cnf-best-practices-universal-base-image-information">3.9.2. Universal Base Image information</a></li>
-<li><a href="#cnf-best-practices-application-dns-configuration-requirements">3.9.3. Application DNS configuration requirements</a></li>
+<li><a href="#cnf-best-practices-cloud-native-design-best-practices">3.12.1. Cloud-native design best practices</a>
+<ul class="sectlevel4">
+<li><a href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level CNF expectations</a></li>
+<li><a href="#cnf-best-practices-pod-permissions">3.12.1.2. Pod permissions</a></li>
+<li><a href="#cnf-best-practices-logging">3.12.1.3. Logging</a></li>
+<li><a href="#cnf-best-practices-monitoring">3.12.1.4. Monitoring</a></li>
+<li><a href="#cnf-best-practices-cpu-allocation">3.12.1.5. CPU allocation</a></li>
+<li><a href="#cnf-best-practices-memory-allocation">3.12.1.6. Memory allocation</a></li>
+<li><a href="#cnf-best-practices-pods">3.12.1.7. Pods</a>
+<ul class="sectlevel5">
+<li><a href="#cnf-best-practices-pod-interaction-and-configuration">3.12.1.7.1. Pod interaction and configuration</a></li>
+<li><a href="#cnf-best-practices-pod-exit-status">3.12.1.7.2. Pod exit status</a></li>
+<li><a href="#cnf-best-practices-graceful-termination">3.12.1.7.3. Graceful termination</a></li>
+<li><a href="#cnf-best-practices-pod-resource-profiles">3.12.1.7.4. Pod resource profiles</a></li>
+<li><a href="#cnf-best-practices-storage:-emptydir">3.12.1.7.5. Storage: emptyDir</a></li>
+<li><a href="#cnf-best-practices-liveness-readiness-and-startup-probes">3.12.1.7.6. Liveness readiness and startup probes</a></li>
+<li><a href="#cnf-best-practices-affinity-anti-affinity">3.12.1.7.7. Affinity and anti-affinity</a></li>
+<li><a href="#cnf-best-practices-upgrade-expectations">3.12.1.7.8. Upgrade expectations</a></li>
+<li><a href="#cnf-best-practices-taints-and-tolerations">3.12.1.7.9. Taints and tolerations</a></li>
+<li><a href="#cnf-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></li>
+<li><a href="#cnf-best-practices-use-imagepullpolicy:-ifnotpresent">3.12.1.7.11. Use imagePullPolicy: IfNotPresent</a></li>
+<li><a href="#cnf-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></li>
+<li><a href="#cnf-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></li>
+<li><a href="#cnf-best-practices-no-naked-pods">3.12.1.7.14. No naked pods</a></li>
+<li><a href="#cnf-best-practices-image-tagging">3.12.1.7.15. Image tagging</a></li>
+<li><a href="#cnf-best-practices-one-process-per-container">3.12.1.7.16. One process per container</a></li>
+<li><a href="#cnf-best-practices-init-containers">3.12.1.7.17. init containers</a></li>
+</ul>
+</li>
+<li><a href="#cnf-best-practices-security-and-role-based-access-control">3.12.1.8. Security and role-based access control</a></li>
+<li><a href="#cnf-best-practices-custom-role-to-access-application-crds">3.12.1.9. Custom role to access application CRDs</a></li>
+<li><a href="#cnf-best-practices-multus">3.12.1.10. MULTUS</a></li>
+<li><a href="#cnf-best-practices-multus-sr-iov---macvlan">3.12.1.11. MULTUS SR-IOV / MACVLAN</a></li>
+<li><a href="#cnf-best-practices-sr-iov-interface-settings">3.12.1.12. SR-IOV interface settings</a></li>
+<li><a href="#cnf-best-practices-attaching-the-vf-to-a-pod">3.12.1.13. Attaching the VF to a pod</a></li>
+<li><a href="#cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.12.1.14. Discovering SR-IOV devices properties from the application</a></li>
+<li><a href="#cnf-best-practices-numa-awareness">3.12.1.15. NUMA awareness</a></li>
+<li><a href="#cnf-best-practices-platform-upgrade">3.12.1.16. Platform upgrade</a></li>
+<li><a href="#cnf-best-practices-openshift-virtualization-and-cnv-best-practices">3.12.1.17. OpenShift virtualization and CNV best practices</a>
+<ul class="sectlevel5">
+<li><a href="#cnf-best-practices-vm-image-import-recommendations-cdi">3.12.1.17.1. VM image import recommendations (CDI)</a></li>
+<li><a href="#cnf-best-practices-working-with-large-vm-disk-images">3.12.1.17.2. Working with large VM disk images</a></li>
+</ul>
+</li>
+<li><a href="#cnf-best-practices-operator-best-practices">3.12.1.18. Operator best practices</a>
+<ul class="sectlevel5">
+<li><a href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. CNF Operator requirements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for CNF</a>
+<ul class="sectlevel3">
+<li><a href="#cnf-best-practices-image-standards">3.13.1. Image standards</a></li>
+<li><a href="#cnf-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></li>
+<li><a href="#cnf-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></li>
 </ul>
 </li>
 </ul>
@@ -4431,8 +4431,9 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cnf-best-practices-operations-that-can-not-be-executed-by-openshift"><a class="link" href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.7.7. Operations that can not be executed by OpenShift</a></h4>
+</div>
+<div class="sect2">
+<h3 id="cnf-best-practices-operations-that-can-not-be-executed-by-openshift"><a class="link" href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></h3>
 <div class="paragraph">
 <p>All the CNI plugins are only invoked during pod creation and deletion. If your CNF needs perform any operations mentioned above at runtime, the <code>NET_ADMIN</code> capability is required.</p>
 </div>
@@ -4485,16 +4486,17 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cnf-best-practices-analyzing-your-application"><a class="link" href="#cnf-best-practices-analyzing-your-application">3.7.8. Analyzing your application</a></h4>
+<div class="sect2">
+<h3 id="cnf-best-practices-analyzing-your-application"><a class="link" href="#cnf-best-practices-analyzing-your-application">3.9. Analyzing your application</a></h3>
 <div class="paragraph">
 <p>To find out which capabilities the application needs, Red Hat has developed a SystemTap script (<code>container_check.stp</code>). With this tool, the CNF developer can find out what capabilities an application requires in order to run in a container. It also shows the syscalls which were invoked. Find more info at <a href="https://linuxera.org/capabilities-seccomp-kubernetes/" class="bare">https://linuxera.org/capabilities-seccomp-kubernetes/</a></p>
 </div>
 <div class="paragraph">
 <p>Another tool is <code>capable</code> which is part of the BCC tools. It can be installed on RHEL8 with <code>dnf install bcc</code>.</p>
 </div>
-<div class="sect4">
-<h5 id="cnf-best-practices-example"><a class="link" href="#cnf-best-practices-example">3.7.8.1. Finding the capabilities that an application needs</a></h5>
+</div>
+<div class="sect2">
+<h3 id="cnf-best-practices-finding-the-capabilities-that-an-application-needs"><a class="link" href="#cnf-best-practices-finding-the-capabilities-that-an-application-needs">3.10. Finding the capabilities that an application needs</a></h3>
 <div class="paragraph">
 <p>Here is an example of how to find out the capabilities that an application needs. <code>testpmd</code> is a DPDK based layer-2 forwarding application. It needs the <code>CAP_IPC_LOCK</code> to allocate the hugepage memory.</p>
 </div>
@@ -4621,9 +4623,8 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="cnf-best-practices-cnf-network-security"><a class="link" href="#cnf-best-practices-cnf-network-security">3.7.9. Securing CNF networks</a></h4>
+<div class="sect2">
+<h3 id="cnf-best-practices-cnf-securing-cnf-networks"><a class="link" href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing CNF networks</a></h3>
 <div class="paragraph">
 <p>CNFs must have the least permissions possible and CNFs must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.</p>
 </div>
@@ -4645,9 +4646,8 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </tr>
 </table>
 </div>
-</div>
 <div class="sect3">
-<h4 id="cnf-best-practices-secrets-management"><a class="link" href="#cnf-best-practices-secrets-management">3.7.10. Managing secrets</a></h4>
+<h4 id="cnf-best-practices-secrets-management"><a class="link" href="#cnf-best-practices-secrets-management">3.11.1. Managing secrets</a></h4>
 <div class="paragraph">
 <p>Secrets objects in OpenShift provide a way to hold sensitive information such as passwords, config files and credentials. There are 4 types of secrets; service account, basic auth, ssh auth and TLS. Secrets can be added via deployment configurations or consumed by pods directly. For more information on secrets and examples, see the following documentation.</p>
 </div>
@@ -4656,19 +4656,19 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-scc-permissions-for-an-application"><a class="link" href="#cnf-best-practices-scc-permissions-for-an-application">3.7.11. Setting SCC permissions for applications</a></h4>
+<h4 id="cnf-best-practices-scc-permissions-for-an-application"><a class="link" href="#cnf-best-practices-scc-permissions-for-an-application">3.11.2. Setting SCC permissions for applications</a></h4>
 <div class="paragraph">
 <p>Permissions to use an SCC is done by adding a cluster role that has <em>uses</em> permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cnf-best-practices-cloud-native-function-expectations-and-permissions"><a class="link" href="#cnf-best-practices-cloud-native-function-expectations-and-permissions">3.8. Cloud-native function expectations and permissions</a></h3>
+<h3 id="cnf-best-practices-cloud-native-function-expectations-and-permissions"><a class="link" href="#cnf-best-practices-cloud-native-function-expectations-and-permissions">3.12. Cloud-native function expectations and permissions</a></h3>
 <div class="paragraph">
 <p>Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.</p>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-cloud-native-design-best-practices"><a class="link" href="#cnf-best-practices-cloud-native-design-best-practices">3.8.1. Cloud-native design best practices</a></h4>
+<h4 id="cnf-best-practices-cloud-native-design-best-practices"><a class="link" href="#cnf-best-practices-cloud-native-design-best-practices">3.12.1. Cloud-native design best practices</a></h4>
 <div class="paragraph">
 <p>The following best practices highlight some key principles of cloud-native application design.</p>
 </div>
@@ -4731,7 +4731,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </table>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-high-level-cnf-expectations"><a class="link" href="#cnf-best-practices-high-level-cnf-expectations">3.8.1.1. High-level CNF expectations</a></h5>
+<h5 id="cnf-best-practices-high-level-cnf-expectations"><a class="link" href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level CNF expectations</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4831,7 +4831,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-pod-permissions"><a class="link" href="#cnf-best-practices-pod-permissions">3.8.1.2. Pod permissions</a></h5>
+<h5 id="cnf-best-practices-pod-permissions"><a class="link" href="#cnf-best-practices-pod-permissions">3.12.1.2. Pod permissions</a></h5>
 <div class="paragraph">
 <p>By default, pods should not expect to be permitted to run as root. Pod restrictions are enforced by SCC within the OpenShift platform. See <a href="https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html">Managing security context constraints</a>.</p>
 </div>
@@ -4872,7 +4872,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-logging"><a class="link" href="#cnf-best-practices-logging">3.8.1.3. Logging</a></h5>
+<h5 id="cnf-best-practices-logging"><a class="link" href="#cnf-best-practices-logging">3.12.1.3. Logging</a></h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Log aggregation and analysis</dt>
@@ -4900,13 +4900,13 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-monitoring"><a class="link" href="#cnf-best-practices-monitoring">3.8.1.4. Monitoring</a></h5>
+<h5 id="cnf-best-practices-monitoring"><a class="link" href="#cnf-best-practices-monitoring">3.12.1.4. Monitoring</a></h5>
 <div class="paragraph">
 <p>Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-cpu-allocation"><a class="link" href="#cnf-best-practices-cpu-allocation">3.8.1.5. CPU allocation</a></h5>
+<h5 id="cnf-best-practices-cpu-allocation"><a class="link" href="#cnf-best-practices-cpu-allocation">3.12.1.5. CPU allocation</a></h5>
 <div class="paragraph">
 <p>It is important to note that when the OpenShift scheduler is placing pods, it first reviews the Pod CPU request and schedules it if there is a node that meets the requirements. It will then impose the CPU "Limits" to ensure the Pod doesn&#8217;t consume more than the intended allocation. The limit can never be lower than the request.</p>
 </div>
@@ -4920,7 +4920,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-memory-allocation"><a class="link" href="#cnf-best-practices-memory-allocation">3.8.1.6. Memory allocation</a></h5>
+<h5 id="cnf-best-practices-memory-allocation"><a class="link" href="#cnf-best-practices-memory-allocation">3.12.1.6. Memory allocation</a></h5>
 <div class="paragraph">
 <p>Regarding memory allocation, there are a couple of considerations. How much of the platform is OpenShift itself using, and how much is left over to allocate for the applications running on OpenShift?</p>
 </div>
@@ -4961,7 +4961,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-pods"><a class="link" href="#cnf-best-practices-pods">3.8.1.7. Pods</a></h5>
+<h5 id="cnf-best-practices-pods"><a class="link" href="#cnf-best-practices-pods">3.12.1.7. Pods</a></h5>
 <div class="paragraph">
 <p>Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.</p>
 </div>
@@ -4969,7 +4969,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over <code>127.0.0.1:&lt;port&gt;</code>. The same is true for storage volumes so all containers are in the same Pod have access to the same mount namespace and can mount the same volumes.</p>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-pod-interaction-and-configuration"><a class="link" href="#cnf-best-practices-pod-interaction-and-configuration">3.8.1.7.1. Pod interaction and configuration</a></h6>
+<h6 id="cnf-best-practices-pod-interaction-and-configuration"><a class="link" href="#cnf-best-practices-pod-interaction-and-configuration">3.12.1.7.1. Pod interaction and configuration</a></h6>
 <div class="paragraph">
 <p>Pod configurations should be created in a kubernetes native manner, the most basic example of a kubernetes native manner of configuration deployment is the use of a <code>ConfigMap</code> CR. <code>ConfigMap</code> CRs can be loaded into Kubernetes and pods can consume the data in a configmap by using the data in the <code>ConfigMap</code> to populate container environment variables or can be consumed as volumes in a container and read by an application.</p>
 </div>
@@ -4996,7 +4996,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-pod-exit-status"><a class="link" href="#cnf-best-practices-pod-exit-status">3.8.1.7.2. Pod exit status</a></h6>
+<h6 id="cnf-best-practices-pod-exit-status"><a class="link" href="#cnf-best-practices-pod-exit-status">3.12.1.7.2. Pod exit status</a></h6>
 <div class="paragraph">
 <p>The most basic requirement for the lifecycle management of pods in OpenShift is the ability to start and stop correctly. When starting up, health probes like liveness and readiness checks can be put into place to ensure the application is functioning properly.</p>
 </div>
@@ -5029,7 +5029,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-graceful-termination"><a class="link" href="#cnf-best-practices-graceful-termination">3.8.1.7.3. Graceful termination</a></h6>
+<h6 id="cnf-best-practices-graceful-termination"><a class="link" href="#cnf-best-practices-graceful-termination">3.12.1.7.3. Graceful termination</a></h6>
 <div class="paragraph">
 <p>There are different reasons that a pod may need to shutdown on an OpenShift cluster. It might be that the node the pod is running on needs to be shut down for maintenance, or the administrator is doing a rolling update of an application to a new version which requires that the old versions are shutdown properly.</p>
 </div>
@@ -5059,7 +5059,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-pod-resource-profiles"><a class="link" href="#cnf-best-practices-pod-resource-profiles">3.8.1.7.4. Pod resource profiles</a></h6>
+<h6 id="cnf-best-practices-pod-resource-profiles"><a class="link" href="#cnf-best-practices-pod-resource-profiles">3.12.1.7.4. Pod resource profiles</a></h6>
 <div class="paragraph">
 <p>OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.</p>
 </div>
@@ -5068,7 +5068,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-storage:-emptydir"><a class="link" href="#cnf-best-practices-storage:-emptydir">3.8.1.7.5. Storage: emptyDir</a></h6>
+<h6 id="cnf-best-practices-storage:-emptydir"><a class="link" href="#cnf-best-practices-storage:-emptydir">3.12.1.7.5. Storage: emptyDir</a></h6>
 <div class="paragraph">
 <p>There are several options for volumes and reading and writing files in OpenShift. When the requirement is temporary storage and given the option to write files into directories in containers versus an external filesystems, choose the <code>emptyDir</code> option. This will provide the administrator with the same temporary filesystem - when the pod is stopped the dir is deleted forever. Also, the <code>emptyDir</code> can be backed by whatever medium is backing the node, or it can be set to memory for faster reads and writes.</p>
 </div>
@@ -5077,7 +5077,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-liveness-readiness-and-startup-probes"><a class="link" href="#cnf-best-practices-liveness-readiness-and-startup-probes">3.8.1.7.6. Liveness readiness and startup probes</a></h6>
+<h6 id="cnf-best-practices-liveness-readiness-and-startup-probes"><a class="link" href="#cnf-best-practices-liveness-readiness-and-startup-probes">3.12.1.7.6. Liveness readiness and startup probes</a></h6>
 <div class="paragraph">
 <p>As part of the pod lifecycle, the OpenShift platform needs to know what state the pod is in at all times. This can be accomplished with different health checks. There are at least three states that are important to the platform: startup, running, shutdown. Applications can also be running, but not healthy, meaning, the pod is up and the application shows no errors, but it cannot serve any requests.</p>
 </div>
@@ -5115,7 +5115,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-affinity-anti-affinity"><a class="link" href="#cnf-best-practices-affinity-anti-affinity">3.8.1.7.7. Affinity and anti-affinity</a></h6>
+<h6 id="cnf-best-practices-affinity-anti-affinity"><a class="link" href="#cnf-best-practices-affinity-anti-affinity">3.12.1.7.7. Affinity and anti-affinity</a></h6>
 <div class="paragraph">
 <p>In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.</p>
 </div>
@@ -5184,7 +5184,7 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-upgrade-expectations"><a class="link" href="#cnf-best-practices-upgrade-expectations">3.8.1.7.8. Upgrade expectations</a></h6>
+<h6 id="cnf-best-practices-upgrade-expectations"><a class="link" href="#cnf-best-practices-upgrade-expectations">3.12.1.7.8. Upgrade expectations</a></h6>
 <div class="ulist">
 <ul>
 <li>
@@ -5242,7 +5242,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-taints-and-tolerations"><a class="link" href="#cnf-best-practices-taints-and-tolerations">3.8.1.7.9. Taints and tolerations</a></h6>
+<h6 id="cnf-best-practices-taints-and-tolerations"><a class="link" href="#cnf-best-practices-taints-and-tolerations">3.12.1.7.9. Taints and tolerations</a></h6>
 <div class="paragraph">
 <p>Taints and tolerations allow the node to control which pods are scheduled on the node. A taint allows a node to refuse a pod to be scheduled unless that pod has a matching toleration.</p>
 </div>
@@ -5260,7 +5260,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-requests-limits"><a class="link" href="#cnf-best-practices-requests-limits">3.8.1.7.10. Requests/Limits</a></h6>
+<h6 id="cnf-best-practices-requests-limits"><a class="link" href="#cnf-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></h6>
 <div class="paragraph">
 <p>Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a> for more information.</p>
 </div>
@@ -5290,7 +5290,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-use-imagepullpolicy:-ifnotpresent"><a class="link" href="#cnf-best-practices-use-imagepullpolicy:-ifnotpresent">3.8.1.7.11. Use imagePullPolicy: IfNotPresent</a></h6>
+<h6 id="cnf-best-practices-use-imagepullpolicy:-ifnotpresent"><a class="link" href="#cnf-best-practices-use-imagepullpolicy:-ifnotpresent">3.12.1.7.11. Use imagePullPolicy: IfNotPresent</a></h6>
 <div class="paragraph">
 <p>If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: <code>Always</code>, <code>Never</code> and <code>IfNotPresent</code>. It is generally recommended to have a pull policy of <code>IfNotPresent</code>. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse the already downloaded container image if it&#8217;s available. OpenShift intentionally does not set <code>AlwaysPullImages</code> as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use <code>PullIfNotPresent</code> so that a loss of image registry access does not prevent the pod from restarting.</p>
 </div>
@@ -5313,7 +5313,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-automount-services-for-pods"><a class="link" href="#cnf-best-practices-automount-services-for-pods">3.8.1.7.12. Automount services for pods</a></h6>
+<h6 id="cnf-best-practices-automount-services-for-pods"><a class="link" href="#cnf-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></h6>
 <div class="paragraph">
 <p>Pods which do not require API access should set the value of <code>automountServiceAccountToken</code> to false within the pod spec, for example:</p>
 </div>
@@ -5333,7 +5333,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-disruption-budgets"><a class="link" href="#cnf-best-practices-disruption-budgets">3.8.1.7.13. Disruption budgets</a></h6>
+<h6 id="cnf-best-practices-disruption-budgets"><a class="link" href="#cnf-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></h6>
 <div class="paragraph">
 <p>When managing the platform there are at least two types of disruptions that can occur. They are voluntary and involuntary. When dealing with voluntary disruptions a pod disruption budget can be set that determines how many replicas of the application must remain running at any given time. For example, consider the case where an administrator is shutting down a node for</p>
 </div>
@@ -5345,7 +5345,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-no-naked-pods"><a class="link" href="#cnf-best-practices-no-naked-pods">3.8.1.7.14. No naked pods</a></h6>
+<h6 id="cnf-best-practices-no-naked-pods"><a class="link" href="#cnf-best-practices-no-naked-pods">3.12.1.7.14. No naked pods</a></h6>
 <div class="paragraph">
 <p>Do not use naked Pods (that is, Pods not bound to a <code>ReplicaSet</code>, or <code>StatefulSet</code> deployment). Naked pods will not be rescheduled in the event of a node failure.</p>
 </div>
@@ -5407,7 +5407,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-image-tagging"><a class="link" href="#cnf-best-practices-image-tagging">3.8.1.7.15. Image tagging</a></h6>
+<h6 id="cnf-best-practices-image-tagging"><a class="link" href="#cnf-best-practices-image-tagging">3.12.1.7.15. Image tagging</a></h6>
 <div class="paragraph">
 <p>An image tag is a label applied to a container image in a repository that distinguishes a specific image from other images. Image tags may be used to categorize images (for example: latest, stable, development) and by versions within the categories. This allows the administrator to be specific when declaring which image to test, or which image to run in production.</p>
 </div>
@@ -5419,7 +5419,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-one-process-per-container"><a class="link" href="#cnf-best-practices-one-process-per-container">3.8.1.7.16. One process per container</a></h6>
+<h6 id="cnf-best-practices-one-process-per-container"><a class="link" href="#cnf-best-practices-one-process-per-container">3.12.1.7.16. One process per container</a></h6>
 <div class="paragraph">
 <p>OpenShift organizes workloads into pods. Pods are the smallest unit of a workload that Kubernetes understands. Within pods, one can have one or more containers. Containers are essentially composed of the runtime that is required to launch and run a process.</p>
 </div>
@@ -5437,7 +5437,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-init-containers"><a class="link" href="#cnf-best-practices-init-containers">3.8.1.7.17. init containers</a></h6>
+<h6 id="cnf-best-practices-init-containers"><a class="link" href="#cnf-best-practices-init-containers">3.12.1.7.17. init containers</a></h6>
 <div class="paragraph">
 <p>Init containers can be used for running tools / commands / or any other action that needs to be done before the actual pod is started. For example, loading a database schema, or constructing a config file from a definition passed in via configMap or secret.</p>
 </div>
@@ -5447,7 +5447,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-security-and-role-based-access-control"><a class="link" href="#cnf-best-practices-security-and-role-based-access-control">3.8.1.8. Security and role-based access control</a></h5>
+<h5 id="cnf-best-practices-security-and-role-based-access-control"><a class="link" href="#cnf-best-practices-security-and-role-based-access-control">3.12.1.8. Security and role-based access control</a></h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Roles / RoleBindings</dt>
@@ -5490,7 +5490,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-custom-role-to-access-application-crds"><a class="link" href="#cnf-best-practices-custom-role-to-access-application-crds">3.8.1.9. Custom role to access application CRDs</a></h5>
+<h5 id="cnf-best-practices-custom-role-to-access-application-crds"><a class="link" href="#cnf-best-practices-custom-role-to-access-application-crds">3.12.1.9. Custom role to access application CRDs</a></h5>
 <div class="paragraph">
 <p>If an application requires installing/deploying CRDs (Custom Resource Definitions), the application must provide a role that allows necessary permissions to create CRs within the CRDs. The custom role to access CRDs must not create any permissions to access any other API resources than the CRDs.</p>
 </div>
@@ -5512,7 +5512,7 @@ permissions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-multus"><a class="link" href="#cnf-best-practices-multus">3.8.1.10. MULTUS</a></h5>
+<h5 id="cnf-best-practices-multus"><a class="link" href="#cnf-best-practices-multus">3.12.1.10. MULTUS</a></h5>
 <div class="paragraph">
 <p>MULTUS is a meta-CNI that allows multiple CNIs that it delegates to. This allows pods to get additional interfaces beyond <code>eth0</code> via additional CNIs. Having additional CNIs for SR-IOV and MacVLAN interfaces allow for direct routing of traffic to a pod without using the pod network via additional interfaces. This capability is being delivered for use in only corner case scenarios, it is not to be used in general for all applications. Example use cases include bandwidth requirements that necessitate SR-IOV and protocols that are unable to be supported by the load balancer. The OVN based pod network should be used for every interface that can be supported from a technical standpoint.</p>
 </div>
@@ -5537,7 +5537,7 @@ the applications must use the pod network for traffic</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-multus-sr-iov---macvlan"><a class="link" href="#cnf-best-practices-multus-sr-iov---macvlan">3.8.1.11. MULTUS SR-IOV / MACVLAN</a></h5>
+<h5 id="cnf-best-practices-multus-sr-iov---macvlan"><a class="link" href="#cnf-best-practices-multus-sr-iov---macvlan">3.12.1.11. MULTUS SR-IOV / MACVLAN</a></h5>
 <div class="paragraph">
 <p>SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.</p>
 </div>
@@ -5566,7 +5566,7 @@ the applications must use the pod network for traffic</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-sr-iov-interface-settings"><a class="link" href="#cnf-best-practices-sr-iov-interface-settings">3.8.1.12. SR-IOV interface settings</a></h5>
+<h5 id="cnf-best-practices-sr-iov-interface-settings"><a class="link" href="#cnf-best-practices-sr-iov-interface-settings">3.12.1.12. SR-IOV interface settings</a></h5>
 <div class="paragraph">
 <p>The following settings must be negotiated with the cluster administrator, for each network type available in the namespace:</p>
 </div>
@@ -5730,7 +5730,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-attaching-the-vf-to-a-pod"><a class="link" href="#cnf-best-practices-attaching-the-vf-to-a-pod">3.8.1.13. Attaching the VF to a pod</a></h5>
+<h5 id="cnf-best-practices-attaching-the-vf-to-a-pod"><a class="link" href="#cnf-best-practices-attaching-the-vf-to-a-pod">3.12.1.13. Attaching the VF to a pod</a></h5>
 <div class="paragraph">
 <p>Once the right network attachment definition is found, applying the <code>k8s.v1.cni.cncf.io/networks</code> annotation with the name of the network attachment definition to the pod will add the additional network interfaces in the pod namespace, as per the following example:</p>
 </div>
@@ -5753,7 +5753,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application"><a class="link" href="#cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.8.1.14. Discovering SR-IOV devices properties from the application</a></h5>
+<h5 id="cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application"><a class="link" href="#cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.12.1.14. Discovering SR-IOV devices properties from the application</a></h5>
 <div class="paragraph">
 <p>All the properties of the interfaces are added to the pod&#8217;s <code>k8s.v1.cni.cncf.io/network-status</code> annotation. The annotation is json-formatted and for each network object contains information such as IPs (where available), MAC address, PCI address. For example:</p>
 </div>
@@ -5794,7 +5794,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-numa-awareness"><a class="link" href="#cnf-best-practices-numa-awareness">3.8.1.15. NUMA awareness</a></h5>
+<h5 id="cnf-best-practices-numa-awareness"><a class="link" href="#cnf-best-practices-numa-awareness">3.12.1.15. NUMA awareness</a></h5>
 <div class="paragraph">
 <p>If the pod is using a guaranteed QoS class and the kubelet is configured with a suitable topology manager policy (restricted, single-numa node) then the VF assigned to the pod will belong to the same NUMA node as the other assigned resources (CPU and other NUMA aware devices). Please note that HugePages are currently not NUMA aware.</p>
 </div>
@@ -5803,7 +5803,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-platform-upgrade"><a class="link" href="#cnf-best-practices-platform-upgrade">3.8.1.16. Platform upgrade</a></h5>
+<h5 id="cnf-best-practices-platform-upgrade"><a class="link" href="#cnf-best-practices-platform-upgrade">3.12.1.16. Platform upgrade</a></h5>
 <div class="paragraph">
 <p>Openshift upgrades happen as follows:</p>
 </div>
@@ -5899,7 +5899,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-openshift-virtualization-and-cnv-best-practices"><a class="link" href="#cnf-best-practices-openshift-virtualization-and-cnv-best-practices">3.8.1.17. OpenShift virtualization and CNV best practices</a></h5>
+<h5 id="cnf-best-practices-openshift-virtualization-and-cnv-best-practices"><a class="link" href="#cnf-best-practices-openshift-virtualization-and-cnv-best-practices">3.12.1.17. OpenShift virtualization and CNV best practices</a></h5>
 <div class="paragraph">
 <p>OpenShift Virtualization is generally-available for enterprise workloads, such throughput- and latency-insensitive workloads that may be added to the cluster. VNFs and other throughput or latency-sensitive applications can be considered only after careful validation.</p>
 </div>
@@ -5937,7 +5937,7 @@ loadbalancer-15</span></code></pre>
 </table>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-vm-image-import-recommendations-cdi"><a class="link" href="#cnf-best-practices-vm-image-import-recommendations-cdi">3.8.1.17.1. VM image import recommendations (CDI)</a></h6>
+<h6 id="cnf-best-practices-vm-image-import-recommendations-cdi"><a class="link" href="#cnf-best-practices-vm-image-import-recommendations-cdi">3.12.1.17.1. VM image import recommendations (CDI)</a></h6>
 <div class="paragraph">
 <p>OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (<code>PV</code>). PVs are requested by VMs using kubernetes Persistent Volume Claims (<code>PVC</code>). VMs may require a combination of blank and pre-populated disks in order to function.</p>
 </div>
@@ -5961,14 +5961,14 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-working-with-large-vm-disk-images"><a class="link" href="#cnf-best-practices-working-with-large-vm-disk-images">3.8.1.17.2. Working with large VM disk images</a></h6>
+<h6 id="cnf-best-practices-working-with-large-vm-disk-images"><a class="link" href="#cnf-best-practices-working-with-large-vm-disk-images">3.12.1.17.2. Working with large VM disk images</a></h6>
 <div class="paragraph">
 <p>In contrast to container images, VM disk images can be quite large (30GiB or more is common). It is important to consider the costs of transferring large amounts of data when planning workflows involving the creation of VMs (especially when scaling up the number of VMs). The efficiency of an image import depends on the format of the file and also the transfer method used. The most efficient workflow, for two reasons, is to host a gzip-compressed raw image on a server and import via HTTP. Compression avoids transferring zeros present in the free space of the image, and CDI can stream the contents directly into the target PV without any intermediate conversion steps. In contrast, images imported from a container registry must be transferred, unarchived, and converted prior to being usable. These additional steps increase the amount of data transferred between a node and the remote storage.</p>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-operator-best-practices"><a class="link" href="#cnf-best-practices-operator-best-practices">3.8.1.18. Operator best practices</a></h5>
+<h5 id="cnf-best-practices-operator-best-practices"><a class="link" href="#cnf-best-practices-operator-best-practices">3.12.1.18. Operator best practices</a></h5>
 <div class="paragraph">
 <p>OLM Packaged operators contain an index of all the images required to install the operator, and the <code>ClusterServiceVersion</code> which instructs OpenShift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.</p>
 </div>
@@ -5976,7 +5976,7 @@ loadbalancer-15</span></code></pre>
 <p>The OLM Packaged operator will then run in openshift-operators namespace within the cluster. Users can then utilize this operator by creating CRs within the CRDs that were created by the operator OLM package, to deploy the software managed by the operator. The platform administrator handles the OLM based operator installation for the users by creating a custom catalog in the cluster that is targeted by the application. The users then express via CRs that are consumed by the operator what they would like the operator to create in the users namespace.</p>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-cnf-operator-requirements"><a class="link" href="#cnf-best-practices-cnf-operator-requirements">3.8.1.18.1. CNF Operator requirements</a></h6>
+<h6 id="cnf-best-practices-cnf-operator-requirements"><a class="link" href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. CNF Operator requirements</a></h6>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -6251,7 +6251,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cnf-best-practices-requirements-cnf-reqs"><a class="link" href="#cnf-best-practices-requirements-cnf-reqs">3.9. Requirements for CNF</a></h3>
+<h3 id="cnf-best-practices-requirements-cnf-reqs"><a class="link" href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for CNF</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6352,7 +6352,7 @@ loadbalancer-15</span></code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-image-standards"><a class="link" href="#cnf-best-practices-image-standards">3.9.1. Image standards</a></h4>
+<h4 id="cnf-best-practices-image-standards"><a class="link" href="#cnf-best-practices-image-standards">3.13.1. Image standards</a></h4>
 <div class="paragraph">
 <p>It is recommended that container images be built utilizing Red Hat&#8217;s Universal Base Image as they will have a solid security baseline as well as support from Red Hat.</p>
 </div>
@@ -6443,7 +6443,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-universal-base-image-information"><a class="link" href="#cnf-best-practices-universal-base-image-information">3.9.2. Universal Base Image information</a></h4>
+<h4 id="cnf-best-practices-universal-base-image-information"><a class="link" href="#cnf-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></h4>
 <div class="paragraph">
 <p><a href="https://developers.redhat.com/products/rhel/ubi">UBI</a> is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.</p>
 </div>
@@ -6471,7 +6471,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-application-dns-configuration-requirements"><a class="link" href="#cnf-best-practices-application-dns-configuration-requirements">3.9.3. Application DNS configuration requirements</a></h4>
+<h4 id="cnf-best-practices-application-dns-configuration-requirements"><a class="link" href="#cnf-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></h4>
 <div class="paragraph">
 <p>CNFs should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.</p>
 </div>
@@ -6501,7 +6501,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-21 10:31:57 UTC
+Last updated 2023-06-21 11:21:27 UTC
 </div>
 </div>
 <!-- Nav bar -->
