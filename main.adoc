@@ -67,6 +67,16 @@ include::modules/cnf-best-practices-user-plane-cnfs.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-developer-guide.adoc[leveloffset=+1]
 
+include::modules/cnf-best-practices-refactoring.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-cnf-security.adoc[leveloffset=+2]
+
+include::modules/cnf-best-practices-avoid-accessing-resource-on-host.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-avoid-mounting-host-directories-as-volumes.adoc[leveloffset=+3]
+
+include::modules/cnf-best-practices-avoid-the-host-network-namespace.adoc[leveloffset=+3]
+
 include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
 include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
