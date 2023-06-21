@@ -1,0 +1,4 @@
+[id="cnf-best-practices-avoid-accessing-resource-on-host"]
+= Avoid accessing resource on host
+
+It is not recommended for an application to access following resources on the host.
