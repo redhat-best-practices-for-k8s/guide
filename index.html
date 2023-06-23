@@ -3015,15 +3015,15 @@ pre.rouge .gs {
 <li><a href="#cnf-best-practices-user-plane-functions">2.16. User plane functions</a>
 <ul class="sectlevel3">
 <li><a href="#cnf-best-practices-performance-addon-operator-pao">2.16.1. Node Tuning Operator</a></li>
+<li><a href="#cnf-best-practices-huge-pages">2.16.2. Huge pages</a></li>
+<li><a href="#cnf-best-practices-cpu-isolation">2.16.3. CPU isolation</a></li>
+<li><a href="#cnf-best-practices-topology-manager-and-numa-awareness">2.16.4. Topology Manager and NUMA awareness</a></li>
+<li><a href="#cnf-best-practices-ipv4-&-ipv6">2.16.5. IPv4 &amp; IPv6</a></li>
+<li><a href="#cnf-best-practices-vrfs-aka-routing-instances">2.16.6. VRFs (aka routing instances)</a></li>
+<li><a href="#cnf-best-practices-ports-reserved-by-openshift">2.16.7. Ports reserved by OpenShift</a></li>
+<li><a href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane CNFs</a></li>
 </ul>
 </li>
-<li><a href="#cnf-best-practices-huge-pages">2.17. Huge pages</a></li>
-<li><a href="#cnf-best-practices-cpu-isolation">2.18. CPU isolation</a></li>
-<li><a href="#cnf-best-practices-topology-manager-and-numa-awareness">2.19. Topology Manager and NUMA awareness</a></li>
-<li><a href="#cnf-best-practices-ipv4-&-ipv6">2.20. IPv4 &amp; IPv6</a></li>
-<li><a href="#cnf-best-practices-vrfs-aka-routing-instances">2.21. VRFs (aka routing instances)</a></li>
-<li><a href="#cnf-best-practices-ports-reserved-by-openshift">2.22. Ports reserved by OpenShift</a></li>
-<li><a href="#cnf-best-practices-user-plane-cnfs">2.23. Handling user-plane CNFs</a></li>
 </ul>
 </li>
 <li><a href="#cnf-best-practices-developer-guide">3. CNF developer guide</a>
@@ -3526,9 +3526,8 @@ node eventually.</p>
 <p>The emergence of Edge computing in the area of Telco plays a key role in reducing latency, congestion, and improving application performance. Many of the deployed applications in the Telco space require low latency and zero packet loss. OpenShift Container Platform provides a Node Tuning Operator to implement automatic tuning to achieve low latency performance for applications. The Node Tuning Operator is a meta-operator that leverages <code>MachineConfig</code>, <code>Tuned</code> and <code>KubeletConfig</code> resources, Topology Manager, and CPU Manager, to optimize the nodes.</p>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="cnf-best-practices-huge-pages"><a class="link" href="#cnf-best-practices-huge-pages">2.17. Huge pages</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-huge-pages"><a class="link" href="#cnf-best-practices-huge-pages">2.16.2. Huge pages</a></h4>
 <div class="paragraph">
 <p>In OpenShift Container Platform, nodes/hosts must pre-allocate huge pages.</p>
 </div>
@@ -3556,8 +3555,8 @@ node eventually.</p>
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-2m-only">platform-alteration-hugepages-2m-only</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-config">platform-alteration-hugepages-config</a></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-cpu-isolation"><a class="link" href="#cnf-best-practices-cpu-isolation">2.18. CPU isolation</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-cpu-isolation"><a class="link" href="#cnf-best-practices-cpu-isolation">2.16.3. CPU isolation</a></h4>
 <div class="paragraph">
 <p>The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs for cluster and operating system housekeeping duties, and isolated CPUs for workloads. CPUs that are used for low latency workloads are set as isolated.</p>
 </div>
@@ -3583,8 +3582,8 @@ node eventually.</p>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-topology-manager-and-numa-awareness"><a class="link" href="#cnf-best-practices-topology-manager-and-numa-awareness">2.19. Topology Manager and NUMA awareness</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-topology-manager-and-numa-awareness"><a class="link" href="#cnf-best-practices-topology-manager-and-numa-awareness">2.16.4. Topology Manager and NUMA awareness</a></h4>
 <div class="paragraph">
 <p>Topology Manager collects hints from the CPU Manager, Device Manager, and other Hint Providers to align pod resources, such as CPU, SR-IOV VFs, and other device resources, for all Quality of Service (QoS) classes on the same non-uniform memory access (NUMA) node. This topology information and the configured Topology manager policy determine whether a workload is accepted or rejected on a node.</p>
 </div>
@@ -3625,8 +3624,8 @@ node eventually.</p>
 <p><a href="https://docs.openshift.com/container-platform/latest/scalability_and_performance/using-cpu-manager.html">Using CPU Manager and Topology Manager</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-ipv4-&-ipv6"><a class="link" href="#cnf-best-practices-ipv4-&-ipv6">2.20. IPv4 &amp; IPv6</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-ipv4-&-ipv6"><a class="link" href="#cnf-best-practices-ipv4-&-ipv6">2.16.5. IPv4 &amp; IPv6</a></h4>
 <div class="paragraph">
 <p>Applications should discover services via DNS by doing an AAAA and A query. If an application gets a AAAA response the application should prefer using the IPv6 address in the AAAA response for application sockets.</p>
 </div>
@@ -3682,8 +3681,8 @@ node eventually.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-vrfs-aka-routing-instances"><a class="link" href="#cnf-best-practices-vrfs-aka-routing-instances">2.21. VRFs (aka routing instances)</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-vrfs-aka-routing-instances"><a class="link" href="#cnf-best-practices-vrfs-aka-routing-instances">2.16.6. VRFs (aka routing instances)</a></h4>
 <div class="paragraph">
 <p>Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.</p>
 </div>
@@ -3713,8 +3712,8 @@ pods and services.</p>
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all">networking-network-policy-deny-all</a></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-ports-reserved-by-openshift"><a class="link" href="#cnf-best-practices-ports-reserved-by-openshift">2.22. Ports reserved by OpenShift</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-ports-reserved-by-openshift"><a class="link" href="#cnf-best-practices-ports-reserved-by-openshift">2.16.7. Ports reserved by OpenShift</a></h4>
 <div class="paragraph">
 <p>The following ports are reserved by OpenShift and should not be used by any application. These ports are blocked by iptables on the nodes and traffic will not pass. Port list:</p>
 </div>
@@ -3747,8 +3746,8 @@ pods and services.</p>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cnf-best-practices-user-plane-cnfs"><a class="link" href="#cnf-best-practices-user-plane-cnfs">2.23. Handling user-plane CNFs</a></h3>
+<div class="sect3">
+<h4 id="cnf-best-practices-user-plane-cnfs"><a class="link" href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane CNFs</a></h4>
 <div class="paragraph">
 <p>A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.</p>
 </div>
@@ -3860,6 +3859,7 @@ pods and services.</p>
 <span class="pi">-</span> <span class="s">persistentVolumeClaim</span>
 <span class="pi">-</span> <span class="s">projected</span>
 <span class="pi">-</span> <span class="s">secret</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -6504,7 +6504,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-23 11:30:21 UTC
+Last updated 2023-06-23 19:44:10 UTC
 </div>
 </div>
 <!-- Nav bar -->
