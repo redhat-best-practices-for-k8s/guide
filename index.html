@@ -5329,6 +5329,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="paragraph">
+<p>Pods must include an explicit <code>serviceAccountName</code> in the pod spec. This is required to ensure that the pod is not automatically assigned the default service account.</p>
+</div>
+<div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-automount-service-account-token">access-control-pod-automount-service-account-token</a></p>
 </div>
 </div>
@@ -6501,7 +6504,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2023-06-21 11:21:27 UTC
+Last updated 2023-06-23 11:30:21 UTC
 </div>
 </div>
 <!-- Nav bar -->
