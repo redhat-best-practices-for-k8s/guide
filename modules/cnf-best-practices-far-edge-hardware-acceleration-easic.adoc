@@ -1,0 +1,5 @@
+[id="cnf-best-practices-far-edge-hardware-acceleration-easic"]
+= Hardware acceleration (eASIC)
+
+//TODO
+

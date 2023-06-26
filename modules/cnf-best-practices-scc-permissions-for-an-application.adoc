@@ -2,3 +2,22 @@
 = Setting SCC permissions for applications
 
 Permissions to use an SCC is done by adding a cluster role that has _uses_ permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.
+
+[source,yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "restricted-scc-cat-1-role"
+  labels:
+    app: some-app
+rules:
+- apiGroups:
+    - security.openshift.io
+  resourceNames:
+    - restricted-cat-1
+  resources:
+    - securitycontextconstraints
+  verbs:
+    - use
+----

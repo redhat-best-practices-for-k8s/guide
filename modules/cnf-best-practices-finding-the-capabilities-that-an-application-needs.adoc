@@ -1,0 +1,114 @@
+[id="cnf-best-practices-finding-the-capabilities-that-an-application-needs"]
+= Finding the capabilities that an application needs
+
+Here is an example of how to find out the capabilities that an application needs. `testpmd` is a DPDK based layer-2 forwarding application. It needs the `CAP_IPC_LOCK` to allocate the hugepage memory.
+
+. Use container_check.stp. We can see `CAP_IPC_LOCK` and `CAP_SYS_RAWIO` are requested by `testpmd` and the relevant syscalls.
++
+[source,terminal]
+----
+$ $ /usr/share/systemtap/examples/profiling/container_check.stp -c 'testpmd -l 1-2 -w 0000:00:09.0 -- -a --portmask=0x8 --nb-cores=1'
+----
++
+.Example output
+[source,terminal]
+----
+[...]
+capabilities used by executables
+    executable:   prob capability
+    testpmd:      cap_ipc_lock
+    testpmd:      cap_sys_rawio
+
+capabilities used by syscalls
+    executable,   syscall ( capability )    : count
+    testpmd,      mlockall ( cap_ipc_lock ) : 1
+    testpmd,      mmap ( cap_ipc_lock )     : 710
+    testpmd,      open ( cap_sys_rawio )    : 1
+    testpmd,      iopl ( cap_sys_rawio )    : 1
+
+failed syscalls
+    executable,          syscall =       errno:   count
+    eal-intr-thread,  epoll_wait =       EINTR:       1
+    lcore-slave-2,          read =            :       1
+    rte_mp_handle,       recvmsg =            :       1
+    stapio,                      =       EINTR:       1
+    stapio,               execve =      ENOENT:       3
+    stapio,        rt_sigsuspend =            :       1
+    testpmd,               flock =      EAGAIN:       5
+    testpmd,                stat =      ENOENT:      10
+    testpmd,               mkdir =      EEXIST:       2
+    testpmd,            readlink =      ENOENT:       3
+    testpmd,              access =      ENOENT:    1141
+    testpmd,              openat =      ENOENT:       1
+    testpmd,                open =      ENOENT:      13
+    [...]
+----
+
+. Use the `capable` command:
++
+[source,terminal]
+----
+$ /usr/share/bcc/tools/capable
+----
+
+. Start the testpmd application from another terminal, and send some test traffic to it. For example:
++
+[source,terminal]
+----
+$ testpmd -l 18-19 -w 0000:01:00.0 -- -a --portmask=0x1 --nb-cores=1
+----
+
+. Check the output of the `capable` command. Below, `CAP_IPC_LOCK` was requested for running `testpmd`.
++
+[source,terminal]
+----
+[...]
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+0:41:58 0 3591  testpmd CAP_IPC_LOCK  1
+[...]
+----
+
+. Also, try to run `testpmd` without `CAP_IPC_LOCK` set with `capsh`. Now we can see that the hugepage memory cannot be allocated.
++
+[source,terminal]
+----
+$ capsh --drop=cap_ipc_lock -- -c testpmd -l 18-19 -w 0000:01:00.0 -- -a --portmask=0x1 --nb-cores=1
+----
++
+.Example output
+[source,terminal]
+----
+EAL: Detected 24 lcore(s)
+EAL: Detected 2 NUMA nodes
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: No free hugepages reported in hugepages-1048576kB
+EAL: Probing VFIO support...
+EAL: VFIO support initialized
+EAL: PCI device 0000:01:00.0 on NUMA socket 0
+EAL: probe driver: 8086:10fb net_ixgbe
+EAL: using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: PCI device 0000:01:00.1 on NUMA socket 0
+EAL: probe driver: 8086:10fb net_ixgbe
+EAL: PCI device 0000:07:00.0 on NUMA socket 0
+EAL: probe driver: 8086:1521 net_e1000_igb
+EAL: PCI device 0000:07:00.1 on NUMA socket 0
+EAL: probe driver: 8086:1521 net_e1000_igb
+EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) testpmd: mlockall() failed with error "Cannot allocate memory" testpmd: create a new mbuf pool <mbuf_pool_socket_0>: n=331456, size=2176, socket=0
+testpmd: preferred mempool ops selected: ring_mp_mc
+EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) testpmd: create a new mbuf pool <mbuf_pool_socket_1>: n=331456, size=2176,
+socket=1
+testpmd: preferred mempool ops selected: ring_mp_mc
+EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory)
+----

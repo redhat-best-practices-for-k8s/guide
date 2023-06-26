@@ -1,5 +1,0 @@
-[id="cnf-best-practices-cni-ovn"]
-= CNI-OVN
-
-OVN is the default pod network CNI plugin for OpenShift and is supported by Red Hat. OVN is Red Hat's CNI for pods. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. OpenShift's OVN forwarding is based on flow rules and implemented with `nftables` on the host operating system CNI pod.
-

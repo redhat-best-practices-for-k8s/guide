@@ -1,0 +1,6 @@
+[id="cnf-best-practices-cnf-image-security"]
+= Image Security
+
+Images will be scanned for vulnerabilities during Red Hat certification process.
+
+Images must include digital signatures allowing validation that the image is from an authorized vendor, part or all of an authorized CNF delivered by the vendor, has a current component version, and has not been modified since signing. At a minimum, the signature must include information identifying the container base image included as well as for the entire container contents. Accompanying software artifacts such as Helm charts and shell scripts must be similarly signed individually. 

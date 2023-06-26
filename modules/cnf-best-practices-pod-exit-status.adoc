@@ -17,3 +17,16 @@ All pods shall have a liveness, readiness and startup probes defined
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 ====
 
+OpenShift Container Platform and Kubernetes give application instances time to shut down before
+removing them from load balancing rotations. However, applications must ensure they cleanly
+terminate user connections as well before they exit.
+
+On shutdown, OpenShift Container Platform sends a TERM signal to the processes in the container.
+Application code, on receiving SIGTERM, stop accepting new connections. This ensures that load
+balancers route traffic to other active instances. The application code then waits until all open
+connections are closed, or gracefully terminate individual connections at the next opportunity, before exiting.
+
+After the graceful termination period expires, a process that has not exited is sent the KILL signal,
+which immediately ends the process. The `terminationGracePeriodSeconds` attribute of a pod or pod
+template controls the graceful termination period (default 30 seconds) and can be customized per
+application as necessary.

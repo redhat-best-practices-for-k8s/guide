@@ -1,0 +1,16 @@
+[id="cnf-best-practices-high-level-cnf-restrictions"]
+= CNF restrictions
+
+* CNFs may not use host networking
+
+* Namespace should not be created by the CNFs deployment method (Helm / Operator)
+
+* CNFs may not perform Role creation
+
+* CNFs may not perform Rolebinding creation
+
+* CNFs may not have Cluster Roles
+
+* CNFs are not authorized to bring their own CNI
+
+* CNFs may not deploy Daemonsets

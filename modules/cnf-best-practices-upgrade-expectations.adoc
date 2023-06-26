@@ -9,6 +9,8 @@
 
 * CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades
 
+* *Applications may NOT deploy pod disruption budgets that prevent zero pod disruption.*
+
 * Applications should not be tied to a specific version of Kubernetes or any of its components
 
 [IMPORTANT]

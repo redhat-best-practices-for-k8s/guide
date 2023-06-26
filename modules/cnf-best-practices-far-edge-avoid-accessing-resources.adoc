@@ -1,0 +1,5 @@
+[id="cnf-best-practices-far-edge-avoid-accessing-resources-on-the-host"]
+= Avoid accessing resources on the host
+
+It is not recommended for an application to access the following resources on the host.
+

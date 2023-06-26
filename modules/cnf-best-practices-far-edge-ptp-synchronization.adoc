@@ -1,0 +1,37 @@
+[id="cnf-best-practices-far-edge-ptp-synchronization"]
+= PTP synchronization
+
+Network synchronization is key to optimal radio network performance. While there is no change to fundamental synchronization requirements in the move from 4G to 5G, wider use of _Time Division Duplex_ (TDD) radio technology and growing demand for new network architectures that support demanding 5G use cases have made the need for time synchronization more critical in 5G.
+
+Precision Timing Protocol (PTP) is used as Transport-based synchronization solutions to provide accurate timing to both platform and application. A hierarchical PTP master-slave architecture is implemented for clock distribution.
+
+The IEEE 1588 PTP standards provide a wealth of options and the basis for highly reliable and accurate time synchronization solutions. However, the time synchronization needs of specific applications in different industries can vary quite significantly. These specific needs are defined in separate PTP profile standards, often in collaboration with other industry standards organizations.
+
+For 5G, both IEEE and ITU-T provide relevant profiles that can be used to design ultra-reliable and highly accurate time synchronization solutions. The ITU-T PTP Telecom Profiles are:
+
+* *G8265.1* was first used to deliver accurate frequency synchronization, but not time::synchronization, to mobile base-stations (as the delay asymmetries and packet delay variation present in PTP-unaware networks would make it impossible to meet the stringent accuracy and stability requirements).
+
+* *G8275.1* is designed to deliver both [.underline]#highly accurate# frequency synchronization,::phase synchronization and Time of Day (ToD) with support for accurate frequency synchronization from the network physical layer. (*_[.underline]#Recommended one#_* but all elements in the network must be PTP-aware).
+
+* *G8275.2* is designed to deliver accurate frequency synchronization, phase synchronization and ToD with only partial support from the network where non-PTP nodes are also in the network path.
+
+The following table shows the relevant options in Telecom profiles:
+
+.Telecom profile options
+image:image1_far_edge.png[width=577,height=577]
+
+Typically, a PTP hierarchy has the following high-level components:
+
+Grandmaster (GM) clock::
+This is the primary reference time clock (PRTC) for the entire PTP::network. It usually synchronizes its clock from an external Global Navigation Satellite System (GNSS) source.
+
+Boundary clock (BC):: This intermediate device has multiple PTP-capable network connections to::synchronize one network segment to another accurately. It synchronizes its clock to a master and serves as a time source for ordinary clocks.
+
+Ordinary clock (OC):: In contrast to boundary clocks, this device only has a single PTP-capable network connection. Its main function is to synchronize its clock to a master, and in the event of losing the master, it can tolerate a loss of sync source for some period of time.
+
+OpenShift Container Platform uses the PTP Operator to deploy PTP profiles (through the `PTPConfig` CR) along with the `linuxptp` Pod in each of the nodes requiring PTP support. This Pod runs `ptp4l` and `phc2sys` programs as containers.
+
+The `ptp4l` program represents the Linux implementation of PTP for the boundary and ordinary clocks. When using hardware timestamping, it directly synchronizes the PTP hardware clock (PHC) present on the NIC to the source clock (PRTC).
+
+The `phc2sys` container is responsible for synchronizing the two available clocks in a cluster node, typically these are the PHC and the system clocks. This program is used when hardware time stamping is configured. In such cases, it synchronizes the system clock from the PTP hardware clock on the defined network interface controller (NIC).
+

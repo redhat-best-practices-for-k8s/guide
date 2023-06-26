@@ -11,6 +11,11 @@ There is also a consideration of pod startup. Here the pod may start and take a 
 
 For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/[Configure Liveness, Readiness and Startup Probes].
 
+[NOTE]
+====
+link:https://docs.openshift.com/container-platform/latest/applications/application-health.html[Exec probes] need to be avoided at all cost because of the resource overhead the require. Exec probes cannot be used on RT containers.
+====
+
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 
 [IMPORTANT]

@@ -1,0 +1,45 @@
+[id="cnf-best-practices-use-of-capabilities"]
+= Use of Capabilities
+
+Linux Capabilities allow you to break apart the power of root into smaller groups of privileges. Platform administrators can use Pod Security Policy (PSP) to control permissions for pods. Users can also specify the necessary Security Context in the pod annotations.
+
+IPC_LOCK::
+
+IPC_LOCK capability is required if any of these functions are used in an application:
+
+* `mlock()`
+* `mlockall()`
+* `shmctl()`
+* `mmap()`
+
+Even though ‘mlock’ is not necessary on systems where page swap is disabled, it may still be required as it is a function that is built into DPDK libraries, and DPDK based applications may indirectly call it by calling other functions.
+
+NET_ADMIN::
+
+NET_ADMIN capability is required to perform various network related administrative operations inside container such as:
+
+* MTU setting
+* Link state modification
+* MAC/IP address assignment
+* IP address flushing
+* Route insertion/deletion/replacement
+* Control network driver and hardware settings via ‘ethtool’
+
+This doesn't include:
+
+* adding or deleting a virtual interface inside a container. For example: adding a VLAN interface
+* Setting VF device properties
+
+All the administrative operations (except `ethtool`) mentioned above that require the NET_ADMIN capability should already be supported on the host by various CNIs on CaaS Platform.
+
+Avoid SYS_ADMIN::
+
+This capability is very powerful and overloaded. It allows the application to perform a range of system administration operations to the host. So you should avoid requiring this capability in your application.
+
+SYS_NICE::
+
+In the case that a CNF is using the real-time kernel. SYS_NICE is needed to allow DPDK application to switch to SCHED_FIFO
+
+SYS_PTRACE::
+
+This capability is required when using Process Namespace Sharing. This is used when processes from one Container need to be exposed to another Container. For example, to send signals like `SIGHUP` from a process in a Container to another process in another Container.
