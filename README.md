@@ -1,4 +1,4 @@
-This document provides guidance and information for developing OpenShift applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
+This document provides guidance and information for developing OpenShift Far Edge applications in compliance with commonly recognized industry standards and best practices for Cloud Native Functions (CNFs).
 
 New releases, Github-pages deployments (HTML versions), PDF versions are triggered automatically upon commit to the main branch. 
 
