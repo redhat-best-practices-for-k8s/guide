@@ -1,7 +1,7 @@
 [id="cnf-best-practices-k8s"]
 = Kubernetes
 
-Kubernetes is an open source container orchestration suite of software that is API driven with a datastore that manages the state of the deployments resident on the cluster.
+Kubernetes is an open source container orchestration suite of software that is API driven with a datastore that manages the state of the deployments residing on the cluster.
 
 The Kubernetes API is the mechanism that applications and users utilize to interact with the cluster. There are several ways to do this. For example, `kubectl` or `oc` CLI tools, web based UIs, or interacting directly with API using tools such as `curl`. You can use the SDK to build your own tools.
 
