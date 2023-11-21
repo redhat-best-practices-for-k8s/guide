@@ -23,7 +23,7 @@ jobs:
       - name: Copy output to docs/
         run: |
           mkdir docs
-          #cp -r images/ docs/images
+          cp -r images/ docs/images
           cp -r assets/ docs/assets
           mv index.html docs/
 
