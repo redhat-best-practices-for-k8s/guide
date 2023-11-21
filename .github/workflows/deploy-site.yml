@@ -24,7 +24,7 @@ jobs:
         run: |
           mkdir docs
           cp -r images/ docs/images || true
-          cp -r assets/ docs/assets
+          cp -r assets/ docs/assets || true
           mv index.html docs/
 
       - name: Publish to GitHub Pages
