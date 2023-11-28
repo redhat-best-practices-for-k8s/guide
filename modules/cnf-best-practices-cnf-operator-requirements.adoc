@@ -92,7 +92,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 .CNF requirement
 [IMPORTANT]
 ====
-If a cnf application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the api's so that it will not conflict with the globally installed operator version.
+If a cnf application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the APIs so that it will not conflict with the globally installed operator version.
 ====
 
 .CNF requirement
