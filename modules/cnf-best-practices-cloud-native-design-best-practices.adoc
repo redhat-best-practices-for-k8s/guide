@@ -28,7 +28,7 @@ A corollary of this practice is to "retry instead of crashing", for example, Whe
 +
 Also related to this, by default containers are launched with shared images using COW filesystems which only exist as long as the container exists. Mounting Persistent Volume Claims enables a container to have persistent physical storage. Clearly defining the abstraction for what storage is persisted promotes the idea that instances are disposable.
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Application design should conform to cloud-native design principles to the maximum extent possible.

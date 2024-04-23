@@ -1,7 +1,7 @@
 [id="cnf-best-practices-operations-that-can-not-be-executed-by-openshift"]
 = Operations that can not be executed by OpenShift
 
-All the CNI plugins are only invoked during pod creation and deletion. If your CNF needs perform any operations mentioned above at runtime, the `NET_ADMIN` capability is required.
+All the CNI plugins are only invoked during pod creation and deletion. If your workload needs perform any operations mentioned above at runtime, the `NET_ADMIN` capability is required.
 
 There are some other functionalities that are not currently supported by any of the OpenShift components which also require `NET_ADMIN` capability:
 

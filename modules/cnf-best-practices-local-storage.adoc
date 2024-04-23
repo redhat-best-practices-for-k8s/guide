@@ -3,7 +3,7 @@
 
 Local storage is available on worker nodes for ephemeral storage only.
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods must not place persistent volumes in local storage.

@@ -7,7 +7,7 @@ When pods are shut down by the platform they are sent a `SIGTERM` signal which m
 
 Pods should exit with zero exit codes when they are gracefully terminated.
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.

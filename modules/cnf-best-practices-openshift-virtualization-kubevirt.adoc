@@ -5,7 +5,7 @@ OpenShift Virtualization is generally-available for enterprise workloads, such t
 
 OpenShift Virtualization should be installed according to its documentation, and only documented supported features may be used unless an explicit exception has been granted. See link:https://docs.openshift.com/container-platform/latest/virt/about-virt.html[About OpenShift Virtualization].
 
-In order to improve overall virtualization performance and reduce CPU latency, critical VNFs can take advantage of OpenShift Virtualization's high-performance features. These can provide the VNFs with the following features:
+In order to improve overall virtualization performance and reduce CPU latency, critical workloads can take advantage of OpenShift Virtualization's high-performance features. These can provide the workloads with the following features:
 
 * link:https://docs.openshift.com/container-platform/latest/virt/virtual_machines/advanced_vm_management/virt-dedicated-resources-vm.html[Dedicated resources for virtual machines]
 

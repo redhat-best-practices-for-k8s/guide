@@ -6,7 +6,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.
 
 For more information, see link:https://docs.openshift.com/container-platform/latest/applications/working_with_helm_charts/understanding-helm.html[Understanding Helm].
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 If you use Helm to deploy your application, you must use Helm v3 because of security issues with Helm v2.

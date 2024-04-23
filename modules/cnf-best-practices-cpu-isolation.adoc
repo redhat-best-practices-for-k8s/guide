@@ -5,7 +5,7 @@ The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs f
 
 Device interrupts are load balanced between all isolated and reserved CPUs to avoid CPUs being overloaded, with the exception of CPUs where there is a guaranteed pod running. Guaranteed pod CPUs are prevented from processing device interrupts when the relevant annotations are set for the pod.
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 To use isolated CPUs, specific annotations must be defined in the pod specification.

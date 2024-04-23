@@ -10,7 +10,7 @@ Once it has been determined how much memory is left over for the applications, q
 When the OpenShift scheduler is placing pods, it reviews the pod memory request and schedules the pod if there is a node that meets the requirements. It then imposes memory limits to ensure the pod doesn't consume more than the intended allocation. The limit can never be lower than the request.
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Vendors must supply quotas per project/namespace

@@ -20,7 +20,7 @@ A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable devel
 
 A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.
 
-Red Hat UBI images are the preferred images to build virtual network functions (VNFs) with as they leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
+Red Hat UBI images are the preferred images to build workload applications with as they leverage the fully supported Red Hat ecosystem. In addition, once a workload application is standardized on a Red Hat UBI, the image can become Red Hat certified.
 
 Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container[Partner Guide for OpenShift and Container Certification] for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
 

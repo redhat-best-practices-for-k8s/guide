@@ -6,7 +6,7 @@ The following ports are reserved by OpenShift and should not be used by any appl
 * `22623`
 * `22624`
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 The following ports are reserved by OpenShift and must not be used by any application: `22623`, `22624`.
