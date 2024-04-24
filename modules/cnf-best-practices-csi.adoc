@@ -5,7 +5,7 @@ Pod volumes are supported via local storage and the CSI for persistent volumes. 
 
 When using storage with Kubernetes, you can use storage classes. Refer to <<cnf-best-practices-block-storage>> for a description of the available storage classes. Using storage classes, you can create volumes based on the parameters of the required storage.
 
-Network functions should clear persistent storage by deleting the associated `PV` resources when removing the application from a cluster.
+Workloads should clear persistent storage by deleting the associated `PV` resources when removing the application from a cluster.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-persistent-volume-reclaim-policy[lifecycle-persistent-volume-reclaim-policy]
 

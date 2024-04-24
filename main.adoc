@@ -1,6 +1,6 @@
 [id="cnf-best-practices"]
-= CNF Best Practices
-Cloud-native network functions (CNFs) best practices
+= Red Hat Best Practices for Kubernetes
+Workload best practices
 :revnumber: v2
 :revdate: 2023
 :toc: left

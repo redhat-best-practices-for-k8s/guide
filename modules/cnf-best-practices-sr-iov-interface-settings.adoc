@@ -55,7 +55,7 @@ metadata:
 spec:
   capabilities: '{ "mac": true }'
   ipam: '{}'
-  networkNamespace: <CNF-NAMESPACE>
+  networkNamespace: <WORKLOAD-NAMESPACE>
   resourceName: w1ens3f0grp2
   spoofChk: "off"
   trust: "on"
@@ -74,7 +74,7 @@ metadata:
 spec:
   capabilities: '{ "mac": true }'
   ipam: '{"type":"whereabouts","range":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001/64","range_star t":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001","range_end":"FD97:0EF5:45A5:4000:00D0:0403 :0000:0020","routes":[{"dst":"fd97:0ef5:45a5::/48","gw":"FD97:EF5:45A5:4000::1"}]}'
-  networkNamespace: <CNF-NAMESPACE>
+  networkNamespace: <WORKLOAD-NAMESPACE>
     resourceName: w1ens3f0grp2
     spoofChk: "off"
     trust: "on"
@@ -92,7 +92,7 @@ metadata:
   namespace: openshift-SRIOV-network-operator
 spec:
   capabilities: '{ "mac": true }'
-  ipam: '{"type": "static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}' networkNamespace: <CNF-NAMESPACE>
+  ipam: '{"type": "static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}' networkNamespace: <WORKLOAD-NAMESPACE>
   resourceName: w1ens3f0grp2
   spoofChk: "off"
   trust: "on"
@@ -123,16 +123,16 @@ The examples depict scenarios used within to deliver secondary network interface
 
 The actual addresses used for both whereabouts and static IPAM are managed external to the cluster.
 
-The above `SRIOVnetwork` CR will configure a network attachment definition within the CNF namespace.
+The above `SRIOVnetwork` CR will configure a network attachment definition within the workload namespace.
 
 [source,terminal]
 ----
-$ oc get net-attach-def -n <cnf_namespace>
+$ oc get net-attach-def -n <workload_namespace>
 NAME       AGE
 SRIOVnet   9d
 ----
 
-Within the CNF namespace the SR-IOV resource is consumed via a pod annotation:
+Within the workload namespace the SR-IOV resource is consumed via a pod annotation:
 
 [source,yaml]
 ----

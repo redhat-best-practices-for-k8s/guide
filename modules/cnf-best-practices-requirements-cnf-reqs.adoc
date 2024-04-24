@@ -1,5 +1,5 @@
 [id="cnf-best-practices-requirements-cnf-reqs"]
-= Requirements for CNF
+= Requirements for a workload
 
 * The application MUST declare all listening ports as containerPorts in the Pod specification it provides to Kubernetes.
 
@@ -58,13 +58,13 @@ It is recommended that container images be built utilizing Red Hat's Universal B
 
 Vendors must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Containerized workloads must work with Red Hat's restricted SCC1.
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
@@ -72,7 +72,7 @@ Containerized workloads must work with Red Hat’s default SELinux context. This
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 The container image must be secure.
@@ -116,6 +116,6 @@ Red Hat UBI images are free to vendors so there is a low barrier of entry to get
 [id="cnf-best-practices-application-dns-configuration-requirements"]
 == Application DNS configuration requirements
 
-CNFs should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.
+Workloads should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.
 
 For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dns-pod-service[Kubernetes upstream reference for pod/service names and DNS].

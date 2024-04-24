@@ -1,9 +1,9 @@
 [id="cnf-best-practices-user-plane-cnfs"]
-= Handling user-plane CNFs
+= Handling user-plane workloads
 
-A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.
+A workload which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these workloads may also need to process the packets at a lower level.
 
-This kind of CNF may need to:
+This kind of workload may need to:
 
 . Use SR-IOV interfaces
 
@@ -61,7 +61,7 @@ volumes:
 apiVersion: security.openshift.io/v1
 kind: SecurityContextConstraints
 metadata:
-  name: cnfname
+  name: <workload_name>
 users: []
 groups: []
 priority: null

@@ -1,9 +1,9 @@
 [id="cnf-best-practices-cnf-securing-cnf-networks"]
-= Securing CNF networks
+= Securing workload networks
 
-CNFs must have the least permissions possible and CNFs must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.
+Workloads must have the least permissions possible and must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Applications must define network policies that permit only the minimum network access the application needs to function.

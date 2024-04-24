@@ -27,7 +27,7 @@ spec:
       image: docker.io/ocpqe/hello-pod
 ----
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods that need to be co-located on the same node need affinity rules. Pods that should not be
@@ -36,7 +36,7 @@ co-located for resiliency purposes require anti-affinity rules.
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods[lifecycle-affinity-required-pods]
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods that perform the same microservice and could be disrupted if multiple members of the service are

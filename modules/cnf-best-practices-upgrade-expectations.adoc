@@ -3,11 +3,11 @@
 
 * The Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/deprecation-policy/[Kubernetes Deprecation Policy] shall be followed.
 
-* CNFs are expected to maintain service continuity during platform upgrades, and during CNF version upgrades
+* Workloads are expected to maintain service continuity during platform upgrades, and during workload version upgrades
 
-* CNFs need to be prepared for nodes to reboot or shut down without notice
+* Workloads need to be prepared for nodes to reboot or shut down without notice
 
-* CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades
+* Workloads shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades
 
 * Applications should not be tied to a specific version of Kubernetes or any of its components
 
@@ -18,7 +18,7 @@ Applications MUST specify a pod disruption budget appropriately to maintain serv
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation[lifecycle-pod-recreation]
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods that perform the same microservice and that could be disrupted if multiple members of the service are

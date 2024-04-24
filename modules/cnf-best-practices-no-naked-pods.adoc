@@ -5,13 +5,13 @@ Do not use naked Pods (that is, Pods not bound to a `ReplicaSet`, or `StatefulSe
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 
-CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Applications must not depend on any single pod being online for their application to function.
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods must be deployed as part of a `Deployment` or `StatefulSet`.
@@ -19,7 +19,7 @@ Pods must be deployed as part of a `Deployment` or `StatefulSet`.
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
 ====
 
-.CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Pods may not be deployed in a DaemonSet.

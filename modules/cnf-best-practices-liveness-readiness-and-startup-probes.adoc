@@ -15,7 +15,7 @@ See test cases link:https://github.com/test-network-function/cnf-certification-t
 
 [IMPORTANT]
 ====
-If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
+If the workload is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe[networking-dpdk-cpu-pinning-exec-probe]
 ====
