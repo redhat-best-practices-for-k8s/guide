@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<meta name="author" content="Cloud-native network functions (CNFs) best practices">
+<meta name="author" content="Workload best practices">
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-<title>CNF Best Practices</title>
+<title>Red Hat Best Practices for Kubernetes</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap");
@@ -2972,13 +2972,13 @@ pre.rouge .gs {
 <body id="cnf-best-practices" class="article toc2 toc-left">
 <!-- Navbar -->
 <div class="paragraph navbar">
-    <p><a href="#"><span class="image"><img src="assets/img/logo.svg" alt="Home" width="30"></span> | CNF Best Practices</a>
+    <p><a href="#"><span class="image"><img src="assets/img/logo.svg" alt="Home" width="30"></span> | Red Hat Best Practices for Kubernetes</a>
     </p>
 </div>
 <div id="header">
-<h1>CNF Best Practices</h1>
+<h1>Red Hat Best Practices for Kubernetes</h1>
 <div class="details">
-<span id="author" class="author">Cloud-native network functions (CNFs) best practices</span><br>
+<span id="author" class="author">Workload best practices</span><br>
 <span id="revnumber">version v2,</span>
 <span id="revdate">2023</span>
 </div>
@@ -3021,18 +3021,18 @@ pre.rouge .gs {
 <li><a href="#cnf-best-practices-ipv4-&-ipv6">2.16.5. IPv4 &amp; IPv6</a></li>
 <li><a href="#cnf-best-practices-vrfs-aka-routing-instances">2.16.6. VRFs (aka routing instances)</a></li>
 <li><a href="#cnf-best-practices-ports-reserved-by-openshift">2.16.7. Ports reserved by OpenShift</a></li>
-<li><a href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane CNFs</a></li>
+<li><a href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane workloads</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#cnf-best-practices-developer-guide">3. CNF developer guide</a>
+<li><a href="#cnf-best-practices-developer-guide">3. Workload developer guide</a>
 <ul class="sectlevel2">
 <li><a href="#cnf-best-practices-preface">3.1. Preface</a></li>
 <li><a href="#cnf-best-practices-goal">3.2. Goal</a></li>
 <li><a href="#cnf-best-practices-non-goal">3.3. Non-goal</a></li>
 <li><a href="#cnf-best-practices-refactoring">3.4. Refactoring</a></li>
-<li><a href="#cnf-best-practices-cnf-security">3.5. CNF security</a>
+<li><a href="#cnf-best-practices-cnf-security">3.5. Workload security</a>
 <ul class="sectlevel3">
 <li><a href="#cnf-best-practices-avoid-accessing-resource-on-host">3.5.1. Avoid accessing resource on host</a></li>
 <li><a href="#cnf-best-practices-avoid-mounting-host-directories-as-volumes">3.5.2. Avoid mounting host directories as volumes</a></li>
@@ -3062,7 +3062,7 @@ pre.rouge .gs {
 <li><a href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></li>
 <li><a href="#cnf-best-practices-analyzing-your-application">3.9. Analyzing your application</a></li>
 <li><a href="#cnf-best-practices-finding-the-capabilities-that-an-application-needs">3.10. Finding the capabilities that an application needs</a></li>
-<li><a href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing CNF networks</a>
+<li><a href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing workload networks</a>
 <ul class="sectlevel3">
 <li><a href="#cnf-best-practices-secrets-management">3.11.1. Managing secrets</a></li>
 <li><a href="#cnf-best-practices-scc-permissions-for-an-application">3.11.2. Setting SCC permissions for applications</a></li>
@@ -3072,7 +3072,7 @@ pre.rouge .gs {
 <ul class="sectlevel3">
 <li><a href="#cnf-best-practices-cloud-native-design-best-practices">3.12.1. Cloud-native design best practices</a>
 <ul class="sectlevel4">
-<li><a href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level CNF expectations</a></li>
+<li><a href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level workload expectations</a></li>
 <li><a href="#cnf-best-practices-pod-permissions">3.12.1.2. Pod permissions</a></li>
 <li><a href="#cnf-best-practices-logging">3.12.1.3. Logging</a></li>
 <li><a href="#cnf-best-practices-monitoring">3.12.1.4. Monitoring</a></li>
@@ -3116,14 +3116,14 @@ pre.rouge .gs {
 </li>
 <li><a href="#cnf-best-practices-operator-best-practices">3.12.1.18. Operator best practices</a>
 <ul class="sectlevel5">
-<li><a href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. CNF Operator requirements</a></li>
+<li><a href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. Workload Operator requirements</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for CNF</a>
+<li><a href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for a workload</a>
 <ul class="sectlevel3">
 <li><a href="#cnf-best-practices-image-standards">3.13.1. Image standards</a></li>
 <li><a href="#cnf-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></li>
@@ -3146,8 +3146,8 @@ pre.rouge .gs {
 <h2 id="cnf-best-practices-foreword"><a class="link" href="#cnf-best-practices-foreword">1. Foreword</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Cloud Native Function (CNF) requirements document was originally created in 2020 by Verizon with assistance from Red Hat.
-Verizon&#8217;s vision of an open collaborative process to create industry standards for cloud-native network functions led this document to be where it is today.
+<p>This <em>Red Hat Best Practices for Kubernetes</em> document was originally created in 2020 by Verizon with assistance from Red Hat.
+Verizon&#8217;s vision of an open collaborative process to create industry standards for cloud-native workloads led this document to be where it is today.
 Over many iterations, and based on lessons learned and feature improvements in the areas of security, lifecycle management, networking, and many other components, the document has matured into its current state.</p>
 </div>
 <div class="paragraph">
@@ -3190,7 +3190,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>If you use Helm to deploy your application, you must use Helm v3 because of security issues with Helm v2.</p>
 </div>
@@ -3232,7 +3232,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <p>When using storage with Kubernetes, you can use storage classes. Refer to <a href="#cnf-best-practices-block-storage">Block storage</a> for a description of the available storage classes. Using storage classes, you can create volumes based on the parameters of the required storage.</p>
 </div>
 <div class="paragraph">
-<p>Network functions should clear persistent storage by deleting the associated <code>PV</code> resources when removing the application from a cluster.</p>
+<p>Workloads should clear persistent storage by deleting the associated <code>PV</code> resources when removing the application from a cluster.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-persistent-volume-reclaim-policy">lifecycle-persistent-volume-reclaim-policy</a></p>
@@ -3280,7 +3280,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods must not place persistent data in ephemeral storage.</p>
 </div>
@@ -3301,7 +3301,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods must not place persistent volumes in local storage.</p>
 </div>
@@ -3380,12 +3380,12 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <p>The OpenShift platform can use the Kubernetes CPU Manager to support CPU pinning for applications.</p>
 </div>
 <div class="paragraph">
-<p>Important note on using probes: If the CNF is doing CPU pinning and running a DPDK process do
+<p>Important note on using probes: If the workload is doing CPU pinning and running a DPDK process do
 not use exec probes (executing a command within the container) as it may pile up and block the
 node eventually.</p>
 </div>
 <div class="paragraph">
-<p>CNF Requirement: If a CNF is doing CPU pinning, exec probes may not be used.</p>
+<p>Workload Requirement: If a workload is doing CPU pinning, exec probes may not be used.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe">networking-dpdk-cpu-pinning-exec-probe</a></p>
@@ -3431,7 +3431,7 @@ node eventually.</p>
 <p>A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.</p>
 </div>
 <div class="paragraph">
-<p>Red Hat UBI images are the preferred images to build virtual network functions (VNFs) with as they leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.</p>
+<p>Red Hat UBI images are the preferred images to build workload applications with as they leverage the fully supported Red Hat ecosystem. In addition, once a workload application is standardized on a Red Hat UBI, the image can become Red Hat certified.</p>
 </div>
 <div class="paragraph">
 <p>Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See <a href="https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container">Partner Guide for OpenShift and Container Certification</a> for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.</p>
@@ -3476,9 +3476,9 @@ node eventually.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>All CNFs must verify that they are compliant with the correct release of REST API for Kubernetes and OpenShift. Please refer to the online documentation for deprecated APIs.</p>
+<p>All workloads must verify that they are compliant with the correct release of REST API for Kubernetes and OpenShift. Please refer to the online documentation for deprecated APIs.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle">platform-alteration-ocp-lifecycle</a></p>
@@ -3570,7 +3570,7 @@ node eventually.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>To use isolated CPUs, specific annotations must be defined in the pod specification.</p>
 </div>
@@ -3639,7 +3639,7 @@ node eventually.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF recommendation</div>
+<div class="title">Workload recommendation</div>
 <div class="paragraph">
 <p>IPv4 should only be used inside a pod when absolutely necessary.</p>
 </div>
@@ -3657,7 +3657,7 @@ node eventually.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF recommendation</div>
+<div class="title">Workload recommendation</div>
 <div class="paragraph">
 <p>Services should be created as IPv6 only services wherever possible. If an application requires dual stack it should create a dual stack service.</p>
 </div>
@@ -3734,7 +3734,7 @@ pods and services.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>The following ports are reserved by OpenShift and must not be used by any application: <code>22623</code>, <code>22624</code>.</p>
 </div>
@@ -3747,12 +3747,12 @@ pods and services.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-user-plane-cnfs"><a class="link" href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane CNFs</a></h4>
+<h4 id="cnf-best-practices-user-plane-cnfs"><a class="link" href="#cnf-best-practices-user-plane-cnfs">2.16.8. Handling user-plane workloads</a></h4>
 <div class="paragraph">
-<p>A CNF which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these CNFs may also need to process the packets at a lower level.</p>
+<p>A workload which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these workloads may also need to process the packets at a lower level.</p>
 </div>
 <div class="paragraph">
-<p>This kind of CNF may need to:</p>
+<p>This kind of workload may need to:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3826,7 +3826,7 @@ pods and services.</p>
 <pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">security.openshift.io/v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">SecurityContextConstraints</span>
 <span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">cnfname</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">&lt;workload_name&gt;</span>
 <span class="na">users</span><span class="pi">:</span> <span class="pi">[]</span>
 <span class="na">groups</span><span class="pi">:</span> <span class="pi">[]</span>
 <span class="na">priority</span><span class="pi">:</span> <span class="kc">null</span>
@@ -3866,36 +3866,36 @@ pods and services.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="cnf-best-practices-developer-guide"><a class="link" href="#cnf-best-practices-developer-guide">3. CNF developer guide</a></h2>
+<h2 id="cnf-best-practices-developer-guide"><a class="link" href="#cnf-best-practices-developer-guide">3. Workload developer guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section discusses recommendations and requirements for CNF application builders.</p>
+<p>This section discusses recommendations and requirements for workload application builders.</p>
 </div>
 <div class="sect2">
 <h3 id="cnf-best-practices-preface"><a class="link" href="#cnf-best-practices-preface">3.1. Preface</a></h3>
 <div class="paragraph">
-<p>Cloud-native Network Functions (CNFs) are containerized instances of classic physical or virtual network functions (VNF) which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.</p>
+<p>Cloud-native workload applications are containerized instances of classic physical or virtual applications which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="cnf-best-practices-goal"><a class="link" href="#cnf-best-practices-goal">3.2. Goal</a></h3>
 <div class="paragraph">
-<p>This document is mainly for the developers of CNFs, who need to build high-performance Network Functions in a containerized environment. We have created a guide that any partner can take and follow when developing their CNFs so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.</p>
+<p>This document is mainly for the developers of workloads, who need to build high-performance applications in a containerized environment. We have created a guide that any partner can take and follow when developing their workloads so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="cnf-best-practices-non-goal"><a class="link" href="#cnf-best-practices-non-goal">3.3. Non-goal</a></h3>
 <div class="paragraph">
-<p>This is not a guide on how to build CNF functionality.</p>
+<p>This is not a guide on how to build workload functionality.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="cnf-best-practices-refactoring"><a class="link" href="#cnf-best-practices-refactoring">3.4. Refactoring</a></h3>
 <div class="paragraph">
-<p>NFs should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model to be in.</p>
+<p>Workloads should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model to be in.</p>
 </div>
 <div class="paragraph">
-<p>It is hard to move a 1000LB boulder. However, it is easy when that boulder is broken down into many pieces (pebbles). All containerized network functions (CNFs) should break apart each piece of the functions/services/processes into separate containers. These containers will still be within kubernetes pods and all of the functions that perform a single task should be within the same namespace.</p>
+<p>It is hard to move a 1000LB boulder. However, it is easy when that boulder is broken down into many pieces (pebbles). All workloads should break apart each piece of the functions/services/processes into separate containers. These containers will still be within kubernetes pods and all of the functions that perform a single task should be within the same namespace.</p>
 </div>
 <div class="paragraph">
 <p>There is a <a href="https://martinfowler.com/microservices/">quote</a> from Lewis and Fowler that describes this best:</p>
@@ -3910,7 +3910,7 @@ The microservice architectural style is an approach to developing a single appli
 </div>
 </div>
 <div class="sect2">
-<h3 id="cnf-best-practices-cnf-security"><a class="link" href="#cnf-best-practices-cnf-security">3.5. CNF security</a></h3>
+<h3 id="cnf-best-practices-cnf-security"><a class="link" href="#cnf-best-practices-cnf-security">3.5. Workload security</a></h3>
 <div class="paragraph">
 <p>In OCP, it is possible to run privileged containers that have all of the root capabilities on a host machine, allowing the ability to access resources which are not accessible in ordinary containers. This, however, increases the security risk to the whole cluster. Containers should only request those privileges they need to run their legitimate functions. No containers will be allowed to run with full privileges without an exception.</p>
 </div>
@@ -3923,7 +3923,7 @@ The microservice architectural style is an approach to developing a single appli
 <p>Only ask for the necessary privileges and access control settings for your application.</p>
 </li>
 <li>
-<p>If the function required by your CNF can be fulfilled by OCP components, your application should not be requesting escalated privilege to perform this function.</p>
+<p>If the function required by your workload can be fulfilled by OCP components, your application should not be requesting escalated privilege to perform this function.</p>
 </li>
 <li>
 <p>Avoid using any host system resource if possible.</p>
@@ -3940,7 +3940,7 @@ The microservice architectural style is an approach to developing a single appli
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Only ask for the necessary privileges and access control settings for your application</p>
 </div>
@@ -3958,9 +3958,9 @@ The microservice architectural style is an approach to developing a single appli
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>If the function required by your CNF can be fulfilled by OCP components, your application should not be
+<p>If the function required by your workload can be fulfilled by OCP components, your application should not be
 requesting escalated privilege to perform this function.</p>
 </div>
 <div class="paragraph">
@@ -3977,7 +3977,7 @@ requesting escalated privilege to perform this function.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Avoid using any host system resource.</p>
 </div>
@@ -3996,7 +3996,7 @@ requesting escalated privilege to perform this function.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Do not mount host directories for device access.</p>
 </div>
@@ -4014,7 +4014,7 @@ requesting escalated privilege to perform this function.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Do not use host network namespace.</p>
 </div>
@@ -4032,9 +4032,9 @@ requesting escalated privilege to perform this function.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>CNFs may not modify the platform in any way.</p>
+<p>Workloads may not modify the platform in any way.</p>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image">platform-alteration-base-image</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-sysctl-config">platform-alteration-sysctl-config</a></p>
@@ -4073,7 +4073,7 @@ requesting escalated privilege to perform this function.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Applications may not use <code>NodePorts</code> or the <code>hostNetwork</code>.</p>
 </div>
@@ -4268,7 +4268,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Only userplane applications or applications using SR-IOV or Multicast can request NET_ADMIN capability</p>
 </div>
@@ -4292,7 +4292,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Applications <strong>MUST NOT</strong> use the SYS_ADMIN Linux capability</p>
 </div>
@@ -4307,7 +4307,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="sect3">
 <h4 id="cnf-best-practices-sys_nice"><a class="link" href="#cnf-best-practices-sys_nice">3.6.5. SYS_NICE</a></h4>
 <div class="paragraph">
-<p>In the case that a CNF is running on a node using the real-time kernel, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.</p>
+<p>In the case that a workload is running on a node using the real-time kernel, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability">access-control-sys-nice-realtime-capability</a></p>
@@ -4435,7 +4435,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 <div class="sect2">
 <h3 id="cnf-best-practices-operations-that-can-not-be-executed-by-openshift"><a class="link" href="#cnf-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></h3>
 <div class="paragraph">
-<p>All the CNI plugins are only invoked during pod creation and deletion. If your CNF needs perform any operations mentioned above at runtime, the <code>NET_ADMIN</code> capability is required.</p>
+<p>All the CNI plugins are only invoked during pod creation and deletion. If your workload needs perform any operations mentioned above at runtime, the <code>NET_ADMIN</code> capability is required.</p>
 </div>
 <div class="paragraph">
 <p>There are some other functionalities that are not currently supported by any of the OpenShift components which also require <code>NET_ADMIN</code> capability:</p>
@@ -4489,7 +4489,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 <div class="sect2">
 <h3 id="cnf-best-practices-analyzing-your-application"><a class="link" href="#cnf-best-practices-analyzing-your-application">3.9. Analyzing your application</a></h3>
 <div class="paragraph">
-<p>To find out which capabilities the application needs, Red Hat has developed a SystemTap script (<code>container_check.stp</code>). With this tool, the CNF developer can find out what capabilities an application requires in order to run in a container. It also shows the syscalls which were invoked. Find more info at <a href="https://linuxera.org/capabilities-seccomp-kubernetes/" class="bare">https://linuxera.org/capabilities-seccomp-kubernetes/</a></p>
+<p>To find out which capabilities the application needs, Red Hat has developed a SystemTap script (<code>container_check.stp</code>). With this tool, the workload developer can find out what capabilities an application requires in order to run in a container. It also shows the syscalls which were invoked. Find more info at <a href="https://linuxera.org/capabilities-seccomp-kubernetes/" class="bare">https://linuxera.org/capabilities-seccomp-kubernetes/</a></p>
 </div>
 <div class="paragraph">
 <p>Another tool is <code>capable</code> which is part of the BCC tools. It can be installed on RHEL8 with <code>dnf install bcc</code>.</p>
@@ -4624,9 +4624,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect2">
-<h3 id="cnf-best-practices-cnf-securing-cnf-networks"><a class="link" href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing CNF networks</a></h3>
+<h3 id="cnf-best-practices-cnf-securing-cnf-networks"><a class="link" href="#cnf-best-practices-cnf-securing-cnf-networks">3.11. Securing workload networks</a></h3>
 <div class="paragraph">
-<p>CNFs must have the least permissions possible and CNFs must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.</p>
+<p>Workloads must have the least permissions possible and must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -4635,7 +4635,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Applications must define network policies that permit only the minimum network access the application needs to function.</p>
 </div>
@@ -4722,7 +4722,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Application design should conform to cloud-native design principles to the maximum extent possible.</p>
 </div>
@@ -4731,11 +4731,11 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </table>
 </div>
 <div class="sect4">
-<h5 id="cnf-best-practices-high-level-cnf-expectations"><a class="link" href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level CNF expectations</a></h5>
+<h5 id="cnf-best-practices-high-level-cnf-expectations"><a class="link" href="#cnf-best-practices-high-level-cnf-expectations">3.12.1.1. High-level workload expectations</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p>CNFs shall be built to be cloud-native</p>
+<p>Workloads shall be built to be cloud-native</p>
 </li>
 <li>
 <p>Containers MUST NOT run as root (uid=0). See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check">access-control-security-context-non-root-user-check</a></p>
@@ -4747,31 +4747,31 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Use the main CNI for all traffic - MULTUS/SRIOV/MacVLAN are for corner cases only (extreme throughput requirements, protocols that are unable to be load balanced)</p>
 </li>
 <li>
-<p>CNFs should employ N+k redundancy models</p>
+<p>Workloads should employ N+k redundancy models</p>
 </li>
 <li>
-<p>CNFs MUST define their pod affinity/anti-affinity rules. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
+<p>Workloads MUST define their pod affinity/anti-affinity rules. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
 </li>
 <li>
-<p>All secondary network interfaces employed by CNFs with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.</p>
+<p>All secondary network interfaces employed by workloads with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.</p>
 </li>
 <li>
-<p>Instantiation of CNF (via Helm chart or Operators or otherwise) shall result in a fully-functional CNF ready to serve traffic, without requiring any post-instantiation configuration of system parameters</p>
+<p>Instantiation of a workload (via Helm chart or Operators or otherwise) shall result in a fully-functional workload ready to serve traffic, without requiring any post-instantiation configuration of system parameters</p>
 </li>
 <li>
-<p>CNFs shall implement service resilience at the application layer and not rely on individual compute availability/stability</p>
+<p>Workloads shall implement service resilience at the application layer and not rely on individual compute availability/stability</p>
 </li>
 <li>
-<p>CNFs shall decouple application configuration from Pods, to allow dynamic configuration updates</p>
+<p>Workloads shall decouple application configuration from Pods, to allow dynamic configuration updates</p>
 </li>
 <li>
-<p>CNFs shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-crd-scaling">lifecycle-crd-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-statefulset-scaling">lifecycle-statefulset-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-deployment-scaling">lifecycle-deployment-scaling</a></p>
+<p>Workloads shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-crd-scaling">lifecycle-crd-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-statefulset-scaling">lifecycle-statefulset-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-deployment-scaling">lifecycle-deployment-scaling</a></p>
 </li>
 <li>
-<p>CNFs shall support canary upgrades</p>
+<p>Workloads shall support canary upgrades</p>
 </li>
 <li>
-<p>CNFs shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe">lifecycle-liveness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe">lifecycle-readiness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe">lifecycle-startup-probe</a></p>
+<p>Workloads shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe">lifecycle-liveness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe">lifecycle-readiness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe">lifecycle-startup-probe</a></p>
 </li>
 </ul>
 </div>
@@ -4782,7 +4782,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Containers must not run as root</p>
 </div>
@@ -4800,7 +4800,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All secondary interfaces (MULTUS) must support dual stack</p>
 </div>
@@ -4818,9 +4818,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>CNFs shall not use node selectors nor taints/tolerations to assign pod location</p>
+<p>Workloads shall not use node selectors nor taints/tolerations to assign pod location</p>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-scheduling">lifecycle-pod-scheduling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel">platform-alteration-tainted-node-kernel</a></p>
@@ -4886,10 +4886,10 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Containers are expected to write logs to stdout. It is highly recommended that stdout/stderr leverage some standard logging format for output.</p>
 </li>
 <li>
-<p>Logs CAN be parsed to a limited extent so that specific vendor logs can be sent back to the CNF if required.</p>
+<p>Logs CAN be parsed to a limited extent so that specific vendor logs can be sent back to the workload if required.</p>
 </li>
 <li>
-<p>CNFs requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; <code>klog</code>, <code>rfc5424</code>, and <code>oslo</code>.</p>
+<p>Workloads requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; <code>klog</code>, <code>rfc5424</code>, and <code>oslo</code>.</p>
 </li>
 </ul>
 </div>
@@ -4902,7 +4902,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="sect4">
 <h5 id="cnf-best-practices-monitoring"><a class="link" href="#cnf-best-practices-monitoring">3.12.1.4. Monitoring</a></h5>
 <div class="paragraph">
-<p>Network Functions are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.</p>
+<p>Workloads are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.</p>
 </div>
 </div>
 <div class="sect4">
@@ -4948,7 +4948,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Vendors must supply quotas per project/namespace</p>
 </div>
@@ -4983,7 +4983,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>SSH daemons must NOT be used in Openshift for pod interaction.</p>
 </div>
@@ -5016,7 +5016,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All pods shall have a liveness, readiness and startup probes defined</p>
 </div>
@@ -5046,7 +5046,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.</p>
 </div>
@@ -5104,7 +5104,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If the CNF is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.</p>
+<p>If the workload is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe">networking-dpdk-cpu-pinning-exec-probe</a></p>
@@ -5151,7 +5151,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods that need to be co-located on the same node need affinity rules. Pods that should not be
 co-located for resiliency purposes require anti-affinity rules.</p>
@@ -5170,7 +5170,7 @@ co-located for resiliency purposes require anti-affinity rules.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods that perform the same microservice and could be disrupted if multiple members of the service are
 unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.</p>
@@ -5191,13 +5191,13 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <p>The Kubernetes API deprecation policy defined in <a href="https://kubernetes.io/docs/reference/using-api/deprecation-policy/">Kubernetes Deprecation Policy</a> shall be followed.</p>
 </li>
 <li>
-<p>CNFs are expected to maintain service continuity during platform upgrades, and during CNF version upgrades</p>
+<p>Workloads are expected to maintain service continuity during platform upgrades, and during workload version upgrades</p>
 </li>
 <li>
-<p>CNFs need to be prepared for nodes to reboot or shut down without notice</p>
+<p>Workloads need to be prepared for nodes to reboot or shut down without notice</p>
 </li>
 <li>
-<p>CNFs shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades</p>
+<p>Workloads shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades</p>
 </li>
 <li>
 <p>Applications should not be tied to a specific version of Kubernetes or any of its components</p>
@@ -5228,7 +5228,7 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods that perform the same microservice and that could be disrupted if multiple members of the service are
 unavailable must implement pod disruption budgets to prevent disruption in the event of patches/upgrades.</p>
@@ -5262,7 +5262,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="sect5">
 <h6 id="cnf-best-practices-requests-limits"><a class="link" href="#cnf-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></h6>
 <div class="paragraph">
-<p>Requests and limits provide a way for a CNF developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a> for more information.</p>
+<p>Requests and limits provide a way for a workload developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a> for more information.</p>
 </div>
 <div class="paragraph">
 <p>Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.</p>
@@ -5277,7 +5277,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods must define requests and limits values for CPU and memory.</p>
 </div>
@@ -5355,9 +5355,6 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
 </div>
-<div class="paragraph">
-<p>CNF requirement</p>
-</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -5365,6 +5362,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Applications must not depend on any single pod being online for their application to function.</p>
 </div>
@@ -5379,7 +5377,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods must be deployed as part of a <code>Deployment</code> or <code>StatefulSet</code>.</p>
 </div>
@@ -5397,7 +5395,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Pods may not be deployed in a DaemonSet.</p>
 </div>
@@ -5466,7 +5464,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <dl>
 <dt class="hdlist1">ClusterRole / ClusterRoleBinding</dt>
 <dd>
-<p>A <code>ClusterRole</code> represents a set of permissions at the cluster level that can be used by multiple namespaces. The <code>ClusterRoleBinding</code> is used for granting the permissions defined in a <code>ClusterRole</code> to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. CNFs should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.</p>
+<p>A <code>ClusterRole</code> represents a set of permissions at the cluster level that can be used by multiple namespaces. The <code>ClusterRoleBinding</code> is used for granting the permissions defined in a <code>ClusterRole</code> to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. Workloads should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.</p>
 </dd>
 </dl>
 </div>
@@ -5480,9 +5478,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>CNFs may not create <code>ClusterRole</code> or <code>ClusterRoleBinding</code> CRs. Only cluster administrators should create these CRs.</p>
+<p>Workloads may not create <code>ClusterRole</code> or <code>ClusterRoleBinding</code> CRs. Only cluster administrators should create these CRs.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-cluster-role-bindings">access-control-cluster-role-bindings</a></p>
@@ -5504,7 +5502,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>If an application creates CRDs; it must supply a role to access those CRDs and no other API resources/
 permissions.</p>
@@ -5526,7 +5524,7 @@ permissions.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Unless an application has a special traffic requirement that is not supported by SPK or ovn-kubernetes CNI
 the applications must use the pod network for traffic</p>
@@ -5545,26 +5543,26 @@ the applications must use the pod network for traffic</p>
 <p>SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.</p>
 </div>
 <div class="paragraph">
-<p>SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a network function has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the network functions which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN / network that the SR-IOV interface requires must be part of the request for the namespace.</p>
+<p>SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a workload has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the workloads which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN / network that the SR-IOV interface requires must be part of the request for the namespace.</p>
 </div>
 <div class="paragraph">
 <p>For more information, see <a href="https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html">About Single Root I/O Virtualization (SR-IOV) hardware networks</a>.</p>
 </div>
 <div class="paragraph">
-<p>By configuring the SR-IOV network, CRs named <code>NetworkAttachmentDefinitions</code> are exposed by the SR-IOV Operator in the CNF namespace.</p>
+<p>By configuring the SR-IOV network, CRs named <code>NetworkAttachmentDefinitions</code> are exposed by the SR-IOV Operator in the workload namespace.</p>
 </div>
 <div class="paragraph">
 <p>Different names will be assigned to different Network Attachment Definitions that are namespace specific. MACVLAN versus MULTUS interfaces will be named differently to distinguish the type of device assigned to them (created by configuring SR-IOV devices via the SRIOVNetworkNodePolicy CR).</p>
 </div>
 <div class="paragraph">
-<p>From the CNF perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.</p>
+<p>From the workload perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.</p>
 </div>
 <div class="paragraph">
-<p>The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the CNF. The following command returns the list of secondary networks available in the namespace:</p>
+<p>The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the workload. The following command returns the list of secondary networks available in the namespace:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> &lt;cnf_namespace&gt; get network-attachment-definitions</code></pre>
+<pre class="rouge highlight"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc <span class="nt">-n</span> &lt;workload_namespace&gt; get network-attachment-definitions</code></pre>
 </div>
 </div>
 </div>
@@ -5642,7 +5640,7 @@ the applications must use the pod network for traffic</p>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
   <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{}'</span>
-  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;CNF-NAMESPACE&gt;</span>
+  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
   <span class="na">resourceName</span><span class="pi">:</span> <span class="s">w1ens3f0grp2</span>
   <span class="na">spoofChk</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
   <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
@@ -5660,7 +5658,7 @@ the applications must use the pod network for traffic</p>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
   <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"type":"whereabouts","range":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001/64","range_star</span><span class="nv"> </span><span class="s">t":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001","range_end":"FD97:0EF5:45A5:4000:00D0:0403</span><span class="nv"> </span><span class="s">:0000:0020","routes":[{"dst":"fd97:0ef5:45a5::/48","gw":"FD97:EF5:45A5:4000::1"}]}'</span>
-  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;CNF-NAMESPACE&gt;</span>
+  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
     <span class="s">resourceName</span><span class="err">:</span> <span class="s">w1ens3f0grp2</span>
     <span class="s">spoofChk</span><span class="err">:</span> <span class="s2">"</span><span class="s">off"</span>
     <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
@@ -5677,7 +5675,7 @@ the applications must use the pod network for traffic</p>
   <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-SRIOV-network-operator</span>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
-  <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"type":</span><span class="nv"> </span><span class="s">"static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}'</span> <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;CNF-NAMESPACE&gt;</span>
+  <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"type":</span><span class="nv"> </span><span class="s">"static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}'</span> <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
   <span class="na">resourceName</span><span class="pi">:</span> <span class="s">w1ens3f0grp2</span>
   <span class="na">spoofChk</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
   <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
@@ -5711,17 +5709,17 @@ the applications must use the pod network for traffic</p>
 <p>The actual addresses used for both whereabouts and static IPAM are managed external to the cluster.</p>
 </div>
 <div class="paragraph">
-<p>The above <code>SRIOVnetwork</code> CR will configure a network attachment definition within the CNF namespace.</p>
+<p>The above <code>SRIOVnetwork</code> CR will configure a network attachment definition within the workload namespace.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get net-attach-def <span class="nt">-n</span> &lt;cnf_namespace&gt;
+<pre class="rouge highlight"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get net-attach-def <span class="nt">-n</span> &lt;workload_namespace&gt;
 <span class="go">NAME       AGE
 SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Within the CNF namespace the SR-IOV resource is consumed via a pod annotation:</p>
+<p>Within the workload namespace the SR-IOV resource is consumed via a pod annotation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5910,7 +5908,7 @@ loadbalancer-15</span></code></pre>
 <p>OpenShift Virtualization should be installed according to its documentation, and only documented supported features may be used unless an explicit exception has been granted. See <a href="https://docs.openshift.com/container-platform/latest/virt/about-virt.html">About OpenShift Virtualization</a>.</p>
 </div>
 <div class="paragraph">
-<p>In order to improve overall virtualization performance and reduce CPU latency, critical VNFs can take advantage of OpenShift Virtualization&#8217;s high-performance features. These can provide the VNFs with the following features:</p>
+<p>In order to improve overall virtualization performance and reduce CPU latency, critical workloads can take advantage of OpenShift Virtualization&#8217;s high-performance features. These can provide the workloads with the following features:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -5979,7 +5977,7 @@ loadbalancer-15</span></code></pre>
 <p>The OLM Packaged operator will then run in openshift-operators namespace within the cluster. Users can then utilize this operator by creating CRs within the CRDs that were created by the operator OLM package, to deploy the software managed by the operator. The platform administrator handles the OLM based operator installation for the users by creating a custom catalog in the cluster that is targeted by the application. The users then express via CRs that are consumed by the operator what they would like the operator to create in the users namespace.</p>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-cnf-operator-requirements"><a class="link" href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. CNF Operator requirements</a></h6>
+<h6 id="cnf-best-practices-cnf-operator-requirements"><a class="link" href="#cnf-best-practices-cnf-operator-requirements">3.12.1.18.1. Workload Operator requirements</a></h6>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -5987,7 +5985,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Operators should be certified against the openshift version of the cluster they will be deployed on.</p>
 </div>
@@ -6005,7 +6003,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Operators must be compatible with our version of openshift</p>
 </div>
@@ -6033,7 +6031,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Operators must be in OLM bundle format (Operator Framework).</p>
 </div>
@@ -6051,7 +6049,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Must be able to function without the use of openshift routes or ingress objects.</p>
 </div>
@@ -6066,7 +6064,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All custom resources for operators require podspecs for both pod image override as well pod quotas.</p>
 </div>
@@ -6081,7 +6079,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Operators must not use daemonsets</p>
 </div>
@@ -6099,9 +6097,9 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary cnf operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.</p>
+<p>The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary workload operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.</p>
 </div>
 </td>
 </tr>
@@ -6114,7 +6112,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>The operator must default to watch all namespaces if the target namespace is left NULL or empty string as this is how the OLM global-operators operator group functions.</p>
 </div>
@@ -6129,7 +6127,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.</p>
 </div>
@@ -6144,7 +6142,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>For general third party upstream operators (example: mongodb), the OLM package is recommended to be located within the Red Hat registries below to support our image mirror policy:</p>
 </div>
@@ -6175,9 +6173,9 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>Operators that are proprietary to a cnf application must ensure that their CRD&#8217;s are unique, and will not conflict with other operators in the cluster.</p>
+<p>Operators that are proprietary to a workload application must ensure that their CRD&#8217;s are unique, and will not conflict with other operators in the cluster.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-crd-status">observability-crd-status</a></p>
@@ -6193,9 +6191,9 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>If a cnf application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the APIs so that it will not conflict with the globally installed operator version.</p>
+<p>If a workload application requires a specific version of a third party non-proprietary operator for their app to function they will need to re-package the upstream third party operator and modify the APIs so that it will not conflict with the globally installed operator version.</p>
 </div>
 </td>
 </tr>
@@ -6208,7 +6206,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Successful operator installation and runtime must be validated in pre-deployment lab environments before being allowed to be deployed to production.</p>
 </div>
@@ -6226,7 +6224,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>All required RBAC must be included in the OLM operator bundle so that it&#8217;s managed by OLM.</p>
 </div>
@@ -6241,9 +6239,9 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>It is not recommended for a cnf application to share a proprietary operator with another cnf application if that application does not share the same version lifecycle. If a cnf application does share an operator the CRDs must be backwards compatible.</p>
+<p>It is not recommended for a workload application to share a proprietary operator with another workload application if that application does not share the same version lifecycle. If a workload application does share an operator the CRDs must be backwards compatible.</p>
 </div>
 </td>
 </tr>
@@ -6254,7 +6252,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cnf-best-practices-requirements-cnf-reqs"><a class="link" href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for CNF</a></h3>
+<h3 id="cnf-best-practices-requirements-cnf-reqs"><a class="link" href="#cnf-best-practices-requirements-cnf-reqs">3.13. Requirements for a workload</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6369,7 +6367,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Containerized workloads must work with Red Hat&#8217;s restricted SCC1.</p>
 </div>
@@ -6384,7 +6382,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.</p>
 </div>
@@ -6402,7 +6400,7 @@ loadbalancer-15</span></code></pre>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="title">CNF requirement</div>
+<div class="title">Workload requirement</div>
 <div class="paragraph">
 <p>The container image must be secure.</p>
 </div>
@@ -6476,7 +6474,7 @@ loadbalancer-15</span></code></pre>
 <div class="sect3">
 <h4 id="cnf-best-practices-application-dns-configuration-requirements"><a class="link" href="#cnf-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></h4>
 <div class="paragraph">
-<p>CNFs should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.</p>
+<p>Workloads should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.</p>
 </div>
 <div class="paragraph">
 <p>For more information, see <a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service">Kubernetes upstream reference for pod/service names and DNS</a>.</p>
@@ -6504,7 +6502,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-04-03 21:17:33 UTC
+Last updated 2024-04-24 13:20:59 UTC
 </div>
 </div>
 <!-- Nav bar -->
