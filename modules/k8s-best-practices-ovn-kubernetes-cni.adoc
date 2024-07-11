@@ -1,0 +1,7 @@
+[id="k8s-best-practices-ovn-kubernetes-cni"]
+= OVN-Kubernetes CNI
+
+OVN is Red Hat's CNI for pod networking. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. Openshift's OVN forwarding is based on flow rules and implemented with nftables on the host OS CNI pod.
+
+For more information, see link:https://docs.openshift.com/container-platform/latest/networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html[About the OVN-Kubernetes network plugin].
+

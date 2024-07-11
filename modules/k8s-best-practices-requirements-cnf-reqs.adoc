@@ -1,0 +1,121 @@
+[id="k8s-best-practices-requirements-cnf-reqs"]
+= Requirements for a workload
+
+* The application MUST declare all listening ports as containerPorts in the Pod specification it provides to Kubernetes.
+
+* The application MUST NOT listen on any other ports that are undeclared.
+
+** Listening ports MUST be named in the pod specification with the protocol they Implement.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-undeclared-container-ports-usage[networking-undeclared-container-ports-usage]
+
+*** The name field in the ContainerPort section must be of the form `<protocol>` where `<protocol>` is one of the below, and the optional `<suffix>` can be chosen by the application.
+
+*** Preferred prefixes: `grpc`, `grpc-web`, `http`, `http2`
+
+*** Fallback prefixes: `tcp`, `udp`
+
+*** Valid example: `http-webapi` or `grpc`
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-container-port-name-format[manageability-container-port-name-format]
+
+* The application MUST communicate with Kubernetes Services by their service IP instead of selecting Pods in that service individually.
+
+* The application MUST NOT encrypt outbound traffic on the cluster network interface.
+
+* The application MUST NOT decrypt inbound traffic on the cluster network interface.
+
+* The application SHOULD NOT manage certificates related to communication over the cluster network interface.
+
+* The application MUST NOT provide nftables or iptables rules.
+
+* The application MUST NOT define Kubernetes Custom Resources in `\*.istio.io` or `\*.aspenmesh.io` namespaces.
+
+* The application MUST NOT define Kubernetes resources in the istio-system namespace.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace[access-control-namespace]
+
+* The application MUST propagate tracing headers when making outgoing requests based on incoming requests.
+
+* Example: If an application receives a request with a trace header identifying that request with traceid `785a908c8d93b2d2` , and decides based on application logic that it must make a new request to another application pod to fulfill that request, it must annotate the new request with the same traceid `785a908c8d93b2d2`.
+
+* The application MUST propagate all of these tracing headers if present: `x-request-id`, `x-b3-traceid`, `x-b3-spanId`, `x-b3-parentspanid`, `x-b3-sampled`, `x-b3-flags`, `b3`.
+
+* The application MUST propagate the tracing headers by copying any header value from the original request to the new request.
+
+* The application SHOULD NOT modify any of these header values unless it understands the format of the headers and wishes to enhance them (e.g. implements OpenTracing)
+
+* If some or none of the headers are present, the application *SHOULD NOT* create them.
+
+* If an application makes a new request and it is not in service of exactly one incoming request, it MAY omit all tracing headers.
+
+** The application does not have to generate headers in this case. It could generate headers if it implements e.g. OpenTracin.
+
+[id="k8s-best-practices-image-standards"]
+== Image standards
+
+It is recommended that container images be built utilizing Red Hat's Universal Base Image as they will have a solid security baseline as well as support from Red Hat.
+
+Vendors must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
+
+.Workload requirement
+[IMPORTANT]
+====
+Containerized workloads must work with Red Hat's restricted SCC1.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+The container image must be secure.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+====
+
+The Red Hat UBI is able to meet these requirements and enables images built with it to meet these requirements. UBI is supported by a dedicated, full-time team providing releases of base image. UBI has the following features:
+
+* Scheduled release every 6 weeks to pick up less critical fixes.
+
+* On-demand release for critical or important CVE within 5 days of CVE public release.
+
+* Guarantees alignment with host OS packages and versions that run tightly coupled to the container artifacts. Many CVEs and potential attacks result from mismatch of untested versions of utility functions.
+
+* Ensures globally consistent time zone usage and resulting timestamps for global operators.
+
+* Enables continuous authorization to operate (ATO). Authorize once, use many times.
+
+* Meets requirements of the DOD, for example Air Force/DISA STIG.
+
+* Supports system-wide crypto consistency, for example, must have same crypto implementation as the Red Hat host operating system.
+
+* Provides authentication of the base layer via digital signature from originating vendor and strong signature authority.
+
+[id="k8s-best-practices-universal-base-image-information"]
+== Universal Base Image information
+
+link:https://developers.redhat.com/products/rhel/ubi[UBI] is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.
+
+Base Images:: A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
+
+Runtime Languages:: A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.
+
+Complementary packages:: A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.
++
+Red Hat UBI images are the preferred images to build VNFs on as they will leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
++
+Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started.
+
+[id="cnf-best-practices-application-dns-configuration-requirements"]
+== Application DNS configuration requirements
+
+Workloads should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.
+
+For more information, see link:https://kubernetes.io/docs/concepts/services-networking/dns-pod-service[Kubernetes upstream reference for pod/service names and DNS].

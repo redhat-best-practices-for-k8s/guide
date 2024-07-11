@@ -1,0 +1,12 @@
+[id="k8s-best-practices-cnf-securing-cnf-networks"]
+= Securing workload networks
+
+Workloads must have the least permissions possible and must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.
+
+.Workload requirement
+[IMPORTANT]
+====
+Applications must define network policies that permit only the minimum network access the application needs to function.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all[networking-network-policy-deny-all]
+====

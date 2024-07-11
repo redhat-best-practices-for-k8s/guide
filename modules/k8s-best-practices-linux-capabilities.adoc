@@ -1,0 +1,126 @@
+[id="k8s-best-practices-linux-capabilities"]
+= Linux capabilities
+
+Linux Capabilities allow you to break apart the power of root into smaller groups of privileges. The link:https://man7.org/linux/man-pages/man7/capabilities.7.html[Linux capabilities(7)] man page provides a detailed description of how capabilities management is performed in Linux.
+In brief, the Linux kernel associates various capability sets with threads and files. The thread’s Effective capability set determines the current privileges of a thread.
+
+When a thread executes a binary program the kernel updates the various thread capability sets according to a set of rules that take into account the UID of thread before and after the exec system call and the file capabilities of the program being executed. Refer to the blog series in link:[10]# for more details about []Linux capabilities and some examples. For Red Hat specific review of capabilities please refer to the link:Linux Capabilities in OpenShift blog.# An additional reference is link:Docker Run Reference.[]
+
+Users may choose to specify the required permissions for their running application in the Security Context of the pod specification. In OCP, administrators can use the Security Context Constraint (SCC) admission controller plugin to control the permissions allowed for pods deployed to the cluster. If the pod requests permissions that are not allowed by the SCCs available to that pod, the pod will not be admitted to the cluster.
+
+The following runtime and SCC attributes control the capabilities that will be granted to a new container:
+
+* The capabilities granted to the CRI-O engine. The default capabilities are listed here: link:https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go[]
++
+[NOTE]
+====
+As of Kubernetes version 1.18, CRI-O no longer runs with NET_RAW or SYS_CHROOT by default.
+link:https://cri-o.github.io/cri-o/v1.18.0.html[]
+====
+
+* The values in the SCC for `allowedCapabilities`, `defaultAddCapabilities` and `requiredDropCapabilities`
+
+* `allowPrivilegeEscalation`: controls whether a container can acquire extra privileges through setuid binaries or the file capabilities of binaries
+
+The capabilities associated with a new container are determined as follows:
+
+* If the container has the UID 0 (root) its Effective capability set is determined according to the capability attributes requested by the pod or container security context and allowed by the SCC assigned to the pod. In this case, the SCC provides a way to limit the capabilities of a root container.
+
+* If the container has a UID non 0 (non root), the new container has an empty Effective capability set (see link:https://github.com/kubernetes/kubernetes/issues/56374#[]). In this case the SCC assigned to the pod controls only the capabilities the container may acquire through the file capabilities of binaries it will execute.
+
+Considering the general recommendation to avoid running root containers, capabilities required by non-root containers are controlled by the pod or container security context and the SCC capability attributes but can only be acquired by properly setting the file capabilities of the container binaries.
+
+Refer to link:https://docs.openshift.com/container-platform/4.13/authentication/managing-security-context-constraints.html[Managing security context constraints] for more details on how to define and use the SCC.
+
+[id="k8s-best-practices-default-capabilities"]
+== DEFAULT capabilities
+
+The default capabilities that are allowed via the restricted SCC are as follows. link:https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go[]
+
+* `"CHOWN"`
+* `"DAC_OVERRIDE"`
+* `"FSETID"`
+* `"FOWNER"`
+* `"SETPCAP"`
+* `"NET_BIND_SERVICE"`
+
+[NOTE]
+====
+The capabilities: "SETGID", "SETUID" &"KILL", have been removed from the default OpenShift capabilities.
+====
+
+[id="k8s-best-practices-ipc_lock"]
+== IPC_LOCK
+
+IPC_LOCK capability is required if any of these functions are used in an application:
+
+* `mlock()`
+* `mlockall()`
+* `shmctl()`
+* `mmap()`
+
+Even though `mlock()` is not necessary on systems where page swap is disabled (for example on OpenShift), it may still be required as it is a function that is built into DPDK libraries, and DPDK based applications may indirectly call it by calling other functions.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ipc-lock-capability-check[access-control-ipc-lock-capability-check]
+
+[id="k8s-best-practices-net_admin"]
+== NET_ADMIN
+
+NET_ADMIN capability is required to perform various network related administrative operations inside container such as:
+
+* MTU setting
+
+* Link state modification
+
+* MAC/IP address assignment
+
+* IP address flushing
+
+* Route insertion/deletion/replacement
+
+* Control network driver and hardware settings via `ethtool`
+
+This doesn't include:
+
+* add/delete a virtual interface inside a container. For example: adding a VLAN interface
+
+* Setting VF device properties
+
+All the administrative operations (except `ethtool`) mentioned above that require the `NET_ADMIN` capability should already be supported on the host by various CNIs in Openshift.
+
+.Workload requirement
+[IMPORTANT]
+====
+Only userplane applications or applications using SR-IOV or Multicast can request NET_ADMIN capability
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-net-admin-capability-check[access-control-net-admin-capability-check]
+====
+
+[id="k8s-best-practices-avoid-sys_admin"]
+== Avoid SYS_ADMIN
+
+This capability is very powerful and overloaded. It allows the application to perform a range of system administration operations to the host. So you should avoid requiring this capability in your application.
+
+.Workload requirement
+[IMPORTANT]
+====
+Applications *MUST NOT* use the SYS_ADMIN Linux capability
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-admin-capability-check[access-control-sys-admin-capability-check]
+====
+
+[id="k8s-best-practices-sys_nice"]
+== SYS_NICE
+
+In the case that a workload is running on a node using the real-time kernel, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability[access-control-sys-nice-realtime-capability]
+
+[id="k8s-best-practices-sys_ptrace"]
+== SYS_PTRACE
+
+This capability is required when using Process Namespace Sharing. This is used when processes from one Container need to be exposed to another Container. For example, to send signals like SIGHUP from a process in a Container to another process in another Container. See link:https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/[Share Process Namespace between Containers in a Pod] for more details.
+For more information on these capabilities refer to link:https://cloud.redhat.com/blog/linux-capabilities-in-openshift[Linux Capabilities in OpenShift].
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-ptrace-capability[access-control-sys-ptrace-capability]
+

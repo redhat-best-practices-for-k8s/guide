@@ -1,0 +1,29 @@
+[id="k8s-best-practices-upgrade-expectations"]
+= Upgrade expectations
+
+* The Kubernetes API deprecation policy defined in link:https://kubernetes.io/docs/reference/using-api/deprecation-policy/[Kubernetes Deprecation Policy] shall be followed.
+
+* Workloads are expected to maintain service continuity during platform upgrades, and during workload version upgrades
+
+* Workloads need to be prepared for nodes to reboot or shut down without notice
+
+* Workloads shall configure pod disruption budget appropriately to maintain service continuity during platform upgrades
+
+* Applications should not be tied to a specific version of Kubernetes or any of its components
+
+[IMPORTANT]
+====
+Applications MUST specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation[lifecycle-pod-recreation]
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Pods that perform the same microservice and that could be disrupted if multiple members of the service are
+unavailable must implement pod disruption budgets to prevent disruption in the event of patches/upgrades.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget[observability-pod-disruption-budget]
+====
+

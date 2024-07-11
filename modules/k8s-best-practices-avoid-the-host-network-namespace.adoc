@@ -1,0 +1,12 @@
+[id="k8s-best-practices-avoid-the-host-network-namespace"]
+= Avoid the host network namespace
+
+Application pods must avoid using `hostNetwork`. Applications may not use the host network, including `nodePort` for network communication. Any networking needs beyond the functions provided by the pod network and ingress/egress proxy must be serviced via a MULTUS connected interface.
+
+.Workload requirement
+[IMPORTANT]
+====
+Applications may not use `NodePorts` or the `hostNetwork`.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-service-type[access-control-service-type]
+====

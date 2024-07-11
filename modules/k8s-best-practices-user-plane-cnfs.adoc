@@ -1,0 +1,97 @@
+[id="k8s-best-practices-user-plane-cnfs"]
+= Handling user-plane workloads
+
+A workload which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these workloads may also need to process the packets at a lower level.
+
+This kind of workload may need to:
+
+. Use SR-IOV interfaces
+
+. Fully or partially bypassing the kernel networking stack with userspace networking technologies, like DPDK, F-stack, VPP, OpenFastPath, etc. A userspace networking stack can not only improve the performance but also reduce the need for the `CAP_NET_ADMIN` and `CAP_NET_RAW`.
+
+
+[NOTE]
+====
+For Mellanox devices, those capabilities are requested if the application needs to configure the device(CAP_NET_ADMIN) and/or allocate raw ethernet queue through kernel drive(CAP_NET_RAW)
+====
+
+As `CAP_IPC_LOCK` is mandatory for allocating hugepage memory, this capability is granted to DPDK-based applications. Additionally, if the workload is latency-sensitive and needs the determinacy provided by the real-time kernel, the `CAP_SYS_NICE` is also required.
+
+Here is an example pod manifest of a DPDK application:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dpdk-app
+  namespace: <target_namespace>
+  annotations:
+    k8s.v1.cni.cncf.io/networks: dpdk-network
+spec:
+  containers:
+  - name: testpmd
+    image: <DPDK_image>
+    securityContext:
+      capabilities:
+        add: ["IPC_LOCK"]
+    volumeMounts:
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources:
+      limits:
+      openshift.io/mlxnics: "1"
+      memory: "1Gi"
+      cpu: "4"
+      hugepages-2Mi: "4Gi"
+    requests:
+      openshift.io/mlxnics: "1"
+      memory: "1Gi"
+      cpu: "4"
+      hugepages-2Mi: "4Gi"
+    command: ["sleep", "infinity"]
+volumes:
+- name: hugepage
+  emptyDir:
+    medium: HugePages
+----
+
+[source,yaml]
+----
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: <workload_name>
+users: []
+groups: []
+priority: null
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: [IPC_LOCK, NET_ADMIN, NET_RAW] defaultAddCapabilities: null
+requiredDropCapabilities:
+- KILL
+- MKNOD
+- SETUID
+- SETGID
+fsGroup:
+  type: MustRunAs
+readOnlyRootFilesystem: false
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+----

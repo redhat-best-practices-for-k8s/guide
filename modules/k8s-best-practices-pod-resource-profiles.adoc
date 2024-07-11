@@ -1,0 +1,7 @@
+[id="k8s-best-practices-pod-resource-profiles"]
+= Pod resource profiles
+
+OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.
+
+All pods should have a resource request that is the minimum amount of resources the pod is expected to use at steady state for both memory and CPU.
+

@@ -1,0 +1,22 @@
+[id="k8s-best-practices-multus-sr-iov---macvlan"]
+= MULTUS SR-IOV / MACVLAN
+
+SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.
+
+SR-IOV and MACVLAN interfaces are able to be requested for protocols that do not work with the default CNI or for exceptions where a workload has not been able to move functionality onto the CNI. These are exception use cases. MULTUS interfaces will be defined by the platform operations team for the workloads which can then consume them. VLANs will be applied by the SR-IOV VF, thus the VLAN / network that the SR-IOV interface requires must be part of the request for the namespace.
+
+For more information, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/about-sriov.html[About Single Root I/O Virtualization (SR-IOV) hardware networks].
+
+By configuring the SR-IOV network, CRs named `NetworkAttachmentDefinitions` are exposed by the SR-IOV Operator in the workload namespace.
+
+Different names will be assigned to different Network Attachment Definitions that are namespace specific. MACVLAN versus MULTUS interfaces will be named differently to distinguish the type of device assigned to them (created by configuring SR-IOV devices via the SRIOVNetworkNodePolicy CR).
+
+From the workload perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.
+
+The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the workload. The following command returns the list of secondary networks available in the namespace:
+
+[source,terminal]
+----
+$ oc -n <workload_namespace> get network-attachment-definitions
+----
+

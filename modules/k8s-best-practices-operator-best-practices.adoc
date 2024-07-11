@@ -1,0 +1,7 @@
+[id="k8s-best-practices-operator-best-practices"]
+= Operator best practices
+
+OLM Packaged operators contain an index of all the images required to install the operator, and the `ClusterServiceVersion` which instructs OpenShift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.
+
+The OLM Packaged operator will then run in openshift-operators namespace within the cluster. Users can then utilize this operator by creating CRs within the CRDs that were created by the operator OLM package, to deploy the software managed by the operator. The platform administrator handles the OLM based operator installation for the users by creating a custom catalog in the cluster that is targeted by the application. The users then express via CRs that are consumed by the operator what they would like the operator to create in the users namespace.
+

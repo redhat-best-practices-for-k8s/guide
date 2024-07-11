@@ -1,0 +1,17 @@
+[id="k8s-best-practices-user-plane-functions"]
+= User plane functions
+
+Develop user plane functions that meet the following requirements.
+
+[id="k8s-best-practices-performance-addon-operator-pao"]
+== Node Tuning Operator
+
+Red Hat created the
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-provisioning-real-time-and-low-latency-workloads_cnf-master[Node Tuning Operator] for low latency nodes.
+
+[NOTE]
+====
+In OpenShift Container Platform version 4.10 and previous versions, the Performance Addon Operator was used to implement automatic tuning to achieve low latency performance. Now this functionality is part of the Node Tuning Operator.
+====
+
+The emergence of Edge computing in the area of Telco plays a key role in reducing latency, congestion, and improving application performance. Many of the deployed applications in the Telco space require low latency and zero packet loss. OpenShift Container Platform provides a Node Tuning Operator to implement automatic tuning to achieve low latency performance for applications. The Node Tuning Operator is a meta-operator that leverages `MachineConfig`, `Tuned` and `KubeletConfig` resources, Topology Manager, and CPU Manager, to optimize the nodes.

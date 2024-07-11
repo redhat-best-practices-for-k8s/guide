@@ -1,11 +1,11 @@
-[id="cnf-best-practices"]
+[id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
 :revnumber: v2
 :revdate: 2023
 :toc: left
 :toclevels: 5
-:repo-url: https://github.com/test-network-function/cnf-best-practices
+:repo-url: https://github.com/test-network-function/k8s-best-practices-guide
 :icons: image
 :icontype: svg
 :iconsdir: pdf/icons

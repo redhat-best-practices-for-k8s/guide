@@ -1,0 +1,5 @@
+[id="k8s-best-practices-ci-cd"]
+= CI/CD framework
+
+Applications should target a CI/CD approach for deployment and validation.
+

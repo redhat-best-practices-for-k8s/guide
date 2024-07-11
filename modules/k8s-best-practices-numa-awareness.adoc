@@ -1,0 +1,7 @@
+[id="k8s-best-practices-numa-awareness"]
+= NUMA awareness
+
+If the pod is using a guaranteed QoS class and the kubelet is configured with a suitable topology manager policy (restricted, single-numa node) then the VF assigned to the pod will belong to the same NUMA node as the other assigned resources (CPU and other NUMA aware devices). Please note that HugePages are currently not NUMA aware.
+
+See <<cnf-best-practices-performance-addon-operator-pao>> for NUMA awareness and more information about how HugePages are turned on.
+

@@ -1,8 +1,0 @@
-[id="cnf-best-practices-foreword"]
-= Foreword
-
-This _Red Hat Best Practices for Kubernetes_ document was originally created in 2020 by Verizon with assistance from Red Hat.
-Verizon's vision of an open collaborative process to create industry standards for cloud-native workloads led this document to be where it is today.
-Over many iterations, and based on lessons learned and feature improvements in the areas of security, lifecycle management, networking, and many other components, the document has matured into its current state.
-
-Many thanks to the team at Verizon for kick-starting this effort and for the many contributions Verizon has made to the document over the years.

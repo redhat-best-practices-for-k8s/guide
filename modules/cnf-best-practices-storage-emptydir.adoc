@@ -1,7 +1,0 @@
-[id="cnf-best-practices-storage:-emptydir"]
-= Storage: emptyDir
-
-There are several options for volumes and reading and writing files in OpenShift. When the requirement is temporary storage and given the option to write files into directories in containers versus an external filesystems, choose the `emptyDir` option. This will provide the administrator with the same temporary filesystem - when the pod is stopped the dir is deleted forever. Also, the `emptyDir` can be backed by whatever medium is backing the node, or it can be set to memory for faster reads and writes.
-
-Using `emptyDir` with requested local storage limits instead of writing to the container directories also allows enabling `readonlyRootFilesystem` on the container or pod.
-

@@ -23,8 +23,8 @@ jobs:
       - name: Create PDF release
         run: |
           echo $GITHUB_RUN_NUMBER > version.txt
-          mv main.pdf cnf-best-practices-guide.pdf
-          gh release create v2.0.$GITHUB_RUN_NUMBER cnf-best-practices-guide.pdf
+          mv main.pdf k8s-best-practices-guide.pdf
+          gh release create v2.0.$GITHUB_RUN_NUMBER k8s-best-practices-guide.pdf
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
