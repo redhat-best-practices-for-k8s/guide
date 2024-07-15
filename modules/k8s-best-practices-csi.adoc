@@ -3,7 +3,7 @@
 
 Pod volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and is lost when a pod is killed and recreated. If a pod requires persistent storage, the CSI can be used via Kubernetes native primitives `persistentVolume` (`PV`) and `persistentVolumeClaim` (`PVC`) to get persistent storage, such as an NFS share via the CSI backed by NetApp Trident.
 
-When using storage with Kubernetes, you can use storage classes. Refer to <<cnf-best-practices-block-storage>> for a description of the available storage classes. Using storage classes, you can create volumes based on the parameters of the required storage.
+When using storage with Kubernetes, you can use storage classes. Refer to <<k8s-best-practices-block-storage>> for a description of the available storage classes. Using storage classes, you can create volumes based on the parameters of the required storage.
 
 Workloads should clear persistent storage by deleting the associated `PV` resources when removing the application from a cluster.
 

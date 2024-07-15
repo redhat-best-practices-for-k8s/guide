@@ -3,17 +3,17 @@
 
 This section discusses recommendations and requirements for workload application builders.
 
-[id="cnf-best-practices-preface"]
+[id="k8s-best-practices-preface"]
 == Preface
 
 Cloud-native workload applications are containerized instances of classic physical or virtual applications which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.
 
-[id="cnf-best-practices-goal"]
+[id="k8s-best-practices-goal"]
 == Goal
 
 This document is mainly for the developers of workloads, who need to build high-performance applications in a containerized environment. We have created a guide that any partner can take and follow when developing their workloads so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.
 
-[id="cnf-best-practices-non-goal"]
+[id="k8s-best-practices-non-goal"]
 == Non-goal
 
 This is not a guide on how to build workload functionality.
