@@ -14,164 +14,164 @@ Workload best practices
 
 toc::[]
 
-include::modules/cnf-best-practices-foreword.adoc[leveloffset=+1]
+include::modules/k8s-best-practices-foreword.adoc[leveloffset=+1]
 
-include::modules/cnf-best-practices-openshift-platform.adoc[leveloffset=+1]
+include::modules/k8s-best-practices-openshift-platform.adoc[leveloffset=+1]
 
-include::modules/cnf-best-practices-helm.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-helm.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-k8s.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-k8s.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-cni-ovn.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-cni-ovn.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-csi.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-csi.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-block-storage.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-block-storage.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-ephemeral-storage.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-ephemeral-storage.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-local-storage.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-local-storage.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-container-runtime.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-container-runtime.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-cpu-manager-pinning.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-cpu-manager-pinning.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-host-os.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-host-os.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-ubi.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-ubi.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-pod-security.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-pod-security.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-ci-cd.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-ci-cd.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-k8s-api-versions.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-k8s-api-versions.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-ovn-kubernetes-cni.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-ovn-kubernetes-cni.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-user-plane-functions.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-user-plane-functions.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-hugepages.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-hugepages.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-cpu-isolation.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-cpu-isolation.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-topology-manager-and-numa-awareness.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-topology-manager-and-numa-awareness.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-ipv4-ipv6.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-ipv4-ipv6.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-ports-reserved-by-openshift.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-ports-reserved-by-openshift.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-user-plane-cnfs.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-user-plane-cnfs.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-developer-guide.adoc[leveloffset=+1]
+include::modules/k8s-best-practices-developer-guide.adoc[leveloffset=+1]
 
-include::modules/cnf-best-practices-refactoring.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-refactoring.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-cnf-security.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-cnf-security.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-avoid-accessing-resource-on-host.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-avoid-accessing-resource-on-host.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-avoid-mounting-host-directories-as-volumes.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-avoid-mounting-host-directories-as-volumes.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-avoid-the-host-network-namespace.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-avoid-the-host-network-namespace.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-linux-capabilities.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-openshift-operations.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-openshift-operations.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-operations-that-can-not-be-executed-by-openshift.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-operations-that-can-not-be-executed-by-openshift.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-analyzing-your-application.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-analyzing-your-application.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-finding-the-capabilities-that-an-application-needs.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-finding-the-capabilities-that-an-application-needs.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-cnf-securing-cnf-networks.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-cnf-securing-cnf-networks.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-secrets-management.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-secrets-management.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-scc-permissions-for-an-application.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-scc-permissions-for-an-application.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-expectations-permissions.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-expectations-permissions.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-cloud-native-design-best-practices.adoc[leveloffset=+3]
+include::modules/k8s-best-practices-cloud-native-design-best-practices.adoc[leveloffset=+3]
 
-include::modules/cnf-best-practices-high-level-cnf-expectations.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-high-level-cnf-expectations.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-pod-permissions.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-pod-permissions.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-logging.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-logging.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-monitoring.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-monitoring.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-cpu-allocation.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-cpu-allocation.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-memory-allocation.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-memory-allocation.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-pods.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-pods.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-pod-interaction-configuration.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-pod-interaction-configuration.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-pod-exit-status.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-pod-exit-status.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-graceful-termination.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-graceful-termination.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-pod-resource-profiles.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-pod-resource-profiles.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-storage-emptydir.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-storage-emptydir.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-liveness-readiness-and-startup-probes.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-liveness-readiness-and-startup-probes.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-affinity-anti-affinity.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-affinity-anti-affinity.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-upgrade-expectations.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-upgrade-expectations.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-taints-and-tolerations.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-taints-and-tolerations.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-requests-limits.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-requests-limits.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-use-imagepullpolicy-if-not-present.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-use-imagepullpolicy-if-not-present.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-automount-services-for-pods.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-automount-services-for-pods.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-disruption-budgets.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-disruption-budgets.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-no-naked-pods.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-no-naked-pods.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-image-tagging.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-image-tagging.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-one-process-per-container.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-one-process-per-container.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-init-containers.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-init-containers.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-security-rbac.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-security-rbac.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-custom-role-to-access-application-crds.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-custom-role-to-access-application-crds.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-multus.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-multus.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-multus-macvlan.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-multus-macvlan.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-sr-iov-interface-settings.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-sr-iov-interface-settings.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-attaching-the-vf-to-a-pod.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-attaching-the-vf-to-a-pod.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-discovering-sr-iov-devices-properties-from-the-application.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-numa-awareness.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-numa-awareness.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-platform-upgrade.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-platform-upgrade.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-openshift-virtualization-kubevirt.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-openshift-virtualization-kubevirt.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-vm-image-import-recommendations-cdi.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-vm-image-import-recommendations-cdi.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-working-with-large-vm-disk-images.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-working-with-large-vm-disk-images.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-operator-best-practices.adoc[leveloffset=+4]
+include::modules/k8s-best-practices-operator-best-practices.adoc[leveloffset=+4]
 
-include::modules/cnf-best-practices-cnf-operator-requirements.adoc[leveloffset=+5]
+include::modules/k8s-best-practices-cnf-operator-requirements.adoc[leveloffset=+5]
 
-include::modules/cnf-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
+include::modules/k8s-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
 
-include::modules/cnf-best-practices-copyright.adoc[leveloffset=+1]
+include::modules/k8s-best-practices-copyright.adoc[leveloffset=+1]

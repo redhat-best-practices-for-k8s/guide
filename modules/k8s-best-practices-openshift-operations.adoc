@@ -17,14 +17,14 @@ The application should not require `NET_ADMIN` capability to perform the followi
 
 * All the links should be set up before attaching it to a pod.
 
-[id="cnf-best-practices-ip/mac-address-assignment"]
+[id="k8s-best-practices-ip/mac-address-assignment"]
 == Assigning IP/MAC addresses
 
 * For all the networks, the IP/MAC address should be assigned to the interface during pod creation.
 
 * MULTUS also allows users to override the IP/MAC address. Refer to link:https://docs.openshift.com/container-platform/latest/networking/multiple_networks/attaching-pod.html[Attaching a pod to an additional network] for more information.
 
-[id="cnf-best-practices-manipulate-pod’s-route-table"]
+[id="k8s-best-practices-manipulate-pod’s-route-table"]
 == Manipulating pod route tables
 
 * By default, the default route of the pod will point to the cluster network, with or without the additional networks. MULTUS also allows users to override the default route of the pod. Refer to link:https://docs.openshift.com/container-platform/latest/networking/multiple_networks/attaching-pod.html[Attaching a pod to an additional network] for more information.
@@ -44,7 +44,7 @@ The SR-IOV Network Operator also supports configuring the following parameters f
 * `spoofChk`
 * `trust`
 
-[id="cnf-best-practices-multicast"]
+[id="k8s-best-practices-multicast"]
 == Configuring multicast
 
 In OpenShift, multicast is supported for both the default interface (OVN or OpenShift-SDN) and the additional interfaces such as macvlan, SR-IOV, etc. Multicast is disabled by default. To enable it, refer to the following procedures:
