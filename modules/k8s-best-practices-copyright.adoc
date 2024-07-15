@@ -1,0 +1,10 @@
+:!sectnums:
+[id="k8s-best-practices-copyright"]
+= Copyright
+
+© Copyright 2023 Red Hat Inc.
+
+All Rights Reserved.
+
+Information contained herein is provided AS IS and subject to change without notice.
+All trademarks used herein are property of their respective owners.

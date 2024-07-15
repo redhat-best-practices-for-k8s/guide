@@ -1,0 +1,25 @@
+[id="k8s-best-practices-huge-pages"]
+= Huge pages
+
+In OpenShift Container Platform, nodes/hosts must pre-allocate huge pages.
+
+For more information, see
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-configuring-huge-pages_cnf-master[Configuring huge pages].
+
+
+To request hugepages, pods must supply the following within the `pod.spec` for each container:
+
+[source,yaml]
+----
+resources:
+  limits:
+    hugepages-2Mi: 100Mi
+    memory: "1Gi"
+    cpu: "1"
+  requests:
+    hugepages-2Mi: 100Mi
+    memory: "1Gi"
+    cpu: "1"
+----
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-2m-only[platform-alteration-hugepages-2m-only], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-config[platform-alteration-hugepages-config]

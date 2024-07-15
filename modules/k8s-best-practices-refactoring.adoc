@@ -1,0 +1,11 @@
+[id="k8s-best-practices-refactoring"]
+= Refactoring
+
+Workloads should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model to be in.
+
+It is hard to move a 1000LB boulder. However, it is easy when that boulder is broken down into many pieces (pebbles). All workloads should break apart each piece of the functions/services/processes into separate containers. These containers will still be within kubernetes pods and all of the functions that perform a single task should be within the same namespace.
+
+There is a link:https://martinfowler.com/microservices/[quote] from Lewis and Fowler that describes this best:
+
+[quote, Lewis and Fowler]
+The microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.These services are built around business capabilities and independently deployable by fully automated deployment machinery.

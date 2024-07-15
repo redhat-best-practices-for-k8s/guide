@@ -1,8 +1,0 @@
-[id="cnf-best-practices-avoid-mounting-host-directories-as-volumes"]
-= Avoid mounting host directories as volumes
-
-It is not necessary to mount host `/sys/` or host `/dev/` directories as a volume in a pod in order to use a network device such as SR-IOV VF. The moving of a network interface into the pod network namespace is done automatically by CNI. Mounting the whole `/sys/` or `/dev/` directory in the container will overwrite the network device descriptor inside the container which causes `device not found` or `no such file or directory` error.
-
-Network interface statistics can be queried inside the container using the same `/sys/` path as was done when running directly on the host. When running network interfaces in containers, relevant `/sys/` statistics interfaces are available inside the container, such as `/sys/class/net/net1/statistics/`, `/proc/net/tcp` and `/proc/net/tcp6`.
-
-For running DPDK applications with SR-IOV VF, device specs (in case of vfio-pci) are automatically attached to the container via the Device Plugin. There is no need to mount the /dev/ directory as a volume in the container as the application can find device specs under `/dev/vfio/` in the container.

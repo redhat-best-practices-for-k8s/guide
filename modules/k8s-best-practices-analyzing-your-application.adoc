@@ -1,0 +1,6 @@
+[id="k8s-best-practices-analyzing-your-application"]
+= Analyzing your application
+
+To find out which capabilities the application needs, Red Hat has developed a SystemTap script (`container_check.stp`). With this tool, the workload developer can find out what capabilities an application requires in order to run in a container. It also shows the syscalls which were invoked. Find more info at link:https://linuxera.org/capabilities-seccomp-kubernetes/[]
+
+Another tool is `capable` which is part of the BCC tools. It can be installed on RHEL8 with `dnf install bcc`.
