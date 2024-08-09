@@ -2,7 +2,7 @@ This document provides guidance and information for developing OpenShift applica
 
 New releases, Github-pages deployments (HTML versions), PDF versions are triggered automatically upon commit to the main branch.
 
-It is therefore recommended to wait for the workflow actions (https://github.com/test-network-function/k8s-best-practices-guide/actions) to finish and auto generate a new release with the latest commits, then edit the release notes and version tag manually if so desired (instead of generating a manual release, which may cause issues preventing auto generation of the PDF/HTML files).
+It is therefore recommended to wait for the workflow actions ((https://github.com/redhat-best-practices-for-k8s/guide/actions) to finish and auto generate a new release with the latest commits, then edit the release notes and version tag manually if so desired (instead of generating a manual release, which may cause issues preventing auto generation of the PDF/HTML files).
 
 The latest release will be auto published (via Github-pages bot) to https://test-network-function.github.io/k8s-best-practices-guide
 
