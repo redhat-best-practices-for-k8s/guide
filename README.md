@@ -6,7 +6,7 @@ It is therefore recommended to wait for the workflow actions (https://github.com
 
 The latest release will be auto published (via Github-pages bot) to (https://redhat-best-practices-for-k8s.github.io/guide)
 
-The latest (and previous) PDF versions can be downloaded from: https://github.com/test-network-function/k8s-best-practices-guide/releases
+The latest (and previous) PDF versions can be downloaded from: (https://github.com/redhat-best-practices-for-k8s/guide/releases)
 
 
 Contribution/PR Review Process: WIP
