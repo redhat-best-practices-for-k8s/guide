@@ -10,14 +10,6 @@ Users may choose to specify the required permissions for their running applicati
 
 The following runtime and SCC attributes control the capabilities that will be granted to a new container:
 
-* The capabilities granted to the CRI-O engine. The default capabilities are listed here: link:https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go[]
-+
-[NOTE]
-====
-As of Kubernetes version 1.18, CRI-O no longer runs with NET_RAW or SYS_CHROOT by default.
-link:https://cri-o.github.io/cri-o/v1.18.0.html[]
-====
-
 * The values in the SCC for `allowedCapabilities`, `defaultAddCapabilities` and `requiredDropCapabilities`
 
 * `allowPrivilegeEscalation`: controls whether a container can acquire extra privileges through setuid binaries or the file capabilities of binaries
