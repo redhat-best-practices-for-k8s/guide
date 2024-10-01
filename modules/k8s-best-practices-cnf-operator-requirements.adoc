@@ -64,21 +64,13 @@ The operator must default to watch all namespaces if the target namespace is lef
 .Workload requirement
 [IMPORTANT]
 ====
-All operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.
+Multiple versions of the same operator cannot exist on a single cluster.
 ====
 
 .Workload requirement
 [IMPORTANT]
 ====
-For general third party upstream operators (example: mongodb), the OLM package is recommended to be located within the Red Hat registries below to support our image mirror policy:
-
-* `quay.io`
-
-* `registry.redhat.io`
-
-* `registry.connect.redhat.com`
-
-* `registry.access.redhat.com`
+All Operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.
 ====
 
 .Workload requirement
