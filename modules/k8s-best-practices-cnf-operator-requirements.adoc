@@ -52,7 +52,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 .Workload requirement
 [IMPORTANT]
 ====
-The OLM operator CSV must support the "all namespaces" install method if the operator is upstream software. If the operator is a proprietary workload operator it must support single namespaced installation. It is recommended for an operator to support all OLM install modes to ensure flexibility in our environment.
+The OLM operator CSV must support the “all namespaces” install method if the operator is upstream software "global operator".  If the operator is a proprietary cnf operator "vendor operator" it must support single namespaced installation.  It is recommended for an operator to  support all OLM install modes to ensure flexibility in our environment.
 ====
 
 .Workload requirement
