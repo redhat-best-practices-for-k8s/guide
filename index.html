@@ -3380,8 +3380,10 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <p>The OpenShift platform can use the Kubernetes CPU Manager to support allocation of cores using kubernetes guaranteed QoS class for applications. Isolcpus is not enabled.</p>
 </div>
 <div class="paragraph">
-<p>Important note on using probes: If the workload is doing CPU pinning and running a DPDK process do
-not use exec probes (executing a command within the container) as it may pile up and block the
+<p><a href="https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed" class="bare">https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed</a></p>
+</div>
+<div class="paragraph">
+<p>Important note on using probes: If the CNF is running a DPDK process do not use exec probes (executing a command within the container) as it may pile up and block the
 node eventually.</p>
 </div>
 <div class="paragraph">
@@ -6652,7 +6654,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-01 16:32:05 UTC
+Last updated 2024-10-01 16:34:45 UTC
 </div>
 </div>
 <!-- Nav bar -->
