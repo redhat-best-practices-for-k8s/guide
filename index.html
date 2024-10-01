@@ -6129,7 +6129,7 @@ loadbalancer-15</span></code></pre>
 <td class="content">
 <div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>All operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.</p>
+<p>Multiple versions of the same operator cannot exist on a single cluster.</p>
 </div>
 </td>
 </tr>
@@ -6144,23 +6144,7 @@ loadbalancer-15</span></code></pre>
 <td class="content">
 <div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>For general third party upstream operators (example: mongodb), the OLM package is recommended to be located within the Red Hat registries below to support our image mirror policy:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>quay.io</code></p>
-</li>
-<li>
-<p><code>registry.redhat.io</code></p>
-</li>
-<li>
-<p><code>registry.connect.redhat.com</code></p>
-</li>
-<li>
-<p><code>registry.access.redhat.com</code></p>
-</li>
-</ul>
+<p>All Operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.</p>
 </div>
 </td>
 </tr>
@@ -6502,7 +6486,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-01 16:13:35 UTC
+Last updated 2024-10-01 16:18:15 UTC
 </div>
 </div>
 <!-- Nav bar -->
