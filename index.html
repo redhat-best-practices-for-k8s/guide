@@ -5,8 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="author" content="Workload best practices">
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-<title>Foreword</title>
+<title>Red Hat Best Practices for Kubernetes</title>
 <style>
 /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap");
@@ -2968,52 +2969,175 @@ pre.rouge .gs {
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
 <script src="./assets/js/jquery.min.js"></script>
 </head>
-<body class="article toc2 toc-left">
+<body id="k8s-best-practices" class="article toc2 toc-left">
 <!-- Navbar -->
 <div class="paragraph navbar">
-    <p><a href="#"><span class="image"><img src="assets/img/logo.svg" alt="Home" width="30"></span> | {doctitle}</a>
+    <p><a href="#"><span class="image"><img src="assets/img/logo.svg" alt="Home" width="30"></span> | Red Hat Best Practices for Kubernetes</a>
     </p>
 </div>
 <div id="header">
+<h1>Red Hat Best Practices for Kubernetes</h1>
+<div class="details">
+<span id="author" class="author">Workload best practices</span><br>
+<span id="revnumber">version v2,</span>
+<span id="revdate">2023</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#k8s-best-practices-foreword">Foreword</a></li>
-<li><a href="#k8s-best-practices-openshift-platform">Developing Containers and Operators for the OpenShift Container Platform (OCP)</a>
+<li><a href="#k8s-best-practices-foreword">1. Foreword</a></li>
+<li><a href="#k8s-best-practices-openshift-platform">2. Developing Containers and Operators for the OpenShift Container Platform (OCP)</a>
 <ul class="sectlevel2">
-<li><a href="#k8s-best-practices-helm">Helm v3</a></li>
-<li><a href="#k8s-best-practices-k8s">Kubernetes</a></li>
-<li><a href="#k8s-best-practices-cni-ovn">CNI-OVN</a></li>
-<li><a href="#k8s-best-practices-csi">Container storage (CSI)</a></li>
-<li><a href="#k8s-best-practices-block-storage">Block storage</a></li>
-<li><a href="#k8s-best-practices-ephemeral-storage">Ephemeral storage</a></li>
-<li><a href="#k8s-best-practices-local-storage">Local storage</a></li>
-<li><a href="#k8s-best-practices-container-runtime">Container runtime</a></li>
-<li><a href="#k8s-best-practices-cpu-manager-pinning">CPU manager/pinning</a></li>
-<li><a href="#k8s-best-practices-host-os">Container host operating system</a></li>
-<li><a href="#k8s-best-practices-ubi">Red Hat Universal Base Images</a></li>
-<li><a href="#k8s-best-practices-pod-security">Pod security</a></li>
-<li><a href="#k8s-best-practices-ci-cd">CI/CD framework</a></li>
-<li><a href="#k8s-best-practices-k8s-api-versions">Kubernetes API versions</a></li>
-<li><a href="#k8s-best-practices-ovn-kubernetes-cni">OVN-Kubernetes CNI</a></li>
-<li><a href="#k8s-best-practices-user-plane-functions">User plane functions</a></li>
+<li><a href="#k8s-best-practices-helm">2.1. Helm v3</a></li>
+<li><a href="#k8s-best-practices-k8s">2.2. Kubernetes</a></li>
+<li><a href="#k8s-best-practices-cni-ovn">2.3. CNI-OVN</a></li>
+<li><a href="#k8s-best-practices-csi">2.4. Container storage (CSI)</a></li>
+<li><a href="#k8s-best-practices-block-storage">2.5. Block storage</a></li>
+<li><a href="#k8s-best-practices-ephemeral-storage">2.6. Ephemeral storage</a></li>
+<li><a href="#k8s-best-practices-local-storage">2.7. Local storage</a></li>
+<li><a href="#k8s-best-practices-container-runtime">2.8. Container runtime</a></li>
+<li><a href="#k8s-best-practices-cpu-manager-pinning">2.9. CPU manager/pinning</a></li>
+<li><a href="#k8s-best-practices-host-os">2.10. Container host operating system</a></li>
+<li><a href="#k8s-best-practices-ubi">2.11. Red Hat Universal Base Images</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-base-images">2.11.1. Base Images</a>
+<ul class="sectlevel4">
+<li><a href="#k8s-best-practices-runtime-languages">2.11.1.1. Runtime Languages</a></li>
+<li><a href="#k8s-best-practices-complementary-packages">2.11.1.2. Complementary packages</a></li>
 </ul>
 </li>
-<li><a href="#k8s-best-practices-developer-guide">Workload developer guide</a>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-pod-security">2.12. Pod security</a></li>
+<li><a href="#k8s-best-practices-ci-cd">2.13. CI/CD framework</a></li>
+<li><a href="#k8s-best-practices-k8s-api-versions">2.14. Kubernetes API versions</a></li>
+<li><a href="#k8s-best-practices-ovn-kubernetes-cni">2.15. OVN-Kubernetes CNI</a></li>
+<li><a href="#k8s-best-practices-user-plane-functions">2.16. User plane functions</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-performance-addon-operator-pao">2.16.1. Node Tuning Operator</a></li>
+<li><a href="#k8s-best-practices-huge-pages">2.16.2. Huge pages</a></li>
+<li><a href="#k8-best-practices-cpu-isolation">2.16.3. CPU isolation</a></li>
+<li><a href="#k8s-best-practices-topology-manager-and-numa-awareness">2.16.4. Topology Manager and NUMA awareness</a></li>
+<li><a href="#k8s-best-practices-ipv4-&-ipv6">2.16.5. IPv4 &amp; IPv6</a></li>
+<li><a href="#cnf-best-practices-ipv6-nat">2.16.6. IPv6 NAT</a></li>
+<li><a href="#k8s-best-practices-vrfs-aka-routing-instances">2.16.7. VRFs (aka routing instances)</a></li>
+<li><a href="#k8s-best-practices-ports-reserved-by-openshift">2.16.8. Ports reserved by OpenShift</a></li>
+<li><a href="#k8s-best-practices-user-plane-cnfs">2.16.9. Handling user-plane workloads</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-developer-guide">3. Workload developer guide</a>
 <ul class="sectlevel2">
-<li><a href="#k8s-best-practices-preface">Preface</a></li>
-<li><a href="#k8s-best-practices-goal">Goal</a></li>
-<li><a href="#k8s-best-practices-non-goal">Non-goal</a></li>
-<li><a href="#k8s-best-practices-refactoring">Refactoring</a></li>
-<li><a href="#k8s-best-practices-cnf-security">Workload security</a></li>
-<li><a href="#k8s-best-practices-linux-capabilities">Linux capabilities</a></li>
-<li><a href="#k8s-best-practices-openshift-operations">Operations that shall be executed by OpenShift</a></li>
-<li><a href="#k8s-best-practices-operations-that-can-not-be-executed-by-openshift">Operations that can not be executed by OpenShift</a></li>
-<li><a href="#k8s-best-practices-analyzing-your-application">Analyzing your application</a></li>
-<li><a href="#k8s-best-practices-finding-the-capabilities-that-an-application-needs">Finding the capabilities that an application needs</a></li>
-<li><a href="#k8s-best-practices-cnf-securing-cnf-networks">Securing workload networks</a></li>
-<li><a href="#k8s-best-practices-cloud-native-function-expectations-and-permissions">Cloud-native function expectations and permissions</a></li>
-<li><a href="#k8s-best-practices-requirements-cnf-reqs">Requirements for a workload</a></li>
+<li><a href="#k8s-best-practices-preface">3.1. Preface</a></li>
+<li><a href="#k8s-best-practices-goal">3.2. Goal</a></li>
+<li><a href="#k8s-best-practices-non-goal">3.3. Non-goal</a></li>
+<li><a href="#k8s-best-practices-refactoring">3.4. Refactoring</a></li>
+<li><a href="#k8s-best-practices-cnf-security">3.5. Workload security</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-avoid-accessing-resource-on-host">3.5.1. Avoid accessing resource on host</a></li>
+<li><a href="#k8s-best-practices-avoid-mounting-host-directories-as-volumes">3.5.2. Avoid mounting host directories as volumes</a></li>
+<li><a href="#k8s-best-practices-avoid-the-host-network-namespace">3.5.3. Avoid the host network namespace</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-linux-capabilities">3.6. Linux capabilities</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-default-capabilities">3.6.1. DEFAULT capabilities</a></li>
+<li><a href="#k8s-best-practices-ipc_lock">3.6.2. IPC_LOCK</a></li>
+<li><a href="#k8s-best-practices-net_admin">3.6.3. NET_ADMIN</a></li>
+<li><a href="#k8s-best-practices-avoid-sys_admin">3.6.4. Avoid SYS_ADMIN</a></li>
+<li><a href="#k8s-best-practices-sys_nice">3.6.5. SYS_NICE</a></li>
+<li><a href="#k8s-best-practices-sys_ptrace">3.6.6. SYS_PTRACE</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-openshift-operations">3.7. Operations that shall be executed by OpenShift</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-mtu-setting">3.7.1. Setting the MTU</a></li>
+<li><a href="#k8s-best-practices-link-state-modification">3.7.2. Modifying link state</a></li>
+<li><a href="#k8s-best-practices-ip/mac-address-assignment">3.7.3. Assigning IP/MAC addresses</a></li>
+<li><a href="#k8s-best-practices-manipulate-pod’s-route-table">3.7.4. Manipulating pod route tables</a></li>
+<li><a href="#k8s-best-practices-sr/iov-vf-setting">3.7.5. Setting SR/IOV VFs</a></li>
+<li><a href="#k8s-best-practices-multicast">3.7.6. Configuring multicast</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></li>
+<li><a href="#k8s-best-practices-analyzing-your-application">3.9. Analyzing your application</a></li>
+<li><a href="#k8s-best-practices-finding-the-capabilities-that-an-application-needs">3.10. Finding the capabilities that an application needs</a></li>
+<li><a href="#k8s-best-practices-cnf-securing-cnf-networks">3.11. Securing workload networks</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-secrets-management">3.11.1. Managing secrets</a></li>
+<li><a href="#k8s-best-practices-scc-permissions-for-an-application">3.11.2. Setting SCC permissions for applications</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-cloud-native-function-expectations-and-permissions">3.12. Cloud-native function expectations and permissions</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-cloud-native-design-best-practices">3.12.1. Cloud-native design best practices</a>
+<ul class="sectlevel4">
+<li><a href="#k8s-best-practices-high-level-cnf-expectations">3.12.1.1. High-level workload expectations</a></li>
+<li><a href="#k8s-best-practices-pod-permissions">3.12.1.2. Pod permissions</a></li>
+<li><a href="#k8s-best-practices-logging">3.12.1.3. Logging</a></li>
+<li><a href="#k8s-best-practices-monitoring">3.12.1.4. Monitoring</a></li>
+<li><a href="#k8s-best-practices-cpu-allocation">3.12.1.5. CPU allocation</a></li>
+<li><a href="#k8s-best-practices-memory-allocation">3.12.1.6. Memory allocation</a></li>
+<li><a href="#k8s-best-practices-pods">3.12.1.7. Pods</a>
+<ul class="sectlevel5">
+<li><a href="#k8s-best-practices-pod-interaction-and-configuration">3.12.1.7.1. Pod interaction and configuration</a></li>
+<li><a href="#k8s-best-practices-pod-exit-status">3.12.1.7.2. Pod exit status</a></li>
+<li><a href="#k8s-best-practices-graceful-termination">3.12.1.7.3. Graceful termination</a></li>
+<li><a href="#k8s-best-practices-pod-resource-profiles">3.12.1.7.4. Pod resource profiles</a></li>
+<li><a href="#k8s-best-practices-storage:-emptydir">3.12.1.7.5. Storage: emptyDir</a></li>
+<li><a href="#k8s-best-practices-liveness-readiness-and-startup-probes">3.12.1.7.6. Liveness readiness and startup probes</a></li>
+<li><a href="#k8s-best-practices-affinity-anti-affinity">3.12.1.7.7. Affinity and anti-affinity</a></li>
+<li><a href="#k8s-best-practices-upgrade-expectations">3.12.1.7.8. Upgrade expectations</a></li>
+<li><a href="#k8s-best-practices-taints-and-tolerations">3.12.1.7.9. Taints and tolerations</a></li>
+<li><a href="#k8s-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></li>
+<li><a href="#k8s-best-practices-use-imagepullpolicy:-ifnotpresent">3.12.1.7.11. Use imagePullPolicy: IfNotPresent</a></li>
+<li><a href="#k8s-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></li>
+<li><a href="#k8s-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></li>
+<li><a href="#k8s-best-practices-no-naked-pods">3.12.1.7.14. No naked pods</a></li>
+<li><a href="#k8s-best-practices-image-tagging">3.12.1.7.15. Image tagging</a></li>
+<li><a href="#k8s-best-practices-one-process-per-container">3.12.1.7.16. One process per container</a></li>
+<li><a href="#k8s-best-practices-init-containers">3.12.1.7.17. init containers</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-security-and-role-based-access-control">3.12.1.8. Security and role-based access control</a></li>
+<li><a href="#k8s-best-practices-custom-role-to-access-application-crds">3.12.1.9. Custom role to access application CRDs</a></li>
+<li><a href="#k8s-best-practices-multus">3.12.1.10. MULTUS</a></li>
+<li><a href="#k8s-best-practices-multus-sr-iov---macvlan">3.12.1.11. MULTUS SR-IOV / MACVLAN</a></li>
+<li><a href="#spk-integration-via-spk-operator">3.12.1.12. SPK Integration via SPK Operator</a>
+<ul class="sectlevel5">
+<li><a href="#cnf-best-practices-spkprofile">3.12.1.12.1. SPKProfile</a></li>
+<li><a href="#cnf-best-practices-spkstaticroute">3.12.1.12.2. SPKStaticroute</a></li>
+<li><a href="#cnf-best-practices-spksnatpool">3.12.1.12.3. SPKSnatpool</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-sr-iov-interface-settings">3.12.1.13. SR-IOV interface settings</a></li>
+<li><a href="#k8s-best-practices-attaching-the-vf-to-a-pod">3.12.1.14. Attaching the VF to a pod</a></li>
+<li><a href="#k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.12.1.15. Discovering SR-IOV devices properties from the application</a></li>
+<li><a href="#k8s-best-practices-numa-awareness">3.12.1.16. NUMA awareness</a></li>
+<li><a href="#k8s-best-practices-platform-upgrade">3.12.1.17. Platform upgrade</a></li>
+<li><a href="#k8s-best-practices-openshift-virtualization-and-cnv-best-practices">3.12.1.18. OpenShift virtualization and CNV best practices</a>
+<ul class="sectlevel5">
+<li><a href="#k8s-best-practices-vm-image-import-recommendations-cdi">3.12.1.18.1. VM image import recommendations (CDI)</a></li>
+<li><a href="#k8s-best-practices-working-with-large-vm-disk-images">3.12.1.18.2. Working with large VM disk images</a></li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-operator-best-practices">3.12.1.19. Operator best practices</a>
+<ul class="sectlevel5">
+<li><a href="#k8s-best-practices-cnf-operator-requirements">3.12.1.19.1. Workload Operator requirements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#k8s-best-practices-requirements-cnf-reqs">3.13. Requirements for a workload</a>
+<ul class="sectlevel3">
+<li><a href="#k8s-best-practices-image-standards">3.13.1. Image standards</a></li>
+<li><a href="#k8s-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></li>
+<li><a href="#k8s-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#k8s-best-practices-copyright">Copyright</a></li>
@@ -3021,24 +3145,13 @@ pre.rouge .gs {
 </div>
 </div>
 <div id="content">
-<div class="paragraph">
-<p>include::[id="k8s-best-practices"]
-= Red Hat Best Practices for Kubernetes
-Workload best practices
-:revnumber: v2
-:revdate: 2023
-:toc: left
-:toclevels: 5
-:repo-url: <a href="https://github.com/test-network-function/k8s-best-practices-guide" class="bare">https://github.com/test-network-function/k8s-best-practices-guide</a>
-:icons: image
-:icontype: svg
-:iconsdir: pdf/icons
-:sectnums:
-:sectnumlevels: 5</p>
-</div>
+<div id="preamble">
+<div class="sectionbody">
 <!-- toc disabled -->
+</div>
+</div>
 <div class="sect1">
-<h2 id="k8s-best-practices-foreword"><a class="link" href="#k8s-best-practices-foreword">Foreword</a></h2>
+<h2 id="k8s-best-practices-foreword"><a class="link" href="#k8s-best-practices-foreword">1. Foreword</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This <em>Red Hat Best Practices for Kubernetes</em> document was originally created in 2020 by Verizon with assistance from Red Hat.
@@ -3051,7 +3164,7 @@ Over many iterations, and based on lessons learned and feature improvements in t
 </div>
 </div>
 <div class="sect1">
-<h2 id="k8s-best-practices-openshift-platform"><a class="link" href="#k8s-best-practices-openshift-platform">Developing Containers and Operators for the OpenShift Container Platform (OCP)</a></h2>
+<h2 id="k8s-best-practices-openshift-platform"><a class="link" href="#k8s-best-practices-openshift-platform">2. Developing Containers and Operators for the OpenShift Container Platform (OCP)</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Review the following information to learn more about developing Containers and Operators for the OpenShift Container Platform (OCP) in compliance with Red Hat certification requirements:</p>
@@ -3070,7 +3183,7 @@ Over many iterations, and based on lessons learned and feature improvements in t
 </ul>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-helm"><a class="link" href="#k8s-best-practices-helm">Helm v3</a></h3>
+<h3 id="k8s-best-practices-helm"><a class="link" href="#k8s-best-practices-helm">2.1. Helm v3</a></h3>
 <div class="paragraph">
 <p>Helm v3 is a serverless mechanism for defining templates that describe a complete Kubernetes application. This allows you to build generic templates for applications that you can use with site or deployment specific values to be provided as inputs to the template.
 Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
@@ -3098,7 +3211,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-k8s"><a class="link" href="#k8s-best-practices-k8s">Kubernetes</a></h3>
+<h3 id="k8s-best-practices-k8s"><a class="link" href="#k8s-best-practices-k8s">2.2. Kubernetes</a></h3>
 <div class="paragraph">
 <p>Kubernetes is an open source container orchestration suite of software that is API driven with a datastore that manages the state of the deployments residing on the cluster.</p>
 </div>
@@ -3113,13 +3226,13 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-cni-ovn"><a class="link" href="#k8s-best-practices-cni-ovn">CNI-OVN</a></h3>
+<h3 id="k8s-best-practices-cni-ovn"><a class="link" href="#k8s-best-practices-cni-ovn">2.3. CNI-OVN</a></h3>
 <div class="paragraph">
 <p>OVN is the default pod network CNI plugin for OpenShift and is supported by Red Hat. OVN is Red Hat&#8217;s CNI for pods. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. OpenShift&#8217;s OVN forwarding is based on flow rules and implemented with <code>nftables</code> on the host operating system CNI pod.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-csi"><a class="link" href="#k8s-best-practices-csi">Container storage (CSI)</a></h3>
+<h3 id="k8s-best-practices-csi"><a class="link" href="#k8s-best-practices-csi">2.4. Container storage (CSI)</a></h3>
 <div class="paragraph">
 <p>Pod volumes are supported via local storage and the CSI for persistent volumes. Local storage is truly ephemeral storage, it is local only to the physical node that a pod is running on and is lost when a pod is killed and recreated. If a pod requires persistent storage, the CSI can be used via Kubernetes native primitives <code>persistentVolume</code> (<code>PV</code>) and <code>persistentVolumeClaim</code> (<code>PVC</code>) to get persistent storage, such as an NFS share via the CSI backed by NetApp Trident.</p>
 </div>
@@ -3137,7 +3250,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-block-storage"><a class="link" href="#k8s-best-practices-block-storage">Block storage</a></h3>
+<h3 id="k8s-best-practices-block-storage"><a class="link" href="#k8s-best-practices-block-storage">2.5. Block storage</a></h3>
 <div class="paragraph">
 <p>OpenShift Container Platform can provision raw block volumes. These volumes do not have a file system, and can provide performance benefits for applications that either write to the disk directly or implement their own storage service.</p>
 </div>
@@ -3164,7 +3277,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-ephemeral-storage"><a class="link" href="#k8s-best-practices-ephemeral-storage">Ephemeral storage</a></h3>
+<h3 id="k8s-best-practices-ephemeral-storage"><a class="link" href="#k8s-best-practices-ephemeral-storage">2.6. Ephemeral storage</a></h3>
 <div class="paragraph">
 <p>Pods and containers can require ephemeral or transient local storage for their operation. The lifetime of this ephemeral storage does not extend beyond the life of the individual pod, and this ephemeral storage cannot be shared across pods.</p>
 </div>
@@ -3185,7 +3298,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-local-storage"><a class="link" href="#k8s-best-practices-local-storage">Local storage</a></h3>
+<h3 id="k8s-best-practices-local-storage"><a class="link" href="#k8s-best-practices-local-storage">2.7. Local storage</a></h3>
 <div class="paragraph">
 <p>Local storage is available on worker nodes for ephemeral storage only.</p>
 </div>
@@ -3209,7 +3322,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-container-runtime"><a class="link" href="#k8s-best-practices-container-runtime">Container runtime</a></h3>
+<h3 id="k8s-best-practices-container-runtime"><a class="link" href="#k8s-best-practices-container-runtime">2.8. Container runtime</a></h3>
 <div class="paragraph">
 <p>OpenShift uses CRI-O as a CRI interface for Kubernetes. CRI-O manages <code>runC</code> for container image execution. CRI-O is an open-source container engine that provides a stable, performant platform for running OCI compatible runtimes. CRI-O is developed, tested and released in tandem with Kubernetes major and minor releases.</p>
 </div>
@@ -3270,7 +3383,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-cpu-manager-pinning"><a class="link" href="#k8s-best-practices-cpu-manager-pinning">CPU manager/pinning</a></h3>
+<h3 id="k8s-best-practices-cpu-manager-pinning"><a class="link" href="#k8s-best-practices-cpu-manager-pinning">2.9. CPU manager/pinning</a></h3>
 <div class="paragraph">
 <p>The OpenShift platform can use the Kubernetes CPU Manager to support allocation of cores using kubernetes guaranteed QoS class for applications. Isolcpus is not enabled.</p>
 </div>
@@ -3289,7 +3402,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-host-os"><a class="link" href="#k8s-best-practices-host-os">Container host operating system</a></h3>
+<h3 id="k8s-best-practices-host-os"><a class="link" href="#k8s-best-practices-host-os">2.10. Container host operating system</a></h3>
 <div class="paragraph">
 <p>Red Hat Enterprise Linux CoreOS (RHCOS) is the next generation container operating system. RCHOS is part of OpenShift Container Platform and is used as the operating system for the control plane. it is the default operating system for worker nodes. RHCOS is based on RHEL, has some immutability, leverages the CRI-O runtime, contains container tools, and is updated through the Machine Config Operator (MCO).</p>
 </div>
@@ -3304,12 +3417,12 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-ubi"><a class="link" href="#k8s-best-practices-ubi">Red Hat Universal Base Images</a></h3>
+<h3 id="k8s-best-practices-ubi"><a class="link" href="#k8s-best-practices-ubi">2.11. Red Hat Universal Base Images</a></h3>
 <div class="paragraph">
 <p><a href="https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455">Red Hat Universal Base Images (UBI)</a> is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.</p>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-base-images"><a class="link" href="#k8s-best-practices-base-images">Base Images</a></h4>
+<h4 id="k8s-best-practices-base-images"><a class="link" href="#k8s-best-practices-base-images">2.11.1. Base Images</a></h4>
 <div class="paragraph">
 <p>A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.</p>
 </div>
@@ -3317,13 +3430,13 @@ node eventually.</p>
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a></p>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-runtime-languages"><a class="link" href="#k8s-best-practices-runtime-languages">Runtime Languages</a></h5>
+<h5 id="k8s-best-practices-runtime-languages"><a class="link" href="#k8s-best-practices-runtime-languages">2.11.1.1. Runtime Languages</a></h5>
 <div class="paragraph">
 <p>A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-complementary-packages"><a class="link" href="#k8s-best-practices-complementary-packages">Complementary packages</a></h5>
+<h5 id="k8s-best-practices-complementary-packages"><a class="link" href="#k8s-best-practices-complementary-packages">2.11.1.2. Complementary packages</a></h5>
 <div class="paragraph">
 <p>A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.</p>
 </div>
@@ -3337,7 +3450,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-pod-security"><a class="link" href="#k8s-best-practices-pod-security">Pod security</a></h3>
+<h3 id="k8s-best-practices-pod-security"><a class="link" href="#k8s-best-practices-pod-security">2.12. Pod security</a></h3>
 <div class="paragraph">
 <p>SELinux should always be enabled within the OpenShift Container Platform and will be used to enforce syscalls that containers make. In addition, Kubernetes has another native function called pod security policies.</p>
 </div>
@@ -3346,13 +3459,13 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-ci-cd"><a class="link" href="#k8s-best-practices-ci-cd">CI/CD framework</a></h3>
+<h3 id="k8s-best-practices-ci-cd"><a class="link" href="#k8s-best-practices-ci-cd">2.13. CI/CD framework</a></h3>
 <div class="paragraph">
 <p>Applications should target a CI/CD approach for deployment and validation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-k8s-api-versions"><a class="link" href="#k8s-best-practices-k8s-api-versions">Kubernetes API versions</a></h3>
+<h3 id="k8s-best-practices-k8s-api-versions"><a class="link" href="#k8s-best-practices-k8s-api-versions">2.14. Kubernetes API versions</a></h3>
 <div class="paragraph">
 <p>Review the Kubernetes and OpenShift API documentation:</p>
 </div>
@@ -3386,7 +3499,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-ovn-kubernetes-cni"><a class="link" href="#k8s-best-practices-ovn-kubernetes-cni">OVN-Kubernetes CNI</a></h3>
+<h3 id="k8s-best-practices-ovn-kubernetes-cni"><a class="link" href="#k8s-best-practices-ovn-kubernetes-cni">2.15. OVN-Kubernetes CNI</a></h3>
 <div class="paragraph">
 <p>OVN is Red Hat&#8217;s CNI for pod networking. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. Openshift&#8217;s OVN forwarding is based on flow rules and implemented with nftables on the host OS CNI pod.</p>
 </div>
@@ -3395,12 +3508,12 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-user-plane-functions"><a class="link" href="#k8s-best-practices-user-plane-functions">User plane functions</a></h3>
+<h3 id="k8s-best-practices-user-plane-functions"><a class="link" href="#k8s-best-practices-user-plane-functions">2.16. User plane functions</a></h3>
 <div class="paragraph">
 <p>Develop user plane functions that meet the following requirements.</p>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-performance-addon-operator-pao"><a class="link" href="#k8s-best-practices-performance-addon-operator-pao">Node Tuning Operator</a></h4>
+<h4 id="k8s-best-practices-performance-addon-operator-pao"><a class="link" href="#k8s-best-practices-performance-addon-operator-pao">2.16.1. Node Tuning Operator</a></h4>
 <div class="paragraph">
 <p>Red Hat created the
 <a href="https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-provisioning-real-time-and-low-latency-workloads_cnf-master">Node Tuning Operator</a> for low latency nodes.</p>
@@ -3424,7 +3537,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-huge-pages"><a class="link" href="#k8s-best-practices-huge-pages">Huge pages</a></h4>
+<h4 id="k8s-best-practices-huge-pages"><a class="link" href="#k8s-best-practices-huge-pages">2.16.2. Huge pages</a></h4>
 <div class="paragraph">
 <p>In OpenShift Container Platform, nodes/hosts must pre-allocate huge pages.</p>
 </div>
@@ -3453,7 +3566,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8-best-practices-cpu-isolation"><a class="link" href="#k8-best-practices-cpu-isolation">CPU isolation</a></h4>
+<h4 id="k8-best-practices-cpu-isolation"><a class="link" href="#k8-best-practices-cpu-isolation">2.16.3. CPU isolation</a></h4>
 <div class="paragraph">
 <p>The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs for cluster and operating system housekeeping duties, and isolated CPUs for workloads. CPUs that are used for low latency workloads are set as isolated.</p>
 </div>
@@ -3480,7 +3593,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-topology-manager-and-numa-awareness"><a class="link" href="#k8s-best-practices-topology-manager-and-numa-awareness">Topology Manager and NUMA awareness</a></h4>
+<h4 id="k8s-best-practices-topology-manager-and-numa-awareness"><a class="link" href="#k8s-best-practices-topology-manager-and-numa-awareness">2.16.4. Topology Manager and NUMA awareness</a></h4>
 <div class="paragraph">
 <p>Topology Manager collects hints from the CPU Manager, Device Manager, and other Hint Providers to align pod resources, such as CPU, SR-IOV VFs, and other device resources, for all Quality of Service (QoS) classes on the same non-uniform memory access (NUMA) node. This topology information and the configured Topology manager policy determine whether a workload is accepted or rejected on a node.</p>
 </div>
@@ -3522,7 +3635,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-ipv4-&-ipv6"><a class="link" href="#k8s-best-practices-ipv4-&-ipv6">IPv4 &amp; IPv6</a></h4>
+<h4 id="k8s-best-practices-ipv4-&-ipv6"><a class="link" href="#k8s-best-practices-ipv4-&-ipv6">2.16.5. IPv4 &amp; IPv6</a></h4>
 <div class="paragraph">
 <p>Applications should discover services via DNS by doing an AAAA and A query. If an application gets a AAAA response the application should prefer using the IPv6 address in the AAAA response for application sockets.</p>
 </div>
@@ -3579,7 +3692,7 @@ node eventually.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cnf-best-practices-ipv6-nat"><a class="link" href="#cnf-best-practices-ipv6-nat">IPv6 NAT</a></h4>
+<h4 id="cnf-best-practices-ipv6-nat"><a class="link" href="#cnf-best-practices-ipv6-nat">2.16.6. IPv6 NAT</a></h4>
 <div class="paragraph">
 <p>Services advertised to other CNFs should utilize VIPs on the SPK that are part of the platform.
 This creation of external services is done via pushing a configmap with F5 AS3 formatted configuration tocreation of CRDs for SPK into the Kubernetes API.</p>
@@ -3598,7 +3711,7 @@ Because the pods only have an IPv4 address and socket they attempt to reach the 
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-vrfs-aka-routing-instances"><a class="link" href="#k8s-best-practices-vrfs-aka-routing-instances">VRFs (aka routing instances)</a></h4>
+<h4 id="k8s-best-practices-vrfs-aka-routing-instances"><a class="link" href="#k8s-best-practices-vrfs-aka-routing-instances">2.16.7. VRFs (aka routing instances)</a></h4>
 <div class="paragraph">
 <p>Virtual routing and forwarding (VRF) provides a way to have separate routing tables on the device enabling multiple L3 routing domains concurrently. This allows for traffic in different VRF to be treated independently of each other.</p>
 </div>
@@ -3629,7 +3742,7 @@ pods and services.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-ports-reserved-by-openshift"><a class="link" href="#k8s-best-practices-ports-reserved-by-openshift">Ports reserved by OpenShift</a></h4>
+<h4 id="k8s-best-practices-ports-reserved-by-openshift"><a class="link" href="#k8s-best-practices-ports-reserved-by-openshift">2.16.8. Ports reserved by OpenShift</a></h4>
 <div class="paragraph">
 <p>The following ports are reserved by OpenShift and should not be used by any application. These ports are blocked by iptables on the nodes and traffic will not pass. Port list:</p>
 </div>
@@ -3663,7 +3776,7 @@ pods and services.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-user-plane-cnfs"><a class="link" href="#k8s-best-practices-user-plane-cnfs">Handling user-plane workloads</a></h4>
+<h4 id="k8s-best-practices-user-plane-cnfs"><a class="link" href="#k8s-best-practices-user-plane-cnfs">2.16.9. Handling user-plane workloads</a></h4>
 <div class="paragraph">
 <p>A workload which handles user plane traffic or latency-sensitive payloads at line rate falls into this category, such as load balancing, routing, deep packet inspection, and so on. Some of these workloads may also need to process the packets at a lower level.</p>
 </div>
@@ -3782,31 +3895,31 @@ pods and services.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="k8s-best-practices-developer-guide"><a class="link" href="#k8s-best-practices-developer-guide">Workload developer guide</a></h2>
+<h2 id="k8s-best-practices-developer-guide"><a class="link" href="#k8s-best-practices-developer-guide">3. Workload developer guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section discusses recommendations and requirements for workload application builders.</p>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-preface"><a class="link" href="#k8s-best-practices-preface">Preface</a></h3>
+<h3 id="k8s-best-practices-preface"><a class="link" href="#k8s-best-practices-preface">3.1. Preface</a></h3>
 <div class="paragraph">
 <p>Cloud-native workload applications are containerized instances of classic physical or virtual applications which have been decomposed into microservices supporting elasticity, lifecycle management, security, logging, and other capabilities in a Cloud-Native format.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-goal"><a class="link" href="#k8s-best-practices-goal">Goal</a></h3>
+<h3 id="k8s-best-practices-goal"><a class="link" href="#k8s-best-practices-goal">3.2. Goal</a></h3>
 <div class="paragraph">
 <p>This document is mainly for the developers of workloads, who need to build high-performance applications in a containerized environment. We have created a guide that any partner can take and follow when developing their workloads so that they can be deployed on the OpenShift Container Platform (OCP) in a secure, efficient and supportable way.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-non-goal"><a class="link" href="#k8s-best-practices-non-goal">Non-goal</a></h3>
+<h3 id="k8s-best-practices-non-goal"><a class="link" href="#k8s-best-practices-non-goal">3.3. Non-goal</a></h3>
 <div class="paragraph">
 <p>This is not a guide on how to build workload functionality.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-refactoring"><a class="link" href="#k8s-best-practices-refactoring">Refactoring</a></h3>
+<h3 id="k8s-best-practices-refactoring"><a class="link" href="#k8s-best-practices-refactoring">3.4. Refactoring</a></h3>
 <div class="paragraph">
 <p>Workloads should break their software down into the smallest set of microservices as possible. Running monolithic applications inside of a container is not the operating model to be in.</p>
 </div>
@@ -3826,7 +3939,7 @@ The microservice architectural style is an approach to developing a single appli
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-cnf-security"><a class="link" href="#k8s-best-practices-cnf-security">Workload security</a></h3>
+<h3 id="k8s-best-practices-cnf-security"><a class="link" href="#k8s-best-practices-cnf-security">3.5. Workload security</a></h3>
 <div class="paragraph">
 <p>In OCP, it is possible to run privileged containers that have all of the root capabilities on a host machine, allowing the ability to access resources which are not accessible in ordinary containers. This, however, increases the security risk to the whole cluster. Containers should only request those privileges they need to run their legitimate functions. No containers will be allowed to run with full privileges without an exception.</p>
 </div>
@@ -3960,13 +4073,13 @@ requesting escalated privilege to perform this function.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-avoid-accessing-resource-on-host"><a class="link" href="#k8s-best-practices-avoid-accessing-resource-on-host">Avoid accessing resource on host</a></h4>
+<h4 id="k8s-best-practices-avoid-accessing-resource-on-host"><a class="link" href="#k8s-best-practices-avoid-accessing-resource-on-host">3.5.1. Avoid accessing resource on host</a></h4>
 <div class="paragraph">
 <p>It is not recommended for an application to access following resources on the host.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-avoid-mounting-host-directories-as-volumes"><a class="link" href="#k8s-best-practices-avoid-mounting-host-directories-as-volumes">Avoid mounting host directories as volumes</a></h4>
+<h4 id="k8s-best-practices-avoid-mounting-host-directories-as-volumes"><a class="link" href="#k8s-best-practices-avoid-mounting-host-directories-as-volumes">3.5.2. Avoid mounting host directories as volumes</a></h4>
 <div class="paragraph">
 <p>It is not necessary to mount host <code>/sys/</code> or host <code>/dev/</code> directories as a volume in a pod in order to use a network device such as SR-IOV VF. The moving of a network interface into the pod network namespace is done automatically by CNI. Mounting the whole <code>/sys/</code> or <code>/dev/</code> directory in the container will overwrite the network device descriptor inside the container which causes <code>device not found</code> or <code>no such file or directory</code> error.</p>
 </div>
@@ -3978,7 +4091,7 @@ requesting escalated privilege to perform this function.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-avoid-the-host-network-namespace"><a class="link" href="#k8s-best-practices-avoid-the-host-network-namespace">Avoid the host network namespace</a></h4>
+<h4 id="k8s-best-practices-avoid-the-host-network-namespace"><a class="link" href="#k8s-best-practices-avoid-the-host-network-namespace">3.5.3. Avoid the host network namespace</a></h4>
 <div class="paragraph">
 <p>Application pods must avoid using <code>hostNetwork</code>. Applications may not use the host network, including <code>nodePort</code> for network communication. Any networking needs beyond the functions provided by the pod network and ingress/egress proxy must be serviced via a MULTUS connected interface.</p>
 </div>
@@ -4003,7 +4116,7 @@ requesting escalated privilege to perform this function.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-linux-capabilities"><a class="link" href="#k8s-best-practices-linux-capabilities">Linux capabilities</a></h3>
+<h3 id="k8s-best-practices-linux-capabilities"><a class="link" href="#k8s-best-practices-linux-capabilities">3.6. Linux capabilities</a></h3>
 <div class="paragraph">
 <p>Linux Capabilities allow you to break apart the power of root into smaller groups of privileges. The <a href="https://man7.org/linux/man-pages/man7/capabilities.7.html">Linux capabilities(7)</a> man page provides a detailed description of how capabilities management is performed in Linux.
 In brief, the Linux kernel associates various capability sets with threads and files. The thread’s Effective capability set determines the current privileges of a thread.</p>
@@ -4047,7 +4160,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <p>Refer to <a href="https://docs.openshift.com/container-platform/4.13/authentication/managing-security-context-constraints.html">Managing security context constraints</a> for more details on how to define and use the SCC.</p>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-default-capabilities"><a class="link" href="#k8s-best-practices-default-capabilities">DEFAULT capabilities</a></h4>
+<h4 id="k8s-best-practices-default-capabilities"><a class="link" href="#k8s-best-practices-default-capabilities">3.6.1. DEFAULT capabilities</a></h4>
 <div class="paragraph">
 <p>The default capabilities that are allowed via the restricted SCC are as follows. <a href="https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go" class="bare">https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go</a></p>
 </div>
@@ -4089,7 +4202,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-ipc_lock"><a class="link" href="#k8s-best-practices-ipc_lock">IPC_LOCK</a></h4>
+<h4 id="k8s-best-practices-ipc_lock"><a class="link" href="#k8s-best-practices-ipc_lock">3.6.2. IPC_LOCK</a></h4>
 <div class="paragraph">
 <p>IPC_LOCK capability is required if any of these functions are used in an application:</p>
 </div>
@@ -4117,7 +4230,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-net_admin"><a class="link" href="#k8s-best-practices-net_admin">NET_ADMIN</a></h4>
+<h4 id="k8s-best-practices-net_admin"><a class="link" href="#k8s-best-practices-net_admin">3.6.3. NET_ADMIN</a></h4>
 <div class="paragraph">
 <p>NET_ADMIN capability is required to perform various network related administrative operations inside container such as:</p>
 </div>
@@ -4179,7 +4292,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-avoid-sys_admin"><a class="link" href="#k8s-best-practices-avoid-sys_admin">Avoid SYS_ADMIN</a></h4>
+<h4 id="k8s-best-practices-avoid-sys_admin"><a class="link" href="#k8s-best-practices-avoid-sys_admin">3.6.4. Avoid SYS_ADMIN</a></h4>
 <div class="paragraph">
 <p>This capability is very powerful and overloaded. It allows the application to perform a range of system administration operations to the host. So you should avoid requiring this capability in your application.</p>
 </div>
@@ -4203,7 +4316,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-sys_nice"><a class="link" href="#k8s-best-practices-sys_nice">SYS_NICE</a></h4>
+<h4 id="k8s-best-practices-sys_nice"><a class="link" href="#k8s-best-practices-sys_nice">3.6.5. SYS_NICE</a></h4>
 <div class="paragraph">
 <p>In the case that a workload is running on a node and is using DPDK, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.</p>
 </div>
@@ -4212,7 +4325,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-sys_ptrace"><a class="link" href="#k8s-best-practices-sys_ptrace">SYS_PTRACE</a></h4>
+<h4 id="k8s-best-practices-sys_ptrace"><a class="link" href="#k8s-best-practices-sys_ptrace">3.6.6. SYS_PTRACE</a></h4>
 <div class="paragraph">
 <p>This capability is required when using Process Namespace Sharing. This is used when processes from one Container need to be exposed to another Container. For example, to send signals like SIGHUP from a process in a Container to another process in another Container. See <a href="https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/">Share Process Namespace between Containers in a Pod</a> for more details.
 For more information on these capabilities refer to <a href="https://cloud.redhat.com/blog/linux-capabilities-in-openshift">Linux Capabilities in OpenShift</a>.</p>
@@ -4223,12 +4336,12 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-openshift-operations"><a class="link" href="#k8s-best-practices-openshift-operations">Operations that shall be executed by OpenShift</a></h3>
+<h3 id="k8s-best-practices-openshift-operations"><a class="link" href="#k8s-best-practices-openshift-operations">3.7. Operations that shall be executed by OpenShift</a></h3>
 <div class="paragraph">
 <p>The application should not require <code>NET_ADMIN</code> capability to perform the following administrative operations:</p>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-mtu-setting"><a class="link" href="#k8s-best-practices-mtu-setting">Setting the MTU</a></h4>
+<h4 id="k8s-best-practices-mtu-setting"><a class="link" href="#k8s-best-practices-mtu-setting">3.7.1. Setting the MTU</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4244,7 +4357,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-link-state-modification"><a class="link" href="#k8s-best-practices-link-state-modification">Modifying link state</a></h4>
+<h4 id="k8s-best-practices-link-state-modification"><a class="link" href="#k8s-best-practices-link-state-modification">3.7.2. Modifying link state</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4254,7 +4367,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-ip/mac-address-assignment"><a class="link" href="#k8s-best-practices-ip/mac-address-assignment">Assigning IP/MAC addresses</a></h4>
+<h4 id="k8s-best-practices-ip/mac-address-assignment"><a class="link" href="#k8s-best-practices-ip/mac-address-assignment">3.7.3. Assigning IP/MAC addresses</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4267,7 +4380,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-manipulate-pod’s-route-table"><a class="link" href="#k8s-best-practices-manipulate-pod’s-route-table">Manipulating pod route tables</a></h4>
+<h4 id="k8s-best-practices-manipulate-pod’s-route-table"><a class="link" href="#k8s-best-practices-manipulate-pod’s-route-table">3.7.4. Manipulating pod route tables</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4280,7 +4393,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-sr/iov-vf-setting"><a class="link" href="#k8s-best-practices-sr/iov-vf-setting">Setting SR/IOV VFs</a></h4>
+<h4 id="k8s-best-practices-sr/iov-vf-setting"><a class="link" href="#k8s-best-practices-sr/iov-vf-setting">3.7.5. Setting SR/IOV VFs</a></h4>
 <div class="paragraph">
 <p>The SR-IOV Network Operator also supports configuring the following parameters for SR-IOV VFs. Refer to <a href="https://docs.openshift.com/container-platform/latest/networking/hardware_networks/configuring-sriov-net-attach.html">Configuring an SR-IOV Ethernet network attachment</a> for more information.</p>
 </div>
@@ -4311,7 +4424,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-multicast"><a class="link" href="#k8s-best-practices-multicast">Configuring multicast</a></h4>
+<h4 id="k8s-best-practices-multicast"><a class="link" href="#k8s-best-practices-multicast">3.7.6. Configuring multicast</a></h4>
 <div class="paragraph">
 <p>In OpenShift, multicast is supported for both the default interface (OVN or OpenShift-SDN) and the additional interfaces such as macvlan, SR-IOV, etc. Multicast is disabled by default. To enable it, refer to the following procedures:</p>
 </div>
@@ -4331,7 +4444,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-operations-that-can-not-be-executed-by-openshift"><a class="link" href="#k8s-best-practices-operations-that-can-not-be-executed-by-openshift">Operations that can not be executed by OpenShift</a></h3>
+<h3 id="k8s-best-practices-operations-that-can-not-be-executed-by-openshift"><a class="link" href="#k8s-best-practices-operations-that-can-not-be-executed-by-openshift">3.8. Operations that can not be executed by OpenShift</a></h3>
 <div class="paragraph">
 <p>All the CNI plugins are only invoked during pod creation and deletion. If your workload needs perform any operations mentioned above at runtime, the <code>NET_ADMIN</code> capability is required.</p>
 </div>
@@ -4385,7 +4498,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-analyzing-your-application"><a class="link" href="#k8s-best-practices-analyzing-your-application">Analyzing your application</a></h3>
+<h3 id="k8s-best-practices-analyzing-your-application"><a class="link" href="#k8s-best-practices-analyzing-your-application">3.9. Analyzing your application</a></h3>
 <div class="paragraph">
 <p>To find out which capabilities the application needs, Red Hat has developed a SystemTap script (<code>container_check.stp</code>). With this tool, the workload developer can find out what capabilities an application requires in order to run in a container. It also shows the syscalls which were invoked. Find more info at <a href="https://linuxera.org/capabilities-seccomp-kubernetes/" class="bare">https://linuxera.org/capabilities-seccomp-kubernetes/</a></p>
 </div>
@@ -4394,7 +4507,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-finding-the-capabilities-that-an-application-needs"><a class="link" href="#k8s-best-practices-finding-the-capabilities-that-an-application-needs">Finding the capabilities that an application needs</a></h3>
+<h3 id="k8s-best-practices-finding-the-capabilities-that-an-application-needs"><a class="link" href="#k8s-best-practices-finding-the-capabilities-that-an-application-needs">3.10. Finding the capabilities that an application needs</a></h3>
 <div class="paragraph">
 <p>Here is an example of how to find out the capabilities that an application needs. <code>testpmd</code> is a DPDK based layer-2 forwarding application. It needs the <code>CAP_IPC_LOCK</code> to allocate the hugepage memory.</p>
 </div>
@@ -4522,7 +4635,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-cnf-securing-cnf-networks"><a class="link" href="#k8s-best-practices-cnf-securing-cnf-networks">Securing workload networks</a></h3>
+<h3 id="k8s-best-practices-cnf-securing-cnf-networks"><a class="link" href="#k8s-best-practices-cnf-securing-cnf-networks">3.11. Securing workload networks</a></h3>
 <div class="paragraph">
 <p>Workloads must have the least permissions possible and must implement Network Policies that drop all traffic by default and permit only the relevant ports and protocols to the narrowest ranges of addresses possible.</p>
 </div>
@@ -4545,7 +4658,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </table>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-secrets-management"><a class="link" href="#k8s-best-practices-secrets-management">Managing secrets</a></h4>
+<h4 id="k8s-best-practices-secrets-management"><a class="link" href="#k8s-best-practices-secrets-management">3.11.1. Managing secrets</a></h4>
 <div class="paragraph">
 <p>Secrets objects in OpenShift provide a way to hold sensitive information such as passwords, config files and credentials. There are 4 types of secrets; service account, basic auth, ssh auth and TLS. Secrets can be added via deployment configurations or consumed by pods directly. For more information on secrets and examples, see the following documentation.</p>
 </div>
@@ -4554,19 +4667,19 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-scc-permissions-for-an-application"><a class="link" href="#k8s-best-practices-scc-permissions-for-an-application">Setting SCC permissions for applications</a></h4>
+<h4 id="k8s-best-practices-scc-permissions-for-an-application"><a class="link" href="#k8s-best-practices-scc-permissions-for-an-application">3.11.2. Setting SCC permissions for applications</a></h4>
 <div class="paragraph">
 <p>Permissions to use an SCC is done by adding a cluster role that has <em>uses</em> permissions for the SCC and then rolebindings for the users within a namespace to that role for users that need that SCC. Application admins can create their own role/rolebindings to assign permissions to a Service Account.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-cloud-native-function-expectations-and-permissions"><a class="link" href="#k8s-best-practices-cloud-native-function-expectations-and-permissions">Cloud-native function expectations and permissions</a></h3>
+<h3 id="k8s-best-practices-cloud-native-function-expectations-and-permissions"><a class="link" href="#k8s-best-practices-cloud-native-function-expectations-and-permissions">3.12. Cloud-native function expectations and permissions</a></h3>
 <div class="paragraph">
 <p>Cloud-native applications are developed as loosely-coupled well-behaved manageable microservices running in containers managed by a container orchestration engine such as kubernetes.</p>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-cloud-native-design-best-practices"><a class="link" href="#k8s-best-practices-cloud-native-design-best-practices">Cloud-native design best practices</a></h4>
+<h4 id="k8s-best-practices-cloud-native-design-best-practices"><a class="link" href="#k8s-best-practices-cloud-native-design-best-practices">3.12.1. Cloud-native design best practices</a></h4>
 <div class="paragraph">
 <p>The following best practices highlight some key principles of cloud-native application design.</p>
 </div>
@@ -4629,7 +4742,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </table>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-high-level-cnf-expectations"><a class="link" href="#k8s-best-practices-high-level-cnf-expectations">High-level workload expectations</a></h5>
+<h5 id="k8s-best-practices-high-level-cnf-expectations"><a class="link" href="#k8s-best-practices-high-level-cnf-expectations">3.12.1.1. High-level workload expectations</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4736,7 +4849,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-pod-permissions"><a class="link" href="#k8s-best-practices-pod-permissions">Pod permissions</a></h5>
+<h5 id="k8s-best-practices-pod-permissions"><a class="link" href="#k8s-best-practices-pod-permissions">3.12.1.2. Pod permissions</a></h5>
 <div class="paragraph">
 <p>By default, pods should not expect to be permitted to run as root. Pod restrictions are enforced by SCC within the OpenShift platform. See <a href="https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html">Managing security context constraints</a>.</p>
 </div>
@@ -4777,7 +4890,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-logging"><a class="link" href="#k8s-best-practices-logging">Logging</a></h5>
+<h5 id="k8s-best-practices-logging"><a class="link" href="#k8s-best-practices-logging">3.12.1.3. Logging</a></h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Log aggregation and analysis</dt>
@@ -4805,13 +4918,13 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-monitoring"><a class="link" href="#k8s-best-practices-monitoring">Monitoring</a></h5>
+<h5 id="k8s-best-practices-monitoring"><a class="link" href="#k8s-best-practices-monitoring">3.12.1.4. Monitoring</a></h5>
 <div class="paragraph">
 <p>Workloads are expected to bring their own metrics collection functions (e.g. Prometheus) for their application specific metrics. This metrics collector will not be expected to nor able to poll platform level metric data.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-cpu-allocation"><a class="link" href="#k8s-best-practices-cpu-allocation">CPU allocation</a></h5>
+<h5 id="k8s-best-practices-cpu-allocation"><a class="link" href="#k8s-best-practices-cpu-allocation">3.12.1.5. CPU allocation</a></h5>
 <div class="paragraph">
 <p>It is important to note that when the OpenShift scheduler is placing pods, it first reviews the Pod CPU request and schedules it if there is a node that meets the requirements. It will then impose the CPU "Limits" to ensure the Pod doesn&#8217;t consume more than the intended allocation. The limit can never be lower than the request.</p>
 </div>
@@ -4825,7 +4938,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-memory-allocation"><a class="link" href="#k8s-best-practices-memory-allocation">Memory allocation</a></h5>
+<h5 id="k8s-best-practices-memory-allocation"><a class="link" href="#k8s-best-practices-memory-allocation">3.12.1.6. Memory allocation</a></h5>
 <div class="paragraph">
 <p>Regarding memory allocation, there are a couple of considerations. How much of the platform is OpenShift itself using, and how much is left over to allocate for the applications running on OpenShift?</p>
 </div>
@@ -4866,7 +4979,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-pods"><a class="link" href="#k8s-best-practices-pods">Pods</a></h5>
+<h5 id="k8s-best-practices-pods"><a class="link" href="#k8s-best-practices-pods">3.12.1.7. Pods</a></h5>
 <div class="paragraph">
 <p>Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.</p>
 </div>
@@ -4874,7 +4987,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>A Pod can contain one or more running containers at a time. Containers running in the same Pod have access to several of the same Linux namespaces. For example, each application has access to the same network namespace, meaning that one running container can communicate with another running container over <code>127.0.0.1:&lt;port&gt;</code>. The same is true for storage volumes so all containers are in the same Pod have access to the same mount namespace and can mount the same volumes.</p>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-pod-interaction-and-configuration"><a class="link" href="#k8s-best-practices-pod-interaction-and-configuration">Pod interaction and configuration</a></h6>
+<h6 id="k8s-best-practices-pod-interaction-and-configuration"><a class="link" href="#k8s-best-practices-pod-interaction-and-configuration">3.12.1.7.1. Pod interaction and configuration</a></h6>
 <div class="paragraph">
 <p>Pod configurations should be created in a kubernetes native manner, the most basic example of a kubernetes native manner of configuration deployment is the use of a <code>ConfigMap</code> CR. <code>ConfigMap</code> CRs can be loaded into Kubernetes and pods can consume the data in a configmap by using the data in the <code>ConfigMap</code> to populate container environment variables or can be consumed as volumes in a container and read by an application.</p>
 </div>
@@ -4901,7 +5014,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-pod-exit-status"><a class="link" href="#k8s-best-practices-pod-exit-status">Pod exit status</a></h6>
+<h6 id="k8s-best-practices-pod-exit-status"><a class="link" href="#k8s-best-practices-pod-exit-status">3.12.1.7.2. Pod exit status</a></h6>
 <div class="paragraph">
 <p>The most basic requirement for the lifecycle management of pods in OpenShift is the ability to start and stop correctly. When starting up, health probes like liveness and readiness checks can be put into place to ensure the application is functioning properly.</p>
 </div>
@@ -4934,7 +5047,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-graceful-termination"><a class="link" href="#k8s-best-practices-graceful-termination">Graceful termination</a></h6>
+<h6 id="k8s-best-practices-graceful-termination"><a class="link" href="#k8s-best-practices-graceful-termination">3.12.1.7.3. Graceful termination</a></h6>
 <div class="paragraph">
 <p>There are different reasons that a pod may need to shutdown on an OpenShift cluster. It might be that the node the pod is running on needs to be shut down for maintenance, or the administrator is doing a rolling update of an application to a new version which requires that the old versions are shutdown properly.</p>
 </div>
@@ -4964,7 +5077,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-pod-resource-profiles"><a class="link" href="#k8s-best-practices-pod-resource-profiles">Pod resource profiles</a></h6>
+<h6 id="k8s-best-practices-pod-resource-profiles"><a class="link" href="#k8s-best-practices-pod-resource-profiles">3.12.1.7.4. Pod resource profiles</a></h6>
 <div class="paragraph">
 <p>OpenShift has a default scheduler that is responsible for the currently available resources on the platform, placing containers or applications on the platform appropriately. In order for OpenShift to do this correctly, the application developer must create a resource profile for the application. This resource profile contains requirements such as how much memory, CPU, and storage that the application needs. At this point, the scheduler is aware of what nodes in the cluster can satisfy the workload. It places the application on one of those nodes. The scheduler can also place the application pod in a pending state until resources are available.</p>
 </div>
@@ -4973,7 +5086,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-storage:-emptydir"><a class="link" href="#k8s-best-practices-storage:-emptydir">Storage: emptyDir</a></h6>
+<h6 id="k8s-best-practices-storage:-emptydir"><a class="link" href="#k8s-best-practices-storage:-emptydir">3.12.1.7.5. Storage: emptyDir</a></h6>
 <div class="paragraph">
 <p>There are several options for volumes and reading and writing files in OpenShift. When the requirement is temporary storage and given the option to write files into directories in containers versus an external filesystems, choose the <code>emptyDir</code> option. This will provide the administrator with the same temporary filesystem - when the pod is stopped the dir is deleted forever. Also, the <code>emptyDir</code> can be backed by whatever medium is backing the node, or it can be set to memory for faster reads and writes.</p>
 </div>
@@ -4982,7 +5095,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-liveness-readiness-and-startup-probes"><a class="link" href="#k8s-best-practices-liveness-readiness-and-startup-probes">Liveness readiness and startup probes</a></h6>
+<h6 id="k8s-best-practices-liveness-readiness-and-startup-probes"><a class="link" href="#k8s-best-practices-liveness-readiness-and-startup-probes">3.12.1.7.6. Liveness readiness and startup probes</a></h6>
 <div class="paragraph">
 <p>As part of the pod lifecycle, the OpenShift platform needs to know what state the pod is in at all times. This can be accomplished with different health checks. There are at least three states that are important to the platform: startup, running, shutdown. Applications can also be running, but not healthy, meaning, the pod is up and the application shows no errors, but it cannot serve any requests.</p>
 </div>
@@ -5020,7 +5133,7 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-affinity-anti-affinity"><a class="link" href="#k8s-best-practices-affinity-anti-affinity">Affinity and anti-affinity</a></h6>
+<h6 id="k8s-best-practices-affinity-anti-affinity"><a class="link" href="#k8s-best-practices-affinity-anti-affinity">3.12.1.7.7. Affinity and anti-affinity</a></h6>
 <div class="paragraph">
 <p>In OpenShift Container Platform pod affinity and pod anti-affinity allow you to constrain which nodes your pod are eligible to be scheduled based on the key/value labels on other pods. There are two types of affinity rules, required and preferred. Required rules must be met, whereas preferred rules are best effort.</p>
 </div>
@@ -5089,7 +5202,7 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-upgrade-expectations"><a class="link" href="#k8s-best-practices-upgrade-expectations">Upgrade expectations</a></h6>
+<h6 id="k8s-best-practices-upgrade-expectations"><a class="link" href="#k8s-best-practices-upgrade-expectations">3.12.1.7.8. Upgrade expectations</a></h6>
 <div class="ulist">
 <ul>
 <li>
@@ -5147,7 +5260,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-taints-and-tolerations"><a class="link" href="#k8s-best-practices-taints-and-tolerations">Taints and tolerations</a></h6>
+<h6 id="k8s-best-practices-taints-and-tolerations"><a class="link" href="#k8s-best-practices-taints-and-tolerations">3.12.1.7.9. Taints and tolerations</a></h6>
 <div class="paragraph">
 <p>Taints and tolerations allow the node to control which pods are scheduled on the node. A taint allows a node to refuse a pod to be scheduled unless that pod has a matching toleration.</p>
 </div>
@@ -5165,7 +5278,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-requests-limits"><a class="link" href="#k8s-best-practices-requests-limits">Requests/Limits</a></h6>
+<h6 id="k8s-best-practices-requests-limits"><a class="link" href="#k8s-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></h6>
 <div class="paragraph">
 <p>Requests and limits provide a way for a workload developer to ensure they have adequate resources available to run the application. Requests can be made for storage, memory, CPU and so on. These requests and limits can be enforced by quotas. Quotas can be used as a way to enforce requests and limits. See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a> for more information.</p>
 </div>
@@ -5195,7 +5308,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-use-imagepullpolicy:-ifnotpresent"><a class="link" href="#k8s-best-practices-use-imagepullpolicy:-ifnotpresent">Use imagePullPolicy: IfNotPresent</a></h6>
+<h6 id="k8s-best-practices-use-imagepullpolicy:-ifnotpresent"><a class="link" href="#k8s-best-practices-use-imagepullpolicy:-ifnotpresent">3.12.1.7.11. Use imagePullPolicy: IfNotPresent</a></h6>
 <div class="paragraph">
 <p>If there is a situation where the container dies and needs to be restarted, the image pull policy becomes important. There are three image pull policies available: <code>Always</code>, <code>Never</code> and <code>IfNotPresent</code>. It is generally recommended to have a pull policy of <code>IfNotPresent</code>. This means that the if pod needs to restart for any reason, the kubelet will check on the node where the pod is starting and reuse the already downloaded container image if it&#8217;s available. OpenShift intentionally does not set <code>AlwaysPullImages</code> as turning on this admission plugin can introduce new kinds of cluster failure modes. Self-hosted infrastructure components are still pods: enabling this feature can result in cases where a loss of contact to an image registry can cause redeployment of an infrastructure or application pod to fail. We use <code>PullIfNotPresent</code> so that a loss of image registry access does not prevent the pod from restarting.</p>
 </div>
@@ -5218,7 +5331,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-automount-services-for-pods"><a class="link" href="#k8s-best-practices-automount-services-for-pods">Automount services for pods</a></h6>
+<h6 id="k8s-best-practices-automount-services-for-pods"><a class="link" href="#k8s-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></h6>
 <div class="paragraph">
 <p>Pods which do not require API access should set the value of <code>automountServiceAccountToken</code> to false within the pod spec, for example:</p>
 </div>
@@ -5241,7 +5354,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-disruption-budgets"><a class="link" href="#k8s-best-practices-disruption-budgets">Disruption budgets</a></h6>
+<h6 id="k8s-best-practices-disruption-budgets"><a class="link" href="#k8s-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></h6>
 <div class="paragraph">
 <p>When managing the platform there are at least two types of disruptions that can occur. They are voluntary and involuntary. When dealing with voluntary disruptions a pod disruption budget can be set that determines how many replicas of the application must remain running at any given time. For example, consider the case where an administrator is shutting down a node for</p>
 </div>
@@ -5253,7 +5366,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-no-naked-pods"><a class="link" href="#k8s-best-practices-no-naked-pods">No naked pods</a></h6>
+<h6 id="k8s-best-practices-no-naked-pods"><a class="link" href="#k8s-best-practices-no-naked-pods">3.12.1.7.14. No naked pods</a></h6>
 <div class="paragraph">
 <p>Do not use naked Pods (that is, Pods not bound to a <code>ReplicaSet</code>, or <code>StatefulSet</code> deployment). Naked pods will not be rescheduled in the event of a node failure.</p>
 </div>
@@ -5313,7 +5426,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-image-tagging"><a class="link" href="#k8s-best-practices-image-tagging">Image tagging</a></h6>
+<h6 id="k8s-best-practices-image-tagging"><a class="link" href="#k8s-best-practices-image-tagging">3.12.1.7.15. Image tagging</a></h6>
 <div class="paragraph">
 <p>An image tag is a label applied to a container image in a repository that distinguishes a specific image from other images. Image tags may be used to categorize images (for example: latest, stable, development) and by versions within the categories. This allows the administrator to be specific when declaring which image to test, or which image to run in production.</p>
 </div>
@@ -5325,7 +5438,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-one-process-per-container"><a class="link" href="#k8s-best-practices-one-process-per-container">One process per container</a></h6>
+<h6 id="k8s-best-practices-one-process-per-container"><a class="link" href="#k8s-best-practices-one-process-per-container">3.12.1.7.16. One process per container</a></h6>
 <div class="paragraph">
 <p>OpenShift organizes workloads into pods. Pods are the smallest unit of a workload that Kubernetes understands. Within pods, one can have one or more containers. Containers are essentially composed of the runtime that is required to launch and run a process.</p>
 </div>
@@ -5343,7 +5456,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-init-containers"><a class="link" href="#k8s-best-practices-init-containers">init containers</a></h6>
+<h6 id="k8s-best-practices-init-containers"><a class="link" href="#k8s-best-practices-init-containers">3.12.1.7.17. init containers</a></h6>
 <div class="paragraph">
 <p>Init containers can be used for running tools / commands / or any other action that needs to be done before the actual pod is started. For example, loading a database schema, or constructing a config file from a definition passed in via configMap or secret.</p>
 </div>
@@ -5353,7 +5466,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-security-and-role-based-access-control"><a class="link" href="#k8s-best-practices-security-and-role-based-access-control">Security and role-based access control</a></h5>
+<h5 id="k8s-best-practices-security-and-role-based-access-control"><a class="link" href="#k8s-best-practices-security-and-role-based-access-control">3.12.1.8. Security and role-based access control</a></h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Roles / RoleBindings</dt>
@@ -5396,7 +5509,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-custom-role-to-access-application-crds"><a class="link" href="#k8s-best-practices-custom-role-to-access-application-crds">Custom role to access application CRDs</a></h5>
+<h5 id="k8s-best-practices-custom-role-to-access-application-crds"><a class="link" href="#k8s-best-practices-custom-role-to-access-application-crds">3.12.1.9. Custom role to access application CRDs</a></h5>
 <div class="paragraph">
 <p>If an application requires installing/deploying CRDs (Custom Resource Definitions), the application must provide a role that allows necessary permissions to create CRs within the CRDs. The custom role to access CRDs must not create any permissions to access any other API resources than the CRDs.</p>
 </div>
@@ -5418,7 +5531,7 @@ permissions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-multus"><a class="link" href="#k8s-best-practices-multus">MULTUS</a></h5>
+<h5 id="k8s-best-practices-multus"><a class="link" href="#k8s-best-practices-multus">3.12.1.10. MULTUS</a></h5>
 <div class="paragraph">
 <p>MULTUS is a meta-CNI that allows multiple CNIs that it delegates to. This allows pods to get additional interfaces beyond <code>eth0</code> via additional CNIs. Having additional CNIs for SR-IOV and MacVLAN interfaces allow for direct routing of traffic to a pod without using the pod network via additional interfaces. This capability is being delivered for use in only corner case scenarios, it is not to be used in general for all applications. Example use cases include bandwidth requirements that necessitate SR-IOV and protocols that are unable to be supported by the load balancer. The OVN based pod network should be used for every interface that can be supported from a technical standpoint.</p>
 </div>
@@ -5443,7 +5556,7 @@ the applications must use the pod network for traffic</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-multus-sr-iov---macvlan"><a class="link" href="#k8s-best-practices-multus-sr-iov---macvlan">MULTUS SR-IOV / MACVLAN</a></h5>
+<h5 id="k8s-best-practices-multus-sr-iov---macvlan"><a class="link" href="#k8s-best-practices-multus-sr-iov---macvlan">3.12.1.11. MULTUS SR-IOV / MACVLAN</a></h5>
 <div class="paragraph">
 <p>SR-IOV is a specification that allows a PCIe device to appear to be multiple separate physical PCIe devices. The Performance Addon component allows you to validate SR-IOV by running DPDK, SCTP and device checking tests.</p>
 </div>
@@ -5490,12 +5603,12 @@ the applications must use the pod network for traffic</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="spk-integration-via-spk-operator"><a class="link" href="#spk-integration-via-spk-operator">SPK Integration via SPK Operator</a></h5>
+<h5 id="spk-integration-via-spk-operator"><a class="link" href="#spk-integration-via-spk-operator">3.12.1.12. SPK Integration via SPK Operator</a></h5>
 <div class="paragraph">
 <p>The SPK runs in a separate namespace from the workload. The workload will not have direct permissions to access this namespace. In order to allow applications to manage the lifecycle of the SPK deployment, the SPK operator is used. The SPK Operator defines several CRDs for which CRs are created in the CNF namespace:</p>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-spkprofile"><a class="link" href="#cnf-best-practices-spkprofile">SPKProfile</a></h6>
+<h6 id="cnf-best-practices-spkprofile"><a class="link" href="#cnf-best-practices-spkprofile">3.12.1.12.1. SPKProfile</a></h6>
 <div class="paragraph">
 <p>The <code>SPKProfile</code> CRD handles LCM operations of SPK itself. Example:</p>
 </div>
@@ -5524,7 +5637,7 @@ namespace&gt;</code> with the specified version and number of replicas.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-spkstaticroute"><a class="link" href="#cnf-best-practices-spkstaticroute">SPKStaticroute</a></h6>
+<h6 id="cnf-best-practices-spkstaticroute"><a class="link" href="#cnf-best-practices-spkstaticroute">3.12.1.12.2. SPKStaticroute</a></h6>
 <div class="paragraph">
 <p>The SPK Staticroute is used to provision static routes in the SPK by application owners in the
 application namespace. Example:</p>
@@ -5547,7 +5660,7 @@ application namespace. Example:</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-spksnatpool"><a class="link" href="#cnf-best-practices-spksnatpool">SPKSnatpool</a></h6>
+<h6 id="cnf-best-practices-spksnatpool"><a class="link" href="#cnf-best-practices-spksnatpool">3.12.1.12.3. SPKSnatpool</a></h6>
 <div class="paragraph">
 <p>The SPKSnatpool is provisioned within the application namespace to configure source network address translations (SNAT) on egress network traffic for the SPK. When internal Pods connect to external resources, their internal cluster IP address is translated to one of the available IP addresses in the SNAT pool. Example:</p>
 </div>
@@ -5572,7 +5685,7 @@ application namespace. Example:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-sr-iov-interface-settings"><a class="link" href="#k8s-best-practices-sr-iov-interface-settings">SR-IOV interface settings</a></h5>
+<h5 id="k8s-best-practices-sr-iov-interface-settings"><a class="link" href="#k8s-best-practices-sr-iov-interface-settings">3.12.1.13. SR-IOV interface settings</a></h5>
 <div class="paragraph">
 <p>The following settings must be negotiated with the cluster administrator, for each network type available in the namespace:</p>
 </div>
@@ -5736,7 +5849,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-attaching-the-vf-to-a-pod"><a class="link" href="#k8s-best-practices-attaching-the-vf-to-a-pod">Attaching the VF to a pod</a></h5>
+<h5 id="k8s-best-practices-attaching-the-vf-to-a-pod"><a class="link" href="#k8s-best-practices-attaching-the-vf-to-a-pod">3.12.1.14. Attaching the VF to a pod</a></h5>
 <div class="paragraph">
 <p>Once the right network attachment definition is found, applying the <code>k8s.v1.cni.cncf.io/networks</code> annotation with the name of the network attachment definition to the pod will add the additional network interfaces in the pod namespace, as per the following example:</p>
 </div>
@@ -5759,7 +5872,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application"><a class="link" href="#k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application">Discovering SR-IOV devices properties from the application</a></h5>
+<h5 id="k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application"><a class="link" href="#k8s-best-practices-discovering-sr-iov-devices-properties-from-the-application">3.12.1.15. Discovering SR-IOV devices properties from the application</a></h5>
 <div class="paragraph">
 <p>All the properties of the interfaces are added to the pod&#8217;s <code>k8s.v1.cni.cncf.io/network-status</code> annotation. The annotation is json-formatted and for each network object contains information such as IPs (where available), MAC address, PCI address. For example:</p>
 </div>
@@ -5800,7 +5913,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-numa-awareness"><a class="link" href="#k8s-best-practices-numa-awareness">NUMA awareness</a></h5>
+<h5 id="k8s-best-practices-numa-awareness"><a class="link" href="#k8s-best-practices-numa-awareness">3.12.1.16. NUMA awareness</a></h5>
 <div class="paragraph">
 <p>If the pod is using a guaranteed QoS class and the kubelet is configured with a suitable topology manager policy (restricted, single-numa node) then the VF assigned to the pod will belong to the same NUMA node as the other assigned resources (CPU and other NUMA aware devices). Please note that HugePages are currently not NUMA aware.</p>
 </div>
@@ -5809,7 +5922,7 @@ SRIOVnet   9d</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-platform-upgrade"><a class="link" href="#k8s-best-practices-platform-upgrade">Platform upgrade</a></h5>
+<h5 id="k8s-best-practices-platform-upgrade"><a class="link" href="#k8s-best-practices-platform-upgrade">3.12.1.17. Platform upgrade</a></h5>
 <div class="paragraph">
 <p>Openshift upgrades happen as follows:</p>
 </div>
@@ -5905,7 +6018,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-openshift-virtualization-and-cnv-best-practices"><a class="link" href="#k8s-best-practices-openshift-virtualization-and-cnv-best-practices">OpenShift virtualization and CNV best practices</a></h5>
+<h5 id="k8s-best-practices-openshift-virtualization-and-cnv-best-practices"><a class="link" href="#k8s-best-practices-openshift-virtualization-and-cnv-best-practices">3.12.1.18. OpenShift virtualization and CNV best practices</a></h5>
 <div class="paragraph">
 <p>OpenShift Virtualization is generally-available for enterprise workloads, such throughput- and latency-insensitive workloads that may be added to the cluster. VNFs and other throughput or latency-sensitive applications can be considered only after careful validation.</p>
 </div>
@@ -5943,7 +6056,7 @@ loadbalancer-15</span></code></pre>
 </table>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-vm-image-import-recommendations-cdi"><a class="link" href="#k8s-best-practices-vm-image-import-recommendations-cdi">VM image import recommendations (CDI)</a></h6>
+<h6 id="k8s-best-practices-vm-image-import-recommendations-cdi"><a class="link" href="#k8s-best-practices-vm-image-import-recommendations-cdi">3.12.1.18.1. VM image import recommendations (CDI)</a></h6>
 <div class="paragraph">
 <p>OpenShift Virtualization VMs store their persistent disks on kubernetes Persistent Volumes (<code>PV</code>). PVs are requested by VMs using kubernetes Persistent Volume Claims (<code>PVC</code>). VMs may require a combination of blank and pre-populated disks in order to function.</p>
 </div>
@@ -5967,14 +6080,14 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-working-with-large-vm-disk-images"><a class="link" href="#k8s-best-practices-working-with-large-vm-disk-images">Working with large VM disk images</a></h6>
+<h6 id="k8s-best-practices-working-with-large-vm-disk-images"><a class="link" href="#k8s-best-practices-working-with-large-vm-disk-images">3.12.1.18.2. Working with large VM disk images</a></h6>
 <div class="paragraph">
 <p>In contrast to container images, VM disk images can be quite large (30GiB or more is common). It is important to consider the costs of transferring large amounts of data when planning workflows involving the creation of VMs (especially when scaling up the number of VMs). The efficiency of an image import depends on the format of the file and also the transfer method used. The most efficient workflow, for two reasons, is to host a gzip-compressed raw image on a server and import via HTTP. Compression avoids transferring zeros present in the free space of the image, and CDI can stream the contents directly into the target PV without any intermediate conversion steps. In contrast, images imported from a container registry must be transferred, unarchived, and converted prior to being usable. These additional steps increase the amount of data transferred between a node and the remote storage.</p>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="k8s-best-practices-operator-best-practices"><a class="link" href="#k8s-best-practices-operator-best-practices">Operator best practices</a></h5>
+<h5 id="k8s-best-practices-operator-best-practices"><a class="link" href="#k8s-best-practices-operator-best-practices">3.12.1.19. Operator best practices</a></h5>
 <div class="paragraph">
 <p>OLM Packaged operators contain an index of all the images required to install the operator, and the <code>ClusterServiceVersion</code> which instructs OpenShift to create resources as described in the cluster service version. The cluster service version is a list of the required resources that need to be created in the cluster, i.e. service accounts, crds, roles, etc that are necessary for the operator and software that the operator installs to be successful within the cluster.</p>
 </div>
@@ -5982,7 +6095,7 @@ loadbalancer-15</span></code></pre>
 <p>The OLM Packaged operator will then run in openshift-operators namespace within the cluster. Users can then utilize this operator by creating CRs within the CRDs that were created by the operator OLM package, to deploy the software managed by the operator. The platform administrator handles the OLM based operator installation for the users by creating a custom catalog in the cluster that is targeted by the application. The users then express via CRs that are consumed by the operator what they would like the operator to create in the users namespace.</p>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-cnf-operator-requirements"><a class="link" href="#k8s-best-practices-cnf-operator-requirements">Workload Operator requirements</a></h6>
+<h6 id="k8s-best-practices-cnf-operator-requirements"><a class="link" href="#k8s-best-practices-cnf-operator-requirements">3.12.1.19.1. Workload Operator requirements</a></h6>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -6407,7 +6520,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="k8s-best-practices-requirements-cnf-reqs"><a class="link" href="#k8s-best-practices-requirements-cnf-reqs">Requirements for a workload</a></h3>
+<h3 id="k8s-best-practices-requirements-cnf-reqs"><a class="link" href="#k8s-best-practices-requirements-cnf-reqs">3.13. Requirements for a workload</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -6508,7 +6621,7 @@ loadbalancer-15</span></code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-image-standards"><a class="link" href="#k8s-best-practices-image-standards">Image standards</a></h4>
+<h4 id="k8s-best-practices-image-standards"><a class="link" href="#k8s-best-practices-image-standards">3.13.1. Image standards</a></h4>
 <div class="paragraph">
 <p>It is recommended that container images be built utilizing Red Hat&#8217;s Universal Base Image as they will have a solid security baseline as well as support from Red Hat.</p>
 </div>
@@ -6599,7 +6712,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-universal-base-image-information"><a class="link" href="#k8s-best-practices-universal-base-image-information">Universal Base Image information</a></h4>
+<h4 id="k8s-best-practices-universal-base-image-information"><a class="link" href="#k8s-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></h4>
 <div class="paragraph">
 <p><a href="https://developers.redhat.com/products/rhel/ubi">UBI</a> is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.</p>
 </div>
@@ -6627,7 +6740,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="k8s-best-practices-application-dns-configuration-requirements"><a class="link" href="#k8s-best-practices-application-dns-configuration-requirements">Application DNS configuration requirements</a></h4>
+<h4 id="k8s-best-practices-application-dns-configuration-requirements"><a class="link" href="#k8s-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></h4>
 <div class="paragraph">
 <p>Workloads should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.</p>
 </div>
@@ -6656,7 +6769,8 @@ All trademarks used herein are property of their respective owners.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-01 17:55:30 UTC
+Version v2<br>
+Last updated 2024-10-01 17:55:51 UTC
 </div>
 </div>
 <!-- Nav bar -->
