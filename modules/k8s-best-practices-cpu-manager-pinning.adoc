@@ -3,7 +3,7 @@
 
 The OpenShift platform can use the Kubernetes CPU Manager to support allocation of cores using kubernetes guaranteed QoS class for applications. Isolcpus is not enabled.
 
-link:https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed[]
+link:https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed[Create a Pod that gets assigned a QoS class of Guaranteed]
 
 Important note on using probes: If the CNF is running a DPDK process do not use exec probes (executing a command within the container) as it may pile up and block the
 node eventually.
