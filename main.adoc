@@ -1,4 +1,4 @@
-include::[id="k8s-best-practices"]
+[id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
 :revnumber: v2
