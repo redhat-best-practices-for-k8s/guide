@@ -3138,6 +3138,7 @@ pre.rouge .gs {
 <li><a href="#k8s-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></li>
 <li><a href="#k8s-best-practices-image-standards">3.13.4. Image standards</a></li>
 <li><a href="#k8s-best-practices-universal-base-image-information">3.13.5. Universal Base Image information</a></li>
+<li><a href="#application-dns-configuration-requirements">3.13.6. Application DNS configuration requirements</a></li>
 </ul>
 </li>
 </ul>
@@ -6866,6 +6867,65 @@ loadbalancer-15</span></code></pre>
 </dl>
 </div>
 </div>
+<div class="sect3">
+<h4 id="application-dns-configuration-requirements"><a class="link" href="#application-dns-configuration-requirements">3.13.6. Application DNS configuration requirements</a></h4>
+<div class="paragraph">
+<p>Workloads should use the service name only as a configuration parameter for attaching to a service within your namespace, the cluster will append namespace name and kubernetes service nomenclature on behalf of the application via search string in DNS. This allows a generic name for a service that works in all clusters no matter what the namespace name is and what the cluster base FQDN is.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="terminal"><span class="go">search clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local
+svc.cluster.local cluster.local kub2-4.csp-1.vzwops.com
+nameserver 198.223.0.10
+options ndots:5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If an application deploys a service in the namespace <code>clspcoykvzwcscp-y-xx-w1-001</code> and is attempting to access a service named <code>worker</code>, the application should just configure the client of the service with an FQDN of <code>worker</code>.</p>
+</div>
+<div class="paragraph">
+<p>The DNS search suffix will append <code>clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local</code> to the end of the name and result in a successful query for <code>worker.clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local</code>. This allows an application to be less aware of the application&#8217;s namespace name and genericize the configuration of the application.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Workloads must use the service name only as a configuration parameter for attaching to a service within your namespace</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For FQDNs that are outside of their namespace (in another cluster or in the same cluster), applications must append a . at the end of the FQDN so as not to trigger search strings for the FQDN</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="terminal"><span class="go">nnrfe1-000.bbtpnj33.ne.nrf.5gc.vzims.com
+clspcoykvzwcscp-y-xx-w1-001-scp-cache-headless.clspcoykvzwcscp-y-xx-w1-001.svc.cluster.local</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information, see <a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service">Kubernetes upstream reference for pod/service names and DNS</a>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6888,7 +6948,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-01 18:19:16 UTC
+Last updated 2024-10-01 18:20:23 UTC
 </div>
 </div>
 <!-- Nav bar -->
