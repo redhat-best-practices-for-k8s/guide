@@ -1,17 +1,15 @@
-[id="cnf-best-practices-image-standards"]
+[id="k8s-best-practices-image-standards"]
 = Image standards
 
 It is recommended that container images be built utilizing Red Hat's Universal Base Image as they will have a solid security baseline as well as support from Red Hat.
 
-Vendors must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
+Must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
 
-.VCP CNF requirement
 [IMPORTANT]
 ====
 Containerized workloads should work with a restricted SCC unless an exception is given
 ====
 
-.VCP CNF requirement
 [IMPORTANT]
 ====
 Containerized workloads should work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
@@ -19,7 +17,6 @@ Containerized workloads should work with Red Hat’s default SELinux context. Th
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
 ====
 
-.VCP CNF requirement
 [IMPORTANT]
 ====
 The container image must be secure.
