@@ -1,4 +1,4 @@
-[id="cnf-best-practices-ipv6-nat46-64-w-dns46"]
+[id="cnf-best-practices-ipv6-nat46-64"]
 = IPv6 NAT46/64 w/DNS46
 
 Services advertised to other CNFs should utilize VIPs on the SPK that are part of the platform.
