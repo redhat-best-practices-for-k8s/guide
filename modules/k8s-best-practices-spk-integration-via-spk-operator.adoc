@@ -1,4 +1,4 @@
-[id="cnf-best-practices-spk-integration-via-spk-operator"]
+[id="k8s-best-practices-spk-integration-via-spk-operator"]
 [id="spk-integration-via-spk-operator"]
 = SPK Integration via SPK Operator
 The SPK runs in a separate namespace from the CNF. The CNF will not have direct permissions to access this namespace. In order to allow applications to manage the lifecycle of the SPK deployment, the SPK operator is used. The SPK Operator defines several CRDs for which CRs are created in the CNF namespace:
