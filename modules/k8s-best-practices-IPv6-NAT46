@@ -1,0 +1,2 @@
+Services advertised to other CNFs should utilize VIPs on the SPK that are part of the platform. This creation of external services in VCP Webscale is done via pushing a configmap with F5 AS3 formatted configuration tocreation of CRDs for SPK into the Kubernetes API.
+
