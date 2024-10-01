@@ -104,7 +104,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 [id="k8s-best-practices-sys_nice"]
 == SYS_NICE
 
-In the case that a workload is running on a node using the real-time kernel, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.
+In the case that a workload is running on a node and is using DPDK, SYS_NICE will be used to allow DPDK application to switch to SCHED_FIFO.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability[access-control-sys-nice-realtime-capability]
 
