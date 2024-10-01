@@ -5566,6 +5566,24 @@ the applications must use the pod network for traffic</p>
 <p>Different names will be assigned to different Network Attachment Definitions that are namespace specific. MACVLAN versus MULTUS interfaces will be named differently to distinguish the type of device assigned to them (created by configuring SR-IOV devices via the SRIOVNetworkNodePolicy CR).</p>
 </div>
 <div class="paragraph">
+<p>For SR-IOV based SriovNetworkNodePolicy definitions, the MTU setting is omitted because it can cause conflicts with applications which set their own MTU value. It is required therefore that the application always manage its own MTU value for SR-IOV</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">VCP CNF requirement</div>
+<div class="paragraph">
+<p>Applications using SR-IOV multus Network Attachment Definitions must set their required MTU value for virtual functions (VFs) within their pod.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
 <p>From the workload perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.</p>
 </div>
 <div class="paragraph">
@@ -6663,7 +6681,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-01 17:03:56 UTC
+Last updated 2024-10-01 17:05:23 UTC
 </div>
 </div>
 <!-- Nav bar -->
