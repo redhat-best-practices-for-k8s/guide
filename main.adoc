@@ -1,4 +1,4 @@
-include::modules/cnf-best-practices-spk-integration-via-spk-operator.adoc[leveloffset=+4][id="k8s-best-practices"]
+include::[id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
 :revnumber: v2
