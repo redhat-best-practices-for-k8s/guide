@@ -1,0 +1,78 @@
+[id="cnf-best-practices-spk-integration-via-spk-operator"]
+[id="spk-integration-via-spk-operator"]
+= SPK Integration via SPK Operator
+The SPK runs in a separate namespace from the CNF. The CNF will not have direct permissions to access this namespace. In order to allow applications to manage the lifecycle of the SPK deployment, the SPK operator is used. The SPK Operator defines several CRDs for which CRs are created in the CNF namespace:
+
+[id="cnf-best-practices-spkprofile"]
+== SPKProfile
+The `SPKProfile` CRD handles LCM operations of SPK itself. Example:
+
+[source,yaml]
+----
+apiVersion: webscale.verizon.com/v1
+kind: SPKProfile
+metadata:
+  name: spkprofile-democnf
+  namespace: democnf
+spec:
+  bgp_networks:
+    edn:
+      ip_version:
+        - v4
+        - v6
+        mtu: 8000
+    provision: true
+    replicas: 2
+    spk_version: v1.7.0
+----
+
+When the `SPKProfile` CR is created, tmm pods are started within the spk namespace `spk-<app
+namespace>` with the specified version and number of replicas.
+
+[id="cnf-best-practices-spkstaticroute"]
+== SPKStaticroute
+The SPK Staticroute is used to provision static routes in the SPK by application owners in the
+application namespace. Example:
+
+[source,yaml]
+----
+apiVersion: webscale.verizon.com/v1
+kind: SPKStaticRoute
+metadata:
+  name: edn-loopbacks-183
+  namespace: spk-democnf
+spec:
+  gatewaynetworks:
+    edn:
+      destination_v4:
+        - 10.183.0.0/24
+      destination_v6:
+        - fd00:4888:2000:1400:22/64
+----
+
+[id="cnf-best-practices-spksnatpool"]
+== SPKSnatpool
+The SPKSnatpool is provisioned within the application namespace to configure source network address translations (SNAT) on egress network traffic for the SPK. When internal Pods connect to external resources, their internal cluster IP address is translated to one of the available IP addresses in the SNAT pool. Example:
+
+[source,yaml]
+----
+apiVersion: k8s.f5net.com/v1
+kind: F5SPKSnatpool
+metadata:
+  name: egress-snatpool
+  namespace: spk-democnf
+spec:
+  addressList:
+    - 10.183.247.229
+    - fdb0:5b22:e86a:1122::22
+    - 10.183.247.23
+    - fdb0:5b22:e86a:1122::230
+----
+
+More details on the SPK operator are in the "SPK Operator User Guide".
+
+.VCP CNF requirement - Doors Id 94142
+[IMPORTANT]
+====
+The application MUST integrate with the SPK Operator to perform lifecycle management of the SPK.
+====
