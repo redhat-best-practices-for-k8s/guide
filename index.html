@@ -3136,6 +3136,8 @@ pre.rouge .gs {
 <li><a href="#k8s-best-practices-image-standards">3.13.1. Image standards</a></li>
 <li><a href="#k8s-best-practices-universal-base-image-information">3.13.2. Universal Base Image information</a></li>
 <li><a href="#k8s-best-practices-application-dns-configuration-requirements">3.13.3. Application DNS configuration requirements</a></li>
+<li><a href="#k8s-best-practices-image-standards">3.13.4. Image standards</a></li>
+<li><a href="#k8s-best-practices-universal-base-image-information">3.13.5. Universal Base Image information</a></li>
 </ul>
 </li>
 </ul>
@@ -6748,6 +6750,122 @@ loadbalancer-15</span></code></pre>
 <p>For more information, see <a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service">Kubernetes upstream reference for pod/service names and DNS</a>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="k8s-best-practices-image-standards"><a class="link" href="#k8s-best-practices-image-standards">3.13.4. Image standards</a></h4>
+<div class="paragraph">
+<p>It is recommended that container images be built utilizing Red Hat&#8217;s Universal Base Image as they will have a solid security baseline as well as support from Red Hat.</p>
+</div>
+<div class="paragraph">
+<p>Must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Containerized workloads should work with a restricted SCC unless an exception is given</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Containerized workloads should work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.</p>
+</div>
+<div class="paragraph">
+<p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image">platform-alteration-base-image</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The container image must be secure.</p>
+</div>
+<div class="paragraph">
+<p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Red Hat UBI is able to meet these requirements and enables images built with it to meet these requirements. UBI is supported by a dedicated, full-time team providing releases of base image. UBI has the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scheduled release every 6 weeks to pick up less critical fixes.</p>
+</li>
+<li>
+<p>On-demand release for critical or important CVE within 5 days of CVE public release.</p>
+</li>
+<li>
+<p>Guarantees alignment with host OS packages and versions that run tightly coupled to the container artifacts. Many CVEs and potential attacks result from mismatch of untested versions of utility functions.</p>
+</li>
+<li>
+<p>Ensures globally consistent time zone usage and resulting timestamps for global operators.</p>
+</li>
+<li>
+<p>Enables continuous authorization to operate (ATO). Authorize once, use many times.</p>
+</li>
+<li>
+<p>Meets requirements of the DOD, for example Air Force/DISA STIG.</p>
+</li>
+<li>
+<p>Supports system-wide crypto consistency, for example, must have same crypto implementation as the Red Hat host operating system.</p>
+</li>
+<li>
+<p>Provides authentication of the base layer via digital signature from originating vendor and strong signature authority.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="k8s-best-practices-universal-base-image-information"><a class="link" href="#k8s-best-practices-universal-base-image-information">3.13.5. Universal Base Image information</a></h4>
+<div class="paragraph">
+<p><a href="https://developers.redhat.com/products/rhel/ubi">UBI</a> is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Base Images</dt>
+<dd>
+<p>A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.</p>
+</dd>
+<dt class="hdlist1">Runtime Languages</dt>
+<dd>
+<p>A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.</p>
+</dd>
+<dt class="hdlist1">Complementary packages</dt>
+<dd>
+<p>A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.</p>
+<div class="paragraph">
+<p>Red Hat UBI images are the preferred images to build VNFs on as they will leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6770,7 +6888,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-01 18:15:29 UTC
+Last updated 2024-10-01 18:17:26 UTC
 </div>
 </div>
 <!-- Nav bar -->
