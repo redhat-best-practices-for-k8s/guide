@@ -178,4 +178,8 @@ include::modules/k8s-best-practices-cnf-operator-requirements.adoc[leveloffset=+
 
 include::modules/k8s-best-practices-requirements-cnf-reqs.adoc[leveloffset=+2]
 
+include::modules/k8s-best-practices-image-standards.adoc[leveloffset=+3]
+
+include::modules/k8s-best-practices-universal-base-image-information.adoc[leveloffset=+3]
+
 include::modules/k8s-best-practices-copyright.adoc[leveloffset=+1]
