@@ -58,7 +58,7 @@ include::modules/k8s-best-practices-topology-manager-and-numa-awareness.adoc[lev
 
 include::modules/k8s-best-practices-ipv4-ipv6.adoc[leveloffset=+3]
 
-include: modules/k8s-best-practices-IPv6-NAT46.adoc[leveloffset=+3]
+include: modules/k8s-best-practices-IPv6-NAT.adoc[leveloffset=+3]
 
 include::modules/k8s-best-practices-vrfs-aka-routing-instances.adoc[leveloffset=+3]
 
