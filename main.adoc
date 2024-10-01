@@ -1,4 +1,4 @@
-[id="k8s-best-practices"]
+include::modules/cnf-best-practices-spk-integration-via-spk-operator.adoc[leveloffset=+4][id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
 :revnumber: v2
@@ -153,6 +153,8 @@ include::modules/k8s-best-practices-custom-role-to-access-application-crds.adoc[
 include::modules/k8s-best-practices-multus.adoc[leveloffset=+4]
 
 include::modules/k8s-best-practices-multus-macvlan.adoc[leveloffset=+4]
+
+include::modules/k8s-best-practices-spk-integration-via-spk-operator.adoc[leveloffset=+4]
 
 include::modules/k8s-best-practices-sr-iov-interface-settings.adoc[leveloffset=+4]
 
