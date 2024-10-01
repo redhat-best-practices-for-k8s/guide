@@ -73,6 +73,14 @@ Multiple versions of the same operator cannot exist on a single cluster.
 All Operator and operand images must be referenced using digest image tags "@sha256". Openshift "imagecontentsourcepolicy" objects (ICSP) only support mirror-by-digest at this time.
 ====
 
+[IMPORTANT]
+====
+For requesting Global operators (upstream 3rd party shared operators), the operators must come from one of the redhat provided operator catalogs
+* `redhat-operator`
+* `certified-operator`
+* `community-operator`
+====
+
 .Workload requirement
 [IMPORTANT]
 ====
