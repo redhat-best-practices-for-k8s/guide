@@ -1,4 +1,4 @@
-[id="cnf-best-practices-universal-base-image-information"]
+[id="k8s-best-practices-universal-base-image-information"]
 = Universal Base Image information
 
 link:https://developers.redhat.com/products/rhel/ubi[UBI] is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.
