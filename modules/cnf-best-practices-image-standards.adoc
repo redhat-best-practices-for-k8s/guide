@@ -1,0 +1,46 @@
+[id="cnf-best-practices-image-standards"]
+= Image standards
+
+It is recommended that container images be built utilizing Red Hat's Universal Base Image as they will have a solid security baseline as well as support from Red Hat.
+
+Vendors must satisfy 3 requirements related to maintaining proper workload isolation in a containerized environment:
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Containerized workloads should work with a restricted SCC unless an exception is given
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Containerized workloads should work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+====
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+The container image must be secure.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+====
+
+The Red Hat UBI is able to meet these requirements and enables images built with it to meet these requirements. UBI is supported by a dedicated, full-time team providing releases of base image. UBI has the following features:
+
+* Scheduled release every 6 weeks to pick up less critical fixes.
+
+* On-demand release for critical or important CVE within 5 days of CVE public release.
+
+* Guarantees alignment with host OS packages and versions that run tightly coupled to the container artifacts. Many CVEs and potential attacks result from mismatch of untested versions of utility functions.
+
+* Ensures globally consistent time zone usage and resulting timestamps for global operators.
+
+* Enables continuous authorization to operate (ATO). Authorize once, use many times.
+
+* Meets requirements of the DOD, for example Air Force/DISA STIG.
+
+* Supports system-wide crypto consistency, for example, must have same crypto implementation as the Red Hat host operating system.
+
+* Provides authentication of the base layer via digital signature from originating vendor and strong signature authority.

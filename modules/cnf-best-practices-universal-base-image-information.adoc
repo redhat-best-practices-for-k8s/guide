@@ -1,0 +1,14 @@
+[id="cnf-best-practices-universal-base-image-information"]
+= Universal Base Image information
+
+link:https://developers.redhat.com/products/rhel/ubi[UBI] is designed to be a foundation for cloud-native and web applications use cases developed in containers. You can build a containerized application using UBI, push it to your choice of registry server, easily share it with others - and because it’s freely redistributable — even deploy it on non-Red Hat platforms. And since it’s built on Red Hat Enterprise Linux, UBI is a platform that is reliable, secure, and performant.
+
+Base Images:: A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
+
+Runtime Languages:: A set of language runtime images (PHP, Perl, Python, Ruby, Node.js) enable developers to start coding out of the gate with the confidence that a Red Hat built container image provides.
+
+Complementary packages:: A set of associated YUM repositories/channels include RPM packages and updates that allow users to add application dependencies and rebuild UBI container images anytime they want.
++
+Red Hat UBI images are the preferred images to build VNFs on as they will leverage the fully supported Red Hat ecosystem. In addition, once a VNF is standardized on a Red Hat UBI, the image can become Red Hat certified.
++
+Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started.
