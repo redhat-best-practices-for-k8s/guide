@@ -11,6 +11,14 @@ By configuring the SR-IOV network, CRs named `NetworkAttachmentDefinitions` are 
 
 Different names will be assigned to different Network Attachment Definitions that are namespace specific. MACVLAN versus MULTUS interfaces will be named differently to distinguish the type of device assigned to them (created by configuring SR-IOV devices via the SRIOVNetworkNodePolicy CR).
 
+For SR-IOV based SriovNetworkNodePolicy definitions, the MTU setting is omitted because it can cause conflicts with applications which set their own MTU value. It is required therefore that the application always manage its own MTU value for SR-IOV
+
+.VCP CNF requirement
+[IMPORTANT]
+====
+Applications using SR-IOV multus Network Attachment Definitions must set their required MTU value for virtual functions (VFs) within their pod.
+====
+
 From the workload perspective, a defined set of network attachment definitions will be available in the assigned namespace to serve secondary networks for regular usage or to serve for DPDK payloads.
 
 The SR-IOV devices are configured by the cluster admin, and they will be available in the namespace assigned to the workload. The following command returns the list of secondary networks available in the namespace:
