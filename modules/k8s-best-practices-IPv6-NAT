@@ -1,5 +1,5 @@
-[id="cnf-best-practices-ipv6-nat46-64"]
-= IPv6 NAT46/64 w/DNS46
+[id="cnf-best-practices-ipv6-nat"]
+= IPv6 NAT
 
 Services advertised to other CNFs should utilize VIPs on the SPK that are part of the platform.
 This creation of external services is done via pushing a configmap with F5 AS3 formatted configuration tocreation of CRDs for SPK into the Kubernetes API.
