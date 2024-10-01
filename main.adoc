@@ -182,4 +182,6 @@ include::modules/k8s-best-practices-image-standards.adoc[leveloffset=+3]
 
 include::modules/k8s-best-practices-universal-base-image-information.adoc[leveloffset=+3]
 
+include::modules/k8s-best-practices-application-dns-configuration-requirements.adoc[leveloffset=+3]
+
 include::modules/k8s-best-practices-copyright.adoc[leveloffset=+1]
