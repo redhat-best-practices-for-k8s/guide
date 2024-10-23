@@ -3,7 +3,7 @@
 
 Review the Kubernetes and OpenShift API documentation:
 
-* link:https://docs.openshift.com/container-platform/latest/rest_api/index.html[OpenShift API index]
+* link:https://docs.openshift.com/container-platform/latest/rest_api/overview/understanding-api-support-tiers.html[OpenShift API index]
 * link:https://kubernetes.io/docs/reference/#[Kubernetes API reference]
 
 .Workload requirement
