@@ -5722,133 +5722,8 @@ application namespace. Example:</p>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">Example SRIOVnetworknodepolicy</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">SRIOVnetwork.openshift.io/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SRIOVNetworkNodePolicy</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">nnp-w1ens3f0grp2</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-SRIOV-network-operator</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">deviceType</span><span class="pi">:</span> <span class="s">vfio-pci</span>
-  <span class="na">isRdma</span><span class="pi">:</span> <span class="kc">false</span>
-  <span class="na">linkType</span><span class="pi">:</span> <span class="s">eth</span>
-  <span class="na">mtu</span><span class="pi">:</span> <span class="m">9000</span>
-  <span class="na">nicSelector</span><span class="pi">:</span>
-    <span class="na">deviceID</span><span class="pi">:</span> <span class="s">158b</span>
-    <span class="na">pfNames</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">ens3f0#50-63</span>
-    <span class="na">vendor</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8086"</span>
-  <span class="na">nodeSelector</span><span class="pi">:</span>
-    <span class="na">kubernetes.io/hostname</span><span class="pi">:</span> <span class="s">worker-3</span>
-  <span class="na">numVfs</span><span class="pi">:</span> <span class="m">64</span>
-  <span class="na">priority</span><span class="pi">:</span> <span class="m">99</span>
-  <span class="na">resourceName</span><span class="pi">:</span> <span class="s">w1ens3f0grp2</span></code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>The <code>SRIOVnetwork</code> CR creates the <code>network-attach-definition</code> within the target <code>networkNamespace</code>.</p>
-</div>
-<div id="example-1" class="listingblock">
-<div class="title">Example 1: Empty IPAM</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">SRIOVnetwork.openshift.io/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SRIOVNetwork</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">SRIOVnet</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-SRIOV-network-operator</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
-  <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{}'</span>
-  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
-  <span class="na">resourceName</span><span class="pi">:</span> <span class="s">w1ens3f0grp2</span>
-  <span class="na">spoofChk</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
-  <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
-  <span class="na">vlan</span><span class="pi">:</span> <span class="s">282</span></code></pre>
-</div>
-</div>
-<div id="example-2" class="listingblock">
-<div class="title">Example 2: Whereabouts IPAM</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">SRIOVnetwork.openshift.io/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SRIOVNetwork</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">SRIOVnet</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-SRIOV-network-operator</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
-  <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"type":"whereabouts","range":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001/64","range_star</span><span class="nv"> </span><span class="s">t":"FD97:0EF5:45A5:4000:00D0:0403:0000:0001","range_end":"FD97:0EF5:45A5:4000:00D0:0403</span><span class="nv"> </span><span class="s">:0000:0020","routes":[{"dst":"fd97:0ef5:45a5::/48","gw":"FD97:EF5:45A5:4000::1"}]}'</span>
-  <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
-    <span class="s">resourceName</span><span class="err">:</span> <span class="s">w1ens3f0grp2</span>
-    <span class="s">spoofChk</span><span class="err">:</span> <span class="s2">"</span><span class="s">off"</span>
-    <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
-    <span class="na">vlan</span><span class="pi">:</span> <span class="s">282</span></code></pre>
-</div>
-</div>
-<div id="example-3" class="listingblock">
-<div class="title">Example 3: Static IPAM</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">SRIOVnetwork.openshift.io/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SRIOVNetwork</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">SRIOVnet</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">openshift-SRIOV-network-operator</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">capabilities</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{</span><span class="nv"> </span><span class="s">"mac":</span><span class="nv"> </span><span class="s">true</span><span class="nv"> </span><span class="s">}'</span>
-  <span class="na">ipam</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"type":</span><span class="nv"> </span><span class="s">"static","addresses":[{"address":"10.120.26.5/25","gateway":"10.120.26.1"}]}'</span> <span class="na">networkNamespace</span><span class="pi">:</span> <span class="s">&lt;WORKLOAD-NAMESPACE&gt;</span>
-  <span class="na">resourceName</span><span class="pi">:</span> <span class="s">w1ens3f0grp2</span>
-  <span class="na">spoofChk</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
-  <span class="na">trust</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
-  <span class="na">vlan</span><span class="pi">:</span> <span class="s">282</span></code></pre>
-</div>
-</div>
-<div id="example-4" class="listingblock">
-<div class="title">Example 4: Using Pod Annotations to attach</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">sample-pod</span>
-  <span class="na">annotations: k8s.v1.cni.cncf.io/networks</span><span class="pi">:</span> <span class="pi">|-</span>
-    <span class="s">[</span>
-      <span class="s">{</span>
-        <span class="s">"name": "net1",</span>
-        <span class="s">"mac": "20:04:0f:f1:88:01",</span>
-        <span class="s">"ips": ["192.168.10.1/24", "2001::1/64"]</span>
-      <span class="s">}</span>
-    <span class="s">]</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The examples depict scenarios used within to deliver secondary network interfaces with and without IPAM to a pod.</p>
-</div>
-<div class="paragraph">
-<p><a href="#example-1">Example 1: Empty IPAM</a> creates a network attachment definition that does not specify an IP address, <a href="#example-2">Example 2: Whereabouts IPAM</a> makes use of the static IPAM and <a href="#example-3">Example 3: Static IPAM</a> makes use of the whereabouts CNI that provides a cluster wide dhcp option.</p>
-</div>
-<div class="paragraph">
-<p>The actual addresses used for both whereabouts and static IPAM are managed external to the cluster.</p>
-</div>
-<div class="paragraph">
-<p>The above <code>SRIOVnetwork</code> CR will configure a network attachment definition within the workload namespace.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get net-attach-def <span class="nt">-n</span> &lt;workload_namespace&gt;
-<span class="go">NAME       AGE
-SRIOVnet   9d</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Within the workload namespace the SR-IOV resource is consumed via a pod annotation:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">annotations</span><span class="pi">:</span>
-    <span class="na">k8s.v1.cni.cncf.io/networks</span><span class="pi">:</span> <span class="s">SRIOVnet</span></code></pre>
-</div>
 </div>
 </div>
 <div class="sect4">
@@ -6948,7 +6823,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.6<br>
-Last updated 2024-10-23 15:26:01 UTC
+Last updated 2024-10-23 15:43:00 UTC
 </div>
 </div>
 <!-- Nav bar -->
