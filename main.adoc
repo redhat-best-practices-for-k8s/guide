@@ -1,7 +1,7 @@
 [id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
-:revnumber: v1.6
+:revnumber: v2
 :revdate: 2024
 :toc: left
 :toclevels: 5
