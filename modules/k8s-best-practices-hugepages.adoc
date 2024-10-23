@@ -4,7 +4,7 @@
 In OpenShift Container Platform, nodes/hosts must pre-allocate huge pages.
 
 For more information, see
-link:https://docs.openshift.com/container-platform/4.17/scalability_and_performance/what-huge-pages-do-and-how-they-are-consumed-by-apps.html[Configuring huge pages].
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/what-huge-pages-do-and-how-they-are-consumed-by-apps.html[Configuring huge pages].
 
 
 To request hugepages, pods must supply the following within the `pod.spec` for each container:
