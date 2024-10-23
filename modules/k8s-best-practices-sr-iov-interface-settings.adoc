@@ -9,7 +9,7 @@ The following settings must be negotiated with the cluster administrator, for ea
 
 * For kernel-space devices, the IP allocation is provided directly by the cluster IP assignment mechanism.
 
-* The option to configure the IP of a given SR-IOV interface at runtime, see link:https://docs.openshift.com/container-platform/4.17/networking/hardware_networks/add-pod.html[Adding a pod to an SR-IOV additional network].
+* The option to configure the IP of a given SR-IOV interface at runtime, see link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/add-pod.html[Adding a pod to an SR-IOV additional network].
 
 [NOTE]
 ====
