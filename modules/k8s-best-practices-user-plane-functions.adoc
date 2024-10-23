@@ -7,7 +7,7 @@ Develop user plane functions that meet the following requirements.
 == Node Tuning Operator
 
 Red Hat created the
-link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/cnf-low-latency-tuning.html#cnf-provisioning-real-time-and-low-latency-workloads_cnf-master[Node Tuning Operator] for low latency nodes.
+link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/using-node-tuning-operator.html[Node Tuning Operator] for low latency nodes.
 
 [NOTE]
 ====
