@@ -27,7 +27,7 @@ Refer to link:https://docs.openshift.com/container-platform/latest/authenticatio
 [id="k8s-best-practices-default-capabilities"]
 == DEFAULT capabilities
 
-The default capabilities that are allowed via the restricted SCC are as follows. link:https://github.com/cri-o/cri-o/blob/master/internal/config/capabilities/capabilities.go[]
+The default capabilities that are allowed via the restricted SCC are as follows. link:https://github.com/cri-o/cri-o/blob/main/internal/config/capabilities/capabilities_linux.go[cri-o Linux capabilities]
 
 * `"CHOWN"`
 * `"DAC_OVERRIDE"`
