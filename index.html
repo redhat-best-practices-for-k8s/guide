@@ -4434,7 +4434,7 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://docs.openshift.com/container-platform/latest/networking/openshift_sdn/enabling-multicast.html">Enabling multicast for a project</a></p>
+<p><a href="https://docs.openshift.com/container-platform/4.16/networking/openshift_sdn/enabling-multicast.html">Enabling multicast for a project</a></p>
 </li>
 <li>
 <p><a href="https://docs.openshift.com/container-platform/latest/networking/hardware_networks/using-sriov-multicast.html#nw-using-an-sriov-interface-for-multicast_using-sriov-multicast">Configuring an SR-IOV interface for multicast</a></p>
@@ -4443,6 +4443,10 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 <p>If your application works as a multicast source and you want to utilize the additional interfaces to carry the multicast traffic, then you don’t need the <code>NET_ADMIN</code> capability. Follow the instructions in <a href="https://docs.openshift.com/container-platform/latest/networking/hardware_networks/using-sriov-multicast.html">Using high performance multicast</a> to set the correct multicast route in the pod’s routing table.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>NOTE
+OpenShift SDN CNI is deprecated as of OpenShift Container Platform 4.14. As of OpenShift Container Platform 4.15, the network plugin is not an option for new installations. In a subsequent future release, the OpenShift SDN network plugin is planned to be removed and no longer supported. Red Hat will provide bug fixes and support for this feature until it is removed, but this feature will no longer receive enhancements. As an alternative to OpenShift SDN CNI, you can use OVN Kubernetes CNI instead. For more information, see <a href="https://access.redhat.com/articles/7065170?extIdCarryOver=true&amp;sc_cid=701f2000001Css5AAC">OpenShift SDN CNI removal</a>.</p>
 </div>
 </div>
 </div>
@@ -6823,7 +6827,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-24 01:44:48 UTC
+Last updated 2024-10-24 01:46:35 UTC
 </div>
 </div>
 <!-- Nav bar -->
