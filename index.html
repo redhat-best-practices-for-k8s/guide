@@ -4152,7 +4152,7 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <p>If the container has the UID 0 (root) its Effective capability set is determined according to the capability attributes requested by the pod or container security context and allowed by the SCC assigned to the pod. In this case, the SCC provides a way to limit the capabilities of a root container.</p>
 </li>
 <li>
-<p>If the container has a UID non 0 (non root), the new container has an empty Effective capability set (see <a href="https://github.com/kubernetes/kubernetes/issues/56374#" class="bare">https://github.com/kubernetes/kubernetes/issues/56374#</a>). In this case the SCC assigned to the pod controls only the capabilities the container may acquire through the file capabilities of binaries it will execute.</p>
+<p>If the container has a UID non 0 (non root), the new container has an empty Effective capability set (see <a href="https://github.com/kubernetes/kubernetes/issues/56374#">Kubernetes should configure the ambient capability set</a>). In this case the SCC assigned to the pod controls only the capabilities the container may acquire through the file capabilities of binaries it will execute.</p>
 </li>
 </ul>
 </div>
@@ -6823,7 +6823,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-23 16:09:26 UTC
+Last updated 2024-10-24 01:30:37 UTC
 </div>
 </div>
 <!-- Nav bar -->
