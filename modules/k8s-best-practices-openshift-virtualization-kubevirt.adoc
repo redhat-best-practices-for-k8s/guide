@@ -11,7 +11,7 @@ In order to improve overall virtualization performance and reduce CPU latency, c
 
 * link:https://kubevirt.io/user-guide/virtual_machines/dedicated_cpu_resources/#requesting-dedicated-cpu-for-qemu-emulator[Dedicated CPU for QEMU emulators]
 
-* link:https://kubevirt.io/user-guide/virtual_machines/disks_and_volumes/#iothreads-with-qemu-emulator-thread-and-dedicated-pinned-cpus[A separate physical CPU] so as to not affect the CPU latency for workloads.
+* link:https://kubevirt.io/user-guide/compute/dedicated_cpu_resources/[Dedicated CPU resources] so as to not affect the CPU latency for workloads.
 
 [NOTE]
 ====
