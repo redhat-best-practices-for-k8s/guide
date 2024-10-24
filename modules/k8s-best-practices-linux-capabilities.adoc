@@ -22,7 +22,7 @@ The capabilities associated with a new container are determined as follows:
 
 Considering the general recommendation to avoid running root containers, capabilities required by non-root containers are controlled by the pod or container security context and the SCC capability attributes but can only be acquired by properly setting the file capabilities of the container binaries.
 
-Refer to link:https://docs.openshift.com/container-platform/4.13/authentication/managing-security-context-constraints.html[Managing security context constraints] for more details on how to define and use the SCC.
+Refer to link:https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html[Managing security context constraints] for more details on how to define and use the SCC.
 
 [id="k8s-best-practices-default-capabilities"]
 == DEFAULT capabilities
