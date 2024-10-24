@@ -37,7 +37,7 @@ Do NOT set your pod disruption budget to `maxUnavailable` <number of pods in rep
 
 A corollary to the pod disruption budget is a strong readiness and health check. A well implemented readiness check is key for surviving these upgrades in that a pod should not report itself ready to kubernetes until it is actually ready to take over the load from another pod of the example set. An example of this being implemented poorly would be for a pod to report itself ready but it is not in sync with the other DB pods in the example above. Kubernetes could see that three of the pods are "ready" and destroy a second pod and cause disruption to the DB leading to failure of the application served by said DB.
 
-See link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference].
+See link:https://kubernetes.io/docs/tasks/run-application/configure-pdb/[pod disruption budget reference], link:https://docs.openshift.com/container-platform/latest/rest_api/policy_apis/poddisruptionbudget-policy-v1.html[pod disruption budget policy & API].
 
 [source,yaml]
 ----
@@ -52,7 +52,7 @@ spec:
       app: db
 ----
 
-See link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/recommended-host-practices.html[Recommended performance and scalability practices].
+See link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/index.html[Recommended performance and scalability practices].
 
 By default, only one machine is allowed to be unavailable when applying the kubelet-related configuration to the available worker nodes. For a large cluster, it can take a long time for the configuration change to be reflected. At any time, you can adjust the number of machines that are updating to speed up the process.
 
