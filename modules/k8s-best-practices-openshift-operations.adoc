@@ -54,4 +54,5 @@ In OpenShift, multicast is supported for both the default interface (OVN or Open
 * If your application works as a multicast source and you want to utilize the additional interfaces to carry the multicast traffic, then you don’t need the `NET_ADMIN` capability. Follow the instructions in link:https://docs.openshift.com/container-platform/latest/networking/hardware_networks/using-sriov-multicast.html[Using high performance multicast] to set the correct multicast route in the pod’s routing table.
 
 NOTE
+
 OpenShift SDN CNI is deprecated as of OpenShift Container Platform 4.14. As of OpenShift Container Platform 4.15, the network plugin is not an option for new installations. In a subsequent future release, the OpenShift SDN network plugin is planned to be removed and no longer supported. Red Hat will provide bug fixes and support for this feature until it is removed, but this feature will no longer receive enhancements. As an alternative to OpenShift SDN CNI, you can use OVN Kubernetes CNI instead. For more information, see link:https://access.redhat.com/articles/7065170?extIdCarryOver=true&sc_cid=701f2000001Css5AAC[OpenShift SDN CNI removal].
