@@ -2,7 +2,7 @@
 [id="k8s-best-practices-copyright"]
 = Copyright
 
-© Copyright 2023 Red Hat Inc.
+© Copyright 2024 Red Hat Inc.
 
 All Rights Reserved.
 
