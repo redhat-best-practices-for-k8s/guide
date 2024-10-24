@@ -5862,7 +5862,7 @@ loadbalancer-15</span></code></pre>
 <p>A corollary to the pod disruption budget is a strong readiness and health check. A well implemented readiness check is key for surviving these upgrades in that a pod should not report itself ready to kubernetes until it is actually ready to take over the load from another pod of the example set. An example of this being implemented poorly would be for a pod to report itself ready but it is not in sync with the other DB pods in the example above. Kubernetes could see that three of the pods are "ready" and destroy a second pod and cause disruption to the DB leading to failure of the application served by said DB.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">pod disruption budget reference</a>.</p>
+<p>See <a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">pod disruption budget reference</a>, <a href="https://docs.openshift.com/container-platform/latest/rest_api/policy_apis/poddisruptionbudget-policy-v1.html">pod disruption budget policy &amp; API</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5878,7 +5878,7 @@ loadbalancer-15</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/scalability_and_performance/recommended-host-practices.html">Recommended performance and scalability practices</a>.</p>
+<p>See <a href="https://docs.openshift.com/container-platform/latest/scalability_and_performance/index.html">Recommended performance and scalability practices</a>.</p>
 </div>
 <div class="paragraph">
 <p>By default, only one machine is allowed to be unavailable when applying the kubelet-related configuration to the available worker nodes. For a large cluster, it can take a long time for the configuration change to be reflected. At any time, you can adjust the number of machines that are updating to speed up the process.</p>
@@ -6829,7 +6829,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-24 02:18:58 UTC
+Last updated 2024-10-24 02:34:58 UTC
 </div>
 </div>
 <!-- Nav bar -->
