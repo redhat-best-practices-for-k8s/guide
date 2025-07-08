@@ -9,6 +9,8 @@
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-undeclared-container-ports-usage[networking-undeclared-container-ports-usage]
 
+**Impacts and Risks of Non-Compliance:** Undeclared ports can be blocked by security policies, causing unexpected connectivity issues and making troubleshooting difficult.
+
 *** The name field in the ContainerPort section must be of the form `<protocol>` where `<protocol>` is one of the below, and the optional `<suffix>` can be chosen by the application.
 
 *** Preferred prefixes: `grpc`, `grpc-web`, `http`, `http2`
@@ -18,6 +20,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 *** Valid example: `http-webapi` or `grpc`
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-container-port-name-format[manageability-container-port-name-format]
+
+**Impacts and Risks of Non-Compliance:** Incorrect port naming conventions can cause service discovery issues and configuration management problems.
 
 * The application MUST communicate with Kubernetes Services by their service IP instead of selecting Pods in that service individually.
 
@@ -34,6 +38,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 * The application MUST NOT define Kubernetes resources in the istio-system namespace.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace[access-control-namespace]
+
+**Impacts and Risks of Non-Compliance:** Using inappropriate namespaces can lead to resource conflicts, security boundary violations, and administrative complexity in multi-tenant environments.
 
 * The application MUST propagate tracing headers when making outgoing requests based on incoming requests.
 
@@ -70,6 +76,8 @@ Containerized workloads must work with Red Hat's restricted SCC1.
 Containerized workloads must work with Red Hat’s default SELinux context. This is meant to forbid all changes to both primary config files (SCC, SEL) and the many related files referenced by these primary files. All security configuration files must be unchanged from the vendor’s released version.
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+
+**Impacts and Risks of Non-Compliance:** Modified base images can introduce security vulnerabilities, create inconsistent behavior, and violate immutable infrastructure principles. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.
 ====
 
 .Workload requirement
@@ -78,6 +86,8 @@ See test cases link:https://github.com/test-network-function/cnf-certification-t
 The container image must be secure.
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing[platform-alteration-is-selinux-enforcing]
+
+**Impacts and Risks of Non-Compliance:** Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.
 ====
 
 The Red Hat UBI is able to meet these requirements and enables images built with it to meet these requirements. UBI is supported by a dedicated, full-time team providing releases of base image. UBI has the following features:

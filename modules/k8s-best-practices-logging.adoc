@@ -10,5 +10,7 @@ Log aggregation and analysis::
 * Workloads requiring log parsing must leverage some standard logging library or format for all stdout/stderr. Examples of standard logging libraries include; `klog`, `rfc5424`, and `oslo`.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-container-logging[observability-container-logging]
+
+**Impacts and Risks of Non-Compliance:** Improper logging configuration prevents log aggregation and monitoring, making troubleshooting and debugging difficult.
 --
 

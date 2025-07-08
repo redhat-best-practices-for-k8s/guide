@@ -1,7 +1,7 @@
 [id="k8s-best-practices-ubi"]
 = Red Hat Universal Base Images
 
-link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455[Red Hat Universal Base Images (UBI)] is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.
+link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455[Red Hat Universal Base Images (UBI)] is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it's built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.
 
 [id="k8s-best-practices-base-images"]
 == Base Images
@@ -9,6 +9,8 @@ link:https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-184
 A set of three base images (Minimal, Standard, and Multi-service) are provided to provide optimum starting points for a variety of use cases.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release]
+
+**Impacts and Risks of Non-Compliance:** Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use.
 
 [id="k8s-best-practices-runtime-languages"]
 === Runtime Languages

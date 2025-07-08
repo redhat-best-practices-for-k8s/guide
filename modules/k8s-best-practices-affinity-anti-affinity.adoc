@@ -34,6 +34,8 @@ Pods that need to be co-located on the same node need affinity rules. Pods that 
 co-located for resiliency purposes require anti-affinity rules.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods[lifecycle-affinity-required-pods]
+
+**Impacts and Risks of Non-Compliance:** Missing affinity rules can cause incorrect pod placement, leading to performance issues and failure to meet co-location requirements.
 ====
 
 .Workload requirement
@@ -43,5 +45,7 @@ Pods that perform the same microservice and could be disrupted if multiple membe
 unavailable must implement affinity/anti-affinity group rules or spread the pods across nodes to prevent disruption in the event of node failures, patches, or upgrades.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability[lifecycle-pod-high-availability]
+
+**Impacts and Risks of Non-Compliance:** Missing anti-affinity rules can cause all pod replicas to be scheduled on the same node, creating single points of failure.
 ====
 

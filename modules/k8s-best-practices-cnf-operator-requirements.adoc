@@ -7,6 +7,8 @@
 Operators should be certified against the openshift version of the cluster they will be deployed on.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-operator-is-certified[affiliated-certification-operator-is-certified]
+
+**Impacts and Risks of Non-Compliance:** Uncertified operators may have security flaws, compatibility issues, and lack enterprise support, creating operational risks.
 ====
 
 .Workload requirement
@@ -19,6 +21,8 @@ Operators must be compatible with our version of openshift
 * See link:https://sdk.operatorframework.io/docs/best-practices/[Redhat Operator SDK & Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[OLM Best Practices]
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle[platform-alteration-ocp-lifecycle]
+
+**Impacts and Risks of Non-Compliance:** End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.
 ====
 
 .Workload requirement
@@ -27,6 +31,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 Operators must be in OLM bundle format (Operator Framework).
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-source[operator-install-source]
+
+**Impacts and Risks of Non-Compliance:** Non-OLM operators bypass lifecycle management and dependency resolution, creating operational complexity and update issues.
 ====
 
 .Workload requirement
@@ -47,6 +53,8 @@ All custom resources for operators require podspecs for both pod image override 
 Operators must not use daemonsets
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
+
+**Impacts and Risks of Non-Compliance:** Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.
 ====
 
 .Workload requirement
@@ -87,6 +95,8 @@ For requesting Global operators (upstream 3rd party shared operators), the opera
 Operators that are proprietary to a workload application must ensure that their CRD's are unique, and will not conflict with other operators in the cluster.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-crd-status[observability-crd-status]
+
+**Impacts and Risks of Non-Compliance:** Missing status subresources prevent proper monitoring and automation based on custom resource states.
 ====
 
 .Workload requirement
@@ -101,6 +111,8 @@ If a workload application requires a specific version of a third party non-propr
 Successful operator installation and runtime must be validated in pre-deployment lab environments before being allowed to be deployed to production.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-status-succeeded[operator-install-status-succeeded]
+
+**Impacts and Risks of Non-Compliance:** Failed operator installations can leave applications in incomplete states, causing functionality gaps and operational issues.
 ====
 
 .Workload requirement

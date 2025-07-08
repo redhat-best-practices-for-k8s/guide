@@ -18,7 +18,9 @@ The general guidelines are:
 ====
 Only ask for the necessary privileges and access control settings for your application
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check[access-control-security-context-non-root-user-check]
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-id-check[access-control-security-context-non-root-user-id-check]
+
+**Impacts and Risks of Non-Compliance:** Running containers as root increases the blast radius of security vulnerabilities and can lead to full host compromise if containers are breached.
 ====
 
 .Workload requirement
@@ -28,6 +30,8 @@ If the function required by your workload can be fulfilled by OCP components, yo
 requesting escalated privilege to perform this function.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation[access-control-security-context-privilege-escalation]
+
+**Impacts and Risks of Non-Compliance:** Allowing privilege escalation can lead to containers gaining root access, compromising the security boundary between containers and hosts.
 ====
 
 .Workload requirement
@@ -37,6 +41,8 @@ Avoid using any host system resource.
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-ipc[access-control-pod-host-ipc], 
 link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-pid[access-control-pod-host-pid]
+
+**Impacts and Risks of Non-Compliance:** Host IPC access allows containers to communicate with host processes, potentially exposing sensitive information and enabling privilege escalation.
 ====
 
 .Workload requirement
@@ -45,6 +51,8 @@ link:https://github.com/test-network-function/cnf-certification-test/blob/main/C
 Do not mount host directories for device access.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path[access-control-pod-host-path]
+
+**Impacts and Risks of Non-Compliance:** Host path mounts can expose sensitive host files to containers, enable container escape attacks, and compromise host system integrity.
 ====
 
 .Workload requirement
@@ -53,6 +61,8 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 Do not use host network namespace.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace[access-control-namespace]
+
+**Impacts and Risks of Non-Compliance:** Using inappropriate namespaces can lead to resource conflicts, security boundary violations, and administrative complexity in multi-tenant environments.
 ====
 
 .Workload requirement
@@ -61,4 +71,6 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 Workloads may not modify the platform in any way.
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image[platform-alteration-base-image], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-sysctl-config[platform-alteration-sysctl-config]
+
+**Impacts and Risks of Non-Compliance:** Modified base images can introduce security vulnerabilities, create inconsistent behavior, and violate immutable infrastructure principles.
 ====

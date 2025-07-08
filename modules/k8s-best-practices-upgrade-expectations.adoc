@@ -16,6 +16,8 @@
 Applications MUST specify a pod disruption budget appropriately to maintain service continuity during platform upgrades. The budget should be defined with a balance such that it allows operational flexibility for the cluster to drain nodes, but restrictive enough so that the service is not degraded over upgrades.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation[lifecycle-pod-recreation]
+
+**Impacts and Risks of Non-Compliance:** Failed pod recreation indicates poor high availability configuration, leading to potential service outages during node failures.
 ====
 
 .Workload requirement
@@ -25,5 +27,7 @@ Pods that perform the same microservice and that could be disrupted if multiple 
 unavailable must implement pod disruption budgets to prevent disruption in the event of patches/upgrades.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget[observability-pod-disruption-budget]
+
+**Impacts and Risks of Non-Compliance:** Improper disruption budgets can prevent necessary maintenance operations or allow too many pods to be disrupted simultaneously.
 ====
 

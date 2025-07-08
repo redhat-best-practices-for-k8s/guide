@@ -18,3 +18,5 @@ Pods must include an explicit `serviceAccountName` in the pod spec. This is requ
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-automount-service-account-token[access-control-pod-automount-service-account-token]
 
+**Impacts and Risks of Non-Compliance:** Auto-mounted service account tokens expose Kubernetes API credentials to application code, creating potential attack vectors if applications are compromised.
+

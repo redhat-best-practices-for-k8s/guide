@@ -11,5 +11,7 @@ Interaction with a running pod should be done via `oc exec` or `oc rsh` commands
 SSH daemons must NOT be used in Openshift for pod interaction.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ssh-daemons[access-control-ssh-daemons]
+
+**Impacts and Risks of Non-Compliance:** SSH daemons in containers create additional attack surfaces, violate immutable infrastructure principles, and can be exploited for unauthorized access.
 ====
 

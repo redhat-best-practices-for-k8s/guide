@@ -11,3 +11,5 @@ More information about pods can be found in link:https://docs.openshift.com/cont
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-one-process-per-container[access-control-one-process-per-container]
 
+**Impacts and Risks of Non-Compliance:** Multiple processes per container complicate monitoring, debugging, and security assessment, and can lead to zombie processes and resource leaks.
+

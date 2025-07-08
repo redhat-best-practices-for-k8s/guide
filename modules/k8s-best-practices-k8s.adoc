@@ -8,3 +8,5 @@ The Kubernetes API is the mechanism that applications and users utilize to inter
 You can interact with the API in at least one of two ways. If the application or user is external to the cluster, the APIs can be accessed externally. If the application or user is directly connected to the cluster, they can access the cluster by using the Kubernetes Service Resource directly, bypassing the need to exit the cluster and log in again.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle[platform-alteration-ocp-lifecycle]
+
+**Impacts and Risks of Non-Compliance:** End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.

@@ -12,5 +12,7 @@ For more information, see link:https://docs.openshift.com/container-platform/lat
 If you use Helm to deploy your application, you must use Helm v3 because of security issues with Helm v2.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-helm-version[affiliated-certification-helm-version]
+
+**Impacts and Risks of Non-Compliance:** Helm v2 has known security vulnerabilities and lacks proper RBAC controls, creating significant security risks in production environments.
 ====
 

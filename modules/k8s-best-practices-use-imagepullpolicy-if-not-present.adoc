@@ -10,3 +10,5 @@ Container images that are protected by registry authentication have a condition 
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-image-pull-policy[lifecycle-image-pull-policy]
 
+**Impacts and Risks of Non-Compliance:** Incorrect image pull policies can cause deployment failures when image registries are unavailable or during network issues.
+

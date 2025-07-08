@@ -5,6 +5,8 @@ Roles / RoleBindings:: A `Role` represents a set of permissions within a particu
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-role-bindings[access-control-pod-role-bindings]
 
+**Impacts and Risks of Non-Compliance:** Cross-namespace role bindings can violate tenant isolation and create unintended privilege escalation paths.
+
 ClusterRole / ClusterRoleBinding:: A `ClusterRole` represents a set of permissions at the cluster level that can be used by multiple namespaces. The `ClusterRoleBinding` is used for granting the permissions defined in a `ClusterRole` to a user or group of users at a namespace level. Applications are not permitted to install cluster roles or create cluster role bindings. This is an administrative activity done by cluster administrators. Workloads should not use cluster roles; exceptions can be granted to allow this, however this is discouraged.
 
 See link:https://docs.openshift.com/container-platform/latest/authentication/using-rbac.html[Using RBAC to define and apply permissions] for more information.
@@ -15,5 +17,7 @@ See link:https://docs.openshift.com/container-platform/latest/authentication/usi
 Workloads may not create `ClusterRole` or `ClusterRoleBinding` CRs. Only cluster administrators should create these CRs.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-cluster-role-bindings[access-control-cluster-role-bindings]
+
+**Impacts and Risks of Non-Compliance:** Cluster-wide role bindings grant excessive privileges that can be exploited for lateral movement and privilege escalation across the entire cluster.
 ====
 

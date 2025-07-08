@@ -12,5 +12,7 @@ Review the Kubernetes and OpenShift API documentation:
 All workloads must verify that they are compliant with the correct release of REST API for Kubernetes and OpenShift. Please refer to the online documentation for deprecated APIs.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle[platform-alteration-ocp-lifecycle]
+
+**Impacts and Risks of Non-Compliance:** End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.
 ====
 
