@@ -11,6 +11,8 @@ Images should be OCI compliant. Red Hat recommends that you build images using R
 See <<k8s-best-practices-ubi>> for additional information about UBI and support.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release[platform-alteration-isredhat-release]
+
+**Impacts and Risks of Non-Compliance:** Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use.
 ====
 
 For more information about CRI-O, see the following:

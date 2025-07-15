@@ -24,3 +24,5 @@ be written with a default deny and only allow ports and protocols on an as neede
 pods and services.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all[networking-network-policy-deny-all]
+
+**Impacts and Risks of Non-Compliance:** Without default deny-all network policies, workloads are exposed to lateral movement attacks and unauthorized network access, compromising security posture and potentially enabling data breaches.

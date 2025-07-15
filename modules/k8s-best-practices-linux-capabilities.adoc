@@ -55,6 +55,8 @@ Even though `mlock()` is not necessary on systems where page swap is disabled (f
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ipc-lock-capability-check[access-control-ipc-lock-capability-check]
 
+**Impacts and Risks of Non-Compliance:** IPC_LOCK capability can be exploited to lock system memory, potentially causing denial of service and affecting other workloads on the same node.
+
 [id="k8s-best-practices-net_admin"]
 == NET_ADMIN
 
@@ -86,6 +88,8 @@ All the administrative operations (except `ethtool`) mentioned above that requir
 Only userplane applications or applications using SR-IOV or Multicast can request NET_ADMIN capability
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-net-admin-capability-check[access-control-net-admin-capability-check]
+
+**Impacts and Risks of Non-Compliance:** NET_ADMIN capability allows network configuration changes that can compromise cluster networking, enable privilege escalation, and bypass network security controls.
 ====
 
 [id="k8s-best-practices-avoid-sys_admin"]
@@ -99,6 +103,8 @@ This capability is very powerful and overloaded. It allows the application to pe
 Applications *MUST NOT* use the SYS_ADMIN Linux capability
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-admin-capability-check[access-control-sys-admin-capability-check]
+
+**Impacts and Risks of Non-Compliance:** SYS_ADMIN capability provides extensive privileges that can compromise container isolation, enable host system access, and create serious security vulnerabilities.
 ====
 
 [id="k8s-best-practices-sys_nice"]
@@ -108,6 +114,8 @@ In the case that a workload is running on a node and is using DPDK, SYS_NICE wil
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability[access-control-sys-nice-realtime-capability]
 
+**Impacts and Risks of Non-Compliance:** Missing SYS_NICE capability on real-time nodes prevents applications from setting appropriate scheduling priorities, causing performance degradation.
+
 [id="k8s-best-practices-sys_ptrace"]
 == SYS_PTRACE
 
@@ -115,4 +123,6 @@ This capability is required when using Process Namespace Sharing. This is used w
 For more information on these capabilities refer to link:https://cloud.redhat.com/blog/linux-capabilities-in-openshift[Linux Capabilities in OpenShift].
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-ptrace-capability[access-control-sys-ptrace-capability]
+
+**Impacts and Risks of Non-Compliance:** Missing SYS_PTRACE capability when using shared process namespaces prevents inter-container process communication, breaking application functionality.
 

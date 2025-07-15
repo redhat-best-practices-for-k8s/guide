@@ -11,5 +11,7 @@ Device interrupts are load balanced between all isolated and reserved CPUs to av
 To use isolated CPUs, specific annotations must be defined in the pod specification.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-cpu-isolation[lifecycle-cpu-isolation]
+
+**Impacts and Risks of Non-Compliance:** Improper CPU isolation can cause performance interference between workloads and fail to provide guaranteed compute resources.
 ====
 

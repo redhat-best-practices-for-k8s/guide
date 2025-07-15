@@ -13,6 +13,8 @@ The "restricted" SCC:
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path[access-control-pod-host-path]
 
+**Impacts and Risks of Non-Compliance:** Host path mounts can expose sensitive host files to containers, enable container escape attacks, and compromise host system integrity.
+
 * Requires that a pod run as a user in a pre-allocated range of UIDs from the namespace annotation.
 
 * Requires that a pod run with a pre-allocated MCS label from the namespace annotation.

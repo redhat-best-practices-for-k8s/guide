@@ -16,5 +16,7 @@ When the OpenShift scheduler is placing pods, it reviews the pod memory request 
 Vendors must supply quotas per project/namespace
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace-resource-quota[access-control-namespace-resource-quota]
+
+**Impacts and Risks of Non-Compliance:** Without resource quotas, workloads can consume excessive cluster resources, causing performance issues and potential denial of service for other applications.
 ====
 

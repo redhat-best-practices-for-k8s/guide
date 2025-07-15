@@ -12,3 +12,5 @@ Workload Requirement: If a workload is doing CPU pinning, exec probes may not be
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe[networking-dpdk-cpu-pinning-exec-probe]
 
+**Impacts and Risks of Non-Compliance:** Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.
+

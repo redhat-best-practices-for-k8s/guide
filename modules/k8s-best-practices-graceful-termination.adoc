@@ -12,6 +12,8 @@ Pods should exit with zero exit codes when they are gracefully terminated.
 ====
 All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-shutdown[lifecycle-container-shutdown]
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-prestop[lifecycle-container-prestop]
+
+**Impacts and Risks of Non-Compliance:** Missing PreStop hooks can cause ungraceful shutdowns, data loss, and connection drops during container termination.
 ====
 

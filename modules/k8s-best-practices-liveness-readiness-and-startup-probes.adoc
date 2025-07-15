@@ -13,10 +13,14 @@ For more information, see link:https://kubernetes.io/docs/tasks/configure-pod-co
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
 
+**Impacts and Risks of Non-Compliance:** Missing liveness probes prevent Kubernetes from detecting and recovering from application deadlocks and hangs. Missing readiness probes can cause traffic to be routed to non-ready pods, resulting in failed requests and poor user experience. Missing startup probes can cause slow-starting applications to be killed prematurely, preventing successful application startup.
+
 [IMPORTANT]
 ====
 If the workload is doing CPU pinning and running a DPDK process do not use exec probes (executing a command within the container); as this can pile up and eventually block the node.
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe[networking-dpdk-cpu-pinning-exec-probe]
+
+**Impacts and Risks of Non-Compliance:** Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.
 ====
 

@@ -8,3 +8,5 @@ The controlled immutability of RHCOS does not support installing RPMs or additio
 For more information, see link:https://docs.openshift.com/container-platform/latest/architecture/architecture-rhcos.html[About RHCOS].
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-node-os-lifecycle[platform-alteration-ocp-node-os-lifecycle], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-boot-params[platform-alteration-boot-params]
+
+**Impacts and Risks of Non-Compliance:** Incompatible node operating systems can cause stability issues, security vulnerabilities, and lack of vendor support.
