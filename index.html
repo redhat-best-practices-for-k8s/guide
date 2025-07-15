@@ -3208,6 +3208,9 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-helm-version">affiliated-certification-helm-version</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Helm v2 has known security vulnerabilities and lacks proper RBAC controls, creating significant security risks in production environments.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -3226,6 +3229,9 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle">platform-alteration-ocp-lifecycle</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3247,6 +3253,9 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-persistent-volume-reclaim-policy">lifecycle-persistent-volume-reclaim-policy</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Incorrect reclaim policies can lead to data persistence after application removal, causing storage waste and potential data security issues.</p>
 </div>
 <div class="paragraph">
 <p>For more information, see <a href="https://docs.openshift.com/container-platform/latest/storage/container_storage_interface/persistent-storage-csi.html">Red Hat Persistent Storage</a>.</p>
@@ -3317,7 +3326,10 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <p>Pods must not place persistent volumes in local storage.</p>
 </div>
 <div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-storage-required-pods">lifecycle-storage-required-pods</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-storage-provisioner">lifecycle-storage-provisioner</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Inappropriate storage provisioners can cause data persistence issues, performance problems, and storage failures.</p>
 </div>
 </td>
 </tr>
@@ -3344,6 +3356,9 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use.</p>
 </div>
 </td>
 </tr>
@@ -3403,6 +3418,9 @@ node eventually.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe">networking-dpdk-cpu-pinning-exec-probe</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="k8s-best-practices-host-os"><a class="link" href="#k8s-best-practices-host-os">2.10. Container host operating system</a></h3>
@@ -3418,11 +3436,14 @@ node eventually.</p>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-node-os-lifecycle">platform-alteration-ocp-node-os-lifecycle</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-boot-params">platform-alteration-boot-params</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Incompatible node operating systems can cause stability issues, security vulnerabilities, and lack of vendor support.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="k8s-best-practices-ubi"><a class="link" href="#k8s-best-practices-ubi">2.11. Red Hat Universal Base Images</a></h3>
 <div class="paragraph">
-<p><a href="https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455">Red Hat Universal Base Images (UBI)</a> is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it’s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.</p>
+<p><a href="https://developers.redhat.com/products/rhel/ubi#assembly-field-sections-18455">Red Hat Universal Base Images (UBI)</a> is designed to be a foundation for containerized cloud-native and web application use cases. You can build a containerized application by using UBI, push it to your choice of registry server, and easily share it with others. UBI is freely redistributable, even to non-Red Hat platforms. No subscription is required. Since it&#8217;s built on Red Hat Enterprise Linux, UBI has the same industry leading reliability, security and performance benefits.</p>
 </div>
 <div class="sect3">
 <h4 id="k8s-best-practices-base-images"><a class="link" href="#k8s-best-practices-base-images">2.11.1. Base Images</a></h4>
@@ -3431,6 +3452,9 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use.</p>
 </div>
 <div class="sect4">
 <h5 id="k8s-best-practices-runtime-languages"><a class="link" href="#k8s-best-practices-runtime-languages">2.11.1.1. Runtime Languages</a></h5>
@@ -3459,6 +3483,9 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3495,6 +3522,9 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle">platform-alteration-ocp-lifecycle</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.</p>
 </div>
 </td>
 </tr>
@@ -3567,6 +3597,9 @@ node eventually.</p>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-2m-only">platform-alteration-hugepages-2m-only</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-config">platform-alteration-hugepages-config</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Using inappropriate hugepage sizes can cause memory allocation failures and reduce overall system performance and stability.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="k8-best-practices-cpu-isolation"><a class="link" href="#k8-best-practices-cpu-isolation">2.16.3. CPU isolation</a></h4>
@@ -3589,6 +3622,9 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-cpu-isolation">lifecycle-cpu-isolation</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Improper CPU isolation can cause performance interference between workloads and fail to provide guaranteed compute resources.</p>
 </div>
 </td>
 </tr>
@@ -3659,6 +3695,9 @@ node eventually.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity">networking-icmpv4-connectivity</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Failure indicates potential network isolation issues that could prevent workload components from communicating, leading to service degradation or complete application failure.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -3676,6 +3715,9 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dual-stack-service">networking-dual-stack-service</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity">networking-icmpv6-connectivity</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Single-stack IPv4 services limit network architecture flexibility and prevent migration to modern dual-stack infrastructures.</p>
 </div>
 </td>
 </tr>
@@ -3743,6 +3785,9 @@ pods and services.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all">networking-network-policy-deny-all</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Without default deny-all network policies, workloads are exposed to lateral movement attacks and unauthorized network access, compromising security posture and potentially enabling data breaches.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="k8s-best-practices-ports-reserved-by-openshift"><a class="link" href="#k8s-best-practices-ports-reserved-by-openshift">2.16.8. Ports reserved by OpenShift</a></h4>
@@ -3772,6 +3817,9 @@ pods and services.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-ocp-reserved-ports-usage">networking-ocp-reserved-ports-usage</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Using OpenShift-reserved ports can cause critical platform services to fail, potentially destabilizing the entire cluster.</p>
 </div>
 </td>
 </tr>
@@ -3977,7 +4025,10 @@ The microservice architectural style is an approach to developing a single appli
 <p>Only ask for the necessary privileges and access control settings for your application</p>
 </div>
 <div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check">access-control-security-context-non-root-user-check</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-id-check">access-control-security-context-non-root-user-id-check</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Running containers as root increases the blast radius of security vulnerabilities and can lead to full host compromise if containers are breached.</p>
 </div>
 </td>
 </tr>
@@ -3998,6 +4049,9 @@ requesting escalated privilege to perform this function.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation">access-control-security-context-privilege-escalation</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Allowing privilege escalation can lead to containers gaining root access, compromising the security boundary between containers and hosts.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4017,6 +4071,9 @@ requesting escalated privilege to perform this function.</p>
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-ipc">access-control-pod-host-ipc</a>,
 <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-pid">access-control-pod-host-pid</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Host IPC access allows containers to communicate with host processes, potentially exposing sensitive information and enabling privilege escalation.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4034,6 +4091,9 @@ requesting escalated privilege to perform this function.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path">access-control-pod-host-path</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Host path mounts can expose sensitive host files to containers, enable container escape attacks, and compromise host system integrity.</p>
 </div>
 </td>
 </tr>
@@ -4053,6 +4113,9 @@ requesting escalated privilege to perform this function.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace">access-control-namespace</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Using inappropriate namespaces can lead to resource conflicts, security boundary violations, and administrative complexity in multi-tenant environments.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4070,6 +4133,9 @@ requesting escalated privilege to perform this function.</p>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image">platform-alteration-base-image</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-sysctl-config">platform-alteration-sysctl-config</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Modified base images can introduce security vulnerabilities, create inconsistent behavior, and violate immutable infrastructure principles.</p>
 </div>
 </td>
 </tr>
@@ -4111,6 +4177,9 @@ requesting escalated privilege to perform this function.</p>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-service-type">access-control-service-type</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> NodePort services expose applications directly on host ports, creating security risks and potential port conflicts with host services.</p>
 </div>
 </td>
 </tr>
@@ -4231,6 +4300,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ipc-lock-capability-check">access-control-ipc-lock-capability-check</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> IPC_LOCK capability can be exploited to lock system memory, potentially causing denial of service and affecting other workloads on the same node.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="k8s-best-practices-net_admin"><a class="link" href="#k8s-best-practices-net_admin">3.6.3. NET_ADMIN</a></h4>
@@ -4289,6 +4361,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-net-admin-capability-check">access-control-net-admin-capability-check</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> NET_ADMIN capability allows network configuration changes that can compromise cluster networking, enable privilege escalation, and bypass network security controls.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4313,6 +4388,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-admin-capability-check">access-control-sys-admin-capability-check</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> SYS_ADMIN capability provides extensive privileges that can compromise container isolation, enable host system access, and create serious security vulnerabilities.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4326,6 +4404,9 @@ In brief, the Linux kernel associates various capability sets with threads and f
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-nice-realtime-capability">access-control-sys-nice-realtime-capability</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing SYS_NICE capability on real-time nodes prevents applications from setting appropriate scheduling priorities, causing performance degradation.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="k8s-best-practices-sys_ptrace"><a class="link" href="#k8s-best-practices-sys_ptrace">3.6.6. SYS_PTRACE</a></h4>
@@ -4335,6 +4416,9 @@ For more information on these capabilities refer to <a href="https://cloud.redha
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-sys-ptrace-capability">access-control-sys-ptrace-capability</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing SYS_PTRACE capability when using shared process namespaces prevents inter-container process communication, breaking application functionality.</p>
 </div>
 </div>
 </div>
@@ -4662,6 +4746,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all">networking-network-policy-deny-all</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Without default deny-all network policies, workloads are exposed to lateral movement attacks and unauthorized network access, compromising security posture and potentially enabling data breaches.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4709,7 +4796,16 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </dl>
 </div>
 <div class="paragraph">
-<p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-shutdown">lifecycle-container-shutdown</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-startup">lifecycle-container-startup</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-poststart">lifecycle-container-poststart</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing PostStart hooks can cause containers to start serving traffic before proper initialization, leading to application errors.</p>
+</div>
+<div class="paragraph">
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-prestop">lifecycle-container-prestop</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing PreStop hooks can cause ungraceful shutdowns, data loss, and connection drops during container termination.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -4758,11 +4854,25 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Workloads shall be built to be cloud-native</p>
 </li>
 <li>
-<p>Containers MUST NOT run as root (uid=0). See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check">access-control-security-context-non-root-user-check</a></p>
+<p>Containers MUST NOT run as root (uid=0). See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-id-check">access-control-security-context-non-root-user-id-check</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Running containers as root increases the blast radius of security vulnerabilities and can lead to full host compromise if containers are breached.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Containers MUST run with the minimal set of permissions required. Avoid Privileged Pods. See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-privilege-escalation">access-control-security-context-privilege-escalation</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Allowing privilege escalation can lead to containers gaining root access, compromising the security boundary between containers and hosts.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Use the main CNI for all traffic - MULTUS/SRIOV/MacVLAN are for corner cases only (extreme throughput requirements, protocols that are unable to be load balanced)</p>
 </li>
@@ -4772,6 +4882,13 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <li>
 <p>Workloads MUST define their pod affinity/anti-affinity rules. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing affinity rules can cause incorrect pod placement, leading to performance issues and failure to meet co-location requirements.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>All secondary network interfaces employed by workloads with the use of MULTUS MUST support Dual-Stack IPv4/IPv6.</p>
 </li>
@@ -4794,6 +4911,13 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <li>
 <p>Workloads shall support elasticity with dynamic scale up/down using kubernetes-native constructs such as ReplicaSets, etc. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-crd-scaling">lifecycle-crd-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-statefulset-scaling">lifecycle-statefulset-scaling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-deployment-scaling">lifecycle-deployment-scaling</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> CRD scaling failures can prevent operator-managed applications from scaling properly, limiting application availability and performance.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Workloads shall support canary upgrades</p>
 </li>
@@ -4801,6 +4925,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Workloads shall self-recover from common failures like pod failure, host failure, and network failure. Kubernetes native mechanisms such as health-checks (Liveness, Readiness and Startup Probes) shall be employed at a minimum. See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe">lifecycle-liveness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe">lifecycle-readiness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe">lifecycle-startup-probe</a></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing liveness probes prevent Kubernetes from detecting and recovering from application deadlocks and hangs.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -4814,7 +4941,10 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>Containers must not run as root</p>
 </div>
 <div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-check">access-control-security-context-non-root-user-check</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-security-context-non-root-user-id-check">access-control-security-context-non-root-user-id-check</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Running containers as root increases the blast radius of security vulnerabilities and can lead to full host compromise if containers are breached.</p>
 </div>
 </td>
 </tr>
@@ -4834,6 +4964,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity-multus">networking-icmpv4-connectivity-multus</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv6-connectivity-multus">networking-icmpv6-connectivity-multus</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Multus network connectivity issues can isolate workloads from secondary networks, breaking multi-network applications and reducing network redundancy.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -4851,6 +4984,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-scheduling">lifecycle-pod-scheduling</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel">platform-alteration-tainted-node-kernel</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Node selectors can create scheduling constraints that reduce cluster flexibility and cause deployment failures when nodes are unavailable.</p>
 </div>
 </td>
 </tr>
@@ -4880,6 +5016,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-host-path">access-control-pod-host-path</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Host path mounts can expose sensitive host files to containers, enable container escape attacks, and compromise host system integrity.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4922,6 +5061,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-container-logging">observability-container-logging</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Improper logging configuration prevents log aggregation and monitoring, making troubleshooting and debugging difficult.</p>
 </div>
 </div>
 </div>
@@ -4982,6 +5124,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace-resource-quota">access-control-namespace-resource-quota</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Without resource quotas, workloads can consume excessive cluster resources, causing performance issues and potential denial of service for other applications.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5017,6 +5162,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-ssh-daemons">access-control-ssh-daemons</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> SSH daemons in containers create additional attack surfaces, violate immutable infrastructure principles, and can be exploited for unauthorized access.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5036,6 +5184,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-termination-policy">observability-termination-policy</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Incorrect termination message policies can prevent proper error reporting and make failure diagnosis difficult.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -5049,6 +5200,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe">lifecycle-liveness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe">lifecycle-readiness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe">lifecycle-startup-probe</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing liveness probes prevent Kubernetes from detecting and recovering from application deadlocks and hangs. Missing readiness probes can cause traffic to be routed to non-ready pods, resulting in failed requests and poor user experience. Missing startup probes can cause slow-starting applications to be killed prematurely, preventing successful application startup.</p>
 </div>
 </td>
 </tr>
@@ -5078,7 +5232,10 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <p>All pods must respond to SIGTERM signal and shutdown gracefully with a zero exit code.</p>
 </div>
 <div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-shutdown">lifecycle-container-shutdown</a></p>
+<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-prestop">lifecycle-container-prestop</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing PreStop hooks can cause ungraceful shutdowns, data loss, and connection drops during container termination.</p>
 </div>
 </td>
 </tr>
@@ -5123,6 +5280,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe">lifecycle-liveness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe">lifecycle-readiness-probe</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe">lifecycle-startup-probe</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing liveness probes prevent Kubernetes from detecting and recovering from application deadlocks and hangs. Missing readiness probes can cause traffic to be routed to non-ready pods, resulting in failed requests and poor user experience. Missing startup probes can cause slow-starting applications to be killed prematurely, preventing successful application startup.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -5135,6 +5295,9 @@ EAL: cannot set up DMA remapping, error 12 (Cannot allocate memory) EAL: cannot 
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe">networking-dpdk-cpu-pinning-exec-probe</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.</p>
 </div>
 </td>
 </tr>
@@ -5186,6 +5349,9 @@ co-located for resiliency purposes require anti-affinity rules.</p>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-affinity-required-pods">lifecycle-affinity-required-pods</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing affinity rules can cause incorrect pod placement, leading to performance issues and failure to meet co-location requirements.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5204,6 +5370,9 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-high-availability">lifecycle-pod-high-availability</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing anti-affinity rules can cause all pod replicas to be scheduled on the same node, creating single points of failure.</p>
 </div>
 </td>
 </tr>
@@ -5244,6 +5413,9 @@ unavailable must implement affinity/anti-affinity group rules or spread the pods
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation">lifecycle-pod-recreation</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Failed pod recreation indicates poor high availability configuration, leading to potential service outages during node failures.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5262,6 +5434,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Improper disruption budgets can prevent necessary maintenance operations or allow too many pods to be disrupted simultaneously.</p>
 </div>
 </td>
 </tr>
@@ -5284,6 +5459,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-tainted-node-kernel">platform-alteration-tainted-node-kernel</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Tainted kernels indicate unauthorized modifications that can introduce instability, security vulnerabilities, and support issues.</p>
 </div>
 </div>
 <div class="sect5">
@@ -5310,6 +5488,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-requests-and-limits">access-control-requests-and-limits</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing resource requests and limits can lead to resource contention, node instability, and unpredictable application performance.</p>
 </div>
 </td>
 </tr>
@@ -5338,6 +5519,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-image-pull-policy">lifecycle-image-pull-policy</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Incorrect image pull policies can cause deployment failures when image registries are unavailable or during network issues.</p>
+</div>
 </div>
 <div class="sect5">
 <h6 id="k8s-best-practices-automount-services-for-pods"><a class="link" href="#k8s-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></h6>
@@ -5361,6 +5545,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-automount-service-account-token">access-control-pod-automount-service-account-token</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Auto-mounted service account tokens expose Kubernetes API credentials to application code, creating potential attack vectors if applications are compromised.</p>
+</div>
 </div>
 <div class="sect5">
 <h6 id="k8s-best-practices-disruption-budgets"><a class="link" href="#k8s-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></h6>
@@ -5373,6 +5560,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-pod-disruption-budget">observability-pod-disruption-budget</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Improper disruption budgets can prevent necessary maintenance operations or allow too many pods to be disrupted simultaneously.</p>
+</div>
 </div>
 <div class="sect5">
 <h6 id="k8s-best-practices-no-naked-pods"><a class="link" href="#k8s-best-practices-no-naked-pods">3.12.1.7.14. No naked pods</a></h6>
@@ -5381,6 +5571,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -5411,6 +5604,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5429,6 +5625,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -5444,6 +5643,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-containers-image-tag">manageability-containers-image-tag</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing image tags make it difficult to track versions, perform rollbacks, and maintain deployment consistency.</p>
 </div>
 </div>
 <div class="sect5">
@@ -5462,6 +5664,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-one-process-per-container">access-control-one-process-per-container</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Multiple processes per container complicate monitoring, debugging, and security assessment, and can lead to zombie processes and resource leaks.</p>
 </div>
 </div>
 <div class="sect5">
@@ -5487,6 +5692,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-pod-role-bindings">access-control-pod-role-bindings</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Cross-namespace role bindings can violate tenant isolation and create unintended privilege escalation paths.</p>
+</div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">ClusterRole / ClusterRoleBinding</dt>
@@ -5511,6 +5719,9 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-cluster-role-bindings">access-control-cluster-role-bindings</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Cluster-wide role bindings grant excessive privileges that can be exploited for lateral movement and privilege escalation across the entire cluster.</p>
 </div>
 </td>
 </tr>
@@ -5994,6 +6205,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#affiliated-certification-operator-is-certified">affiliated-certification-operator-is-certified</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Uncertified operators may have security flaws, compatibility issues, and lack enterprise support, creating operational risks.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -6022,6 +6236,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle">platform-alteration-ocp-lifecycle</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> End-of-life OpenShift versions lack security updates and support, creating significant security and operational risks.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -6039,6 +6256,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-source">operator-install-source</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-OLM operators bypass lifecycle management and dependency resolution, creating operational complexity and update issues.</p>
 </div>
 </td>
 </tr>
@@ -6087,6 +6307,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type">lifecycle-pod-owner-type</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.</p>
 </div>
 </td>
 </tr>
@@ -6183,6 +6406,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#observability-crd-status">observability-crd-status</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing status subresources prevent proper monitoring and automation based on custom resource states.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -6215,6 +6441,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#operator-install-status-succeeded">operator-install-status-succeeded</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Failed operator installations can leave applications in incomplete states, causing functionality gaps and operational issues.</p>
 </div>
 </td>
 </tr>
@@ -6425,6 +6654,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-undeclared-container-ports-usage">networking-undeclared-container-ports-usage</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Undeclared ports can be blocked by security policies, causing unexpected connectivity issues and making troubleshooting difficult.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -6443,6 +6675,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#manageability-container-port-name-format">manageability-container-port-name-format</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Incorrect port naming conventions can cause service discovery issues and configuration management problems.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6471,6 +6706,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-namespace">access-control-namespace</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Using inappropriate namespaces can lead to resource conflicts, security boundary violations, and administrative complexity in multi-tenant environments.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6541,6 +6779,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image">platform-alteration-base-image</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Modified base images can introduce security vulnerabilities, create inconsistent behavior, and violate immutable infrastructure principles. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -6558,6 +6799,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.</p>
 </div>
 </td>
 </tr>
@@ -6667,6 +6911,9 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-base-image">platform-alteration-base-image</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
 </div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Modified base images can introduce security vulnerabilities, create inconsistent behavior, and violate immutable infrastructure principles. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -6683,6 +6930,9 @@ loadbalancer-15</span></code></pre>
 </div>
 <div class="paragraph">
 <p>See test cases <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-isredhat-release">platform-alteration-isredhat-release</a>, <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-is-selinux-enforcing">platform-alteration-is-selinux-enforcing</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Non-Red Hat base images may lack security updates, enterprise support, and compliance certifications required for production use. Non-enforcing SELinux reduces security isolation and can allow privilege escalation attacks and unauthorized resource access.</p>
 </div>
 </td>
 </tr>
@@ -6829,7 +7079,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2024-10-24 02:50:41 UTC
+Last updated 2025-07-15 21:14:16 UTC
 </div>
 </div>
 <!-- Nav bar -->
