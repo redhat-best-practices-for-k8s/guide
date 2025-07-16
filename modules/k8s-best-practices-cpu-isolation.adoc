@@ -1,4 +1,4 @@
-[id="k8-best-practices-cpu-isolation"]
+[id="k8s-best-practices-cpu-isolation"]
 = CPU isolation
 
 The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs for cluster and operating system housekeeping duties, and isolated CPUs for workloads. CPUs that are used for low latency workloads are set as isolated.
