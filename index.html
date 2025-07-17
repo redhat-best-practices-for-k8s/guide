@@ -3408,7 +3408,7 @@ Helm is roughly analogous to HEAT templates in the OpenStack environment.</p>
 <p><a href="https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed">Create a Pod that gets assigned a QoS class of Guaranteed</a></p>
 </div>
 <div class="paragraph">
-<p>Important note on using probes: If the CNF is running a DPDK process do not use exec probes (executing a command within the container) as it may pile up and block the
+<p>Important note on using probes: If the CNF is running a DPDK process, do not use exec probes (executing a command within the container) as it may pile up and block the
 node eventually.</p>
 </div>
 <div class="paragraph">
@@ -3419,6 +3419,20 @@ node eventually.</p>
 </div>
 <div class="paragraph">
 <p><strong>Impacts and Risks of Non-Compliance:</strong> Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>CNFs MUST NOT apply tolerations for NoExecute, PreferNoSchedule, and NoSchedule</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -7078,7 +7092,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-17 04:50:39 UTC
+Last updated 2025-07-17 18:19:56 UTC
 </div>
 </div>
 <!-- Nav bar -->
