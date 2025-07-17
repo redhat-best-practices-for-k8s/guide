@@ -5,7 +5,7 @@ The OpenShift platform can use the Kubernetes CPU Manager to support allocation 
 
 link:https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed[Create a Pod that gets assigned a QoS class of Guaranteed]
 
-Important note on using probes: If the CNF is running a DPDK process do not use exec probes (executing a command within the container) as it may pile up and block the
+Important note on using probes: If the CNF is running a DPDK process, do not use exec probes (executing a command within the container) as it may pile up and block the
 node eventually.
 
 Workload Requirement: If a workload is doing CPU pinning, exec probes may not be used.
@@ -14,3 +14,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 **Impacts and Risks of Non-Compliance:** Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.
 
+[IMPORTANT]
+====
+CNFs MUST NOT apply tolerations for NoExecute, PreferNoSchedule, and NoSchedule
+====
