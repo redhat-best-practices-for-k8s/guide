@@ -13,7 +13,7 @@ Different names will be assigned to different Network Attachment Definitions tha
 
 For SR-IOV based SriovNetworkNodePolicy definitions, the MTU setting is omitted because it can cause conflicts with applications which set their own MTU value. It is required therefore that the application always manage its own MTU value for SR-IOV
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Applications using SR-IOV multus Network Attachment Definitions must set their required MTU value for virtual functions (VFs) within their pod.
