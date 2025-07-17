@@ -6029,15 +6029,16 @@ loadbalancer-15</span></code></pre>
 <div class="paragraph">
 <p>For an application to stay healthy during this process, if they are stateful at all, they should specify a statefulset or replicaset, kubernetes by default will attempt to schedule the set members across multiple nodes to give additional resiliency. In order to prevent kubernetes from stealing too many nodes out from under an application, an application that has a minimum number of pods that need to be running must specify a pod disruption budget. Pod disruption budgets allow an application to tell kubernetes that it needs N number of pods of said microservice alive at any given time. For example, a small stateful database may need 2 out of three pods available at any given time, so that application should set a pod disruption budget with a minavailable set to a value of 2. This will allow the scheduler to know that it should not take the second pod out of a set of 3 down at any given time during the series of node reboots.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
+<div class="title">Workload requirement</div>
 <div class="paragraph">
-<p>Do NOT set your pod disruption budget to <code>maxUnavailable</code> &lt;number of pods in replica&gt; or minUnavailable zero, operations will change your pod disruption budget to proceed with an upgrade at the risk of your application.</p>
+<p>Applications may not set the pod disruption budget to minUnavailable equal to the number of pods in the deployment/replicaset or maxUnavailable pods to zero, operations will change your pod disruption budget to proceed with an upgrade at the risk of your application.</p>
 </div>
 </td>
 </tr>
@@ -7053,7 +7054,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-17 18:44:04 UTC
+Last updated 2025-07-17 18:57:43 UTC
 </div>
 </div>
 <!-- Nav bar -->
