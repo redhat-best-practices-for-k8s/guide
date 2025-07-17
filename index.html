@@ -3037,7 +3037,6 @@ pre.rouge .gs {
 <ul class="sectlevel3">
 <li><a href="#k8s-best-practices-avoid-accessing-resource-on-host">3.5.1. Avoid accessing resource on host</a></li>
 <li><a href="#k8s-best-practices-avoid-mounting-host-directories-as-volumes">3.5.2. Avoid mounting host directories as volumes</a></li>
-<li><a href="#k8s-best-practices-avoid-the-host-network-namespace">3.5.3. Avoid the host network namespace</a></li>
 </ul>
 </li>
 <li><a href="#k8s-best-practices-linux-capabilities">3.6. Linux capabilities</a>
@@ -4181,33 +4180,6 @@ requesting escalated privilege to perform this function.</p>
 </div>
 <div class="paragraph">
 <p>For running DPDK applications with SR-IOV VF, device specs (in case of vfio-pci) are automatically attached to the container via the Device Plugin. There is no need to mount the /dev/ directory as a volume in the container as the application can find device specs under <code>/dev/vfio/</code> in the container.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="k8s-best-practices-avoid-the-host-network-namespace"><a class="link" href="#k8s-best-practices-avoid-the-host-network-namespace">3.5.3. Avoid the host network namespace</a></h4>
-<div class="paragraph">
-<p>Application pods must avoid using <code>hostNetwork</code>. Applications may not use the host network, including <code>nodePort</code> for network communication. Any networking needs beyond the functions provided by the pod network and ingress/egress proxy must be serviced via a MULTUS connected interface.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="title">Workload requirement</div>
-<div class="paragraph">
-<p>Applications may not use <code>NodePorts</code> or the <code>hostNetwork</code>.</p>
-</div>
-<div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-service-type">access-control-service-type</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Impacts and Risks of Non-Compliance:</strong> NodePort services expose applications directly on host ports, creating security risks and potential port conflicts with host services.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -7106,7 +7078,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-17 04:19:40 UTC
+Last updated 2025-07-17 04:50:39 UTC
 </div>
 </div>
 <!-- Nav bar -->
