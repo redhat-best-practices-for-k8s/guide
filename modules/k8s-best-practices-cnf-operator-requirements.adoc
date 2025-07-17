@@ -132,49 +132,49 @@ It is not recommended for a workload application to share a proprietary operator
 Applications providing OLM catalogs to bring their operators into a platform environment must ensure that their catalog has less than 1,000 images per application team, however applications should target a much lower number than this (preferably under 150-200 images)
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Applications providing OLM catalogs to bring their operators into a platform environment must ensure that their catalog uses a FQDN name specific to their brand for their docker registry and provide a pull secret so that the images from their hosted registry can be accessed.
 ====
 
-.CNF recommendation
+.Workload recommendation
 [IMPORTANT]
 ====
 It is recommended applications limit the scope of their OLM catalog to only operator packages needed for lifecycle upgrades, and the latest version installs following operator framework best practices by utilizing olm.skipRange to keep operator catalogs as small as possible.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 When an operator subscription is created into a namespace, the operator's install plan must install all resources to that specific operator namespace. The only exception here are cluster scoped objects such as CRD's.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Operators must install to our environment using a subscription object only.  Pre-configuration or custom configuration using config maps should not be required to install your operator to our environment.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Operators are not permitted to use huge pages.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 The size of operator catalog and all images required by operator catalog cannot exceed 200GB of storage for an application catalog.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Application vendors will need to increment their operator version to supply any hotfix or upgrade.  For example If your existing operator version is 1.6.9-0, and you need to supply a hotfix, then your new OLM package should be 1.6.9-1 and the new operator CSV should have a replace tag for the existing operator CSV.
 ====
 
-.VCP CNF requirement
+.Workload requirement
 [IMPORTANT]
 ====
 Global operators are versioned to a release of the platform.  These versions only change when there is a new platform release.
