@@ -76,8 +76,6 @@ include::modules/k8s-best-practices-avoid-accessing-resource-on-host.adoc[levelo
 
 include::modules/k8s-best-practices-avoid-mounting-host-directories-as-volumes.adoc[leveloffset=+3]
 
-include::modules/k8s-best-practices-avoid-the-host-network-namespace.adoc[leveloffset=+3]
-
 include::modules/k8s-best-practices-linux-capabilities.adoc[leveloffset=+2]
 
 include::modules/k8s-best-practices-openshift-operations.adoc[leveloffset=+2]
