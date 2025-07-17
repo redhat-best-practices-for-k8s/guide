@@ -16,6 +16,12 @@ For SR-IOV based SriovNetworkNodePolicy definitions, the MTU setting is omitted 
 .Workload requirement
 [IMPORTANT]
 ====
+Applications must not use an MTU size greater than 8500 bytes
+====
+
+.Workload requirement
+[IMPORTANT]
+====
 Applications using SR-IOV multus Network Attachment Definitions must set their required MTU value for virtual functions (VFs) within their pod.
 
 See test case link:https://github.com/redhat-best-practices-for-k8s/certsuite/blob/main/CATALOG.md#networking-network-attachment-definition-sriov-mtu[networking-network-attachment-definition-sriov-mtu]
