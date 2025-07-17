@@ -16,5 +16,5 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 [IMPORTANT]
 ====
-CNFs MUST NOT apply tolerations for NoExecute, PreferNoSchedule, and NoSchedule
+Workloads MUST NOT apply tolerations for NoExecute, PreferNoSchedule, and NoSchedule
 ====
