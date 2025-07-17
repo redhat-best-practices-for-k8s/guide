@@ -35,6 +35,8 @@ For an application to stay healthy during this process, if they are stateful at 
 [IMPORTANT]
 ====
 Applications may not set the pod disruption budget to minUnavailable equal to the number of pods in the deployment/replicaset or maxUnavailable pods to zero, operations will change your pod disruption budget to proceed with an upgrade at the risk of your application.  
+
+See test case link:https://github.com/redhat-best-practices-for-k8s/certsuite/blob/main/CATALOG.md#observability-pod-disruption-budget[observability-pod-disruption-budget]
 ====
 
 Additionally pod disruption budgets must not be set to very low numbers of unavailable; doing so prevents system patching from completing in a timely manner. Statefulsets/Replicasets/Deployments that have a requirement for pod antiaffinity spread to greater than 20% of the nodes in a given cluster must set the pod disruption budget to 20% for the set of pods.
