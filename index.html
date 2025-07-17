@@ -3105,9 +3105,7 @@ pre.rouge .gs {
 <li><a href="#k8s-best-practices-multus-sr-iov---macvlan">3.12.1.11. MULTUS SR-IOV / MACVLAN</a></li>
 <li><a href="#spk-integration-via-spk-operator">3.12.1.12. SPK Integration via SPK Operator</a>
 <ul class="sectlevel5">
-<li><a href="#cnf-best-practices-spkprofile">3.12.1.12.1. SPKProfile</a></li>
-<li><a href="#cnf-best-practices-spkstaticroute">3.12.1.12.2. SPKStaticroute</a></li>
-<li><a href="#cnf-best-practices-spksnatpool">3.12.1.12.3. SPKSnatpool</a></li>
+<li><a href="#cnf-best-practices-spksnatpool">3.12.1.12.1. SPKSnatpool</a></li>
 </ul>
 </li>
 <li><a href="#k8s-best-practices-sr-iov-interface-settings">3.12.1.13. SR-IOV interface settings</a></li>
@@ -5841,59 +5839,7 @@ the applications must use the pod network for traffic</p>
 <p>The SPK runs in a separate namespace from the workload. The workload will not have direct permissions to access this namespace. In order to allow applications to manage the lifecycle of the SPK deployment, the SPK operator is used. The SPK Operator defines several CRDs for which CRs are created in the CNF namespace:</p>
 </div>
 <div class="sect5">
-<h6 id="cnf-best-practices-spkprofile"><a class="link" href="#cnf-best-practices-spkprofile">3.12.1.12.1. SPKProfile</a></h6>
-<div class="paragraph">
-<p>The <code>SPKProfile</code> CRD handles LCM operations of SPK itself. Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">webscale.verizon.com/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SPKProfile</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">spkprofile-democnf</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">democnf</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">bgp_networks</span><span class="pi">:</span>
-    <span class="na">edn</span><span class="pi">:</span>
-      <span class="na">ip_version</span><span class="pi">:</span>
-        <span class="pi">-</span> <span class="s">v4</span>
-        <span class="pi">-</span> <span class="s">v6</span>
-        <span class="na">mtu</span><span class="pi">:</span> <span class="m">8000</span>
-    <span class="na">provision</span><span class="pi">:</span> <span class="kc">true</span>
-    <span class="na">replicas</span><span class="pi">:</span> <span class="m">2</span>
-    <span class="na">spk_version</span><span class="pi">:</span> <span class="s">v1.7.0</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When the <code>SPKProfile</code> CR is created, tmm pods are started within the spk namespace <code>spk-&lt;app
-namespace&gt;</code> with the specified version and number of replicas.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="cnf-best-practices-spkstaticroute"><a class="link" href="#cnf-best-practices-spkstaticroute">3.12.1.12.2. SPKStaticroute</a></h6>
-<div class="paragraph">
-<p>The SPK Staticroute is used to provision static routes in the SPK by application owners in the
-application namespace. Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">webscale.verizon.com/v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">SPKStaticRoute</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">edn-loopbacks-183</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">spk-democnf</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">gatewaynetworks</span><span class="pi">:</span>
-    <span class="na">edn</span><span class="pi">:</span>
-      <span class="na">destination_v4</span><span class="pi">:</span>
-        <span class="pi">-</span> <span class="s">10.183.0.0/24</span>
-      <span class="na">destination_v6</span><span class="pi">:</span>
-        <span class="pi">-</span> <span class="s">fd00:4888:2000:1400:22/64</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="cnf-best-practices-spksnatpool"><a class="link" href="#cnf-best-practices-spksnatpool">3.12.1.12.3. SPKSnatpool</a></h6>
+<h6 id="cnf-best-practices-spksnatpool"><a class="link" href="#cnf-best-practices-spksnatpool">3.12.1.12.1. SPKSnatpool</a></h6>
 <div class="paragraph">
 <p>The SPKSnatpool is provisioned within the application namespace to configure source network address translations (SNAT) on egress network traffic for the SPK. When internal Pods connect to external resources, their internal cluster IP address is translated to one of the available IP addresses in the SNAT pool. Example:</p>
 </div>
@@ -7092,7 +7038,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-17 18:39:16 UTC
+Last updated 2025-07-17 18:42:14 UTC
 </div>
 </div>
 <!-- Nav bar -->
