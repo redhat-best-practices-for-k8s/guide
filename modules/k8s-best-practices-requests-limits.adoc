@@ -1,27 +1,69 @@
-[id="k8s-best-practices-requests-limits"]
-= Requests/Limits
+= Requests and Limits in Kubernetes
 
 Kubernetes provides mechanisms for defining resource usage per container:
 
-***Requests:*** The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+* *Requests*: The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+* *Limits*: The maximum amount a container is allowed to consume. Enforced by the kubelet.
+* *Quotas*: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
-***Limits:*** The maximum amount a container is allowed to consume. Enforced by the kubelet.
+See: _OpenShift Resource Quotas Per Project_
 
-***Quotas:*** Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
+== Risks with Resource Limits
 
-See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[OpenShift Resource Quotas per Project].
+While limits can prevent runaway resource usage, they also introduce risk when misapplied, especially for CPU and memory.
 
-Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
+=== CPU Limits Cause Throttling
 
-See link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-overcommit.html[Configuring your cluster to place pods on overcommitted nodes] for more information.
+* Limits can throttle workloads even if unused CPU is available.
+* This leads to hangs, timeouts, and degraded performance.
+* CPU requests (without limits) often provide better fairness and stability.
 
-.Workload requirement
-[IMPORTANT]
-====
-Pods must define requests and limits values for CPU and memory.
+=== Memory Limits Cause OOMKills
 
-See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-requests-and-limits[access-control-requests-and-limits]
+* Limits on memory are strict—when exceeded, containers are killed.
+* Difficult to predict worst-case memory usage for infrastructure components.
+* Can result in crash loops, degraded service, and unrecoverable clusters.
 
-**Impacts and Risks of Non-Compliance:** Missing resource requests and limits can lead to resource contention, node instability, and unpredictable application performance.
-====
+=== Why Limits are a Problem for Cluster Components
 
+Unlike with user workloads, setting resource limits for cluster components presents several challenges and is strongly discouraged:
+
+* *Inability to Anticipate Scaling*: Cluster components cannot predict their usage scaling across all customer environments, making it impossible to set one-size-fits-all limits.
+* *Impeded Responsiveness*: Setting static limits prevents administrators from reacting to changes in cluster needs, such as resizing control plane nodes to allocate more resources.
+* *Undesirable Restarts*: It is undesirable for cluster components to be restarted due to excessive resource consumption (e.g., OOMKills). Graceful handling without degrading cluster performance is preferred.
+
+Therefore, *cluster components SHOULD NOT be configured with resource limits*.
+
+However, *cluster components MUST declare resource requests for both CPU and memory*.
+
+==== Benefits of Using Requests Without Limits
+
+* *Guaranteed Minimums and Bursting*: Specifying requests without limits ensures components receive their required minimum resources and can burst when needed.
+* *Balancing Efficiency and Performance*: When setting resource requests:
+  ** If too low, the component may be starved under load, leading to degraded performance and service.
+  ** If too high, the scheduler may be unable to place the component, leading to crash loops or failed deployments. Excessively high requests can also starve user workloads, particularly in small or single-node clusters.
+
+== Resource Requests: Compressible vs Incompressible
+
+Kubernetes treats resources differently depending on their behavior under pressure:
+
+[cols="1,2,2", options="header"]
+|===
+|Resource Type |Description |Examples
+|Compressible |Slower performance but still runs |CPU, network
+|Incompressible |Fails without required amount |Memory, storage
+|===
+
+=== Requesting Resources
+
+* *Compressible (e.g., CPU)*: Requests should be balanced to ensure proportional system behavior and fairness.
+* *Incompressible (e.g., memory)*: Requests should reflect minimum safe usage to avoid runtime failure.
+
+See: _More details on setting requests for different resource types_
+
+== Alternatives to Resource Limits
+
+Although limits are generally avoided for cluster components, the following mechanisms can help manage resources and prioritize workloads:
+
+* *Pod Priority (PriorityClass)*: Preferred for ensuring essential core workloads have priority and sufficient resources.
+  ** Allows critical components to avoid eviction during resource press**
