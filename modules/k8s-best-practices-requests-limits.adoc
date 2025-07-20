@@ -2,13 +2,10 @@
 = Requests/Limits
 
 Kubernetes provides mechanisms for defining resource usage per container:
-Requests: The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+[.indent] Requests: The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+[.indent] Limits: The maximum amount a container is allowed to consume. Enforced by the kubelet.
+[.indent] Quotas: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
-
-Limits: The maximum amount a container is allowed to consume. Enforced by the kubelet.
-
-
-Quotas: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 See: OpenShift Resource Quotas Per Project
 
 See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
