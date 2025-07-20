@@ -81,3 +81,5 @@ Nodes can be overcommitted, influencing how requests and limits are applied.
 * In development, overcommitment may be acceptable where performance trade-offs are tolerable.
 
 See: link:https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-overcommit.html[Configuring your cluster to place pods on overcommitted nodes]
+
+See test case link:https://github.com/redhat-best-practices-for-k8s/certsuite/blob/main/CATALOG.md#access-control-requests-and-limits[access-control-requests-and-limits]
