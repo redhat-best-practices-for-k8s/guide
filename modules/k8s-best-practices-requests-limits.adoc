@@ -8,23 +8,23 @@ Kubernetes provides mechanisms for defining resource usage per container:
 
 See: link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-resource-configure.html#nodes-cluster-resource-configure-resource-quotas_nodes-cluster-resource-configure[OpenShift Resource Quotas Per Project]
 
-== Risks with Resource Limits
+*Risks with Resource Limits*
 
 While limits can prevent runaway resource usage, they also introduce risk when misapplied, especially for CPU and memory.
 
-=== CPU Limits Cause Throttling
+CPU Limits Cause Throttling
 
 * Limits can throttle workloads even if unused CPU is available.
 * This leads to hangs, timeouts, and degraded performance.
 * CPU requests (without limits) often provide better fairness and stability.
 
-=== Memory Limits Cause OOMKills
+Memory Limits Cause OOMKills
 
 * Limits on memory are strict—when exceeded, containers are killed.
 * Difficult to predict worst-case memory usage for infrastructure components.
 * Can result in crash loops, degraded service, and unrecoverable clusters.
 
-=== Why Limits are a Problem for Cluster Components
+Why Limits are a Problem for Cluster Components
 
 Unlike with user workloads, setting resource limits for cluster components presents several challenges and is strongly discouraged:
 
