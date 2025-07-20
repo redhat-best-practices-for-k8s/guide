@@ -72,7 +72,7 @@ Although limits are generally avoided for cluster components, the following mech
   ** Useful when guaranteed capacity is needed.
   ** Overcommitment trade-offs can be managed at the project, node, or cluster level.
 
-== Overcommitment
+*Overcommitment*
 
 Nodes can be overcommitted, influencing how requests and limits are applied.
 
