@@ -5491,7 +5491,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </ul>
 </div>
 <div class="paragraph">
-<p>See: <em>OpenShift Resource Quotas Per Project</em></p>
+<p>See: <a href="https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-resource-configure.html#nodes-cluster-resource-configure-resource-quotas_nodes-cluster-resource-configure">OpenShift Resource Quotas Per Project</a></p>
 </div>
 <div class="sect6">
 <h7 id="_risks_with_resource_limits"><a class="link" href="#_risks_with_resource_limits">Risks with Resource Limits</a></h7>
@@ -5623,7 +5623,7 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </ul>
 </div>
 <div class="paragraph">
-<p>See: <em>More details on setting requests for different resource types</em></p>
+<p>See: <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes">More details on setting requests for different resource types</a></p>
 </div>
 </div>
 </div>
@@ -5639,10 +5639,39 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="ulist">
 <ul>
 <li>
-<p>Allows critical components to avoid eviction during resource press**</p>
+<p>Allows critical components to avoid eviction during resource pressure.</p>
+</li>
+<li>
+<p>More effective than limits, as kubelet&#8217;s eviction does not consider limits.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p><strong>Quotas</strong>: Can enforce requests and limits at the project level.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Useful when guaranteed capacity is needed.</p>
+</li>
+<li>
+<p>Overcommitment trade-offs can be managed at the project, node, or cluster level.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_overcommitment"><a class="link" href="#_overcommitment">Overcommitment</a></h7>
+<div class="paragraph">
+<p>Nodes can be overcommitted, influencing how requests and limits are applied.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Overcommitted clusters often experience pod kills and kubelet restarts, degrading the product exp*</p>
 </li>
 </ul>
 </div>
@@ -7214,7 +7243,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-20 04:18:50 UTC
+Last updated 2025-07-20 04:19:52 UTC
 </div>
 </div>
 <!-- Nav bar -->
