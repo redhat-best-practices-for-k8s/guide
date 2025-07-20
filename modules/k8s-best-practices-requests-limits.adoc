@@ -4,10 +4,10 @@
 Kubernetes provides mechanisms for defining resource usage per container:
 
 ***Requests:*** The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
-***Limits:*** The maximum amount a container is allowed to consume. Enforced by the kubelet.
-***Quotas:*** Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
-See: OpenShift Resource Quotas Per Project
+***Limits:*** The maximum amount a container is allowed to consume. Enforced by the kubelet.
+
+***Quotas:*** Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
 See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[OpenShift Resource Quotas per Project].
 
