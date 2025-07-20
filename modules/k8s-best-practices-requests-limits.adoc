@@ -24,7 +24,7 @@ Memory Limits Cause OOMKills
 * Difficult to predict worst-case memory usage for infrastructure components.
 * Can result in crash loops, degraded service, and unrecoverable clusters.
 
-Why Limits are a Problem for Cluster Components
+*Why Limits are a Problem for Cluster Components*
 
 Unlike with user workloads, setting resource limits for cluster components presents several challenges and is strongly discouraged:
 
@@ -36,14 +36,14 @@ Therefore, *cluster components SHOULD NOT be configured with resource limits*.
 
 However, *cluster components MUST declare resource requests for both CPU and memory*.
 
-==== Benefits of Using Requests Without Limits
+*Benefits of Using Requests Without Limits*
 
 * *Guaranteed Minimums and Bursting*: Specifying requests without limits ensures components receive their required minimum resources and can burst when needed.
 * *Balancing Efficiency and Performance*: When setting resource requests:
   ** If too low, the component may be starved under load, leading to degraded performance and service.
   ** If too high, the scheduler may be unable to place the component, leading to crash loops or failed deployments. Excessively high requests can also starve user workloads, particularly in small or single-node clusters.
 
-== Resource Requests: Compressible vs Incompressible
+*Resource Requests: Compressible vs Incompressible*
 
 Kubernetes treats resources differently depending on their behavior under pressure:
 
@@ -54,14 +54,14 @@ Kubernetes treats resources differently depending on their behavior under pressu
 |Incompressible |Fails without required amount |Memory, storage
 |===
 
-=== Requesting Resources
+*Requesting Resources*
 
 * *Compressible (e.g., CPU)*: Requests should be balanced to ensure proportional system behavior and fairness.
 * *Incompressible (e.g., memory)*: Requests should reflect minimum safe usage to avoid runtime failure.
 
 See: link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes[More details on setting requests for different resource types]
 
-== Alternatives to Resource Limits
+*Alternatives to Resource Limits*
 
 Although limits are generally avoided for cluster components, the following mechanisms can help manage resources and prioritize workloads:
 
