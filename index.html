@@ -3089,7 +3089,7 @@ pre.rouge .gs {
 <li><a href="#k8s-best-practices-affinity-anti-affinity">3.12.1.7.7. Affinity and anti-affinity</a></li>
 <li><a href="#k8s-best-practices-upgrade-expectations">3.12.1.7.8. Upgrade expectations</a></li>
 <li><a href="#k8s-best-practices-taints-and-tolerations">3.12.1.7.9. Taints and tolerations</a></li>
-<li><a href="#k8s-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></li>
+<li><a href="#_requests_and_limits_in_kubernetes">3.12.1.7.10. Requests and Limits in Kubernetes</a></li>
 <li><a href="#k8s-best-practices-use-imagepullpolicy:-ifnotpresent">3.12.1.7.11. Use imagePullPolicy: IfNotPresent</a></li>
 <li><a href="#k8s-best-practices-automount-services-for-pods">3.12.1.7.12. Automount services for pods</a></li>
 <li><a href="#k8s-best-practices-disruption-budgets">3.12.1.7.13. Disruption budgets</a></li>
@@ -5473,48 +5473,179 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 </div>
 </div>
 <div class="sect5">
-<h6 id="k8s-best-practices-requests-limits"><a class="link" href="#k8s-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></h6>
+<h6 id="_requests_and_limits_in_kubernetes"><a class="link" href="#_requests_and_limits_in_kubernetes">3.12.1.7.10. Requests and Limits in Kubernetes</a></h6>
 <div class="paragraph">
 <p>Kubernetes provides mechanisms for defining resource usage per container:</p>
 </div>
-<div class="paragraph">
-<p><strong><strong>Requests:</strong></strong> The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Requests</strong>: The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.</p>
+</li>
+<li>
+<p><strong>Limits</strong>: The maximum amount a container is allowed to consume. Enforced by the kubelet.</p>
+</li>
+<li>
+<p><strong>Quotas</strong>: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong><strong>Limits:</strong></strong> The maximum amount a container is allowed to consume. Enforced by the kubelet.</p>
+<p>See: <em>OpenShift Resource Quotas Per Project</em></p>
+</div>
+<div class="sect6">
+<h7 id="_risks_with_resource_limits"><a class="link" href="#_risks_with_resource_limits">Risks with Resource Limits</a></h7>
+<div class="paragraph">
+<p>While limits can prevent runaway resource usage, they also introduce risk when misapplied, especially for CPU and memory.</p>
+</div>
+<div class="sect7">
+<h8 id="_cpu_limits_cause_throttling"><a class="link" href="#_cpu_limits_cause_throttling">CPU Limits Cause Throttling</a></h8>
+<div class="ulist">
+<ul>
+<li>
+<p>Limits can throttle workloads even if unused CPU is available.</p>
+</li>
+<li>
+<p>This leads to hangs, timeouts, and degraded performance.</p>
+</li>
+<li>
+<p>CPU requests (without limits) often provide better fairness and stability.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect7">
+<h8 id="_memory_limits_cause_oomkills"><a class="link" href="#_memory_limits_cause_oomkills">Memory Limits Cause OOMKills</a></h8>
+<div class="ulist">
+<ul>
+<li>
+<p>Limits on memory are strict—when exceeded, containers are killed.</p>
+</li>
+<li>
+<p>Difficult to predict worst-case memory usage for infrastructure components.</p>
+</li>
+<li>
+<p>Can result in crash loops, degraded service, and unrecoverable clusters.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect7">
+<h8 id="_why_limits_are_a_problem_for_cluster_components"><a class="link" href="#_why_limits_are_a_problem_for_cluster_components">Why Limits are a Problem for Cluster Components</a></h8>
+<div class="paragraph">
+<p>Unlike with user workloads, setting resource limits for cluster components presents several challenges and is strongly discouraged:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Inability to Anticipate Scaling</strong>: Cluster components cannot predict their usage scaling across all customer environments, making it impossible to set one-size-fits-all limits.</p>
+</li>
+<li>
+<p><strong>Impeded Responsiveness</strong>: Setting static limits prevents administrators from reacting to changes in cluster needs, such as resizing control plane nodes to allocate more resources.</p>
+</li>
+<li>
+<p><strong>Undesirable Restarts</strong>: It is undesirable for cluster components to be restarted due to excessive resource consumption (e.g., OOMKills). Graceful handling without degrading cluster performance is preferred.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong><strong>Quotas:</strong></strong> Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.</p>
+<p>Therefore, <strong>cluster components SHOULD NOT be configured with resource limits</strong>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">OpenShift Resource Quotas per Project</a>.</p>
+<p>However, <strong>cluster components MUST declare resource requests for both CPU and memory</strong>.</p>
 </div>
+<div class="sect8">
+<h9 id="_benefits_of_using_requests_without_limits"><a class="link" href="#_benefits_of_using_requests_without_limits">Benefits of Using Requests Without Limits</a></h9>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Guaranteed Minimums and Bursting</strong>: Specifying requests without limits ensures components receive their required minimum resources and can burst when needed.</p>
+</li>
+<li>
+<p><strong>Balancing Efficiency and Performance</strong>: When setting resource requests:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If too low, the component may be starved under load, leading to degraded performance and service.</p>
+</li>
+<li>
+<p>If too high, the scheduler may be unable to place the component, leading to crash loops or failed deployments. Excessively high requests can also starve user workloads, particularly in small or single-node clusters.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_resource_requests_compressible_vs_incompressible"><a class="link" href="#_resource_requests_compressible_vs_incompressible">Resource Requests: Compressible vs Incompressible</a></h7>
 <div class="paragraph">
-<p>Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.</p>
+<p>Kubernetes treats resources differently depending on their behavior under pressure:</p>
 </div>
-<div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-overcommit.html">Configuring your cluster to place pods on overcommitted nodes</a> for more information.</p>
-</div>
-<div class="admonitionblock important">
-<table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="title">Workload requirement</div>
-<div class="paragraph">
-<p>Pods must define requests and limits values for CPU and memory.</p>
-</div>
-<div class="paragraph">
-<p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#access-control-requests-and-limits">access-control-requests-and-limits</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Impacts and Risks of Non-Compliance:</strong> Missing resource requests and limits can lead to resource contention, node instability, and unpredictable application performance.</p>
-</div>
-</td>
+<th class="tableblock halign-left valign-top">Resource Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Examples</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compressible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slower performance but still runs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU, network</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incompressible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fails without required amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory, storage</p></td>
+</tr>
+</tbody>
 </table>
+<div class="sect7">
+<h8 id="_requesting_resources"><a class="link" href="#_requesting_resources">Requesting Resources</a></h8>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Compressible (e.g., CPU)</strong>: Requests should be balanced to ensure proportional system behavior and fairness.</p>
+</li>
+<li>
+<p><strong>Incompressible (e.g., memory)</strong>: Requests should reflect minimum safe usage to avoid runtime failure.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See: <em>More details on setting requests for different resource types</em></p>
+</div>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_alternatives_to_resource_limits"><a class="link" href="#_alternatives_to_resource_limits">Alternatives to Resource Limits</a></h7>
+<div class="paragraph">
+<p>Although limits are generally avoided for cluster components, the following mechanisms can help manage resources and prioritize workloads:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pod Priority (PriorityClass)</strong>: Preferred for ensuring essential core workloads have priority and sufficient resources.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allows critical components to avoid eviction during resource press**</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect5">
@@ -7083,7 +7214,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-20 04:18:29 UTC
+Last updated 2025-07-20 04:18:50 UTC
 </div>
 </div>
 <!-- Nav bar -->
