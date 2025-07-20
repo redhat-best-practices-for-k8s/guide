@@ -5671,9 +5671,18 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="ulist">
 <ul>
 <li>
-<p>Overcommitted clusters often experience pod kills and kubelet restarts, degrading the product exp*</p>
+<p>Overcommitted clusters often experience pod kills and kubelet restarts, degrading the product experience and increasing support costs.</p>
+</li>
+<li>
+<p>Use quotas to enforce guaranteed capacity in production.</p>
+</li>
+<li>
+<p>In development, overcommitment may be acceptable where performance trade-offs are tolerable.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>See: <a href="https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-overcommit.html">Configuring your cluster to place pods on overcommitted nodes</a></p>
 </div>
 </div>
 </div>
@@ -7243,7 +7252,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-20 04:19:52 UTC
+Last updated 2025-07-20 04:39:31 UTC
 </div>
 </div>
 <!-- Nav bar -->
