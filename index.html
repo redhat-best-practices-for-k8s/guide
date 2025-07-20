@@ -5475,16 +5475,18 @@ unavailable must implement pod disruption budgets to prevent disruption in the e
 <div class="sect5">
 <h6 id="k8s-best-practices-requests-limits"><a class="link" href="#k8s-best-practices-requests-limits">3.12.1.7.10. Requests/Limits</a></h6>
 <div class="paragraph">
-<p>Kubernetes provides mechanisms for defining resource usage per container:
-* <strong><strong>Requests:</strong></strong> The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
-* Limits: The maximum amount a container is allowed to consume. Enforced by the kubelet.
-* Quotas: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.</p>
+<p>Kubernetes provides mechanisms for defining resource usage per container:</p>
+</div>
+<div class="paragraph">
+<p><strong><strong>Requests:</strong></strong> The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+<strong><strong>Limits:</strong></strong> The maximum amount a container is allowed to consume. Enforced by the kubelet.
+<strong><strong>Quotas:</strong></strong> Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.</p>
 </div>
 <div class="paragraph">
 <p>See: OpenShift Resource Quotas Per Project</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">Resource quotas per project</a> for more information.</p>
+<p>See <a href="https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html">OpenShift Resource Quotas per Project</a>.</p>
 </div>
 <div class="paragraph">
 <p>Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.</p>
@@ -7080,7 +7082,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v2<br>
-Last updated 2025-07-20 03:19:20 UTC
+Last updated 2025-07-20 04:16:28 UTC
 </div>
 </div>
 <!-- Nav bar -->
