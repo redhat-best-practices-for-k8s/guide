@@ -6,7 +6,7 @@ Kubernetes provides mechanisms for defining resource usage per container:
 * *Limits*: The maximum amount a container is allowed to consume. Enforced by the kubelet.
 * *Quotas*: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
-See: _OpenShift Resource Quotas Per Project_
+See: link:https://docs.openshift.com/container-platform/latest/nodes/clusters/nodes-cluster-resource-configure.html#nodes-cluster-resource-configure-resource-quotas_nodes-cluster-resource-configure[OpenShift Resource Quotas Per Project]
 
 == Risks with Resource Limits
 
@@ -59,11 +59,21 @@ Kubernetes treats resources differently depending on their behavior under pressu
 * *Compressible (e.g., CPU)*: Requests should be balanced to ensure proportional system behavior and fairness.
 * *Incompressible (e.g., memory)*: Requests should reflect minimum safe usage to avoid runtime failure.
 
-See: _More details on setting requests for different resource types_
+See: link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes[More details on setting requests for different resource types]
 
 == Alternatives to Resource Limits
 
 Although limits are generally avoided for cluster components, the following mechanisms can help manage resources and prioritize workloads:
 
 * *Pod Priority (PriorityClass)*: Preferred for ensuring essential core workloads have priority and sufficient resources.
-  ** Allows critical components to avoid eviction during resource press**
+  ** Allows critical components to avoid eviction during resource pressure.
+  ** More effective than limits, as kubelet's eviction does not consider limits.
+* *Quotas*: Can enforce requests and limits at the project level.
+  ** Useful when guaranteed capacity is needed.
+  ** Overcommitment trade-offs can be managed at the project, node, or cluster level.
+
+== Overcommitment
+
+Nodes can be overcommitted, influencing how requests and limits are applied.
+
+* Overcommitted clusters often experience pod kills and kubelet restarts, degrading the product exp*
