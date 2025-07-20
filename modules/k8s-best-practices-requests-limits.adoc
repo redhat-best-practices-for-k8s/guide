@@ -2,13 +2,14 @@
 = Requests/Limits
 
 Kubernetes provides mechanisms for defining resource usage per container:
-* ***Requests:*** The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
-* Limits: The maximum amount a container is allowed to consume. Enforced by the kubelet.
-* Quotas: Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
+
+***Requests:*** The guaranteed minimum amount of a resource (e.g., CPU, memory). Used by the scheduler.
+***Limits:*** The maximum amount a container is allowed to consume. Enforced by the kubelet.
+***Quotas:*** Enforce aggregate resource usage at the namespace/project level to prevent resource overuse.
 
 See: OpenShift Resource Quotas Per Project
 
-See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[Resource quotas per project] for more information.
+See link:https://docs.openshift.com/container-platform/latest/applications/quotas/quotas-setting-per-project.html[OpenShift Resource Quotas per Project].
 
 Nodes can be overcommitted which can affect the strategy of request/limit implementation. For example, when you need guaranteed capacity, use quotas to enforce. In a development environment, you can overcommit where a trade-off of guaranteed performance for capacity is acceptable. Overcommitment can be done on a project, node or cluster level.
 
