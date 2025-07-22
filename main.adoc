@@ -1,8 +1,8 @@
 [id="k8s-best-practices"]
 = Red Hat Best Practices for Kubernetes
 Workload best practices
-:revnumber: v2
-:revdate: 2024
+:revnumber: v3.2
+:revdate: July 2025
 :toc: left
 :toclevels: 5
 :repo-url: https://github.com/test-network-function/k8s-best-practices-guide
