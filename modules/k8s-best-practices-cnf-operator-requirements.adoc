@@ -18,7 +18,7 @@ Operators must be compatible with our version of openshift
 
 * See link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html/red_hat_software_certification_workflow_guide/assembly_working-with-operators_openshift-sw-cert-workflow-publishing-the-certified-container[Redhat Partner Guide for Operator Certification]
 
-* See link:https://sdk.operatorframework.io/docs/best-practices/[Redhat Operator SDK & Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[Operator SDK & Best Practices]
+* See link:https://sdk.operatorframework.io/docs/best-practices/[OLM Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[Operator SDK & Best Practices]
 
 See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-ocp-lifecycle[platform-alteration-ocp-lifecycle]
 
