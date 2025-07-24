@@ -24,7 +24,7 @@ A set of associated YUM repositories/channels include RPM packages and updates t
 
 Red Hat UBI images are the preferred images to build workload applications with as they leverage the fully supported Red Hat ecosystem. In addition, once a workload application is standardized on a Red Hat UBI, the image can become Red Hat certified.
 
-Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See link:https://redhat-connect.gitbook.io/partner-guide-for-red-hat-openshift-and-container[Partner Guide for OpenShift and Container Certification] for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
+Red Hat UBI images are free to vendors so there is a low barrier of entry to getting started. It is possible to utilize other base images to build containers that can be run on the OpenShift platform. See link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html/red_hat_software_certification_workflow_guide/index[Red Hat Software Certification Workflow Guide] and link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index[Red Hat OpenShift Software Certification Policy Guide] for a view of the ease of support for containers utilizing various base images and differing levels of certification and supportability.
 
 
 
