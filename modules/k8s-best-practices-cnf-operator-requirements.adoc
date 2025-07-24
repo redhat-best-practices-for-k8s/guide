@@ -16,7 +16,7 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 ====
 Operators must be compatible with our version of openshift
 
-* See link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html/red_hat_software_certification_workflow_guide/assembly_working-with-operators_openshift-sw-cert-workflow-publishing-the-certified-container[Redhat Partner Guide for Operator Certification]
+* See link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html/red_hat_software_certification_workflow_guide/assembly_working-with-operators_openshift-sw-cert-workflow-publishing-the-certified-container#con_certification-workflow-for-operators_openshift-sw-cert-workflow-working-with-operators[Redhat Operator Certification Workflow], link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-products-managed-by-an-operator_openshift-sw-cert-policy-container-images[Redhat Policy Guide for Operator Certification]
 
 * See link:https://sdk.operatorframework.io/docs/best-practices/[OLM Best Practices], link:https://olm.operatorframework.io/docs/best-practices/[Operator SDK & Best Practices]
 
