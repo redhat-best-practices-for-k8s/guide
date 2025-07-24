@@ -5,7 +5,7 @@ Review the following information to learn more about developing Containers and O
 
 * link:https://sdk.operatorframework.io/docs/best-practices/best-practices/[Building Operator that meets the Red Hat certification criteria]
 
-* Partner guide for Red Hat link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-products-managed-by-an-operator_openshift-sw-cert-policy-container-images[Container, Operator, Helm Chart certifications]
+* Partner guide for Red Hat link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-requirements-for-container-images_openshift-sw-cert-policy-introduction[Container], link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-products-managed-by-an-operator_openshift-sw-cert-policy-container-images[Operator, Helm Chart certifications]
 
 * link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf/overview[Partner guide for Red Hat Cloud Native Function (CNF) certification]
 
