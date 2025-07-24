@@ -7,7 +7,7 @@ Review the following information to learn more about developing Containers and O
 
 * Partner guide for Red Hat link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-requirements-for-container-images_openshift-sw-cert-policy-introduction[Container], link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#assembly-products-managed-by-an-operator_openshift-sw-cert-policy-container-images[Operator], link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html-single/red_hat_openshift_software_certification_policy_guide/index#products-managed-by-helm-charts_openshift-sw-cert-policy-products-managed[Helm Chart] certifications
 
-* link:https://redhat-connect.gitbook.io/openshift-badges/badges/cloud-native-network-functions-cnf/overview[Partner guide for Red Hat Cloud Native Function (CNF) certification]
+* link:https://docs.redhat.com/en/documentation/red_hat_software_certification/2025/html/red_hat_software_certification_workflow_guide/functional-certification-for-openshift-badges-cnf-cni-csi_openshift-sw-cert-workflow-submitting-your-helm-chart-for-certification[Partner guide for Red Hat Cloud Native Function (CNF) certification]
 
 
 
