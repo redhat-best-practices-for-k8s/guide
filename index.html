@@ -3416,7 +3416,7 @@ node eventually.</p>
 <p>See test case <a href="https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-dpdk-cpu-pinning-exec-probe">networking-dpdk-cpu-pinning-exec-probe</a></p>
 </div>
 <div class="paragraph">
-<p><strong>Impacts and Risks of Non-Compliance:</strong> Exec probes on CPU-pinned DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.</p>
+<p><strong>Impacts and Risks of Non-Compliance:</strong> Exec probes on CPU-pinned or DPDK workloads can cause performance degradation, interrupt real-time operations, and potentially crash applications due to resource contention.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -3425,6 +3425,13 @@ node eventually.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
+<div class="paragraph">
+<p>Important note on using probes: If the CNF is running a DPDK process, do not use exec probes (executing a command within the container) as it may pile up and block the
+node eventually.</p>
+</div>
+<div class="paragraph">
+<p>Workload Requirement: If a workload is doing CPU pinning, exec probes may not be used.</p>
+</div>
 <div class="paragraph">
 <p>Workloads MUST NOT apply tolerations for NoExecute, PreferNoSchedule, and NoSchedule</p>
 </div>
@@ -7255,7 +7262,7 @@ All trademarks used herein are property of their respective owners.</p>
 <div id="footer">
 <div id="footer-text">
 Version v3.2<br>
-Last updated 2025-09-09 12:02:43 UTC
+Last updated 2025-10-15 16:31:56 UTC
 </div>
 </div>
 <!-- Nav bar -->
