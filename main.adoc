@@ -22,8 +22,6 @@ include::modules/k8s-best-practices-helm.adoc[leveloffset=+2]
 
 include::modules/k8s-best-practices-k8s.adoc[leveloffset=+2]
 
-include::modules/k8s-best-practices-cni-ovn.adoc[leveloffset=+2]
-
 include::modules/k8s-best-practices-csi.adoc[leveloffset=+2]
 
 include::modules/k8s-best-practices-block-storage.adoc[leveloffset=+2]
