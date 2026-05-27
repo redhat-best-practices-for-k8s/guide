@@ -1,7 +1,7 @@
 [id="k8s-best-practices-helm"]
 = Helm v3
 
-Helm v3 is a serverless mechanism for defining templates that describe a complete Kubernetes application. This allows you to build generic templates for applications that you can use with site or deployment specific values to be provided as inputs to the template.
+Helm v3 is a serverless mechanism for defining templates which describe a complete Kubernetes application. This allows you to build generic templates for applications that you can use with site or deployment specific values to be provided as inputs to the template.
 Helm is roughly analogous to HEAT templates in the OpenStack environment.
 
 For more information, see link:https://docs.openshift.com/container-platform/latest/applications/working_with_helm_charts/understanding-helm.html[Understanding Helm].
