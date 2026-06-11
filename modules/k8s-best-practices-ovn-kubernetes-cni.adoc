@@ -1,7 +1,8 @@
 [id="k8s-best-practices-ovn-kubernetes-cni"]
 = OVN-Kubernetes CNI
 
-OVN is Red Hat's CNI for pod networking. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. Openshift's OVN forwarding is based on flow rules and implemented with `nftables` on the host OS CNI pod.
+OVN is Red Hat's CNI for pod networking. It is a Geneve based overlay that requires L3 reachability between the host nodes. This L3 reachability can be over L2 or a pre-existing overlay network. Openshift's OVN forwarding is based on flow rules and implemented with nftables on the host OS CNI pod.
+
+Because some CNFs have expressed the need for additional features that the kernel SCTP module does not support, the SCTP module is disabled in the kernel on all the hosts in VCP Webscale. However, SCTP is enabled on the CNI realized via OVN rules with k8s feature gate. CNFs must bring their own SCTP user space module if they would like to use SCTP on the pod or a Multus network. Additionally the SPK load balancer can support conversion of SCTP to TCP for some protocols. 
 
 For more information, see link:https://docs.openshift.com/container-platform/latest/networking/ovn_kubernetes_network_provider/about-ovn-kubernetes.html[About the OVN-Kubernetes network plugin].
-
