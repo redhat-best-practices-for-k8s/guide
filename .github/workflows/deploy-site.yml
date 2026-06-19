@@ -12,7 +12,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Extract assets
         run: docker cp $(docker run --detach quay.io/redhat-docs/redhat-docs-template):/assets ./assets
