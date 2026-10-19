@@ -5,6 +5,13 @@ The Node Tuning Operator manages host CPUs by dividing them into reserved CPUs f
 
 Device interrupts are load balanced between all isolated and reserved CPUs to avoid CPUs being overloaded, with the exception of CPUs where there is a guaranteed pod running. Guaranteed pod CPUs are prevented from processing device interrupts when the relevant annotations are set for the pod.
 
+For a pod to be classified as Guaranteed the following conditions must exist:
+
+* Every container in the Pod must have a memory limit and a memory request
+* For every container in the Pod, the memory limit must equal the memory request
+* Every container in the Pod must have a CPU limit and a CPU request
+* For every container in the Pod, the CPU limit must equal the CPU request
+
 .Workload requirement
 [IMPORTANT]
 ====
@@ -14,4 +21,3 @@ See test case link:https://github.com/test-network-function/cnf-certification-te
 
 **Impacts and Risks of Non-Compliance:** Improper CPU isolation can cause performance interference between workloads and fail to provide guaranteed compute resources.
 ====
-
