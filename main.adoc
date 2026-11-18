@@ -2,7 +2,7 @@
 = Red Hat Best Practices for Kubernetes
 Workload best practices
 :revnumber: v3.2.2
-:revdate: Feb 2026
+:revdate: Jun 2026
 :toc: left
 :toclevels: 5
 :repo-url: https://github.com/test-network-function/k8s-best-practices-guide
